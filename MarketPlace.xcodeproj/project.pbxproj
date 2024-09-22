@@ -16,6 +16,11 @@
 		B2C398CE2CA0516C004800DD /* MarketPlaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C398CD2CA0516C004800DD /* MarketPlaceTests.swift */; };
 		B2C398D82CA0516C004800DD /* MarketPlaceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C398D72CA0516C004800DD /* MarketPlaceUITests.swift */; };
 		B2C398DA2CA0516C004800DD /* MarketPlaceUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C398D92CA0516C004800DD /* MarketPlaceUITestsLaunchTests.swift */; };
+		B2C398E72CA051CE004800DD /* Controllers in Resources */ = {isa = PBXBuildFile; fileRef = B2C398E62CA051CE004800DD /* Controllers */; };
+		B2C398EC2CA051E1004800DD /* ViewModels in Resources */ = {isa = PBXBuildFile; fileRef = B2C398E82CA051E0004800DD /* ViewModels */; };
+		B2C398ED2CA051E1004800DD /* Services in Resources */ = {isa = PBXBuildFile; fileRef = B2C398E92CA051E0004800DD /* Services */; };
+		B2C398EE2CA051E1004800DD /* View in Resources */ = {isa = PBXBuildFile; fileRef = B2C398EA2CA051E0004800DD /* View */; };
+		B2C398EF2CA051E1004800DD /* Model in Resources */ = {isa = PBXBuildFile; fileRef = B2C398EB2CA051E1004800DD /* Model */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +54,11 @@
 		B2C398D32CA0516C004800DD /* MarketPlaceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MarketPlaceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2C398D72CA0516C004800DD /* MarketPlaceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketPlaceUITests.swift; sourceTree = "<group>"; };
 		B2C398D92CA0516C004800DD /* MarketPlaceUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketPlaceUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		B2C398E62CA051CE004800DD /* Controllers */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Controllers; sourceTree = "<group>"; };
+		B2C398E82CA051E0004800DD /* ViewModels */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ViewModels; sourceTree = "<group>"; };
+		B2C398E92CA051E0004800DD /* Services */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Services; sourceTree = "<group>"; };
+		B2C398EA2CA051E0004800DD /* View */ = {isa = PBXFileReference; lastKnownFileType = folder; path = View; sourceTree = "<group>"; };
+		B2C398EB2CA051E1004800DD /* Model */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Model; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +109,11 @@
 		B2C398B52CA0516B004800DD /* MarketPlace */ = {
 			isa = PBXGroup;
 			children = (
+				B2C398EB2CA051E1004800DD /* Model */,
+				B2C398E92CA051E0004800DD /* Services */,
+				B2C398EA2CA051E0004800DD /* View */,
+				B2C398E82CA051E0004800DD /* ViewModels */,
+				B2C398E62CA051CE004800DD /* Controllers */,
 				B2C398B62CA0516B004800DD /* AppDelegate.swift */,
 				B2C398B82CA0516B004800DD /* SceneDelegate.swift */,
 				B2C398BA2CA0516B004800DD /* ViewController.swift */,
@@ -231,8 +246,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2C398ED2CA051E1004800DD /* Services in Resources */,
+				B2C398EE2CA051E1004800DD /* View in Resources */,
 				B2C398C02CA0516C004800DD /* Assets.xcassets in Resources */,
 				B2C398C32CA0516C004800DD /* Base in Resources */,
+				B2C398EC2CA051E1004800DD /* ViewModels in Resources */,
+				B2C398E72CA051CE004800DD /* Controllers in Resources */,
+				B2C398EF2CA051E1004800DD /* Model in Resources */,
 				B2C398BE2CA0516B004800DD /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
