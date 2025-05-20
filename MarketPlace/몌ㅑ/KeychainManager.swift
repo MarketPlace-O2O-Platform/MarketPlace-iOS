@@ -8,22 +8,28 @@ class KeychainManager {
     }
     
     static func save(studentId: String, token: Data) throws {
-        print("save token: \(String(data: token, encoding: .utf8)!)")
+        // 기존 항목이 있는지 확인
+        if get() != nil {
+            // 기존 항목 삭제
+            try delete()
+        }
+        
         let query: [String: AnyObject] = [
-            kSecClass as String: kSecClassGenericPassword, //data 종료를 알려주는 역할. -> 인터넷 비밀번호
-            kSecAttrAccount as String: studentId as NSString, //사용자 이름
-            kSecValueData as String: token as NSData //사용자 비밀번호
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: studentId as NSString,
+            kSecValueData as String: token as NSData
         ]
         
         let status = SecItemAdd(query as CFDictionary, nil)
-        guard status != errSecDuplicateItem else {
-            throw KeychainError.unknown(status)
-        }
         guard status == errSecSuccess else {
-            throw KeychainError.unknown(status)
+            if status == errSecDuplicateItem {
+                throw KeychainError.duplicateEntry
+            } else {
+                throw KeychainError.unknown(status)
+            }
         }
         
-        
+        print("✅ 키체인에 새 토큰 저장됨: \(String(data: token, encoding: .utf8) ?? "알 수 없음")")
     }
     
     static func get() -> (userId: String, token: String)? {
