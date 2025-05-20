@@ -43,7 +43,6 @@ class LoginViewModel: ObservableObject {
                     isLoggedIn = true
                     if let tokenData = decodedResponse.response.data(using: .utf8) {
                         do {
-                            print("tokendata login: \(tokenData)" )
                             try KeychainManager.save(studentId: studentId, token: tokenData)
                             print("🔑 login 저장된 토큰:", self.token ?? "없음")
                         } catch {
@@ -66,7 +65,7 @@ class LoginViewModel: ObservableObject {
             errorMessage = "⚠️ login 네트워크 요청 오류: \(error.localizedDescription)"
         }
         
-        print(errorMessage)
+        print("Login Error Message: ",errorMessage)
     }
 
     func logout() {
