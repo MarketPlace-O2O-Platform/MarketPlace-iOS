@@ -10,6 +10,10 @@
 		29BF18AC2DE4459500836D7E /* APIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF18AB2DE4459500836D7E /* APIEndpoint.swift */; };
 		29BF18AE2DE4475B00836D7E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF18AD2DE4475B00836D7E /* NetworkService.swift */; };
 		29BF18B02DE4492C00836D7E /* API_URL.plist in Resources */ = {isa = PBXBuildFile; fileRef = 29BF18AF2DE4492C00836D7E /* API_URL.plist */; };
+		29BF18B22DE44A3D00836D7E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF18B12DE44A3D00836D7E /* Endpoint.swift */; };
+		29BF18B42DE44C5C00836D7E /* MemberEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF18B32DE44C5C00836D7E /* MemberEndPoint.swift */; };
+		29BF18B62DE44D2300836D7E /* URLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF18B52DE44D2300836D7E /* URLManager.swift */; };
+		29BF18B82DE44F6D00836D7E /* MarketEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF18B72DE44F6D00836D7E /* MarketEndpoint.swift */; };
 		B207A25F2D54B18C0099A8DB /* CouponItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B207A25E2D54B18C0099A8DB /* CouponItem.swift */; };
 		B210EC1C2D3D601800B1551E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B210EC1B2D3D601700B1551E /* NetworkManager.swift */; };
 		B210EC242D3D686500B1551E /* MyHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B210EC232D3D686500B1551E /* MyHeaderView.swift */; };
@@ -111,6 +115,10 @@
 		29BF18AB2DE4459500836D7E /* APIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoint.swift; sourceTree = "<group>"; };
 		29BF18AD2DE4475B00836D7E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		29BF18AF2DE4492C00836D7E /* API_URL.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = API_URL.plist; sourceTree = "<group>"; };
+		29BF18B12DE44A3D00836D7E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		29BF18B32DE44C5C00836D7E /* MemberEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberEndPoint.swift; sourceTree = "<group>"; };
+		29BF18B52DE44D2300836D7E /* URLManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLManager.swift; sourceTree = "<group>"; };
+		29BF18B72DE44F6D00836D7E /* MarketEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketEndpoint.swift; sourceTree = "<group>"; };
 		B207A25E2D54B18C0099A8DB /* CouponItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponItem.swift; sourceTree = "<group>"; };
 		B210EC1B2D3D601700B1551E /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		B210EC232D3D686500B1551E /* MyHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHeaderView.swift; sourceTree = "<group>"; };
@@ -430,6 +438,10 @@
 				B2A42DD22D8EBFB3005FAF15 /* KeychainManager.swift */,
 				29BF18AB2DE4459500836D7E /* APIEndpoint.swift */,
 				29BF18AD2DE4475B00836D7E /* NetworkService.swift */,
+				29BF18B12DE44A3D00836D7E /* Endpoint.swift */,
+				29BF18B32DE44C5C00836D7E /* MemberEndPoint.swift */,
+				29BF18B52DE44D2300836D7E /* URLManager.swift */,
+				29BF18B72DE44F6D00836D7E /* MarketEndpoint.swift */,
 			);
 			name = API;
 			path = "몌ㅑ";
@@ -771,8 +783,11 @@
 				B27E56D52D704438000D2881 /* HotCheerCardView.swift in Sources */,
 				B293A1582D6FDFC6003E8505 /* MyCheerView.swift in Sources */,
 				B2122E3D2D6F7C0000BD37F8 /* MarketResDtos.swift in Sources */,
+				29BF18B82DE44F6D00836D7E /* MarketEndpoint.swift in Sources */,
 				B2122E3F2D6F7D4000BD37F8 /* MarketGetViewModel.swift in Sources */,
+				29BF18B62DE44D2300836D7E /* URLManager.swift in Sources */,
 				B28349552D2FBC4B00EEDB02 /* PopularityBenefitView.swift in Sources */,
+				29BF18B22DE44A3D00836D7E /* Endpoint.swift in Sources */,
 				B2A42DD32D8EBFB3005FAF15 /* KeychainManager.swift in Sources */,
 				B28349112D2E548A00EEDB02 /* MapView.swift in Sources */,
 				B2C398FD2CA145CB004800DD /* MarketPlaceApp.swift in Sources */,
@@ -815,6 +830,7 @@
 				B28889A32D4BC9370040EC3F /* CouponResDtos.swift in Sources */,
 				B255A5CC2D62155700954837 /* MemberFavoriteMarketListModelView.swift in Sources */,
 				B207A25F2D54B18C0099A8DB /* CouponItem.swift in Sources */,
+				29BF18B42DE44C5C00836D7E /* MemberEndPoint.swift in Sources */,
 				B28349162D2E604800EEDB02 /* ShopModel.swift in Sources */,
 				B22AB90C2D99BB15006E13B4 /* MarketFavoritePostViewModel.swift in Sources */,
 				B21F3CF72D267AF900B83B34 /* NewEventView.swift in Sources */,

@@ -3,6 +3,6 @@
 <plist version="1.0">
 <dict>
 	<key>URL</key>
-	<string>https://marketplace.inuappcenter.kr</string>
+	<string>https://marketplace.inuappcenter.kr/api</string>
 </dict>
 </plist>
