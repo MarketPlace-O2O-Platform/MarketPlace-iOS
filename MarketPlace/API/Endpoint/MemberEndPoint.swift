@@ -15,8 +15,8 @@ enum MemberEndPoint: Endpoint {
 
     var path: String {
         switch self {
-        case .fetchMemberStudentID: return "/members"
-        case .signIn: return "/members"
+        case .fetchMemberStudentID: return "api/members"
+        case .signIn: return "api/members"
         }
     }
 

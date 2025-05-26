@@ -10,7 +10,7 @@ struct MainView: View {
                 MainHeaderView()
                 
                 ScrollView {
-                    VStack(spacing: 50) {
+                    VStack(spacing: 40) {
                         // MARK: - 메인 화면 배너
                         ImageTextOverlay(
                             imageName: "MainEx",
@@ -35,7 +35,10 @@ struct MainView: View {
                             .fill(Color(hex: "#eeeeee"))
                             .frame(height: 8)
                         
+                        // MARK: - Top 20 인기 멤버십
                         Top20View()
+                        
+                        // MARK: - 신규 멤버십
                         NewEventView()
                             .padding(.bottom, 100)
                     }

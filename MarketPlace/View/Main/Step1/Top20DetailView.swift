@@ -1,23 +1,35 @@
 import SwiftUI
 
-// TopTab 화면
 struct Top20DetailView: View {
     @Environment(\.presentationMode) var presentationMode
-    @StateObject var PopularVM = CouponPopularViewModel()
+    @StateObject var couponPopularVM = CouponPopularViewModel()
 
-    init() {
-        setupNavigationBarAppearance()
-    }
+//    init() {
+//        setupNavigationBarAppearance()
+//    }
     
     var body: some View {
         VStack(spacing: 0) {
-            // 구분선 추가
             Divider()
-                .background(Color.gray.opacity(0.5)) // 구분선 색상 조정
+                .background(Color.gray.opacity(0.5))
             ScrollView {
                 VStack(spacing: 16) {
-                    ForEach(PopularVM.topCoupons, id: \.marketId) { shop in
-                         couponRowView(shop: shop)
+                    ForEach(couponPopularVM.topCoupons, id: \.marketId) { shop in
+//                         couponRowView(shop: shop)
+                        let _ = print("20🐶",couponPopularVM.topCoupons)
+                        NavigationLink(destination: StoreDetailView(marketId: shop.marketId)) {
+                            CouponInfoView(
+                                marketId: shop.marketId,
+                                couponId: shop.couponId,
+                                thumbnail: shop.thumbnail,
+                                marketName: shop.marketName,
+                                couponName: shop.couponName,
+                                address: shop.address,
+                                isAvailable: shop.isAvailable,
+                                couponCreatedAt: nil
+                            )
+                        }
+                        .buttonStyle(PlainButtonStyle())
                     }
                 }
             }
@@ -25,12 +37,12 @@ struct Top20DetailView: View {
         }
         .onAppear {
             Task {
-                await PopularVM.fetchTopFavoriteMarkets()
+                await couponPopularVM.fetchCouponPopular()
             }
         }
         .navigationTitle("Top 20 인기 이벤트")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true) // 기본 뒤로가기 버튼 숨기기
+        .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {

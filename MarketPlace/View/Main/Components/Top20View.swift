@@ -20,13 +20,16 @@ struct Top20View: View {
             }
             .padding(.bottom, 15)
             
-            // 쿠폰 리스트 스크롤
+            /// - NOTE: 쿠폰 리스트 수평스크롤
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
                     ForEach(couponPopularVM.topCoupons, id: \.id) { coupon in
                         VStack {
                             ZStack {
-                                AsyncImage(url: URL(string: "https://marketplace.inuappcenter.kr/image/" + coupon.thumbnail)) { image in
+                                AsyncImage(
+                                    url: URL(
+                                        string: URLManager.shared.baseStringURL + "image/" + coupon.thumbnail
+                                    )) { image in
                                     image.resizable()
                                          .scaledToFill()
                                          .frame(width: 280, height: 280)
@@ -60,10 +63,11 @@ struct Top20View: View {
             }
         }
         .padding(.leading, 20)
-        // API 호출
+        
+        /// - NOTE: 화면 나타날 시 API 호출
         .onAppear {
             Task {
-                await couponPopularVM.fetchTopFavoriteMarkets()
+                await couponPopularVM.fetchCouponPopular()
             }
         }
 

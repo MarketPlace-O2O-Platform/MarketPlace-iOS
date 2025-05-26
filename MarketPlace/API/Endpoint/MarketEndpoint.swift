@@ -18,11 +18,11 @@ enum MarketEndpoint: Endpoint {
 
     var path: String {
         switch self {
-        case .fetchMarketsAll: return "/markets"
-        case .fetchMarket(let id): return "/markets/\(id)"
-        case .fetchMarketsWithSearching: return "/markets/search"
-        case .fetchOwnFavoriteMarkets: return "/markets/my-favorite"
-        case .fetchMarketsForMap: return "/markets/map"
+        case .fetchMarketsAll: return "api/markets"
+        case .fetchMarket(let id): return "api/markets/\(id)"
+        case .fetchMarketsWithSearching: return "api/markets/search"
+        case .fetchOwnFavoriteMarkets: return "api/markets/my-favorite"
+        case .fetchMarketsForMap: return "api/markets/map"
         }
     }
 

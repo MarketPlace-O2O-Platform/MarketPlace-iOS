@@ -23,6 +23,14 @@ final class URLManager {
             config = plist
         }
     }
+    
+    var baseStringURL: String {
+        guard let baseURLString = config["URL"] as? String  else {
+            fatalError("URL을 찾을 수 없습니다.")
+        }
+        
+        return baseURLString
+    }
 
     var baseURL: URL {
         guard let baseURLString = config["URL"] as? String,
