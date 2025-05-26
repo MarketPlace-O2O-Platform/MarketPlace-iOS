@@ -85,7 +85,7 @@ class MembersGetCouponsListViewModel: ObservableObject {
                 print("📜 서버 응답 JSON:\n\(jsonString)")
             }
             
-            let decodedResponse = try JSONDecoder().decode(APIResponse<MembersCouponResponse>.self, from: data)
+            let decodedResponse = try JSONDecoder().decode(APIResDto<MembersCouponResponse>.self, from: data)
             
             DispatchQueue.main.async {
                 self.userCoupons = decodedResponse.response.couponResDtos

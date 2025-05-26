@@ -40,7 +40,7 @@ class CouponPopularViewModel: ObservableObject {
                 return
             }
 
-            let decodedResponse = try JSONDecoder().decode(APIResponse<CouponPopularResponse>.self, from: data)
+            let decodedResponse = try JSONDecoder().decode(APIResDto<CouponPopularResponse>.self, from: data)
             DispatchQueue.main.async {
                 self.topCoupons = decodedResponse.response.couponResDtos
                 print("✅ [UPDATED] topCoupons 상태 변경 완료, 쿠폰 목록: \(self.topCoupons)")

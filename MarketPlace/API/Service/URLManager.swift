@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// - NOTE: plist 파일에서 baseUrl을 받아옵니다.
 final class URLManager {
     static let shared = URLManager()
 

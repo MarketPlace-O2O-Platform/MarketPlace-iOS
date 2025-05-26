@@ -20,7 +20,7 @@ class CheerGetViewModel: ObservableObject {
         print("🔑 요청 헤더: \(headers)")
 
         do {
-            let response: APIResponse<MarketResponse<CheerMarketModel>> = try await NetworkManager.shared.fetch(url, headers: headers)
+            let response: APIResDto<MarketResDto<CheerMarketModel>> = try await NetworkManager.shared.fetch(url, headers: headers)
 
             print("🟢 cheerget[DEBUG] 응답 성공!")
             print("📦 전체 응답: \(response)")

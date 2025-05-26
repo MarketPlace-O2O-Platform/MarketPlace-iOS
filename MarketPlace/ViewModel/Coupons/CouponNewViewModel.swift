@@ -61,7 +61,7 @@ class CouponNewViewModel: ObservableObject {
                             print("- 원본 JSON 파싱 실패")
                         }
                         
-                        let decodedResponse = try JSONDecoder().decode(APIResponse<CouponNewResponse>.self, from: data)
+                        let decodedResponse = try JSONDecoder().decode(APIResDto<CouponNewResponse>.self, from: data)
                         self.newCoupons = decodedResponse.response.couponResDtos
                         self.errorMessage = nil
                         print("✅ fetchNewCoupons[UPDATED] 성공: \(self.newCoupons.count)개 쿠폰")

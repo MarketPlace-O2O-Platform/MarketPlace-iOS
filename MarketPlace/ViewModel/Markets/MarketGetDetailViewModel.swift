@@ -53,7 +53,7 @@ class MarketDetailViewModel: ObservableObject {
                 return
             }
             
-            let decodedResponse = try JSONDecoder().decode(APIResponse<MarketDetailModel>.self, from: data)
+            let decodedResponse = try JSONDecoder().decode(APIResDto<MarketDetailModel>.self, from: data)
             
             DispatchQueue.main.async {
                 self.marketDetail = decodedResponse.response

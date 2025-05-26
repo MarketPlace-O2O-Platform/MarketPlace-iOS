@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		29BF18B02DE4492C00836D7E /* API_URL.plist in Resources */ = {isa = PBXBuildFile; fileRef = 29BF18AF2DE4492C00836D7E /* API_URL.plist */; };
+		29BF18BF2DE45B3900836D7E /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF18BE2DE45B3900836D7E /* Category.swift */; };
+		29BF18C12DE4950700836D7E /* APIResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF18C02DE4950700836D7E /* APIResDto.swift */; };
 		B207A25F2D54B18C0099A8DB /* CouponItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B207A25E2D54B18C0099A8DB /* CouponItem.swift */; };
 		B210EC242D3D686500B1551E /* MyHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B210EC232D3D686500B1551E /* MyHeaderView.swift */; };
 		B210EC262D3D6DAA00B1551E /* CategoryButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B210EC252D3D6DAA00B1551E /* CategoryButtonView.swift */; };
@@ -105,6 +107,8 @@
 
 /* Begin PBXFileReference section */
 		29BF18AF2DE4492C00836D7E /* API_URL.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = API_URL.plist; sourceTree = "<group>"; };
+		29BF18BE2DE45B3900836D7E /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		29BF18C02DE4950700836D7E /* APIResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResDto.swift; sourceTree = "<group>"; };
 		B207A25E2D54B18C0099A8DB /* CouponItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponItem.swift; sourceTree = "<group>"; };
 		B210EC232D3D686500B1551E /* MyHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHeaderView.swift; sourceTree = "<group>"; };
 		B210EC252D3D6DAA00B1551E /* CategoryButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButtonView.swift; sourceTree = "<group>"; };
@@ -415,6 +419,7 @@
 			children = (
 				B28889A22D4BC9370040EC3F /* CouponResDtos.swift */,
 				B2122E3C2D6F7C0000BD37F8 /* MarketResDtos.swift */,
+				29BF18C02DE4950700836D7E /* APIResDto.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -524,6 +529,7 @@
 				B2C399002CA145CC004800DD /* Assets.xcassets */,
 				B2C399022CA145CC004800DD /* Preview Content */,
 				29BF18AF2DE4492C00836D7E /* API_URL.plist */,
+				29BF18BE2DE45B3900836D7E /* Category.swift */,
 			);
 			path = MarketPlace;
 			sourceTree = "<group>";
@@ -748,10 +754,12 @@
 				B250AEF42DA53FDD00456626 /* CouponUsePutViewModel.swift in Sources */,
 				B28889A52D4BC9680040EC3F /* CouponPopularViewModel.swift in Sources */,
 				B2F85BEA2D6FB4E50011DDF3 /* MapOptions.swift in Sources */,
+				29BF18C12DE4950700836D7E /* APIResDto.swift in Sources */,
 				B28A22AF2D64F1ED00E86EF6 /* StoreImageSlider.swift in Sources */,
 				B210EC242D3D686500B1551E /* MyHeaderView.swift in Sources */,
 				B210EC282D3D797F00B1551E /* SearchHeader.swift in Sources */,
 				B293A15C2D6FE2A8003E8505 /* CheerSearchView.swift in Sources */,
+				29BF18BF2DE45B3900836D7E /* Category.swift in Sources */,
 				B255A5CE2D6218A000954837 /* MarketModel.swift in Sources */,
 				B28A22A82D64B0F900E86EF6 /* MarketGetDetailViewModel.swift in Sources */,
 				B27E56D52D704438000D2881 /* HotCheerCardView.swift in Sources */,
@@ -964,7 +972,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MarketPlace/Preview Content\"";
-				DEVELOPMENT_TEAM = 7RR74CRWQW;
+				DEVELOPMENT_TEAM = F7GYZYWC6V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MarketPlace/Info.plist;
@@ -996,7 +1004,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MarketPlace/Preview Content\"";
-				DEVELOPMENT_TEAM = 7RR74CRWQW;
+				DEVELOPMENT_TEAM = F7GYZYWC6V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MarketPlace/Info.plist;

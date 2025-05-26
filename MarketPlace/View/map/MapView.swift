@@ -38,7 +38,7 @@ struct MapView: View {
             }
             .onAppear {
                 Task {
-                    await marketVM.fetchMarkets()
+//                    await marketVM.fetchMarkets()
                     region = locationManager.region  // 초기 위치 설정
                 }
             }

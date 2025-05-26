@@ -32,4 +32,6 @@ enum MemberEndPoint: Endpoint {
     var headers: [String : String]? { ["Content-Type": "application/json"] }
 
     var body: Data? { nil }
+    
+    var queryItems: [URLQueryItem]? { nil }
 }

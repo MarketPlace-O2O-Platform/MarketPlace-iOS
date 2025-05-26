@@ -41,7 +41,7 @@ struct MapListView: View {
         .background(Color.white)
         .onAppear {
             Task {
-                await marketVM.fetchMarkets()
+//                await marketVM.fetchMarkets()
             }
         }
     }

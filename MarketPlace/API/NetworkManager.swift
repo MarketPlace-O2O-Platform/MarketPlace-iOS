@@ -1,25 +1,5 @@
 import Foundation
 
-enum NetworkError: Error {
-    case invalidURL
-    case invalidResponse
-    case networkError(Error)
-    case decodingError(Error)
-    
-    var message: String {
-        switch self {
-        case .invalidURL:
-            return "Invalid URL. Please check the endpoint."
-        case .invalidResponse:
-            return "Invalid response from server."
-        case .networkError(let error):
-            return "Network error occurred: \(error.localizedDescription)"
-        case .decodingError(let error):
-            return "Failed to decode response: \(error.localizedDescription)"
-        }
-    }
-}
-
 enum HTTPMethod: String {
     case get = "GET"
     case post = "POST"
@@ -86,7 +66,7 @@ class NetworkManager {
             return result
         } catch let error as DecodingError {
             print("🔴 Decoding Error: \(error)")
-            throw NetworkError.decodingError(error)
+            throw NetworkError.networkError(error)
         } catch {
             print("🔴 Network Error: \(error)")
             throw NetworkError.networkError(error)
