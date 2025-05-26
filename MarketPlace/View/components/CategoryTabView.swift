@@ -1,8 +1,11 @@
+
+
+
 import SwiftUI
 
 struct CategoryTabView: View {
     @Binding var selectedTab: Int
-    let categories = ["전체", "음식", "디저트", "스포츠", "미용", "의료", "교육"]
+    let categories: [String] = Category.orderedCases.map { $0.toUIName() }
     @Namespace private var namespace
     
     var body: some View {
@@ -40,12 +43,11 @@ struct CategoryTabView: View {
                         }
                     }
                     .padding(.horizontal, 32)
-                    .offset(y: 4)  // 구분선도 위로 이동
-
+                    .offset(y: 4)
                 }
             }
             
-            // 하단 구분선
+            /// 하단 구분선
             Rectangle()
                 .fill(Color.gray.opacity(0.1))
                 .frame(height: 1)
@@ -54,20 +56,4 @@ struct CategoryTabView: View {
         }
         .background(Color.white)
     }
-}
-
-// 사용 예시
-struct textView: View {
-    @State private var selectedTab = 0
-    
-    var body: some View {
-        VStack {
-            CategoryTabView(selectedTab: $selectedTab)
-            Spacer()
-        }
-    }
-}
-
-#Preview {
-    textView()
 }

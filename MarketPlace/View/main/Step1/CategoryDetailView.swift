@@ -9,18 +9,11 @@ struct CategoryDetailView: View {
     @Binding var selectedTab: Int
     @StateObject var marketVM = MarketGetViewModel()
 
-    private var filteredMarkets: [MarketModel] {
-        if selectedTab == 0 { // 전체 탭인 경우
-            return marketVM.markets
-        }
-        return marketVM.markets.filter { market in
-            market.marketId == selectedTab
-        }
-    }
-
     var body: some View {
         VStack {
+            // MARK: - Category 목록 상단 TabView
             CategoryTabView(selectedTab: $selectedTab)
+            
             ScrollView {
                 VStack(spacing: 16) {
                     ForEach(marketVM.markets, id: \.marketId) { shop in
@@ -33,7 +26,15 @@ struct CategoryDetailView: View {
         }
         .background(Color.white)
         .navigationTitle(Category(index: selectedTab)?.toUIName() ?? "")
+        
+        /// - NOTE: 이전화면에서 넘어왔을 시 해당 탭의 데이터 불러오기
         .onAppear {
+            Task {
+                await marketVM.fetchMarkets(category: Category(index: selectedTab)?.toString() ?? "")
+            }
+        }
+        /// - NOTE: 탭 눌렀을 시 해당 탭의 데이터 불러오기
+        .onChange(of: selectedTab) {
             Task {
                 await marketVM.fetchMarkets(category: Category(index: selectedTab)?.toString() ?? "")
             }
