@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29BF18AC2DE4459500836D7E /* APIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF18AB2DE4459500836D7E /* APIEndpoint.swift */; };
+		29BF18AE2DE4475B00836D7E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF18AD2DE4475B00836D7E /* NetworkService.swift */; };
+		29BF18B02DE4492C00836D7E /* API_URL.plist in Resources */ = {isa = PBXBuildFile; fileRef = 29BF18AF2DE4492C00836D7E /* API_URL.plist */; };
 		B207A25F2D54B18C0099A8DB /* CouponItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B207A25E2D54B18C0099A8DB /* CouponItem.swift */; };
 		B210EC1C2D3D601800B1551E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B210EC1B2D3D601700B1551E /* NetworkManager.swift */; };
-		B210EC202D3D60D100B1551E /* APIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B210EC1F2D3D60D100B1551E /* APIEndpoint.swift */; };
 		B210EC242D3D686500B1551E /* MyHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B210EC232D3D686500B1551E /* MyHeaderView.swift */; };
 		B210EC262D3D6DAA00B1551E /* CategoryButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B210EC252D3D6DAA00B1551E /* CategoryButtonView.swift */; };
 		B210EC282D3D797F00B1551E /* SearchHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B210EC272D3D797F00B1551E /* SearchHeader.swift */; };
@@ -106,9 +108,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		29BF18AB2DE4459500836D7E /* APIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoint.swift; sourceTree = "<group>"; };
+		29BF18AD2DE4475B00836D7E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		29BF18AF2DE4492C00836D7E /* API_URL.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = API_URL.plist; sourceTree = "<group>"; };
 		B207A25E2D54B18C0099A8DB /* CouponItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponItem.swift; sourceTree = "<group>"; };
 		B210EC1B2D3D601700B1551E /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		B210EC1F2D3D60D100B1551E /* APIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoint.swift; sourceTree = "<group>"; };
 		B210EC232D3D686500B1551E /* MyHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHeaderView.swift; sourceTree = "<group>"; };
 		B210EC252D3D6DAA00B1551E /* CategoryButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButtonView.swift; sourceTree = "<group>"; };
 		B210EC272D3D797F00B1551E /* SearchHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHeader.swift; sourceTree = "<group>"; };
@@ -422,9 +426,10 @@
 		B28349592D365D9E00EEDB02 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				B210EC1F2D3D60D100B1551E /* APIEndpoint.swift */,
 				B210EC1B2D3D601700B1551E /* NetworkManager.swift */,
 				B2A42DD22D8EBFB3005FAF15 /* KeychainManager.swift */,
+				29BF18AB2DE4459500836D7E /* APIEndpoint.swift */,
+				29BF18AD2DE4475B00836D7E /* NetworkService.swift */,
 			);
 			name = API;
 			path = "몌ㅑ";
@@ -534,6 +539,7 @@
 				B2C398FE2CA145CB004800DD /* ContentView.swift */,
 				B2C399002CA145CC004800DD /* Assets.xcassets */,
 				B2C399022CA145CC004800DD /* Preview Content */,
+				29BF18AF2DE4492C00836D7E /* API_URL.plist */,
 			);
 			path = MarketPlace;
 			sourceTree = "<group>";
@@ -712,6 +718,7 @@
 			files = (
 				B2C399042CA145CC004800DD /* Preview Assets.xcassets in Resources */,
 				B2C399012CA145CC004800DD /* Assets.xcassets in Resources */,
+				29BF18B02DE4492C00836D7E /* API_URL.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -746,11 +753,11 @@
 				B2F85BE72D6FAB210011DDF3 /* MapLocationManager.swift in Sources */,
 				B28349572D2FBD2F00EEDB02 /* SearchView.swift in Sources */,
 				B21F3CFA2D267AF900B83B34 /* MyView.swift in Sources */,
-				B210EC202D3D60D100B1551E /* APIEndpoint.swift in Sources */,
 				B28889AC2D4BD5F10040EC3F /* CouponPopup.swift in Sources */,
 				B28A22AB2D64F1A700E86EF6 /* StoreInfoRow.swift in Sources */,
 				B2C398FF2CA145CB004800DD /* ContentView.swift in Sources */,
 				B293A1542D6FDCB2003E8505 /* HotCheerView.swift in Sources */,
+				29BF18AE2DE4475B00836D7E /* NetworkService.swift in Sources */,
 				B21F3CF42D267AF900B83B34 /* CategoryDetailView.swift in Sources */,
 				B250AEF42DA53FDD00456626 /* CouponUsePutViewModel.swift in Sources */,
 				B28889A52D4BC9680040EC3F /* CouponPopularViewModel.swift in Sources */,
@@ -792,6 +799,7 @@
 				B28889AE2D4BDC4D0040EC3F /* MembersCouponModel.swift in Sources */,
 				B28889A72D4BD1760040EC3F /* MembersGetCouponsListViewModel.swift in Sources */,
 				B293A15A2D6FE0B4003E8505 /* CheerView.swift in Sources */,
+				29BF18AC2DE4459500836D7E /* APIEndpoint.swift in Sources */,
 				B2122E422D6F85F700BD37F8 /* MapStoreDetailView.swift in Sources */,
 				B21F3CF32D267AF900B83B34 /* ShopListView.swift in Sources */,
 				B293A1522D6FDC7B003E8505 /* CheerListView.swift in Sources */,
