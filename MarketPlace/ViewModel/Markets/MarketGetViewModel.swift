@@ -9,15 +9,13 @@ class MarketGetViewModel: ObservableObject {
     
     private let networkService = NetworkService()
 
-    private var pageSize = 10
-
-    func fetchMarkets(category: String, pageSize: Int) async {
+    func fetchMarkets(lastPageIndex: Int? = nil, category: String, pageSize: Int? = nil) async {
         isLoading = true
         
         do {
             let data: APIResDto<MarketResDto<MarketModel>> = try await networkService.request(
                 MarketEndpoint.fetchMarketsAll(
-                    lastPageIndex: nil,
+                    lastPageIndex: lastPageIndex,
                     category: category,
                     pageSize: pageSize))
             

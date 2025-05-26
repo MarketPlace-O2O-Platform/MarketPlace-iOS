@@ -8,7 +8,11 @@
 import Foundation
 
 enum Category: String, CaseIterable {
-    case FOOD, DESSERT, SPORT, BEAUTY, HOSPITAL, EDUCATION, ETC
+    case ALL, FOOD, DESSERT, SPORT, BEAUTY, HOSPITAL, EDUCATION, ETC
+    
+    static let orderedCases: [Category] = [
+        .ALL, .FOOD, .DESSERT, .SPORT, .BEAUTY, .HOSPITAL, .EDUCATION, .ETC
+    ]
     
     init?(index: Int) {
         switch index {
@@ -32,11 +36,13 @@ enum Category: String, CaseIterable {
         case .HOSPITAL: return "HOSPITAL"
         case .EDUCATION: return "EDUCATION"
         case .ETC: return "ETC"
+        default: return ""
         }
     }
     
     func toUIName() -> String {
         switch self {
+        case .ALL: return "전체"
         case .FOOD: return "푸드"
         case .DESSERT: return "디저트"
         case .SPORT: return "스포츠"
@@ -49,13 +55,14 @@ enum Category: String, CaseIterable {
     
     func toImageName() -> String {
         switch self {
-        case .FOOD: return "FOOD"
-        case .DESSERT: return "DESSERT"
-        case .SPORT: return "SPORT"
-        case .BEAUTY: return "BEAUTY"
-        case .HOSPITAL: return "HOSPITAL"
-        case .EDUCATION: return "EDUCATION"
-        case .ETC: return "ETC"
+        case .ALL: return "category_all"
+        case .FOOD: return "food"
+        case .DESSERT: return "dessert"
+        case .SPORT: return "sports"
+        case .BEAUTY: return "beauty"
+        case .HOSPITAL: return "medical"
+        case .EDUCATION: return "education"
+        case .ETC: return "etc"
         }
     }
 }

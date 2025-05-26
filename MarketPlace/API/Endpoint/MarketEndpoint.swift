@@ -8,7 +8,7 @@
 import Foundation
 
 enum MarketEndpoint: Endpoint {
-    case fetchMarketsAll(lastPageIndex: Int?, category: String?, pageSize: Int)
+    case fetchMarketsAll(lastPageIndex: Int?, category: String?, pageSize: Int?)
     case fetchMarket(marketId: Int)
     case fetchMarketsWithSearching
     case fetchOwnFavoriteMarkets
@@ -47,7 +47,10 @@ enum MarketEndpoint: Endpoint {
                 items.append(URLQueryItem(name: "category", value: category))
             }
             
-            items.append(URLQueryItem(name: "pageSize", value: String(pageSize)))
+            if let pageSize = pageSize {
+                items.append(URLQueryItem(name: "pageSize", value: String(pageSize)))
+            }
+            
             return items
 //        case .fetchMarketsWithSearching:
 //            nil

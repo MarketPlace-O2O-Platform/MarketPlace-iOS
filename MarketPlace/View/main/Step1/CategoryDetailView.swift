@@ -5,12 +5,10 @@
 
 import SwiftUI
 
-// CategoryDetailView
 struct CategoryDetailView: View {
     @Binding var selectedTab: Int
     @StateObject var marketVM = MarketGetViewModel()
 
-//    let categories = ["전체", "음식", "디저트", "스포츠", "미용", "의료", "교육"]
     private var filteredMarkets: [MarketModel] {
         if selectedTab == 0 { // 전체 탭인 경우
             return marketVM.markets
@@ -20,7 +18,6 @@ struct CategoryDetailView: View {
         }
     }
 
-    
     var body: some View {
         VStack {
             CategoryTabView(selectedTab: $selectedTab)
@@ -35,11 +32,10 @@ struct CategoryDetailView: View {
             
         }
         .background(Color.white)
-//        .navigationTitle(categories[selectedTab])
         .navigationTitle(Category(index: selectedTab)?.toUIName() ?? "")
         .onAppear {
             Task {
-                await marketVM.fetchMarkets(category: Category(index: selectedTab)?.toString() ?? "", pageSize: 1)
+                await marketVM.fetchMarkets(category: Category(index: selectedTab)?.toString() ?? "")
             }
         }
         .toolbar {
@@ -50,15 +46,5 @@ struct CategoryDetailView: View {
             }
         }
         .toolbarBackground(.clear, for: .navigationBar)
-
-        
-    }
-}
-
-
-// Preview
-struct CategoryDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        CategoryDetailView(selectedTab: .constant(0)) // 초기값 설정
     }
 }

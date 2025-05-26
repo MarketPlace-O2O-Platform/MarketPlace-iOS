@@ -15,7 +15,7 @@ struct MainHeaderView: View {
             // 검색창
             HStack {
                 Button(action: {
-                               isSearchViewActive = true
+                    isSearchViewActive = true
                 }){
                     ZStack(alignment: .leading) {
                         Image(systemName: "magnifyingglass")
@@ -56,7 +56,6 @@ struct MainHeaderView: View {
                         SearchView()
                     }
                 }
-                
             }
             
 
@@ -78,7 +77,8 @@ struct MainHeaderView: View {
 
 struct MainView: View {
     @State private var selectedTab = 0
-    
+    @State private var selectedCategoryIndex: Int? = nil
+
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
@@ -89,7 +89,14 @@ struct MainView: View {
                         // MARK: - 메인 화면 배너
                         ImageTextOverlay(imageName: "MainEx", texts: ["오크우드 프리미어 인천", "오크레스토랑오크레스토", "20% 할인", "2024.9.28 - 2024.10.28"])
                             .padding(.horizontal, 20)
-                        MainCategoryView(selectedTab: $selectedTab)
+            
+                        MainCategoryView(
+                            selectedTab: $selectedTab,
+                            onCategoryTap: { index in
+                                selectedTab = index
+                                selectedCategoryIndex = index
+                            }
+                        )
                         
                         Rectangle()
                             .fill(Color(hex: "#eeeeee"))
@@ -102,26 +109,12 @@ struct MainView: View {
                     .padding(.vertical, 20)
                 }
             }
-            .navigationDestination(for: Int.self) { index in
-                CategoryDetailViewWrapper(initialTab: selectedTab)
+            .navigationDestination(item: $selectedCategoryIndex) { index in
+                CategoryDetailView(selectedTab: $selectedTab)
             }
             .background(Color.white)
             .edgesIgnoringSafeArea(.bottom)
         }
-    }
-}
-
-struct CategoryDetailViewWrapper: View {
-    let initialTab: Int
-    @State private var selectedTab: Int
-    
-    init(initialTab: Int) {
-        self.initialTab = initialTab
-        _selectedTab = State(initialValue: initialTab)
-    }
-    
-    var body: some View {
-        CategoryDetailView(selectedTab: $selectedTab)
     }
 }
 
