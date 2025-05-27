@@ -106,7 +106,6 @@
 		B2C3992D2CA1BF7F004800DD /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C3992C2CA1BF7F004800DD /* CategoryButton.swift */; };
 		B2C462982D8172BE007637DC /* loginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C462972D8172BE007637DC /* loginView.swift */; };
 		B2F85BE72D6FAB210011DDF3 /* MapLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F85BE62D6FAB210011DDF3 /* MapLocationManager.swift */; };
-		B2F85BEA2D6FB4E50011DDF3 /* MapOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F85BE92D6FB4E50011DDF3 /* MapOptions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -230,7 +229,6 @@
 		B2C462972D8172BE007637DC /* loginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginView.swift; sourceTree = "<group>"; };
 		B2F85BE62D6FAB210011DDF3 /* MapLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocationManager.swift; sourceTree = "<group>"; };
 		B2F85BE82D6FAE9A0011DDF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		B2F85BE92D6FB4E50011DDF3 /* MapOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapOptions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -337,6 +335,16 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		2941F7982DE5DEB50063CEFE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B28349102D2E548A00EEDB02 /* MapView.swift */,
+				B2122E3A2D6F7AB400BD37F8 /* MapListView.swift */,
+				B2122E412D6F85F700BD37F8 /* MapStoreDetailView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		B210EC212D3D682C00B1551E /* components */ = {
 			isa = PBXGroup;
 			children = (
@@ -356,14 +364,11 @@
 			path = Step1;
 			sourceTree = "<group>";
 		};
-		B2122E392D6F7A3200BD37F8 /* components */ = {
+		B2122E392D6F7A3200BD37F8 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				B2122E3A2D6F7AB400BD37F8 /* MapListView.swift */,
-				B2F85BE62D6FAB210011DDF3 /* MapLocationManager.swift */,
-				B2F85BE92D6FB4E50011DDF3 /* MapOptions.swift */,
 			);
-			path = components;
+			path = Components;
 			sourceTree = "<group>";
 		};
 		B2122E402D6F7E0900BD37F8 /* Market */ = {
@@ -430,21 +435,13 @@
 				B2C462962D8172AC007637DC /* login */,
 				B21F3CE72D267AF900B83B34 /* Main */,
 				B28349502D2FBBBD00EEDB02 /* Search */,
-				B283490F2D2E547F00EEDB02 /* map */,
+				B283490F2D2E547F00EEDB02 /* Map */,
 				B2CD63EC2D4BAB4D000809F5 /* cheer */,
 				B21F3CEA2D267AF900B83B34 /* myPage */,
 			);
 			name = View;
 			path = MarketPlace/View;
 			sourceTree = SOURCE_ROOT;
-		};
-		B22AB90D2D99BFF5006E13B4 /* step1 */ = {
-			isa = PBXGroup;
-			children = (
-				B2122E412D6F85F700BD37F8 /* MapStoreDetailView.swift */,
-			);
-			path = step1;
-			sourceTree = "<group>";
 		};
 		B27E56CE2D703B0B000D2881 /* Cheer */ = {
 			isa = PBXGroup;
@@ -467,14 +464,13 @@
 			path = step1;
 			sourceTree = "<group>";
 		};
-		B283490F2D2E547F00EEDB02 /* map */ = {
+		B283490F2D2E547F00EEDB02 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				B2122E392D6F7A3200BD37F8 /* components */,
-				B22AB90D2D99BFF5006E13B4 /* step1 */,
-				B28349102D2E548A00EEDB02 /* MapView.swift */,
+				2941F7982DE5DEB50063CEFE /* View */,
+				B2122E392D6F7A3200BD37F8 /* Components */,
 			);
-			path = map;
+			path = Map;
 			sourceTree = "<group>";
 		};
 		B28349142D2E603E00EEDB02 /* Model */ = {
@@ -609,6 +605,7 @@
 				B2C399002CA145CC004800DD /* Assets.xcassets */,
 				B2C399022CA145CC004800DD /* Preview Content */,
 				29BF18AF2DE4492C00836D7E /* API_URL.plist */,
+				B2F85BE62D6FAB210011DDF3 /* MapLocationManager.swift */,
 				29BF18BE2DE45B3900836D7E /* Category.swift */,
 			);
 			path = MarketPlace;
@@ -833,7 +830,6 @@
 				B293A1542D6FDCB2003E8505 /* HotCheerView.swift in Sources */,
 				B21F3CF42D267AF900B83B34 /* CategoryDetailView.swift in Sources */,
 				B250AEF42DA53FDD00456626 /* CouponUsePutViewModel.swift in Sources */,
-				B2F85BEA2D6FB4E50011DDF3 /* MapOptions.swift in Sources */,
 				29BF18C12DE4950700836D7E /* APIResDto.swift in Sources */,
 				B28A22AF2D64F1ED00E86EF6 /* StoreImageSlider.swift in Sources */,
 				B210EC242D3D686500B1551E /* MyHeaderView.swift in Sources */,
