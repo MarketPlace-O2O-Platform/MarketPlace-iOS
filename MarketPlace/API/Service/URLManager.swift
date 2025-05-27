@@ -14,7 +14,9 @@ final class URLManager {
     private var config: [String: Any] = [:]
 
     private init() {
-        if let url = Bundle.main.url(forResource: "API_URL", withExtension: "plist"),
+        if let url = Bundle.main.url(
+            forResource: "API_URL",
+            withExtension: "plist"),
            let data = try? Data(contentsOf: url),
            let plist = try? PropertyListSerialization.propertyList(
             from: data,
@@ -28,7 +30,6 @@ final class URLManager {
         guard let baseURLString = config["URL"] as? String  else {
             fatalError("URL을 찾을 수 없습니다.")
         }
-        
         return baseURLString
     }
 

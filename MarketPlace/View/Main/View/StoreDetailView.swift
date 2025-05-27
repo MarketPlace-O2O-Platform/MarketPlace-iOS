@@ -62,7 +62,7 @@ struct StoreDetailView: View {
                                     .font(.system(size: 13))
                             }
 
-                            Text("메인 메뉴(수제 버거) 주문 시, 쿠폰 적용 가능\n쿠폰 다운로드 시점으로부터 3일 이내로 미사용 시 소멸 예정")
+                            Text(shop.description)
                                 .font(.system(size: 13))
                                 .foregroundColor(.gray)
                         }
@@ -103,21 +103,10 @@ struct StoreDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .background(Color.white)
         .onAppear {
-            print("🔥 들어온 marketId: \(marketId)")
             Task {
                 await marketViewModel.fetchMarketDetail(marketId: marketId)
                 await couponViewModel.fetchCouponValid(marketId: marketId)
-                print("🔥 불러온 쿠폰 수: \(couponViewModel.validCoupons.count)")
             }
-            
-
         }
-    }
-}
-
-// 미리보기
-struct StoreDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        StoreDetailView(marketId: 6)
     }
 }
