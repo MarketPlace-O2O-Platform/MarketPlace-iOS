@@ -22,14 +22,9 @@ struct MapListView: View {
                                 marketId: shop.marketId)
                         ) {
                             VStack(spacing: 0){
-                                ShopInfoView(
-                                    thumbnail: shop.thumbnail,
-                                    marketName: shop.marketName,
-                                    marketDescription: shop.marketDescription,
-                                    address: shop.address,
+                                MarketInfoCell(
                                     isBookmarked: shop.isFavorite,
-                                    marketId: shop.marketId
-
+                                    viewModel: MarketInfoCellViewModel(marketId: shop.marketId)
                                 )
                                     .padding(.bottom, 10)
                                 Divider()

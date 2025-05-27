@@ -20,6 +20,7 @@ struct CategoryDetailView: View {
                                     MarketInfoCell(
                                         isBookmarked: shop.isFavorite,
                                         viewModel: MarketInfoCellViewModel(marketId: shop.marketId))\
+
                         }
                         .buttonStyle(PlainButtonStyle())
                     }
