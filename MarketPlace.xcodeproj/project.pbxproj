@@ -382,7 +382,7 @@
 				B28349102D2E548A00EEDB02 /* MapView.swift */,
 				B2122E3A2D6F7AB400BD37F8 /* MapMarketListView.swift */,
 				293DCF3E2DE6DDD8000122C5 /* MapTestView.swift*/,
-                B2122E412D6F85F700BD37F8 /* MapStoreDetailView.swift */,
+                B2122E412D6F85F700BD37F8 /* MapStoreDetailView.swift */
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -391,7 +391,7 @@
 			isa = PBXGroup;
 			children = (
 				2941F79A2DE5DFDB0063CEFE /* MapViewModel.swift */,
-				2941F79E2DE5E0F40063CEFE /* MapMarketListViewModel.swift */,
+				2941F79E2DE5E0F40063CEFE /* MapMarketListViewModel.swift */
 			);
 			path = Map;
 			sourceTree = "<group>";

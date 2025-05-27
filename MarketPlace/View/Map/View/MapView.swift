@@ -52,6 +52,7 @@ struct MapView: View {
                             dragOffset = value.translation
                         }
                     }
+
                     .onEnded { value in
                         if dragOffset.height < -50 && !isListVisible {
                             withAnimation(.smooth()) {
@@ -220,9 +221,6 @@ struct MapView: View {
         .navigationViewStyle(StackNavigationViewStyle())
     }
 }
-
-
-
 extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
         clipShape(RoundedCorner(radius: radius, corners: corners))
