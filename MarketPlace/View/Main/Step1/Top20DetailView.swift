@@ -1,5 +1,7 @@
 import SwiftUI
 
+
+/// - NOTE: NewEventDetailView와 합치기 고려
 struct Top20DetailView: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject var couponPopularVM = CouponPopularViewModel()
@@ -14,16 +16,16 @@ struct Top20DetailView: View {
                 .background(Color.gray.opacity(0.5))
             ScrollView {
                 VStack(spacing: 16) {
-                    ForEach(couponPopularVM.topCoupons) { shop in
-                        NavigationLink(destination: StoreDetailView(marketId: shop.marketId)) {
+                    ForEach(couponPopularVM.topCoupons) { coupon in
+                        NavigationLink(destination: StoreDetailView(marketId: coupon.marketId)) {
                             CouponInfoView(
-                                marketId: shop.marketId,
-                                couponId: shop.couponId,
-                                thumbnail: shop.thumbnail,
-                                marketName: shop.marketName,
-                                couponName: shop.couponName,
-                                address: shop.address,
-                                isAvailable: shop.isAvailable,
+                                marketId: coupon.marketId,
+                                couponId: coupon.couponId,
+                                thumbnail: coupon.thumbnail,
+                                marketName: coupon.marketName,
+                                couponName: coupon.couponName,
+                                address: coupon.address,
+                                isAvailable: coupon.isAvailable,
                                 couponCreatedAt: nil
                             )
                         }

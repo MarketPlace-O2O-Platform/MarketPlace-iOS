@@ -7,18 +7,23 @@ class CouponPopularViewModel: ObservableObject {
     
     private let networkService = NetworkService()
 
-    func fetchCouponPopular(lastIssuedCount: Int? = nil, lastCouponId: Int? = nil, pageSize: Int? = nil) async {
-        do {
-            let data: APIResDto<CouponPopularResponse> = try await networkService.request(
-                CouponEndpoint.fetchPopularCoupon(
-                    lastIssuedCount: lastIssuedCount,
-                    lastCouponId: lastCouponId,
-                    pageSize: pageSize)
-                )
-            
+    func fetchCouponPopular(
+        lastIssuedCount: Int? = nil,
+        lastCouponId: Int? = nil,
+        pageSize: Int? = nil
+    ) async {
+        let result: NetworkResult<APIResDto<CouponPopularResponse>> = await networkService.request(
+            CouponEndpoint.fetchPopularCoupon(
+                lastIssuedCount: lastIssuedCount,
+                lastCouponId: lastCouponId,
+                pageSize: pageSize)
+            )
+        
+        switch result {
+        case .success(let data, let _):
             self.topCoupons = data.response.couponResDtos
-       } catch {
-           print(error.localizedDescription)
-       }
+        case .failure(let statusCode, let message):
+            print("[statusCode] - \(statusCode), [message] - \(message ?? "없음")")
+        }
     }
 }

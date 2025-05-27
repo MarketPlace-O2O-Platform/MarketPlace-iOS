@@ -24,13 +24,15 @@ struct NewEventView: View {
             .padding(.trailing, 20)
             .padding(.bottom, 15)
             
-            // 쿠폰 리스트 스크롤
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
                     ForEach(couponNewVM.newCoupons, id: \.id) { coupon in
                         VStack {
                             ZStack {
-                                AsyncImage(url: URL(string: "https://marketplace.inuappcenter.kr/image/" + coupon.thumbnail)) { image in
+                                AsyncImage(
+                                    url: URL(
+                                        string: URLManager.shared.baseStringURL + "image/" + coupon.thumbnail
+                                    )) { image in
                                     image.resizable()
                                         .scaledToFill()
                                         .frame(width: 280, height: 280)
@@ -64,13 +66,11 @@ struct NewEventView: View {
             }
         }
         .padding(.leading, 20)
-        // API 호출
         .onAppear {
             Task {
-                await couponNewVM.fetchNewCoupons()
+                await couponNewVM.fetchLatestCoupons()
             }
         }
-        
         .alert("Error", isPresented: .constant(couponNewVM.errorMessage != nil)) {
             Button("OK") {
                 couponNewVM.errorMessage = nil

@@ -11,19 +11,20 @@ class MarketGetViewModel: ObservableObject {
 
     func fetchMarkets(lastPageIndex: Int? = nil, category: String, pageSize: Int? = nil) async {
         isLoading = true
+    
+        let result: NetworkResult<APIResDto<MarketResDto<MarketModel>>> = await networkService.request(
+            MarketEndpoint.fetchMarketsAll(
+                lastPageIndex: lastPageIndex,
+                category: category,
+                pageSize: pageSize))
         
-        do {
-            let data: APIResDto<MarketResDto<MarketModel>> = try await networkService.request(
-                MarketEndpoint.fetchMarketsAll(
-                    lastPageIndex: lastPageIndex,
-                    category: category,
-                    pageSize: pageSize))
-            
+        switch result {
+        case .success(let data, let _):
             self.markets = data.response.marketResDtos
-       } catch {
-           print(error.localizedDescription)
-           isLoading = false
-       }
+        case .failure(let code, let message):
+            print("[statusCode] - \(code), [message] - \(message ?? "없음")")
+        }
+            
         isLoading = false
     }
 }

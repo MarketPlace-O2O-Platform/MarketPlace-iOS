@@ -10,7 +10,7 @@ import Foundation
 enum CouponEndpoint: Endpoint {
     case fetchValidCoupon
     case fetchPopularCoupon(lastIssuedCount: Int?, lastCouponId: Int?, pageSize: Int?)
-    case fetchLatestCoupon
+    case fetchLatestCoupon(lastCreatedAt: String?, lastCouponId: Int?, pageSize: Int?)
     case fetchClosingCoupon
     
     var baseURL: URL { URLManager.shared.baseURL }
@@ -38,7 +38,24 @@ enum CouponEndpoint: Endpoint {
             var items: [URLQueryItem] = []
             
             if let lastIssuedCount = lastIssuedCount {
-                items.append(URLQueryItem(name: "lastPageIndex", value: String(lastIssuedCount)))
+                items.append(URLQueryItem(name: "lastIssuedCount", value: String(lastIssuedCount)))
+            }
+            
+            if let lastCouponId = lastCouponId {
+                items.append(URLQueryItem(name: "lastCouponId", value: String(lastCouponId)))
+            }
+            
+            if let pageSize = pageSize {
+                items.append(URLQueryItem(name: "pageSize", value: String(pageSize)))
+            }
+            
+            return items
+            
+        case .fetchLatestCoupon(let lastCreatedAt, let lastCouponId, let pageSize):
+            var items: [URLQueryItem] = []
+            
+            if let lastCreatedAt = lastCreatedAt {
+                items.append(URLQueryItem(name: "lastCreatedAt", value: String(lastCreatedAt)))
             }
             
             if let lastCouponId = lastCouponId {

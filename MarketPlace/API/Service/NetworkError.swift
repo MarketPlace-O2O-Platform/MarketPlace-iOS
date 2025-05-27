@@ -14,9 +14,9 @@ enum NetworkError: Error, LocalizedError {
     case notFound
     case serverError
     case decodingError
-    case custom(statusCode: Int)
+    case custom(statusCode: Int, message: String?)
     case invalidURL
-    case networkError(Error)    
+    case networkError(Error)
     
     var message: String {
         switch self {
@@ -32,8 +32,8 @@ enum NetworkError: Error, LocalizedError {
             return "서버에 문제가 발생했습니다."
         case .decodingError:
             return "데이터를 해석하는 데 실패했습니다."
-        case .custom(let statusCode):
-            return "알 수 없는 오류가 발생했습니다. (\(statusCode))"
+        case .custom(let statusCode, let message):
+            return "(\(statusCode)) 오류가 발생하였습니다. message: \(message) "
             
         case .invalidURL:
             return "Invalid URL. Please check the endpoint."
