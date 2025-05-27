@@ -3,7 +3,7 @@
 import Foundation
 
 @MainActor
-class MarketGetViewModel: ObservableObject {
+class CategoryDetailViewModel: ObservableObject {
     @Published var markets: [MarketModel] = []
     @Published var isLoading: Bool = false
     
