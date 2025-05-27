@@ -261,6 +261,7 @@
 		290D93502DE57CCD008AC190 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				2941F7A02DE5F7FE0063CEFE /* MarketInfoCellViewModel.swift */,
 				B2122E3E2D6F7D4000BD37F8 /* MarketCategoryDetailViewModel.swift */,
 				B28A22A72D64B0F900E86EF6 /* MarketDetailViewModel.swift */,
 				290D93512DE57CDE008AC190 /* CouponInfoCellViewModel.swift */,
@@ -648,7 +649,6 @@
 				B28A22B82D6664D800E86EF6 /* Members */,
 				2941F76B2DE596590063CEFE /* SearchMarketViewModel.swift */,
 				B22AB90B2D99BB15006E13B4 /* MarketFavoritePostViewModel.swift */,
-				2941F7A02DE5F7FE0063CEFE /* MarketInfoCellViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
