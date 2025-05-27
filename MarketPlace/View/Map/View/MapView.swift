@@ -149,6 +149,7 @@ struct MapView: View {
                 // MARK: - 리스트뷰 보일때
                 if isListVisible {
                     VStack {
+
                         Capsule()
                             .fill(Color.gray.opacity(0.5))
                             .frame(width: 40, height: 5)

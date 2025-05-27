@@ -381,7 +381,8 @@
 			children = (
 				B28349102D2E548A00EEDB02 /* MapView.swift */,
 				B2122E3A2D6F7AB400BD37F8 /* MapMarketListView.swift */,
-				293DCF3E2DE6DDD8000122C5 /* MapTestView.swift */,
+				293DCF3E2DE6DDD8000122C5 /* MapTestView.swift*/,
+                B2122E412D6F85F700BD37F8 /* MapStoreDetailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -412,6 +413,13 @@
 				B21F3CE82D267AF900B83B34 /* MyCouponView.swift */,
 			);
 			path = Step1;
+			sourceTree = "<group>";
+		};
+        B2122E392D6F7A3200BD37F8 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		B2122E402D6F7E0900BD37F8 /* Market */ = {
