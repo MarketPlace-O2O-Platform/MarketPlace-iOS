@@ -8,31 +8,28 @@
 import Foundation
 
 final class SearchMarketViewModel: ObservableObject {
+    private let marketService: MarketServiceProtocol
+    
     @Published var searchText: String = ""
     @Published var market: [MarketSearchModel] = []
     
-    let networkService = NetworkService()
+    init(marketService: MarketServiceProtocol = MarketService()) {
+        self.marketService = marketService
+    }
     
-    private func searchMarketsList(
-        lastPageIndex: Int? = nil,
-        pageSize: Int? = nil,
-        name: String) async {
-            let result: NetworkResult
-            <APIResDto
-            <MarketResDto
-            <MarketSearchModel>>> = await networkService.request(
-                MarketEndpoint.fetchMarketsWithSearching(
-                    lastPageIndex: lastPageIndex,
-                    pageSize: pageSize,
-                    content: name)
-            )
-            
-            switch result {
-            case .success(let data, let statusCode):
-                self.market = data.response.marketResDtos
-            case .failure(let statusCode, let message):
-                print("searchMarketsList: [statusCode] - \(statusCode), [message] - \(message ?? "없음")")
-
-            }
+    @MainActor
+    func fetchMarkets(name: String) async {
+        let result = await marketService.searchMarketsList(
+            lastPageIndex: nil,
+            pageSize: nil,
+            name: name
+        )
+        
+        switch result {
+        case .success(let data, _):
+            self.market = data.response.marketResDtos
+        case .failure(let statusCode, let message):
+            print("[MarketSearch] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+        }
     }
 }

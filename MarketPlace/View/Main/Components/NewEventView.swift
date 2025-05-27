@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 struct NewEventView: View {
-    @StateObject private var couponNewVM = CouponNewViewModel()
+    @StateObject private var newEventVM = NewEventViewModel()
 
     var body: some View {
         VStack {
@@ -26,7 +26,7 @@ struct NewEventView: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
-                    ForEach(couponNewVM.newCoupons, id: \.id) { coupon in
+                    ForEach(newEventVM.newCoupons, id: \.id) { coupon in
                         VStack {
                             ZStack {
                                 AsyncImage(
@@ -68,15 +68,15 @@ struct NewEventView: View {
         .padding(.leading, 20)
         .onAppear {
             Task {
-                await couponNewVM.fetchLatestCoupons()
+                await newEventVM.fetchLatestCoupons()
             }
         }
-        .alert("Error", isPresented: .constant(couponNewVM.errorMessage != nil)) {
+        .alert("Error", isPresented: .constant(newEventVM.errorMessage != nil)) {
             Button("OK") {
-                couponNewVM.errorMessage = nil
+                newEventVM.errorMessage = nil
             }
         } message: {
-            if let errorMessage = couponNewVM.errorMessage {
+            if let errorMessage = newEventVM.errorMessage {
                 Text(errorMessage)
             }
         }

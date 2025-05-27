@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct Top20View: View {
-    @StateObject private var couponPopularVM = CouponPopularViewModel()
+    @StateObject private var top20DetailVM = Top20DetailViewModel()
 
     var body: some View {
         VStack {
@@ -23,7 +23,7 @@ struct Top20View: View {
             /// - NOTE: 쿠폰 리스트 수평스크롤
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
-                    ForEach(couponPopularVM.topCoupons, id: \.id) { coupon in
+                    ForEach(top20DetailVM.topCoupons, id: \.id) { coupon in
                         VStack {
                             ZStack {
                                 AsyncImage(
@@ -67,16 +67,16 @@ struct Top20View: View {
         /// - NOTE: 화면 나타날 시 API 호출
         .onAppear {
             Task {
-                await couponPopularVM.fetchCouponPopular()
+                await top20DetailVM.fetchCouponPopular()
             }
         }
 
-        .alert("Error", isPresented: .constant(couponPopularVM.errorMessage != nil)) {
+        .alert("Error", isPresented: .constant(top20DetailVM.errorMessage != nil)) {
             Button("OK") {
-                couponPopularVM.errorMessage = nil
+                top20DetailVM.errorMessage = nil
             }
         } message: {
-            if let errorMessage = couponPopularVM.errorMessage {
+            if let errorMessage = top20DetailVM.errorMessage {
                 Text(errorMessage)
             }
         }

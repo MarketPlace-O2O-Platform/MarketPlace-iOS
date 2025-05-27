@@ -8,25 +8,25 @@
 import Foundation
 
 final class CouponInfoCellViewModel: ObservableObject {
+    private var memberCouponService: MemberCouponServiceProtocol
+    @Published var coupon: CouponBasicModel
+
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
     
-    @Published var coupon: CouponBasicModel
-
-    private let networkService = NetworkService()
-
-    init(coupon: CouponBasicModel) {
+    init(
+        coupon: CouponBasicModel,
+        memberCouponService: MemberCouponServiceProtocol = MemberCouponService()
+    ) {
         self.coupon = coupon
+        self.memberCouponService = memberCouponService
     }
     
-    @MainActor
     func downloadCoupon(couponId: Int) async -> Bool {
         isLoading = true
         defer { isLoading = false }
 
-        let result: NetworkResult<CommonMsgResDTO> = await networkService.request(
-            MemberCouponEndpoint.downloadCoupon(couponId: couponId)
-        )
+        let result = await memberCouponService.downloadCoupon(couponId: couponId)
 
         switch result {
         case .success:
