@@ -261,6 +261,8 @@
 		290D93502DE57CCD008AC190 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				B2122E3E2D6F7D4000BD37F8 /* MarketCategoryDetailViewModel.swift */,
+				B28A22A72D64B0F900E86EF6 /* MarketDetailViewModel.swift */,
 				290D93512DE57CDE008AC190 /* CouponInfoCellViewModel.swift */,
 				2941F7942DE5A5760063CEFE /* Top20DetailViewModel.swift */,
 				2941F7962DE5AAB50063CEFE /* NewEventViewModel.swift */,
@@ -540,8 +542,6 @@
 		B28A22B72D6664C100E86EF6 /* Markets */ = {
 			isa = PBXGroup;
 			children = (
-				B28A22A72D64B0F900E86EF6 /* MarketDetailViewModel.swift */,
-				B2122E3E2D6F7D4000BD37F8 /* MarketCategoryDetailViewModel.swift */,
 				B22AB90B2D99BB15006E13B4 /* MarketFavoritePostViewModel.swift */,
 			);
 			path = Markets;

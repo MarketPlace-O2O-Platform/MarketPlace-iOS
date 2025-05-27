@@ -23,11 +23,12 @@ struct NewEventView: View {
             }
             .padding(.trailing, 20)
             .padding(.bottom, 15)
+            .padding(.leading, 20)
             
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
                     ForEach(newEventVM.newCoupons, id: \.id) { coupon in
-                        VStack {
+                        NavigationLink(destination: StoreDetailView(marketId: coupon.marketId)) {
                             ZStack {
                                 AsyncImage(
                                     url: URL(
@@ -62,10 +63,9 @@ struct NewEventView: View {
                             }
                         }
                     }
-                }
+                }.padding(.horizontal, 20)
             }
         }
-        .padding(.leading, 20)
         .onAppear {
             Task {
                 await newEventVM.fetchLatestCoupons()

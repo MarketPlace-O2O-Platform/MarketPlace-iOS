@@ -19,26 +19,27 @@ struct Top20View: View {
                 }
             }
             .padding(.bottom, 15)
+            .padding(.leading, 20)
             
             /// - NOTE: 쿠폰 리스트 수평스크롤
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
                     ForEach(top20DetailVM.topCoupons, id: \.id) { coupon in
-                        VStack {
+                        NavigationLink(destination: StoreDetailView(marketId: coupon.marketId)) {
                             ZStack {
                                 AsyncImage(
                                     url: URL(
                                         string: URLManager.shared.baseStringURL + "image/" + coupon.thumbnail
                                     )) { image in
-                                    image.resizable()
-                                         .scaledToFill()
-                                         .frame(width: 280, height: 280)
-                                         .clipShape(RoundedRectangle(cornerRadius: 4))
-                                         .clipped()
-                                } placeholder: {
-                                    Color.gray
-                                        .frame(width: 280, height: 280)
-                                }
+                                        image.resizable()
+                                            .scaledToFill()
+                                            .frame(width: 280, height: 280)
+                                            .clipShape(RoundedRectangle(cornerRadius: 4))
+                                            .clipped()
+                                    } placeholder: {
+                                        Color.gray
+                                            .frame(width: 280, height: 280)
+                                    }
                                 
                                 VStack {
                                     Spacer()
@@ -60,9 +61,9 @@ struct Top20View: View {
                         }
                     }
                 }
+                .padding(.horizontal, 20)
             }
         }
-        .padding(.leading, 20)
         
         /// - NOTE: 화면 나타날 시 API 호출
         .onAppear {
