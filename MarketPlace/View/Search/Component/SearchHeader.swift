@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-// 뒤로가기 버튼 컴포넌트
 struct BackButton: View {
     let action: () -> Void
     
@@ -19,23 +18,19 @@ struct BackButton: View {
     }
 }
 
-// 검색창 컴포넌트
 struct SearchBar: View {
     @Binding var searchText: String
     
     var body: some View {
         ZStack(alignment: .leading) {
-            // 검색 아이콘
             Image(systemName: "magnifyingglass")
                 .foregroundColor(SearchViewConstants.Colors.iconColor)
                 .padding(.leading, SearchViewConstants.Layout.searchIconPadding)
             
-            // 구분선
             Text("|")
                 .foregroundColor(SearchViewConstants.Colors.dividerColor)
                 .padding(.leading, SearchViewConstants.Layout.dividerPadding)
             
-            // 플레이스홀더
             if searchText.isEmpty {
                 Text("찾으시려는 이용권을 검색해보세요")
                     .foregroundColor(SearchViewConstants.Colors.placeholderColor)
@@ -43,7 +38,6 @@ struct SearchBar: View {
                     .padding(.leading, SearchViewConstants.Layout.textPadding)
             }
             
-            // 텍스트필드
             TextField("", text: $searchText)
                 .font(.system(size: SearchViewConstants.FontSize.searchText))
                 .foregroundColor(SearchViewConstants.Colors.textColor)
@@ -60,7 +54,6 @@ struct SearchBar: View {
     }
 }
 
-// 헤더 컴포넌트
 struct SearchHeader: View {
     @Binding var searchText: String
     
@@ -78,14 +71,5 @@ struct SearchHeader: View {
                 .frame(width: 10)
         }
         .padding(.horizontal)
-    }
-}
-
-struct SearchBarHeadear_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchHeader(
-            searchText: .constant(""),
-            onBack: { print("Back button pressed") }
-        )
     }
 }

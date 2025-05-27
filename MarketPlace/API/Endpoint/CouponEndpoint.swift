@@ -49,7 +49,7 @@ enum CouponEndpoint: Endpoint {
             var items: [URLQueryItem] = []
             
             items.append(contentsOf: [
-                lastIssuedCount.map { URLQueryItem(name: "lastCreatedAt", value: String($0)) },
+                lastCreatedAt.map { URLQueryItem(name: "lastCreatedAt", value: String($0)) },
                 lastCouponId.map { URLQueryItem(name: "lastCouponId", value: String($0)) },
                 pageSize.map { URLQueryItem(name: "pageSize", value: String($0)) }
             ].compactMap { $0 })

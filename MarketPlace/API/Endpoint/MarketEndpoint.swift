@@ -10,7 +10,7 @@ import Foundation
 enum MarketEndpoint: Endpoint {
     case fetchMarketsAll(lastPageIndex: Int?, category: String?, pageSize: Int?)
     case fetchMarket(marketId: Int)
-    case fetchMarketsWithSearching
+    case fetchMarketsWithSearching(lastPageIndex: Int?, pageSize: Int?, content: String)
     case fetchOwnFavoriteMarkets
     case fetchMarketsForMap
     
@@ -40,9 +40,20 @@ enum MarketEndpoint: Endpoint {
             var items: [URLQueryItem] = []
             
             items.append(contentsOf: [
-                lastIssuedCount.map { URLQueryItem(name: "lastPageIndex", value: String($0)) },
-                lastCouponId.map { URLQueryItem(name: "category", value: String($0)) },
+                lastPageIndex.map { URLQueryItem(name: "lastPageIndex", value: String($0)) },
+                category.map { URLQueryItem(name: "category", value: String($0)) },
                 pageSize.map { URLQueryItem(name: "pageSize", value: String($0)) }
+            ].compactMap { $0 })
+            
+            return items
+            
+        case .fetchMarketsWithSearching(let lastPageIndex, let pageSize, let content):
+            var items: [URLQueryItem] = []
+            
+            items.append(contentsOf: [
+                lastPageIndex.map { URLQueryItem(name: "lastPageIndex", value: String($0)) },
+                pageSize.map { URLQueryItem(name: "pageSize", value: String($0)) },
+                URLQueryItem(name: "name", value: content)
             ].compactMap { $0 })
             
             return items

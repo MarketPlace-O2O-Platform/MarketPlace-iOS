@@ -11,11 +11,11 @@ final class CouponInfoCellViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
     
-    @Published var coupon: CouponBasicInfo
+    @Published var coupon: CouponBasicModel
 
     private let networkService = NetworkService()
 
-    init(coupon: CouponBasicInfo) {
+    init(coupon: CouponBasicModel) {
         self.coupon = coupon
     }
     

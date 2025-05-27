@@ -28,31 +28,29 @@ struct SearchViewConstants {
 struct SearchView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var searchText: String = ""
+    @StateObject private var viewModel = SearchMarketViewModel()
+    
+    @State var hasResult: Bool = false
+    @State var isNotStartSearching: Bool = false
     
     var body: some View {
         VStack(spacing: SearchViewConstants.Layout.spacing) {
-            // 헤더 영역
             SearchHeader(
-                searchText: $searchText,
+                searchText: $viewModel.searchText,
                 onBack: { presentationMode.wrappedValue.dismiss() }
             )
             
-            // 컨텐츠 영역
-            ScrollView {
-                VStack(alignment: .leading, spacing: SearchViewConstants.Layout.spacing) {
-                    RecentSearchView()
-                    PopularBenefitView()
+            ZStack {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: SearchViewConstants.Layout.spacing) {
+                        RecentSearchView()
+                        PopularBenefitView()
+                    }
                 }
             }
         }
         .padding(.top, SearchViewConstants.Layout.spacing)
         .background(SearchViewConstants.Colors.backgroundColor)
         .navigationBarBackButtonHidden(true)
-    }
-}
-
-struct SearchView_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchView()
     }
 }
