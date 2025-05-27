@@ -15,8 +15,14 @@ protocol MarketServiceProtocol {
         name: String
     ) async -> NetworkResult<APIResDto<MarketResDto<MarketSearchModel>>>
     
-    // MARK: - 매장 상세 조홰ㅣ
+    // MARK: - 매장 상세 조회 API
     func fetchMarketDetail(marketId: Int) async -> NetworkResult<APIResDto<MarketDetailModel>>
+    
+    // MARK: - 전체/카테고리 매장 조회 API
+    func fetchMarketAll(lastPageIndex: Int?,
+                        category: String?,
+                        pageSize: Int?
+    ) async ->  NetworkResult<APIResDto<MarketResDto<MarketModel>>>
 }
 
 
@@ -44,11 +50,22 @@ final class MarketService: MarketServiceProtocol {
             )
         }
     
+    // MARK: - 매장 상세 조회 API
     func fetchMarketDetail(
         marketId: Int
     ) async -> NetworkResult<APIResDto<MarketDetailModel>> {
         return await networkService.request(
             MarketEndpoint.fetchMarket(marketId: marketId)
+        )
+    }
+    
+    // MARK: - 전체/카테고리 매장 조회 API
+    func fetchMarketAll(lastPageIndex: Int?,
+                        category: String?,
+                        pageSize: Int?
+    ) async ->  NetworkResult<APIResDto<MarketResDto<MarketModel>>> {
+        return await networkService.request(
+            MarketEndpoint.fetchMarketsAll(lastPageIndex: lastPageIndex, category: category, pageSize: pageSize)
         )
     }
 }

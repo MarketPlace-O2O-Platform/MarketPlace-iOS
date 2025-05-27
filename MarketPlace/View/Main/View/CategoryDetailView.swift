@@ -2,7 +2,7 @@ import SwiftUI
 
 struct CategoryDetailView: View {
     @Binding var selectedTab: Int
-    @StateObject var marketVM = CategoryDetailViewModel()
+    @StateObject var marketVM = MarketCategoryDetailViewModel()
 
     var body: some View {
         VStack {

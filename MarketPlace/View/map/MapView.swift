@@ -18,7 +18,7 @@ struct MapContainerView: View {
 
 struct MapView: View {
     @Namespace var mapScope
-    @StateObject private var marketVM = CategoryDetailViewModel()
+    @StateObject private var marketVM = MarketCategoryDetailViewModel()
     @ObservedObject private var locationManager = LocationManager.shared  // 싱글톤 사용
 
     @State private var region = MKCoordinateRegion(
