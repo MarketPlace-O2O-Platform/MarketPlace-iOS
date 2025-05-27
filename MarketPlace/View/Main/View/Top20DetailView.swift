@@ -18,7 +18,7 @@ struct Top20DetailView: View {
                 VStack(spacing: 16) {
                     ForEach(couponPopularVM.topCoupons) { coupon in
                         NavigationLink(destination: StoreDetailView(marketId: coupon.marketId)) {
-                            let coupon = CouponBasicInfo(
+                            let coupon = CouponBasicModel(
                                 couponId: coupon.couponId,
                                 couponName: coupon.couponName,
                                 marketId: coupon.marketId,

@@ -18,7 +18,7 @@ struct NewEventDetailView: View {
                 VStack(spacing: 16) {
                     ForEach(couponNewVM.newCoupons) { coupon in
                         NavigationLink(destination: StoreDetailView(marketId: coupon.marketId)) {
-                            let coupon = CouponBasicInfo(
+                            let coupon = CouponBasicModel(
                                 couponId: coupon.couponId,
                                 couponName: coupon.couponName,
                                 marketId: coupon.marketId,
