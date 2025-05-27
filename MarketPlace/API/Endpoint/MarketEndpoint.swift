@@ -39,25 +39,13 @@ enum MarketEndpoint: Endpoint {
         case .fetchMarketsAll(let lastPageIndex, let category, let pageSize):
             var items: [URLQueryItem] = []
             
-            if let lastPageIndex = lastPageIndex {
-                items.append(URLQueryItem(name: "lastPageIndex", value: String(lastPageIndex)))
-            }
-            
-            if let category = category {
-                items.append(URLQueryItem(name: "category", value: category))
-            }
-            
-            if let pageSize = pageSize {
-                items.append(URLQueryItem(name: "pageSize", value: String(pageSize)))
-            }
+            items.append(contentsOf: [
+                lastIssuedCount.map { URLQueryItem(name: "lastPageIndex", value: String($0)) },
+                lastCouponId.map { URLQueryItem(name: "category", value: String($0)) },
+                pageSize.map { URLQueryItem(name: "pageSize", value: String($0)) }
+            ].compactMap { $0 })
             
             return items
-//        case .fetchMarketsWithSearching:
-//            nil
-//        case .fetchOwnFavoriteMarkets:
-//            nil
-//        case .fetchMarketsForMap:
-//            nil
         default:
             return nil
         }

@@ -36,35 +36,23 @@ enum CouponEndpoint: Endpoint {
         switch self {
         case .fetchPopularCoupon(let lastIssuedCount, let lastCouponId, let pageSize):
             var items: [URLQueryItem] = []
-            
-            if let lastIssuedCount = lastIssuedCount {
-                items.append(URLQueryItem(name: "lastIssuedCount", value: String(lastIssuedCount)))
-            }
-            
-            if let lastCouponId = lastCouponId {
-                items.append(URLQueryItem(name: "lastCouponId", value: String(lastCouponId)))
-            }
-            
-            if let pageSize = pageSize {
-                items.append(URLQueryItem(name: "pageSize", value: String(pageSize)))
-            }
+
+            items.append(contentsOf: [
+                lastIssuedCount.map { URLQueryItem(name: "lastIssuedCount", value: String($0)) },
+                lastCouponId.map { URLQueryItem(name: "lastCouponId", value: String($0)) },
+                pageSize.map { URLQueryItem(name: "pageSize", value: String($0)) }
+            ].compactMap { $0 })
             
             return items
             
         case .fetchLatestCoupon(let lastCreatedAt, let lastCouponId, let pageSize):
             var items: [URLQueryItem] = []
             
-            if let lastCreatedAt = lastCreatedAt {
-                items.append(URLQueryItem(name: "lastCreatedAt", value: String(lastCreatedAt)))
-            }
-            
-            if let lastCouponId = lastCouponId {
-                items.append(URLQueryItem(name: "lastCouponId", value: String(lastCouponId)))
-            }
-            
-            if let pageSize = pageSize {
-                items.append(URLQueryItem(name: "pageSize", value: String(pageSize)))
-            }
+            items.append(contentsOf: [
+                lastIssuedCount.map { URLQueryItem(name: "lastCreatedAt", value: String($0)) },
+                lastCouponId.map { URLQueryItem(name: "lastCouponId", value: String($0)) },
+                pageSize.map { URLQueryItem(name: "pageSize", value: String($0)) }
+            ].compactMap { $0 })
             
             return items
         default:

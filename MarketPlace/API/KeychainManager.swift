@@ -8,9 +8,9 @@ class KeychainManager {
     }
     
     static func save(studentId: String, token: Data) throws {
-        // 기존 항목이 있는지 확인
+        /// 기존 항목이 있는지 확인
         if get() != nil {
-            // 기존 항목 삭제
+            /// 기존 항목 삭제
             try delete()
         }
         
@@ -28,8 +28,6 @@ class KeychainManager {
                 throw KeychainError.unknown(status)
             }
         }
-        
-        print("✅ 키체인에 새 토큰 저장됨: \(String(data: token, encoding: .utf8) ?? "알 수 없음")")
     }
     
     static func get() -> (userId: String, token: String)? {
@@ -48,9 +46,7 @@ class KeychainManager {
               let token = String(data: tokenData, encoding: String.Encoding.utf8),
               let studentId = data[kSecAttrAccount as String] as? String
                 else { return nil }
-        
-        print("Token: ",token)
-        
+                
         return (studentId, token)
     }
     
