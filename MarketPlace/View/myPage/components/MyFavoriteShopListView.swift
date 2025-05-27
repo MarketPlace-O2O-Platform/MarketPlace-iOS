@@ -1,6 +1,5 @@
 import SwiftUI
 
-// ✅ FavoriteShopListView - MarketGetFavoriteViewModel을 사용하여 즐겨찾기 마켓 목록을 표시하는 뷰
 struct FavoriteShopListView: View {
     @StateObject var viewModel = MarketGetFavoriteViewModel()
 
@@ -16,16 +15,11 @@ struct FavoriteShopListView: View {
             } else {
                 ScrollView {
                     VStack(spacing: 16) {
-                        ForEach(viewModel.favoriteMarkets, id: \.marketId) { shop in
+                        ForEach(viewModel.favoriteMarkets) { shop in
                             NavigationLink(destination: MarketDetailView(viewModel: MarketDetailViewModel(marketId: shop.marketId), marketId: shop.marketId)) {
-                                ShopInfoView(
-                                    thumbnail: shop.thumbnail,
-                                    marketName: shop.marketName,
-                                    marketDescription: shop.marketDescription,
-                                    address: shop.address,
+                                MarketInfoCell(
                                     isBookmarked: shop.isFavorite,
-                                    marketId: shop.marketId
-                                )
+                                    viewModel: MarketInfoCellViewModel(marketId: shop.marketId))
                             }
                             .buttonStyle(PlainButtonStyle())
                         }
@@ -38,16 +32,5 @@ struct FavoriteShopListView: View {
                 await viewModel.fetchFavoriteMarkets()
             }
         }
-    }
-}
-//
-//func shopRowView(shop: MarketModel) -> some View {
-//    
-//}
-
-// ✅ Preview
-struct FavoriteShopListView_Previews: PreviewProvider {
-    static var previews: some View {
-        FavoriteShopListView()
     }
 }

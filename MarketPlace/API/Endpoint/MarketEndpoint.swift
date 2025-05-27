@@ -13,6 +13,7 @@ enum MarketEndpoint: Endpoint {
     case fetchMarketsWithSearching(lastPageIndex: Int?, pageSize: Int?, content: String)
     case fetchOwnFavoriteMarkets
     case fetchMarketsForMap
+    case postFavoriteMarket(marketId: Int)
     
     var baseURL: URL { URLManager.shared.baseURL }
 
@@ -23,11 +24,17 @@ enum MarketEndpoint: Endpoint {
         case .fetchMarketsWithSearching: return "api/markets/search"
         case .fetchOwnFavoriteMarkets: return "api/markets/my-favorite"
         case .fetchMarketsForMap: return "api/markets/map"
+        case .postFavoriteMarket(let marketId): return "api/favorites"
         }
     }
 
     var method: HTTPMethod {
-        .get
+        switch self {
+        case .postFavoriteMarket(let marketId):
+            .post
+        default:
+            .get
+        }
     }
 
     var headers: [String : String]? { ["Content-Type": "application/json"] }
