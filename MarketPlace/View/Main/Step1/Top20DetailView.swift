@@ -4,9 +4,9 @@ struct Top20DetailView: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject var couponPopularVM = CouponPopularViewModel()
 
-//    init() {
-//        setupNavigationBarAppearance()
-//    }
+    init() {
+        setupNavigationBarAppearance()
+    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -14,9 +14,7 @@ struct Top20DetailView: View {
                 .background(Color.gray.opacity(0.5))
             ScrollView {
                 VStack(spacing: 16) {
-                    ForEach(couponPopularVM.topCoupons, id: \.marketId) { shop in
-//                         couponRowView(shop: shop)
-                        let _ = print("20🐶",couponPopularVM.topCoupons)
+                    ForEach(couponPopularVM.topCoupons) { shop in
                         NavigationLink(destination: StoreDetailView(marketId: shop.marketId)) {
                             CouponInfoView(
                                 marketId: shop.marketId,
@@ -56,42 +54,17 @@ struct Top20DetailView: View {
     }
     
     private func setupNavigationBarAppearance() {
-        // UINavigationBar의 기본 설정을 수정합니다.
+        /// UINavigationBar의 기본 설정을 수정합니다.
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = UIColor.white
         appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
         
-        // 기본 back indicator를 숨깁니다.
+        /// 기본 back indicator를 숨깁니다.
         appearance.setBackIndicatorImage(UIImage(), transitionMaskImage: UIImage())
         
-        // 설정된 appearance 적용
+        /// 설정된 appearance 적용
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
-    }
-}
-
-private func couponRowView(shop: CouponPopularModel) -> some View {
-    NavigationLink(destination: StoreDetailView(marketId: shop.marketId)) {
-        CouponInfoView(
-            marketId: shop.marketId,
-            couponId: shop.couponId,
-            thumbnail: shop.thumbnail,
-            marketName: shop.marketName,
-            couponName: shop.couponName,
-            address: shop.address,
-            isAvailable: shop.isAvailable,
-            couponCreatedAt: nil
-        )
-    }
-    .buttonStyle(PlainButtonStyle())
-}
-
-// Preview
-struct TopTab_Preview: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            Top20DetailView()
-        }
     }
 }
