@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct CouponGetPopup: View {
+struct CouponGetPopupView: View {
     @Binding var isPopupVisible: Bool
     @Binding var coupon: CouponValidModel
     @ObservedObject var couponVaildVM: CouponValidGetViewModel

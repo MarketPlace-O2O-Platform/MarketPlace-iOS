@@ -1,6 +1,5 @@
 import SwiftUI
 
-// 정보 행
 struct StoreInfoRow: View {
     let title: String
     let content: String
@@ -9,7 +8,7 @@ struct StoreInfoRow: View {
         HStack(alignment: .top) {
             Text(title)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .layoutPriority(1) // 우선순위 부여
+                .layoutPriority(1)
                 .font(
                     Font.custom("Pretendard", size: 13)
                     .weight(.medium)
@@ -24,7 +23,7 @@ struct StoreInfoRow: View {
                 .foregroundColor(Color(red: 0.37, green: 0.37, blue: 0.37))
                 .lineSpacing(4)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .layoutPriority(1) // 우선순위 부여
+                .layoutPriority(1)
         }
         .frame(maxWidth: .infinity)
     }

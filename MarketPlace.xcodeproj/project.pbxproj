@@ -70,7 +70,7 @@
 		B28A22AF2D64F1ED00E86EF6 /* StoreImageSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28A22AE2D64F1ED00E86EF6 /* StoreImageSlider.swift */; };
 		B28A22B52D66636800E86EF6 /* StoreCouponListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28A22B42D66636800E86EF6 /* StoreCouponListView.swift */; };
 		B28A22BA2D6665C200E86EF6 /* CouponValidGetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28A22B92D6665C200E86EF6 /* CouponValidGetViewModel.swift */; };
-		B28A22BE2D666E7500E86EF6 /* CouponGetPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28A22BD2D666E7500E86EF6 /* CouponGetPopup.swift */; };
+		B28A22BE2D666E7500E86EF6 /* CouponGetPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28A22BD2D666E7500E86EF6 /* CouponGetPopupView.swift */; };
 		B28A22C02D668B0600E86EF6 /* MyFavoriteShopListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28A22BF2D668B0600E86EF6 /* MyFavoriteShopListView.swift */; };
 		B293A1522D6FDC7B003E8505 /* CheerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B293A1512D6FDC7B003E8505 /* CheerListView.swift */; };
 		B293A1542D6FDCB2003E8505 /* HotCheerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B293A1532D6FDCB2003E8505 /* HotCheerView.swift */; };
@@ -173,7 +173,7 @@
 		B28A22AE2D64F1ED00E86EF6 /* StoreImageSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreImageSlider.swift; sourceTree = "<group>"; };
 		B28A22B42D66636800E86EF6 /* StoreCouponListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreCouponListView.swift; sourceTree = "<group>"; };
 		B28A22B92D6665C200E86EF6 /* CouponValidGetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponValidGetViewModel.swift; sourceTree = "<group>"; };
-		B28A22BD2D666E7500E86EF6 /* CouponGetPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponGetPopup.swift; sourceTree = "<group>"; };
+		B28A22BD2D666E7500E86EF6 /* CouponGetPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponGetPopupView.swift; sourceTree = "<group>"; };
 		B28A22BF2D668B0600E86EF6 /* MyFavoriteShopListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFavoriteShopListView.swift; sourceTree = "<group>"; };
 		B293A1512D6FDC7B003E8505 /* CheerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerListView.swift; sourceTree = "<group>"; };
 		B293A1532D6FDCB2003E8505 /* HotCheerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotCheerView.swift; sourceTree = "<group>"; };
@@ -236,6 +236,27 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		2941F7672DE592770063CEFE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B21F3CE02D267AF900B83B34 /* CategoryDetailView.swift */,
+				B21F3D042D2B057000B83B34 /* Top20DetailView.swift */,
+				B21F3CE62D267AF900B83B34 /* MainView.swift */,
+				B21F3D062D2B066F00B83B34 /* NewEventDetailView.swift */,
+				B21F3CED2D267AF900B83B34 /* StoreDetailView.swift */,
+				B28A22BD2D666E7500E86EF6 /* CouponGetPopupView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2941F76A2DE595540063CEFE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B28349562D2FBD2F00EEDB02 /* SearchView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		B210EC212D3D682C00B1551E /* components */ = {
 			isa = PBXGroup;
 			children = (
@@ -251,13 +272,6 @@
 			children = (
 				B28889A82D4BD5970040EC3F /* components */,
 				B21F3CE82D267AF900B83B34 /* MyCouponView.swift */,
-			);
-			path = Step1;
-			sourceTree = "<group>";
-		};
-		B210EC292D3D7AD200B1551E /* Step1 */ = {
-			isa = PBXGroup;
-			children = (
 			);
 			path = Step1;
 			sourceTree = "<group>";
@@ -296,10 +310,15 @@
 		B21F3CE52D267AF900B83B34 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				B21F3D002D2685F500B83B34 /* ImageTextOverlay.swift */,
-				B21F3CE22D267AF900B83B34 /* MainCategoryView.swift */,
+				B28A22AE2D64F1ED00E86EF6 /* StoreImageSlider.swift */,
+				B28A22B42D66636800E86EF6 /* StoreCouponListView.swift */,
+				B28A22AA2D64F1A700E86EF6 /* StoreInfoRow.swift */,
+				B28A22AC2D64F1C000E86EF6 /* StoreSearchButton.swift */,
 				B21F3CE32D267AF900B83B34 /* Top20View.swift */,
 				B21F3CE42D267AF900B83B34 /* NewEventView.swift */,
+				B21F3CE22D267AF900B83B34 /* MainCategoryView.swift */,
+				29BF19392DE4AC9600836D7E /* MainHeaderView.swift */,
+				B21F3D002D2685F500B83B34 /* ImageTextOverlay.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -307,11 +326,8 @@
 		B21F3CE72D267AF900B83B34 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				2941F7672DE592770063CEFE /* View */,
 				B21F3CE52D267AF900B83B34 /* Components */,
-				B21F3D0A2D2D581200B83B34 /* Step1 */,
-				B21F3D0B2D2D5A1600B83B34 /* Step2 */,
-				B21F3CE62D267AF900B83B34 /* MainView.swift */,
-				29BF19392DE4AC9600836D7E /* MainHeaderView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -332,7 +348,7 @@
 				B21F3CDF2D267AF900B83B34 /* components */,
 				B2C462962D8172AC007637DC /* login */,
 				B21F3CE72D267AF900B83B34 /* Main */,
-				B28349502D2FBBBD00EEDB02 /* search */,
+				B28349502D2FBBBD00EEDB02 /* Search */,
 				B283490F2D2E547F00EEDB02 /* map */,
 				B2CD63EC2D4BAB4D000809F5 /* cheer */,
 				B21F3CEA2D267AF900B83B34 /* myPage */,
@@ -340,25 +356,6 @@
 			name = View;
 			path = MarketPlace/View;
 			sourceTree = SOURCE_ROOT;
-		};
-		B21F3D0A2D2D581200B83B34 /* Step1 */ = {
-			isa = PBXGroup;
-			children = (
-				B21F3CE02D267AF900B83B34 /* CategoryDetailView.swift */,
-				B21F3D042D2B057000B83B34 /* Top20DetailView.swift */,
-				B21F3D062D2B066F00B83B34 /* NewEventDetailView.swift */,
-			);
-			path = Step1;
-			sourceTree = "<group>";
-		};
-		B21F3D0B2D2D5A1600B83B34 /* Step2 */ = {
-			isa = PBXGroup;
-			children = (
-				B28A22A92D64F18300E86EF6 /* components */,
-				B21F3CED2D267AF900B83B34 /* StoreDetailView.swift */,
-			);
-			path = Step2;
-			sourceTree = "<group>";
 		};
 		B22AB90D2D99BFF5006E13B4 /* step1 */ = {
 			isa = PBXGroup;
@@ -412,24 +409,23 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		B28349502D2FBBBD00EEDB02 /* search */ = {
+		B28349502D2FBBBD00EEDB02 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				B28349512D2FBBCB00EEDB02 /* component */,
-				B210EC292D3D7AD200B1551E /* Step1 */,
-				B28349562D2FBD2F00EEDB02 /* SearchView.swift */,
+				2941F76A2DE595540063CEFE /* View */,
+				B28349512D2FBBCB00EEDB02 /* Component */,
 			);
-			path = search;
+			path = Search;
 			sourceTree = "<group>";
 		};
-		B28349512D2FBBCB00EEDB02 /* component */ = {
+		B28349512D2FBBCB00EEDB02 /* Component */ = {
 			isa = PBXGroup;
 			children = (
 				B28349522D2FBBD800EEDB02 /* RecentSearchView.swift */,
 				B28349542D2FBC4B00EEDB02 /* PopularityBenefitView.swift */,
 				B210EC272D3D797F00B1551E /* SearchHeader.swift */,
 			);
-			path = component;
+			path = Component;
 			sourceTree = "<group>";
 		};
 		B28349582D365D5300EEDB02 /* DTO */ = {
@@ -449,18 +445,6 @@
 				B28889A92D4BD5A50040EC3F /* CouponCategoryView.swift */,
 				B28889AB2D4BD5F10040EC3F /* CouponPopup.swift */,
 				B207A25E2D54B18C0099A8DB /* CouponItem.swift */,
-			);
-			path = components;
-			sourceTree = "<group>";
-		};
-		B28A22A92D64F18300E86EF6 /* components */ = {
-			isa = PBXGroup;
-			children = (
-				B28A22AE2D64F1ED00E86EF6 /* StoreImageSlider.swift */,
-				B28A22B42D66636800E86EF6 /* StoreCouponListView.swift */,
-				B28A22BD2D666E7500E86EF6 /* CouponGetPopup.swift */,
-				B28A22AA2D64F1A700E86EF6 /* StoreInfoRow.swift */,
-				B28A22AC2D64F1C000E86EF6 /* StoreSearchButton.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -810,7 +794,7 @@
 				B2BC5FED2D76FE0A00F044C5 /* CheerPostViewModel.swift in Sources */,
 				B21F3D052D2B057000B83B34 /* Top20DetailView.swift in Sources */,
 				B2A42DCF2D8B3716005FAF15 /* LoginViewModel.swift in Sources */,
-				B28A22BE2D666E7500E86EF6 /* CouponGetPopup.swift in Sources */,
+				B28A22BE2D666E7500E86EF6 /* CouponGetPopupView.swift in Sources */,
 				B28889AE2D4BDC4D0040EC3F /* MembersCouponModel.swift in Sources */,
 				B28889A72D4BD1760040EC3F /* MembersGetCouponsListViewModel.swift in Sources */,
 				B293A15A2D6FE0B4003E8505 /* CheerView.swift in Sources */,

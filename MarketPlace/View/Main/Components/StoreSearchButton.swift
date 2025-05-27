@@ -1,13 +1,12 @@
 import Foundation
 import SwiftUI
 
-// SearchButton 수정
 struct StoreSearchButton: View {
     let shopName: String
     
     var body: some View {
         Button(action: {
-            // 카카오맵 검색 기능 구현
+            /// - NOTE: 카카오맵 검색 기능 구현
         }) {
             HStack {
                 Image(systemName: "magnifyingglass")
