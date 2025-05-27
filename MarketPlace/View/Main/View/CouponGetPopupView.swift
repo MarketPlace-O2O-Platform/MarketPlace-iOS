@@ -64,7 +64,7 @@ struct CouponGetPopupView: View {
         isPopupVisible = false
         
         Task {
-            await couponVaildVM.fetchCouponValid(marketId: marketId) // ✅ 함수 이름 수정
+            await couponVaildVM.fetchCouponValid(marketId: marketId)
         }
     }
 }

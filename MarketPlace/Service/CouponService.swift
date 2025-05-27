@@ -21,6 +21,13 @@ protocol CouponServiceProtocol {
         lastCouponId: Int?,
         pageSize: Int?
     ) async -> NetworkResult<APIResDto<CouponNewResponse>>
+    
+    // MARK: - 유효 쿠폰 조회 리스트
+    func fetchValidCoupon(
+        marketId: Int,
+        couponId: Int?,
+        size: Int?
+    ) async -> NetworkResult<APIResDto<CouponValidResponse>>
 }
 
 
@@ -60,6 +67,20 @@ final class CouponService: CouponServiceProtocol {
                 lastCouponId: lastCouponId,
                 pageSize: pageSize
             )
+        )
+    }
+    
+    // MARK: - 유효 쿠폰 조회 리스트
+    func fetchValidCoupon(
+        marketId: Int,
+        couponId: Int?,
+        size: Int?
+    ) async -> NetworkResult<APIResDto<CouponValidResponse>> {
+        return await networkService.request(
+            CouponEndpoint.fetchValidCoupon(
+                marketId: marketId,
+                couponId: couponId,
+                size: size)
         )
     }
 }

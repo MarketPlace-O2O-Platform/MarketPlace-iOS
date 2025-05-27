@@ -1,16 +1,21 @@
 import SwiftUI
 
-struct StoreDetailView: View {
+struct MarketDetailView: View {
+    @ObservedObject var viewModel: MarketDetailViewModel
     @Environment(\.presentationMode) var presentationMode
     @State private var isBookmarked = false
-    @StateObject private var marketViewModel = MarketDetailViewModel()
-    @StateObject private var couponViewModel = CouponValidGetViewModel()
+//    @StateObject private var couponViewModel = CouponValidGetViewModel()
     
-    let marketId: Int
+    private let marketId: Int
+    
+    init(viewModel: MarketDetailViewModel, marketId: Int) {
+        self.viewModel = viewModel
+        self.marketId = marketId
+    }
 
     var body: some View {
         ScrollView {
-            if let shop = marketViewModel.marketDetail {
+            if let shop = viewModel.marketDetail {
                 VStack(alignment: .leading, spacing: 0) {
                     StoreImageSliderView(imageResList: shop.imageResList)
                     
@@ -45,15 +50,15 @@ struct StoreDetailView: View {
                                 .font(.system(size: 14, weight: .semibold))
                                 .foregroundColor(.black)
 
-                            if couponViewModel.isLoading {
+                            if viewModel.isLoading {
                                 ProgressView("쿠폰 로딩 중...")
-                            } else if let errorMessage = couponViewModel.errorMessage {
+                            } else if let errorMessage = viewModel.errorMessage {
                                 Text(errorMessage)
                                     .foregroundColor(.red)
-                            } else if !couponViewModel.validCoupons.isEmpty {
+                            } else if !viewModel.validCoupons.isEmpty {
                                 StoreCouponListView(coupons: .init(
-                                    get: { couponViewModel.validCoupons },
-                                    set: { couponViewModel.validCoupons = $0 }
+                                    get: { viewModel.validCoupons },
+                                    set: { viewModel.validCoupons = $0 }
                                 ), marketId: marketId)
                                 .zIndex(999)
                             } else {
@@ -93,9 +98,9 @@ struct StoreDetailView: View {
                         .padding(.horizontal, 24)
                         .padding(.vertical, 34)
                 }
-            } else if marketViewModel.isLoading {
+            } else if viewModel.isLoading {
                 ProgressView("로딩 중...")
-            } else if let errorMessage = marketViewModel.errorMessage {
+            } else if let errorMessage = viewModel.errorMessage {
                 Text(errorMessage)
                     .foregroundColor(.red)
             }
@@ -104,8 +109,8 @@ struct StoreDetailView: View {
         .background(Color.white)
         .onAppear {
             Task {
-                await marketViewModel.fetchMarketDetail(marketId: marketId)
-                await couponViewModel.fetchCouponValid(marketId: marketId)
+                await viewModel.fetchMarketDetail(marketId: marketId)
+                await viewModel.fetchValidCoupons(marketId: marketId, couponId: nil, size: nil)
             }
         }
     }

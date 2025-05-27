@@ -1,21 +1,26 @@
 import SwiftUI
 
+
 struct MapListView: View {
-    @ObservedObject var marketVM: MarketCategoryDetailViewModel
-    @State private var selectedIndex: Int?
+    @StateObject var viewModel = MapListViewModel()
+    @State var selectedIndex: Int
     
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
-                // 로딩 중일 때 ProgressView 표시
-                if marketVM.isLoading {
+                if viewModel.isLoading {
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle())
                         .padding()
                 } else {
-                    // 데이터를 다 가져온 후에 실제 목록을 표시
-                    ForEach(Array(marketVM.markets.enumerated()), id: \.1.marketId) { index, shop in
-                        NavigationLink(destination: MapStoreDetailView(isBookmarked: shop.isFavorite, marketId: shop.marketId)) {
+                    ForEach(viewModel.markets) { shop in
+                        NavigationLink(
+                            destination: 
+                            MarketDetailView(
+                                viewModel: MarketDetailViewModel(
+                                    marketId: shop.marketId),
+                                marketId: shop.marketId)
+                        ) {
                             VStack(spacing: 0){
                                 ShopInfoView(
                                     thumbnail: shop.thumbnail,
@@ -41,22 +46,8 @@ struct MapListView: View {
         .background(Color.white)
         .onAppear {
             Task {
-//                await marketVM.fetchMarkets()
+                await viewModel.fetchMarkets(category: Category(index: selectedIndex)?.toString() ?? "")
             }
         }
     }
 }
-
-
-
-
-// ✅ Preview
-//struct MapListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NavigationView {
-//            MapListView()
-//        }
-//    }
-//}
-
-

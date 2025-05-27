@@ -11,8 +11,21 @@ struct CategoryDetailView: View {
             
             ScrollView {
                 VStack(spacing: 16) {
-                    ForEach(marketVM.markets, id: \.marketId) { shop in
-                        shopRowView(shop: shop)
+                    ForEach(marketVM.markets) { shop in
+                        NavigationLink(destination: MarketDetailView(
+                            viewModel: MarketDetailViewModel(
+                                marketId: shop.marketId),
+                            marketId: shop.marketId)) {
+                            ShopInfoView(
+                                thumbnail: shop.thumbnail,
+                                marketName: shop.marketName,
+                                marketDescription: shop.marketDescription,
+                                address: shop.address,
+                                isBookmarked: shop.isFavorite,
+                                marketId: shop.marketId
+                            )
+                        }
+                        .buttonStyle(PlainButtonStyle())
                     }
                 }
             }

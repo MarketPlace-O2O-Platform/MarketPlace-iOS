@@ -23,7 +23,7 @@ struct ContentView: View {
                     }
                 }
             
-            MapContainerView()
+            MapView()
                 .tabItem {
                     VStack {
                         Image(systemName: "map.fill")

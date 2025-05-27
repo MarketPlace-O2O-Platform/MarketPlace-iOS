@@ -17,7 +17,17 @@ struct FavoriteShopListView: View {
                 ScrollView {
                     VStack(spacing: 16) {
                         ForEach(viewModel.favoriteMarkets, id: \.marketId) { shop in
-                            shopRowView(shop: shop)
+                            NavigationLink(destination: MarketDetailView(viewModel: MarketDetailViewModel(marketId: shop.marketId), marketId: shop.marketId)) {
+                                ShopInfoView(
+                                    thumbnail: shop.thumbnail,
+                                    marketName: shop.marketName,
+                                    marketDescription: shop.marketDescription,
+                                    address: shop.address,
+                                    isBookmarked: shop.isFavorite,
+                                    marketId: shop.marketId
+                                )
+                            }
+                            .buttonStyle(PlainButtonStyle())
                         }
                     }
                 }
@@ -30,20 +40,10 @@ struct FavoriteShopListView: View {
         }
     }
 }
-
-func shopRowView(shop: MarketModel) -> some View {
-    NavigationLink(destination: StoreDetailView(marketId: shop.marketId)) {
-        ShopInfoView(
-            thumbnail: shop.thumbnail,
-            marketName: shop.marketName,
-            marketDescription: shop.marketDescription,
-            address: shop.address,
-            isBookmarked: shop.isFavorite,
-            marketId: shop.marketId
-        )
-    }
-    .buttonStyle(PlainButtonStyle())
-}
+//
+//func shopRowView(shop: MarketModel) -> some View {
+//    
+//}
 
 // ✅ Preview
 struct FavoriteShopListView_Previews: PreviewProvider {

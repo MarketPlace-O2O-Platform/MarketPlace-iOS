@@ -13,7 +13,10 @@ struct CouponInfoCell: View {
 
     var body: some View {
         HStack(alignment: .top) {
-            AsyncImage(url: URL(string: URLManager.shared.baseStringURL + "image/" + viewModel.coupon.thumbnail)) { phase in
+            AsyncImage(
+                url: URL(
+                    string: URLManager.shared.baseStringURL + "image/" + viewModel.coupon.thumbnail
+                )) { phase in
                 if let image = phase.image {
                     image
                         .resizable()

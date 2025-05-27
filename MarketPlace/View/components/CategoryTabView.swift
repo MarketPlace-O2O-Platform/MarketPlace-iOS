@@ -47,7 +47,6 @@ struct CategoryTabView: View {
                 }
             }
             
-            /// 하단 구분선
             Rectangle()
                 .fill(Color.gray.opacity(0.1))
                 .frame(height: 1)
