@@ -65,7 +65,7 @@ class LoginViewModel: ObservableObject {
             errorMessage = "⚠️ login 네트워크 요청 오류: \(error.localizedDescription)"
         }
         
-        print("Login Error Message: ",errorMessage)
+        print("Login Error Message: ",errorMessage ?? "")
     }
 
     func logout() {

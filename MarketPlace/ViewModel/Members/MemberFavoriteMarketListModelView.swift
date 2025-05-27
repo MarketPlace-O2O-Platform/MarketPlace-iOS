@@ -49,7 +49,7 @@ class MarketGetFavoriteViewModel: ObservableObject {
                 print("📜 [\(viewModelName)] 서버 응답 JSON:\n\(jsonString)")
             }
             
-            let decodedResponse = try JSONDecoder().decode(APIResponse<MarketResponse<MarketModel>>.self, from: data)
+            let decodedResponse = try JSONDecoder().decode(APIResDto<MarketResDto<MarketModel>>.self, from: data)
             
             await updateState(markets: decodedResponse.response.marketResDtos)
             print("✅ [\(viewModelName)] 즐겨찾기한 마켓 데이터 로드 완료: \(decodedResponse.response.marketResDtos.count)개")

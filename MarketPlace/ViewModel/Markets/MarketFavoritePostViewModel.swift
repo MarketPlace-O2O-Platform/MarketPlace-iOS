@@ -31,7 +31,7 @@ class MarketFavoritePostViewModel: ObservableObject {
             // 디코딩 시도
             let decoder = JSONDecoder()
             // String으로 디코딩 (단순한 응답인 경우)
-            let response = try decoder.decode(APIResponse<String>.self, from: data)
+            let response = try decoder.decode(APIResDto<String>.self, from: data)
             
             print("북마크 API 응답: ", response.message)
             self.isFavorite = true

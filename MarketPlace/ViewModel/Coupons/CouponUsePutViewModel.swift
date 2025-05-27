@@ -59,7 +59,7 @@ class CouponUsePutViewModel: ObservableObject {
                 print("❗️ [couponput] 서버 응답 본문: \(responseBody)")
 
                 do {
-                    let errorResponse = try JSONDecoder().decode(APIResponse<String>.self, from: data)
+                    let errorResponse = try JSONDecoder().decode(APIResDto<String>.self, from: data)
                     print("📭 [couponput] 에러 메시지 디코딩 성공: \(errorResponse.message)")
                     self.errorMessage = "쿠폰 사용 실패: \(httpResponse.statusCode) 에러\n\(errorResponse.message)"
                 } catch {

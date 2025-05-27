@@ -1,9 +1,6 @@
 
-// 공통 응답 DTO를 위한 제네릭 구조체
-struct APIResponse<T: Codable>: Codable {
-    let message: String
-    let response: T
-}
+
+import Foundation
 
 struct LoginResponse: Codable{
     let message: String

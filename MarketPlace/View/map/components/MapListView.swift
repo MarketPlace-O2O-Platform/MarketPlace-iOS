@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct MapListView: View {
-    @ObservedObject var marketVM: MarketGetViewModel // ViewModel을 전달받음
+    @ObservedObject var marketVM: MarketCategoryDetailViewModel // ViewModel을 전달받음
     @State private var selectedIndex: Int?
     
     var body: some View {
@@ -41,7 +41,7 @@ struct MapListView: View {
         .background(Color.white)
         .onAppear {
             Task {
-                await marketVM.fetchMarkets()
+//                await marketVM.fetchMarkets()
             }
         }
     }

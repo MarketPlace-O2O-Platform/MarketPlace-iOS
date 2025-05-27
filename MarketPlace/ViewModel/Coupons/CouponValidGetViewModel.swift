@@ -52,7 +52,7 @@ class CouponValidGetViewModel: ObservableObject {
                 return
             }
 
-            let decodedResponse = try JSONDecoder().decode(APIResponse<CouponValidResponse>.self, from: data)
+            let decodedResponse = try JSONDecoder().decode(APIResDto<CouponValidResponse>.self, from: data)
 
             DispatchQueue.main.async {
                 self.validCoupons = decodedResponse.response.couponResDtos
