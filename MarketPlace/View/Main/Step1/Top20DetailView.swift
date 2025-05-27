@@ -18,15 +18,19 @@ struct Top20DetailView: View {
                 VStack(spacing: 16) {
                     ForEach(couponPopularVM.topCoupons) { coupon in
                         NavigationLink(destination: StoreDetailView(marketId: coupon.marketId)) {
-                            CouponInfoView(
-                                marketId: coupon.marketId,
+                            let coupon = CouponBasicInfo(
                                 couponId: coupon.couponId,
-                                thumbnail: coupon.thumbnail,
-                                marketName: coupon.marketName,
                                 couponName: coupon.couponName,
+                                marketId: coupon.marketId,
+                                marketName: coupon.marketName,
                                 address: coupon.address,
+                                thumbnail: coupon.thumbnail,
                                 isAvailable: coupon.isAvailable,
-                                couponCreatedAt: nil
+                                isMemberIssued: coupon.isMemberIssued
+                            )
+                            
+                            CouponInfoCell(
+                                viewModel: CouponInfoCellViewModel(coupon: coupon)
                             )
                         }
                         .buttonStyle(PlainButtonStyle())

@@ -33,7 +33,7 @@ enum NetworkError: Error, LocalizedError {
         case .decodingError:
             return "데이터를 해석하는 데 실패했습니다."
         case .custom(let statusCode, let message):
-            return "(\(statusCode)) 오류가 발생하였습니다. message: \(message) "
+            return "(\(statusCode)) 오류가 발생하였습니다. message: \(String(describing: message)) "
             
         case .invalidURL:
             return "Invalid URL. Please check the endpoint."

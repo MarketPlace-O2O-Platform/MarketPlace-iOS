@@ -19,7 +19,7 @@ class MarketGetViewModel: ObservableObject {
                 pageSize: pageSize))
         
         switch result {
-        case .success(let data, let _):
+        case .success(let data, _):
             self.markets = data.response.marketResDtos
         case .failure(let code, let message):
             print("[statusCode] - \(code), [message] - \(message ?? "없음")")

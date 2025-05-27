@@ -20,7 +20,7 @@ enum MemberCouponEndpoint: Endpoint {
 
     var method: HTTPMethod {
         switch self {
-        case .downloadCoupon(let couponId):
+        case .downloadCoupon(_):
                 .post
         }
     }

@@ -19,7 +19,7 @@ class CouponNewViewModel: ObservableObject {
                 pageSize: pageSize))
         
         switch result {
-        case .success(let data, let _):
+        case .success(let data, _):
             self.newCoupons = data.response.couponResDtos
         case .failure(let statusCode, let message):
             print("[statusCode] - \(statusCode), [message] - \(message ?? "없음")")
