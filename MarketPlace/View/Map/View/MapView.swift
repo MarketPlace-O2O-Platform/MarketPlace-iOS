@@ -158,6 +158,7 @@ struct MapView: View {
                         
                         MapMarketListView(selectedIndex: $selectedCategory)
                             .frame(height: UIScreen.main.bounds.height / 2)
+                        let _ = print(selectedCategory)
                     }
                     .frame(maxWidth: .infinity)
                     .background(Color.white.opacity(1))
