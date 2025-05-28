@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class MapListViewModel: ObservableObject {
+final class MapMarketListViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var markets: [MarketModel] = []
     

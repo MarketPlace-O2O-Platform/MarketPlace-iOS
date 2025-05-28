@@ -1,9 +1,9 @@
 import SwiftUI
 
 
-struct MapListView: View {
-    @StateObject var viewModel = MapListViewModel()
-    @State var selectedIndex: Int
+struct MapMarketListView: View {
+    @StateObject var viewModel = MapMarketListViewModel()
+    @Binding var selectedIndex: Int
     
     var body: some View {
         ScrollView {
@@ -40,6 +40,11 @@ struct MapListView: View {
         }
         .background(Color.white)
         .onAppear {
+            Task {
+                await viewModel.fetchMarkets(category: Category(index: selectedIndex)?.toString() ?? "")
+            }
+        }
+        .onChange(of: selectedIndex) {
             Task {
                 await viewModel.fetchMarkets(category: Category(index: selectedIndex)?.toString() ?? "")
             }

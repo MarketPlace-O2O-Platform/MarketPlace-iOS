@@ -89,6 +89,7 @@ struct MapView: View {
                 }
                 .ignoresSafeArea()
                 
+                // MARK: - 지도뷰 보일 때 -> MapList는 하나만 보임
                 if !isListVisible {
                     VStack {
                         Button(action: {
@@ -114,7 +115,7 @@ struct MapView: View {
                                 .frame(width: 40, height: 5)
                                 .padding(.top, 10)
                             
-                            MapListView(selectedIndex: selectedCategory)
+                            MapMarketListView(selectedIndex: $selectedCategory)
                                 .frame(height: UIScreen.main.bounds.height / 6)
                         }
                         .frame(maxWidth: .infinity)
@@ -144,6 +145,7 @@ struct MapView: View {
                     }
                 }
                 
+                // MARK: - 리스트뷰 보일때
                 if isListVisible {
                     VStack {
                         Capsule()
@@ -151,8 +153,9 @@ struct MapView: View {
                             .frame(width: 40, height: 5)
                             .padding(.top, 10)
                         
-                        MapListView(selectedIndex: selectedCategory)
+                        MapMarketListView(selectedIndex: $selectedCategory)
                             .frame(height: UIScreen.main.bounds.height / 2)
+                        let _ = print(selectedCategory)
                     }
                     .frame(maxWidth: .infinity)
                     .background(Color.white.opacity(1))
