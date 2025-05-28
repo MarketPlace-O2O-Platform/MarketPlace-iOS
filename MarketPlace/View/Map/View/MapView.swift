@@ -23,8 +23,21 @@ struct MapView: View {
     var body: some View {
         NavigationView {
             ZStack(alignment: .bottom) {
-                Map(coordinateRegion: $region, showsUserLocation: true, annotationItems: viewModel.markets) { market in
-                    MapMarker(coordinate: CLLocationCoordinate2D(latitude: 126, longitude: 33), tint: .red)
+                Map(
+                    coordinateRegion: $region,
+                    showsUserLocation: true,
+                    annotationItems: viewModel.markets
+                ) { market in
+                    MapAnnotation(coordinate: market.position ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)) {
+                        VStack {
+                            Image("mapCouponMarker")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                            
+                            Text(market.marketName)
+                                .font(.custom("Pretendard", size: 11))
+                        }
+                    }
                 }
                 .onAppear {
                     Task {
@@ -203,6 +216,8 @@ struct MapView: View {
         .navigationViewStyle(StackNavigationViewStyle())
     }
 }
+
+
 
 extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {

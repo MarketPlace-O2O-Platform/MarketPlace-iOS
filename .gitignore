@@ -74,3 +74,7 @@ xcuserdata
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
 API_URL.plist
+
+KakaoMapKey.xcconfig
+KakaoMapView.swift
+MapTestView.swift

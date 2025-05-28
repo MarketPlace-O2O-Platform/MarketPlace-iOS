@@ -10,6 +10,11 @@
 		290D92D32DE55AD5008AC190 /* CommonMsgResDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290D92D22DE55AD5008AC190 /* CommonMsgResDTO.swift */; };
 		290D93522DE57CDE008AC190 /* CouponInfoCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290D93512DE57CDE008AC190 /* CouponInfoCellViewModel.swift */; };
 		290D93542DE58418008AC190 /* CouponBasicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290D93532DE58418008AC190 /* CouponBasicModel.swift */; };
+		293DCF142DE6CD2E000122C5 /* KakaoMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293DCF132DE6CD2E000122C5 /* KakaoMapView.swift */; };
+		293DCF172DE6CD89000122C5 /* KakaoMapsSDK-SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 293DCF162DE6CD89000122C5 /* KakaoMapsSDK-SPM */; };
+		293DCF192DE6CDE2000122C5 /* KakaoMapKey.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 293DCF182DE6CDE2000122C5 /* KakaoMapKey.xcconfig */; };
+		293DCF3F2DE6DDD8000122C5 /* MapTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293DCF3E2DE6DDD8000122C5 /* MapTestView.swift */; };
+		293DCF442DE6FE43000122C5 /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293DCF432DE6FE43000122C5 /* Array+.swift */; };
 		2941F76C2DE596590063CEFE /* SearchMarketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2941F76B2DE596590063CEFE /* SearchMarketViewModel.swift */; };
 		2941F76E2DE597280063CEFE /* MarketSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2941F76D2DE597280063CEFE /* MarketSearchModel.swift */; };
 		2941F77E2DE5A0350063CEFE /* CouponEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2941F76F2DE5A0350063CEFE /* CouponEndpoint.swift */; };
@@ -130,6 +135,10 @@
 		290D92D22DE55AD5008AC190 /* CommonMsgResDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonMsgResDTO.swift; sourceTree = "<group>"; };
 		290D93512DE57CDE008AC190 /* CouponInfoCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponInfoCellViewModel.swift; sourceTree = "<group>"; };
 		290D93532DE58418008AC190 /* CouponBasicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponBasicModel.swift; sourceTree = "<group>"; };
+		293DCF132DE6CD2E000122C5 /* KakaoMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMapView.swift; sourceTree = "<group>"; };
+		293DCF182DE6CDE2000122C5 /* KakaoMapKey.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = KakaoMapKey.xcconfig; sourceTree = "<group>"; };
+		293DCF3E2DE6DDD8000122C5 /* MapTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTestView.swift; sourceTree = "<group>"; };
+		293DCF432DE6FE43000122C5 /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		2941F76B2DE596590063CEFE /* SearchMarketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMarketViewModel.swift; sourceTree = "<group>"; };
 		2941F76D2DE597280063CEFE /* MarketSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketSearchModel.swift; sourceTree = "<group>"; };
 		2941F76F2DE5A0350063CEFE /* CouponEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponEndpoint.swift; sourceTree = "<group>"; };
@@ -238,6 +247,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				293DCF172DE6CD89000122C5 /* KakaoMapsSDK-SPM in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +279,14 @@
 				2941F7962DE5AAB50063CEFE /* NewEventViewModel.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		293DCF422DE6FE3A000122C5 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				293DCF432DE6FE43000122C5 /* Array+.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		2941F7672DE592770063CEFE /* View */ = {
@@ -343,6 +361,7 @@
 			children = (
 				B28349102D2E548A00EEDB02 /* MapView.swift */,
 				B2122E3A2D6F7AB400BD37F8 /* MapListView.swift */,
+				293DCF3E2DE6DDD8000122C5 /* MapTestView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -479,6 +498,7 @@
 			children = (
 				2941F7982DE5DEB50063CEFE /* View */,
 				B2122E392D6F7A3200BD37F8 /* Components */,
+				293DCF132DE6CD2E000122C5 /* KakaoMapView.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -594,6 +614,7 @@
 		B2C398FB2CA145CB004800DD /* MarketPlace */ = {
 			isa = PBXGroup;
 			children = (
+				293DCF422DE6FE3A000122C5 /* Extension */,
 				2941F78A2DE5A0EF0063CEFE /* Service */,
 				2941F77D2DE5A0350063CEFE /* API */,
 				B2F85BE82D6FAE9A0011DDF3 /* Info.plist */,
@@ -609,6 +630,7 @@
 				29BF18AF2DE4492C00836D7E /* API_URL.plist */,
 				B2F85BE62D6FAB210011DDF3 /* MapLocationManager.swift */,
 				29BF18BE2DE45B3900836D7E /* Category.swift */,
+				293DCF182DE6CDE2000122C5 /* KakaoMapKey.xcconfig */,
 			);
 			path = MarketPlace;
 			sourceTree = "<group>";
@@ -770,6 +792,7 @@
 			);
 			mainGroup = B2C398F02CA145CB004800DD;
 			packageReferences = (
+				293DCF152DE6CD89000122C5 /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */,
 			);
 			productRefGroup = B2C398FA2CA145CB004800DD /* Products */;
 			projectDirPath = "";
@@ -788,6 +811,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B2C399042CA145CC004800DD /* Preview Assets.xcassets in Resources */,
+				293DCF192DE6CDE2000122C5 /* KakaoMapKey.xcconfig in Resources */,
 				B2C399012CA145CC004800DD /* Assets.xcassets in Resources */,
 				29BF18B02DE4492C00836D7E /* API_URL.plist in Resources */,
 			);
@@ -819,6 +843,7 @@
 				B2C462982D8172BE007637DC /* loginView.swift in Sources */,
 				2941F76C2DE596590063CEFE /* SearchMarketViewModel.swift in Sources */,
 				B2122E3B2D6F7AB400BD37F8 /* MapListView.swift in Sources */,
+				293DCF3F2DE6DDD8000122C5 /* MapTestView.swift in Sources */,
 				B21F3D072D2B066F00B83B34 /* NewEventDetailView.swift in Sources */,
 				B2C3992D2CA1BF7F004800DD /* CategoryButton.swift in Sources */,
 				290D92D32DE55AD5008AC190 /* CommonMsgResDTO.swift in Sources */,
@@ -881,6 +906,7 @@
 				2941F7832DE5A0350063CEFE /* NetworkError.swift in Sources */,
 				2941F7842DE5A0350063CEFE /* NetworkService.swift in Sources */,
 				2941F7852DE5A0350063CEFE /* URLManager.swift in Sources */,
+				293DCF442DE6FE43000122C5 /* Array+.swift in Sources */,
 				2941F7862DE5A0350063CEFE /* APIEndpoint.swift in Sources */,
 				2941F7872DE5A0350063CEFE /* KeychainManager.swift in Sources */,
 				2941F7882DE5A0350063CEFE /* NetworkManager.swift in Sources */,
@@ -891,6 +917,7 @@
 				2941F7A12DE5F7FE0063CEFE /* MarketInfoCellViewModel.swift in Sources */,
 				290D93522DE57CDE008AC190 /* CouponInfoCellViewModel.swift in Sources */,
 				B293A1522D6FDC7B003E8505 /* CheerListView.swift in Sources */,
+				293DCF142DE6CD2E000122C5 /* KakaoMapView.swift in Sources */,
 				B21F3CF22D267AF900B83B34 /* MarketInfoCell.swift in Sources */,
 				B22AB94C2D9B08FD006E13B4 /* CouponInfoCell.swift in Sources */,
 				B28A22B52D66636800E86EF6 /* StoreCouponListView.swift in Sources */,
@@ -1239,6 +1266,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		293DCF152DE6CD89000122C5 /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao-mapsSDK/KakaoMapsSDK-SPM.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.12.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		293DCF162DE6CD89000122C5 /* KakaoMapsSDK-SPM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 293DCF152DE6CD89000122C5 /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */;
+			productName = "KakaoMapsSDK-SPM";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B2C398F12CA145CB004800DD /* Project object */;
 }

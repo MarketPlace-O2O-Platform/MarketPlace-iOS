@@ -1,0 +1,11 @@
+//
+//  KakaoMapKey.xcconfig
+//  MarketPlace
+//
+//  Created by Bowon Han on 5/28/25.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://developer.apple.com/documentation/xcode/adding-a-build-configuration-file-to-your-project
+ 
+KAKAO_APP_KEY = "070dd46a9d56c1e383dc2fde0fa8f9d8"

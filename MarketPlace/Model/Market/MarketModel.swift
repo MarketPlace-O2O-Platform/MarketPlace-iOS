@@ -1,4 +1,5 @@
 import Foundation
+import CoreLocation
 
 struct MarketModel: Codable, Identifiable {
     var marketId: Int
@@ -9,6 +10,7 @@ struct MarketModel: Codable, Identifiable {
     var isFavorite: Bool
     var isNewCoupon: Bool
     var favoriteModifiedAt: String?
+    var position: CLLocationCoordinate2D?
     
     var id: Int { return marketId }
 
