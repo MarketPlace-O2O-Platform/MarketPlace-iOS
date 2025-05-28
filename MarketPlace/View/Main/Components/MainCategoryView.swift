@@ -24,7 +24,7 @@ struct MainCategoryView: View {
                     }) {
                         CategoryButton(
                             icon: category.toImageName(),
-                            text: category.toUIName(),
+                            text: category.toUIName()
                         )
                     }
                 }
@@ -41,7 +41,7 @@ struct CategoryButton: View {
     
     init(
         icon: String,
-        text: String,
+        text: String
     ) {
         self.icon = icon
         self.text = text

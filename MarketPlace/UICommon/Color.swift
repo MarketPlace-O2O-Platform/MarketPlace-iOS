@@ -6,6 +6,8 @@ struct Colors {
     static let grayscale_gray_400 = Color(hex: "#9B9B9B")
     static let fontColor = Color(hex: "#303030")
     static let backgroundColor = Color.white
+    static let gray_700 = Color(hex: "#5E5E5E")
+    static let primary = Color(hex: "#303030")
 }
 
 // 상수 값들을 분리하여 관리
