@@ -55,6 +55,8 @@
 		B2122E422D6F85F700BD37F8 /* MapStoreDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2122E412D6F85F700BD37F8 /* MapStoreDetailView.swift */; };
 		B215F2912DE61C8400F53C51 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B215F2902DE61C8400F53C51 /* AlertView.swift */; };
 		B215F2942DE61D9600F53C51 /* AlertButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B215F2932DE61D9600F53C51 /* AlertButtonView.swift */; };
+		B215F2962DE6D77B00F53C51 /* AlertListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B215F2952DE6D77B00F53C51 /* AlertListView.swift */; };
+		B215F2982DE6D7C800F53C51 /* AlertChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B215F2972DE6D7C800F53C51 /* AlertChipView.swift */; };
 		B21F3CEF2D267AF900B83B34 /* Coupon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21F3CDA2D267AF900B83B34 /* Coupon.swift */; };
 		B21F3CF22D267AF900B83B34 /* MarketInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21F3CDD2D267AF900B83B34 /* MarketInfoCell.swift */; };
 		B21F3CF42D267AF900B83B34 /* CategoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21F3CE02D267AF900B83B34 /* CategoryDetailView.swift */; };
@@ -182,6 +184,8 @@
 		B2122E412D6F85F700BD37F8 /* MapStoreDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapStoreDetailView.swift; sourceTree = "<group>"; };
 		B215F2902DE61C8400F53C51 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		B215F2932DE61D9600F53C51 /* AlertButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertButtonView.swift; sourceTree = "<group>"; };
+		B215F2952DE6D77B00F53C51 /* AlertListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertListView.swift; sourceTree = "<group>"; };
+		B215F2972DE6D7C800F53C51 /* AlertChipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertChipView.swift; sourceTree = "<group>"; };
 		B21F3CDA2D267AF900B83B34 /* Coupon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coupon.swift; sourceTree = "<group>"; };
 		B21F3CDD2D267AF900B83B34 /* MarketInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarketInfoCell.swift; sourceTree = "<group>"; };
 		B21F3CE02D267AF900B83B34 /* CategoryDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDetailView.swift; sourceTree = "<group>"; };
@@ -435,6 +439,8 @@
 			isa = PBXGroup;
 			children = (
 				B215F2932DE61D9600F53C51 /* AlertButtonView.swift */,
+				B215F2972DE6D7C800F53C51 /* AlertChipView.swift */,
+				B215F2952DE6D77B00F53C51 /* AlertListView.swift */,
 			);
 			path = component;
 			sourceTree = "<group>";
@@ -870,6 +876,8 @@
 			files = (
 				B28349132D2E5CA800EEDB02 /* CategoryTabView.swift in Sources */,
 				B21F3CFC2D267AF900B83B34 /* MarketDetailView.swift in Sources */,
+				B215F2982DE6D7C800F53C51 /* AlertChipView.swift in Sources */,
+				B21F3CFC2D267AF900B83B34 /* StoreDetailView.swift in Sources */,
 				B2C462982D8172BE007637DC /* loginView.swift in Sources */,
 				2941F76C2DE596590063CEFE /* SearchMarketViewModel.swift in Sources */,
 				B2122E3B2D6F7AB400BD37F8 /* MapMarketListView.swift in Sources */,
@@ -964,6 +972,7 @@
 				B28889A32D4BC9370040EC3F /* CouponResDtos.swift in Sources */,
 				B255A5CC2D62155700954837 /* MemberFavoriteMarketListModelView.swift in Sources */,
 				B207A25F2D54B18C0099A8DB /* CouponItem.swift in Sources */,
+				B215F2962DE6D77B00F53C51 /* AlertListView.swift in Sources */,
 				B28349162D2E604800EEDB02 /* ShopModel.swift in Sources */,
 				B22AB90C2D99BB15006E13B4 /* MarketFavoritePostViewModel.swift in Sources */,
 				B21F3CF72D267AF900B83B34 /* NewEventView.swift in Sources */,
