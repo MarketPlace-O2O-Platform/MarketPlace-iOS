@@ -250,8 +250,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				293DCF4A2DE74490000122C5 /* FirebaseMessaging in Frameworks */,
-				293DCF472DE72B9E000122C5 /* FirebaseMessaging in Frameworks */,
+								293DCF472DE72B9E000122C5 /* FirebaseMessaging in Frameworks */,
 				293DCF172DE6CD89000122C5 /* KakaoMapsSDK-SPM in Frameworks */,
 				293DCF4D2DE7449F000122C5 /* KakaoMapsSDK-SPM in Frameworks */,
 			);
@@ -1307,19 +1306,7 @@
 				minimumVersion = 2.12.5;
 			};
 		};
-/* End XCRemoteSwiftPackageReference section */
 
-/* Begin XCSwiftPackageProductDependency section */
-		293DCF162DE6CD89000122C5 /* KakaoMapsSDK-SPM */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 293DCF152DE6CD89000122C5 /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */;
-			productName = "KakaoMapsSDK-SPM";
-		};
-		293DCF462DE72B9E000122C5 /* FirebaseMessaging */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 293DCF452DE72B9E000122C5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseMessaging;
-		};
 		293DCF492DE74490000122C5 /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 293DCF482DE74490000122C5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
