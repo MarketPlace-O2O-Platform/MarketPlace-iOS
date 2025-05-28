@@ -258,7 +258,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+<<<<<<< HEAD
                 293DCF472DE72B9E000122C5 /* FirebaseMessaging in Frameworks */,
+=======
+				293DCF4A2DE74490000122C5 /* FirebaseMessaging in Frameworks */,
+				293DCF472DE72B9E000122C5 /* FirebaseMessaging in Frameworks */,
+>>>>>>> aafa25a ([Chore] 패키지 파일)
 				293DCF172DE6CD89000122C5 /* KakaoMapsSDK-SPM in Frameworks */,
 				293DCF4D2DE7449F000122C5 /* KakaoMapsSDK-SPM in Frameworks */,
 			);
@@ -415,6 +420,7 @@
 			path = Step1;
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
         B2122E392D6F7A3200BD37F8 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -422,6 +428,8 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+=======
+>>>>>>> aafa25a ([Chore] 패키지 파일)
 		B2122E402D6F7E0900BD37F8 /* Market */ = {
 			isa = PBXGroup;
 			children = (
@@ -1347,7 +1355,6 @@
 				minimumVersion = 2.12.5;
 			};
 		};
-
 		293DCF492DE74490000122C5 /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 293DCF482DE74490000122C5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
