@@ -17,7 +17,7 @@ struct AlertButtonView: View {
             onTap()
         }) {
             Text(title)
-                .font(.system(size: 14, weight: .semibold))
+                .font(.system(size: 12, weight: .semibold))
                 .foregroundColor(isSelected ? .white : Color.gray)
                 .padding(.vertical, 8)
                 .padding(.horizontal, 16)
@@ -33,23 +33,18 @@ struct AlertButtonView: View {
     }
 }
 
-
+// 선택된 카테고리를 외부로 전달하도록 수정
 struct AlertButtonGroup: View {
-    @State private var selectedIndex: Int = 0
+    @Binding var selectedCategory: String
     let titles = ["전체", "쿠폰 발급", "쿠폰 만료", "공지"]
     
     var body: some View {
         HStack(spacing: 8) {
-            ForEach(0..<titles.count, id: \.self) { index in
-                AlertButtonView(title: titles[index], isSelected: selectedIndex == index) {
-                    selectedIndex = index
+            ForEach(titles, id: \.self) { title in
+                AlertButtonView(title: title, isSelected: selectedCategory == title) {
+                    selectedCategory = title
                 }
             }
         }
-        .padding()
     }
-}
-
-#Preview("AlertButtonGroup Preview") {
-    AlertButtonGroup()
 }
