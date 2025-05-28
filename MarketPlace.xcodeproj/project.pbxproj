@@ -258,7 +258,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-								293DCF472DE72B9E000122C5 /* FirebaseMessaging in Frameworks */,
+                293DCF472DE72B9E000122C5 /* FirebaseMessaging in Frameworks */,
 				293DCF172DE6CD89000122C5 /* KakaoMapsSDK-SPM in Frameworks */,
 				293DCF4D2DE7449F000122C5 /* KakaoMapsSDK-SPM in Frameworks */,
 			);
