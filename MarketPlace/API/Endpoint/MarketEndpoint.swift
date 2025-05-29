@@ -24,13 +24,13 @@ enum MarketEndpoint: Endpoint {
         case .fetchMarketsWithSearching: return "api/markets/search"
         case .fetchOwnFavoriteMarkets: return "api/markets/my-favorite"
         case .fetchMarketsForMap: return "api/markets/map"
-        case .postFavoriteMarket(let marketId): return "api/favorites"
+        case .postFavoriteMarket: return "api/favorites"
         }
     }
 
     var method: HTTPMethod {
         switch self {
-        case .postFavoriteMarket(let marketId):
+        case .postFavoriteMarket:
             .post
         default:
             .get
@@ -63,6 +63,11 @@ enum MarketEndpoint: Endpoint {
                 URLQueryItem(name: "name", value: content)
             ].compactMap { $0 })
             
+            return items
+            
+        case .postFavoriteMarket(let marketId):
+            var items: [URLQueryItem] = []
+            items.append(URLQueryItem(name: "marketId", value: String(marketId)))
             return items
         default:
             return nil

@@ -28,6 +28,7 @@ struct MapView: View {
                     showsUserLocation: true,
                     annotationItems: viewModel.markets
                 ) { market in
+                    /// - NOTE: - 안정적이지 않은듯, 사라졌다 다시 나타났다가 함
                     MapAnnotation(coordinate: market.position ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)) {
                         VStack {
                             Image("mapCouponMarker")
@@ -155,7 +156,6 @@ struct MapView: View {
                         
                         MapMarketListView(selectedIndex: $selectedCategory)
                             .frame(height: UIScreen.main.bounds.height / 2)
-                        let _ = print(selectedCategory)
                     }
                     .frame(maxWidth: .infinity)
                     .background(Color.white.opacity(1))
