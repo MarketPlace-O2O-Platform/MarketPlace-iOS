@@ -8,15 +8,9 @@ struct CheerView: View {
             CheerSearchView(searchText: .constant(""))
 
             VStack(spacing:20) {
-                MyCheerView(CheerCoupon: 3)
-                    .padding(.top, 10)
-                
-                Rectangle()
-                    .foregroundStyle(Color(hex: "#EEEEEE"))
-                    .frame(height: 4)
-                
                 HotCheerView()
-                
+                    .padding(.top, 10)
+
                 Rectangle()
                     .foregroundStyle(Color(hex: "#EEEEEE"))
                     .frame(height: 4)
@@ -25,8 +19,4 @@ struct CheerView: View {
             }
         }
     }
-}
-
-#Preview {
-    CheerView()
 }

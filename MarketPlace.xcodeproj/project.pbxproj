@@ -104,7 +104,6 @@
 		B28A22C02D668B0600E86EF6 /* MyFavoriteShopListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28A22BF2D668B0600E86EF6 /* MyFavoriteShopListView.swift */; };
 		B293A1522D6FDC7B003E8505 /* CheerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B293A1512D6FDC7B003E8505 /* CheerListView.swift */; };
 		B293A1542D6FDCB2003E8505 /* HotCheerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B293A1532D6FDCB2003E8505 /* HotCheerView.swift */; };
-		B293A1582D6FDFC6003E8505 /* MyCheerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B293A1572D6FDFC6003E8505 /* MyCheerView.swift */; };
 		B293A15A2D6FE0B4003E8505 /* CheerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B293A1592D6FE0B4003E8505 /* CheerView.swift */; };
 		B293A15C2D6FE2A8003E8505 /* CheerSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B293A15B2D6FE2A8003E8505 /* CheerSearchView.swift */; };
 		B2A42DCF2D8B3716005FAF15 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A42DCE2D8B3716005FAF15 /* LoginViewModel.swift */; };
@@ -231,7 +230,6 @@
 		B28A22BF2D668B0600E86EF6 /* MyFavoriteShopListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFavoriteShopListView.swift; sourceTree = "<group>"; };
 		B293A1512D6FDC7B003E8505 /* CheerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerListView.swift; sourceTree = "<group>"; };
 		B293A1532D6FDCB2003E8505 /* HotCheerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotCheerView.swift; sourceTree = "<group>"; };
-		B293A1572D6FDFC6003E8505 /* MyCheerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCheerView.swift; sourceTree = "<group>"; };
 		B293A1592D6FE0B4003E8505 /* CheerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerView.swift; sourceTree = "<group>"; };
 		B293A15B2D6FE2A8003E8505 /* CheerSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerSearchView.swift; sourceTree = "<group>"; };
 		B2A42DCE2D8B3716005FAF15 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -302,11 +300,11 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		293DCF502DE74564000122C5 /* Component */ = {
+		293DCF502DE74564000122C5 /* Components */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = Component;
+			path = Components;
 			sourceTree = "<group>";
 		};
 		2941F7672DE592770063CEFE /* View */ = {
@@ -395,6 +393,14 @@
 			path = Map;
 			sourceTree = "<group>";
 		};
+		29D53BF32DE83B06008E4F2E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B293A1592D6FE0B4003E8505 /* CheerView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		B210EC212D3D682C00B1551E /* components */ = {
 			isa = PBXGroup;
 			children = (
@@ -442,7 +448,7 @@
 			path = component;
 			sourceTree = "<group>";
 		};
-		B21F3CDF2D267AF900B83B34 /* components */ = {
+		B21F3CDF2D267AF900B83B34 /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				B28349122D2E5CA800EEDB02 /* CategoryTabView.swift */,
@@ -450,7 +456,7 @@
 				B22AB94B2D9B08FD006E13B4 /* CouponInfoCell.swift */,
 				B21F3CDD2D267AF900B83B34 /* MarketInfoCell.swift */,
 			);
-			path = components;
+			path = Components;
 			sourceTree = "<group>";
 		};
 		B21F3CE52D267AF900B83B34 /* Components */ = {
@@ -492,7 +498,7 @@
 			isa = PBXGroup;
 			children = (
 				B215F28F2DE619DF00F53C51 /* Alert */,
-				B21F3CDF2D267AF900B83B34 /* components */,
+				B21F3CDF2D267AF900B83B34 /* Components */,
 				B2C462962D8172AC007637DC /* login */,
 				B21F3CE72D267AF900B83B34 /* Main */,
 				B28349502D2FBBBD00EEDB02 /* Search */,
@@ -514,21 +520,10 @@
 			path = Cheer;
 			sourceTree = "<group>";
 		};
-		B27E56D12D703F8A000D2881 /* step1 */ = {
-			isa = PBXGroup;
-			children = (
-				B293A15B2D6FE2A8003E8505 /* CheerSearchView.swift */,
-				B293A1572D6FDFC6003E8505 /* MyCheerView.swift */,
-				B293A1532D6FDCB2003E8505 /* HotCheerView.swift */,
-				B293A1512D6FDC7B003E8505 /* CheerListView.swift */,
-			);
-			path = step1;
-			sourceTree = "<group>";
-		};
 		B283490F2D2E547F00EEDB02 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				293DCF502DE74564000122C5 /* Component */,
+				293DCF502DE74564000122C5 /* Components */,
 				2941F7982DE5DEB50063CEFE /* View */,
 				293DCF132DE6CD2E000122C5 /* KakaoMapView.swift */,
 			);
@@ -606,13 +601,16 @@
 			path = Members;
 			sourceTree = "<group>";
 		};
-		B293A1502D6FDC65003E8505 /* components */ = {
+		B293A1502D6FDC65003E8505 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				B293A1512D6FDC7B003E8505 /* CheerListView.swift */,
+				B293A15B2D6FE2A8003E8505 /* CheerSearchView.swift */,
 				B27E56D22D703FBB000D2881 /* CheerCardView.swift */,
 				B27E56D42D704438000D2881 /* HotCheerCardView.swift */,
+				B293A1532D6FDCB2003E8505 /* HotCheerView.swift */,
 			);
-			path = components;
+			path = Components;
 			sourceTree = "<group>";
 		};
 		B2A42DCB2D843626005FAF15 /* Login */ = {
@@ -729,9 +727,8 @@
 		B2CD63EC2D4BAB4D000809F5 /* cheer */ = {
 			isa = PBXGroup;
 			children = (
-				B293A1502D6FDC65003E8505 /* components */,
-				B27E56D12D703F8A000D2881 /* step1 */,
-				B293A1592D6FE0B4003E8505 /* CheerView.swift */,
+				29D53BF32DE83B06008E4F2E /* View */,
+				B293A1502D6FDC65003E8505 /* Components */,
 			);
 			path = cheer;
 			sourceTree = "<group>";
@@ -905,7 +902,6 @@
 				B28A22A82D64B0F900E86EF6 /* MarketDetailViewModel.swift in Sources */,
 				B27E56D52D704438000D2881 /* HotCheerCardView.swift in Sources */,
 				2941F7932DE5A2FD0063CEFE /* MemberCouponService.swift in Sources */,
-				B293A1582D6FDFC6003E8505 /* MyCheerView.swift in Sources */,
 				B215F2942DE61D9600F53C51 /* AlertButtonView.swift in Sources */,
 				B2122E3D2D6F7C0000BD37F8 /* MarketResDtos.swift in Sources */,
 				B2122E3F2D6F7D4000BD37F8 /* MarketCategoryDetailViewModel.swift in Sources */,

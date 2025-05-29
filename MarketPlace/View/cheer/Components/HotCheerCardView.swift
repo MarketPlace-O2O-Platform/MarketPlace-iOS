@@ -1,50 +1,7 @@
+
 import SwiftUI
 
-struct HotCheerView: View {
-    @StateObject private var hotCheerVM = HotCheerGetViewModel()
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            // "달성 입박" 헤더와 HOT 태그
-            HStack(spacing: 8) {
-                Text("달성 임박")
-                    .font(.headline)
-                    .fontWeight(.bold)
-                
-                Text("HOT🔥")
-                    .font(.caption)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
-                    .background(Color.black)
-                    .cornerRadius(4)
-            }
-            .padding(.horizontal)
-            
-            // 가로 스크롤 뷰
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 12) {
-                    ForEach(hotCheerVM.hotCheerMarkets, id: \.marketId) { market in
-                        HotItemCard(
-                            title: market.marketName,
-                            status: market.isCheer ? "제휴 확정" : "제휴 진행 중", tempMarketId: market.marketId, imageUrl: market.thumbnail
-                        )
-                    }
-                }
-                .padding(.horizontal)
-                .padding(.bottom, 8)
-            }
-        }
-        .onAppear {
-            Task {
-                await hotCheerVM.fetchHotCheerGetMarkets()
-            }
-        }
-    }
-}
-
-struct HotItemCard: View {
+struct HotCheerCardView: View {
     @StateObject private var cheerVM = CheerPostViewModel()
 
     let title: String
@@ -128,9 +85,6 @@ struct HotItemCard: View {
     }
 }
 
-
-struct HotCheerView_Previews: PreviewProvider {
-    static var previews: some View {
-        HotCheerView()
-    }
+#Preview {
+    HotCheerCardView(title: "", status: "", tempMarketId: 1, imageUrl: "")
 }

@@ -7,7 +7,6 @@ struct CheerListView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // Header
             HStack {
                 Text("지금 공감하면 할인권을 드려요")
                     .font(.headline)
@@ -22,7 +21,7 @@ struct CheerListView: View {
             }
             .padding()
             
-            // Tab Bar
+            // MARK: - 상단 카테고리 탭바
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 16) {
                     ForEach(0..<tabs.count, id: \.self) { index in
@@ -40,8 +39,8 @@ struct CheerListView: View {
                 }
                 .padding()
             }
-            
-            // Event Grid
+                        
+            // MARK: - Event Grid 뷰
             LazyVGrid(columns: [
                 GridItem(.flexible(), spacing: 16),
                 GridItem(.flexible(), spacing: 16)
@@ -56,8 +55,8 @@ struct CheerListView: View {
                             daysLeft: 13,
                             cheerCount: market.cheerCount,
                             ischeer: market.isCheer,
-                            index: index, // 🔹 index 전달
-                            cheerVM: cheerVM // 🔹 ViewModel 전달
+                            index: index,
+                            cheerVM: cheerVM 
                         )
                     }
 
