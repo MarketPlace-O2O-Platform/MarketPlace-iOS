@@ -8,7 +8,7 @@ struct LoginView: View {
     @State private var savePassword: Bool = false
     @StateObject private var loginVM = LoginViewModel()
 
-    let schools = ["서울대학교", "연세대학교", "고려대학교", "카이스트", "성균관대학교"]
+    let schools = ["인천대학교"]
     
     var body: some View {
         if loginVM.isLoggedIn {
@@ -17,6 +17,8 @@ struct LoginView: View {
             VStack(alignment: .leading, spacing: 4) {
                 // Logo
                 Image("logo")
+                    .resizable()
+                    .frame(width: 124, height: 40)
                     .padding(.top, 56)
                     .padding(.bottom, 20)
                     .padding(.leading, 20)
@@ -121,6 +123,9 @@ struct LoginView: View {
                     // Checkboxes
                     HStack(spacing: 20) {
                         CheckboxView(title: "학번(ID) 저장", isChecked: $saveID)
+                        
+                        Spacer()
+                        
                         CheckboxView(title: "비밀번호 저장", isChecked: $savePassword)
                     }
                 }
