@@ -235,12 +235,12 @@ struct MapView: View {
             .navigationBarHidden(true)
             .onAppear(perform: {
                 Task {
-                    await viewModel.fetchMarkets(category: Category(index: selectedCategory)?.toString() ?? "")
+                    await viewModel.fetchMarkets(category: Category(index: selectedCategory)?.toString() ?? nil)
                 }
             })
             .onChange(of: selectedCategory) {
                 Task {
-                    await viewModel.fetchMarkets(category: Category(index: selectedCategory)?.toString() ?? "")
+                    await viewModel.fetchMarkets(category: Category(index: selectedCategory)?.toString() ?? nil)
                 }
             }
             .mapScope(mapScope)

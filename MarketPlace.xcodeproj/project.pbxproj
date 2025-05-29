@@ -52,6 +52,8 @@
 		29D53BFD2DE84F5D008E4F2E /* CheerListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D53BFC2DE84F5D008E4F2E /* CheerListViewModel.swift */; };
 		29D87F442DE8560500CE9011 /* HotCheerCardCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D87F432DE8560500CE9011 /* HotCheerCardCellViewModel.swift */; };
 		29D87F462DE85AC500CE9011 /* CheerCardCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D87F452DE85AC500CE9011 /* CheerCardCellViewModel.swift */; };
+		29D87F4A2DE8629900CE9011 /* CircleCategoryTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D87F492DE8629900CE9011 /* CircleCategoryTabView.swift */; };
+		29D87F832DE86D6900CE9011 /* MemberInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D87F822DE86D6900CE9011 /* MemberInfoModel.swift */; };
 		B207A25F2D54B18C0099A8DB /* CouponItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B207A25E2D54B18C0099A8DB /* CouponItem.swift */; };
 		B210EC242D3D686500B1551E /* MyHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B210EC232D3D686500B1551E /* MyHeaderView.swift */; };
 		B210EC262D3D6DAA00B1551E /* CategoryButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B210EC252D3D6DAA00B1551E /* CategoryButtonView.swift */; };
@@ -181,6 +183,8 @@
 		29D53BFC2DE84F5D008E4F2E /* CheerListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerListViewModel.swift; sourceTree = "<group>"; };
 		29D87F432DE8560500CE9011 /* HotCheerCardCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotCheerCardCellViewModel.swift; sourceTree = "<group>"; };
 		29D87F452DE85AC500CE9011 /* CheerCardCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerCardCellViewModel.swift; sourceTree = "<group>"; };
+		29D87F492DE8629900CE9011 /* CircleCategoryTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleCategoryTabView.swift; sourceTree = "<group>"; };
+		29D87F822DE86D6900CE9011 /* MemberInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfoModel.swift; sourceTree = "<group>"; };
 		B207A25E2D54B18C0099A8DB /* CouponItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponItem.swift; sourceTree = "<group>"; };
 		B210EC232D3D686500B1551E /* MyHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHeaderView.swift; sourceTree = "<group>"; };
 		B210EC252D3D6DAA00B1551E /* CategoryButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButtonView.swift; sourceTree = "<group>"; };
@@ -466,6 +470,7 @@
 				B21F3CDA2D267AF900B83B34 /* Coupon.swift */,
 				B22AB94B2D9B08FD006E13B4 /* CouponInfoCell.swift */,
 				B21F3CDD2D267AF900B83B34 /* MarketInfoCell.swift */,
+				29D87F492DE8629900CE9011 /* CircleCategoryTabView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -551,6 +556,7 @@
 				B2122E402D6F7E0900BD37F8 /* Market */,
 				B28349152D2E604800EEDB02 /* ShopModel.swift */,
 				B27E56CC2D7037AF000D2881 /* CheerMarketModel.swift */,
+				29D87F822DE86D6900CE9011 /* MemberInfoModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -942,11 +948,13 @@
 				B2A42DCF2D8B3716005FAF15 /* LoginViewModel.swift in Sources */,
 				B28A22BE2D666E7500E86EF6 /* CouponGetPopupView.swift in Sources */,
 				2941F77E2DE5A0350063CEFE /* CouponEndpoint.swift in Sources */,
+				29D87F4A2DE8629900CE9011 /* CircleCategoryTabView.swift in Sources */,
 				2941F7912DE5A2E00063CEFE /* MemberService.swift in Sources */,
 				29D53BF92DE84728008E4F2E /* CheerMarketService.swift in Sources */,
 				2941F77F2DE5A0350063CEFE /* Endpoint.swift in Sources */,
 				2941F7802DE5A0350063CEFE /* MarketEndpoint.swift in Sources */,
 				2941F7812DE5A0350063CEFE /* MemberCouponEndpoint.swift in Sources */,
+				29D87F832DE86D6900CE9011 /* MemberInfoModel.swift in Sources */,
 				2941F7822DE5A0350063CEFE /* MemberEndPoint.swift in Sources */,
 				2941F7832DE5A0350063CEFE /* NetworkError.swift in Sources */,
 				2941F7842DE5A0350063CEFE /* NetworkService.swift in Sources */,

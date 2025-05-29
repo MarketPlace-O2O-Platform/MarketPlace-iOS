@@ -3,7 +3,6 @@ import SwiftUI
 struct CheerListView: View {
     @State private var selectedTab = 0
     @StateObject private var viewModel = CheerListViewModel()
-    let tabs = ["전체", "식사", "디저트", "TEXT", "TEXT", "TEXT"]
 
     var body: some View {
         VStack(spacing: 0) {
@@ -22,42 +21,30 @@ struct CheerListView: View {
             .padding()
             
             // MARK: - 상단 카테고리 탭바
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 16) {
-                    ForEach(0..<tabs.count, id: \.self) { index in
-                        Button(action: {
-                            selectedTab = index
-                        }) {
-                            Text(tabs[index])
-                                .foregroundColor(selectedTab == index ? .white : .gray)
-                                .padding(.horizontal, 16)
-                                .padding(.vertical, 8)
-                                .background(selectedTab == index ? Color.black : Color.clear)
-                                .cornerRadius(20)
-                        }
-                    }
-                }
-                .padding()
-            }
+            CircleCategoryTabView(selectedTab: $selectedTab)
+                .padding(.vertical, 10)
                         
             // MARK: - Event Grid 뷰
             LazyVGrid(columns: [
                 GridItem(.flexible(), spacing: 16),
                 GridItem(.flexible(), spacing: 16)
             ], spacing: 20) {
-                if viewModel.cheerMarkets.isEmpty {
-                    ProgressView("로딩 중...")
-                } else {
-                    ForEach(viewModel.cheerMarkets) { market in
-                        CheerCardCell(viewModel: CheerCardCellViewModel(cheerMarket: market))
-                    }
+                ForEach(viewModel.cheerMarkets) { market in
+                    CheerCardCell(viewModel: CheerCardCellViewModel(cheerMarket: market))
                 }
             }
             .padding()
         }
+        /// - NOTE: 처음 View가 초기화될 시 해당 탭의 데이터 불러오기
         .onAppear {
             Task {
                 await viewModel.fetchCheerMarkets(lastPageIndex: nil, category: nil, count: nil)
+            }
+        }
+        /// - NOTE: 탭 눌렀을 시 해당 탭의 데이터 불러오기
+        .onChange(of: selectedTab) {
+            Task {
+                await viewModel.fetchCheerMarkets(lastPageIndex: nil, category: Category(index: selectedTab)?.toString() ?? nil, count: nil)
             }
         }
     }

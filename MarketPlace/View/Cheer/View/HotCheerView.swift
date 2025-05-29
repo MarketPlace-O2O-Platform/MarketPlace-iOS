@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct HotCheerView: View {
-    @State var cheerCoupon: Int = 0
     @Binding var hotCheerMarkets: [CheerMarketModel]
+    @Binding var cheerTicket: Int
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -11,7 +11,7 @@ struct HotCheerView: View {
                 Image(systemName: "heart.fill")
                     .foregroundStyle(.black)
                 Text("내 공감권")
-                Text("\(cheerCoupon)개")
+                Text("\(cheerTicket)개")
                 
                 Spacer()
                 
@@ -27,7 +27,7 @@ struct HotCheerView: View {
                 .frame(height: 4)
                 .padding(.bottom, 8)
             
-            // MARK: - "달성 입박" 헤더와 HotCheer 카드뷰
+            // MARK: - "달성 임박" 헤더와 HotCheer 카드뷰
             HStack(spacing: 8) {
                 Text("달성 임박")
                     .font(.headline)
@@ -54,10 +54,5 @@ struct HotCheerView: View {
                 .padding(.bottom, 8)
             }
         }
-//        .onAppear {
-//            Task {
-//                await viewModel.fetchUpcomingMarket(lastPageIndex: nil, lastCheerCount: nil, count: nil)
-//            }
-//        }
     }
 }

@@ -8,21 +8,21 @@
 import Foundation
 
 enum MemberEndPoint: Endpoint {
-    case fetchMemberStudentID
+    case fetchMemberInfo
     case signIn
 
     var baseURL: URL { URLManager.shared.baseURL }
 
     var path: String {
         switch self {
-        case .fetchMemberStudentID: return "api/members"
+        case .fetchMemberInfo: return "api/members"
         case .signIn: return "api/members"
         }
     }
 
     var method: HTTPMethod {
         switch self {
-        case .fetchMemberStudentID:
+        case .fetchMemberInfo:
                 .get
         case .signIn:
                 .post

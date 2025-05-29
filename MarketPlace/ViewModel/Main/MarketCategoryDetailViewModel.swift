@@ -17,7 +17,7 @@ class MarketCategoryDetailViewModel: ObservableObject {
     
     func fetchMarkets(
         lastPageIndex: Int? = nil,
-        category: String?,
+        category: String? = nil,
         pageSize: Int? = nil
     ) async {
         isLoading = true

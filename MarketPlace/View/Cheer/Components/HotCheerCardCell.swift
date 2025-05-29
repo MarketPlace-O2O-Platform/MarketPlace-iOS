@@ -4,16 +4,17 @@ import SwiftUI
 struct HotCheerCardCell: View {
     @ObservedObject var viewModel: HotCheerCardCellViewModel
     
+    /// - NOTE: 공감 상태를 나타내기 위한
     enum CheerStatus {
         case inProgress
         case isFinished
         
-        func toString() -> String {
+        func toString(dueDate: Int?) -> String {
             switch self {
-            case .inProgress:
-                "공감 마감"
             case .isFinished:
-                "공감 마감까지 3일 남음"
+                "공감 마감"
+            case .inProgress:
+                "공감 마감까지 \(dueDate)일 남음"
             }
         }
     }
@@ -52,14 +53,14 @@ struct HotCheerCardCell: View {
             
             HStack {
                 if status == .isFinished {
-                    Text(status.toString())
+                    Text(status.toString(dueDate: nil))
                         .font(.caption2)
                         .foregroundColor(.gray)
                     Text("제휴 컨택중")
                         .font(.caption2)
                         .foregroundColor(.black)
                 } else {
-                    Text("공감 마감까지 \(viewModel.hotCheerMarket.dueDate)일 남음")
+                    Text(status.toString(dueDate: viewModel.hotCheerMarket.dueDate))
                         .font(.caption2)
                         .foregroundColor(.gray)
                 }
@@ -73,8 +74,8 @@ struct HotCheerCardCell: View {
                     await viewModel.postCheerMarket(tempMarketId: viewModel.hotCheerMarket.marketId)
                 }
             }) {
-                if status == .inProgress {
-                    Text(status.toString())
+                if status == .isFinished {
+                    Text("제휴 컨택 중")
                         .font(.caption)
                         .foregroundColor(.gray)
                         .padding(.vertical, 10)

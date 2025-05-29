@@ -48,7 +48,8 @@ enum MarketEndpoint: Endpoint {
             
             items.append(contentsOf: [
                 lastPageIndex.map { URLQueryItem(name: "lastPageIndex", value: String($0)) },
-                category.map { URLQueryItem(name: "category", value: String($0)) },
+                (category?.isEmpty == false ? URLQueryItem(name: "category", value: category!) : nil),
+//                category.map { URLQueryItem(name: "category", value: String($0)) },
                 pageSize.map { URLQueryItem(name: "pageSize", value: String($0)) }
             ].compactMap { $0 })
             

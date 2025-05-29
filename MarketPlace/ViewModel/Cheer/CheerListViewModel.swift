@@ -22,6 +22,7 @@ final class CheerListViewModel: ObservableObject {
         
         switch result {
         case .success(let data, _):
+            print(data.response.marketResDtos)
             self.cheerMarkets = data.response.marketResDtos
         case .failure(let statusCode, let message):
             print("[fetchCheerMarkets] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")

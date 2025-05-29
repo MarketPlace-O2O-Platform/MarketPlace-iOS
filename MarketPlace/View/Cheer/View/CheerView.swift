@@ -9,7 +9,7 @@ struct CheerView: View {
             CheerSearchView(searchText: .constant(""))
 
             VStack(spacing:20) {
-                HotCheerView(hotCheerMarkets: $viewModel.hotCheerMarkets)
+                HotCheerView(hotCheerMarkets: $viewModel.hotCheerMarkets, cheerTicket: $viewModel.memberCheerTicket)
                     .padding(.top, 10)
                     .onAppear {
                         Task{

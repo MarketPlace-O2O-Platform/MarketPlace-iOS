@@ -45,20 +45,36 @@ struct CheerCardCell: View {
                     await viewModel.postCheerMarket(tempMarketId: viewModel.cheerMarket.marketId)
                 }
             }) {
-                HStack {
-                    Spacer()
-                    Image(systemName: viewModel.isCheer ? "heart.fill" : "heart")
-                        .frame(width: 12, height: 12)
-                        .foregroundColor(.white)
-                    Text(viewModel.isCheer ? "공감 완료" : "공감하기")
-                        .font(Font.custom("Pretendard", size: 12).weight(.medium))
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(.white)
-                    Spacer()
+                /// - NOTE: 아직 공감하지 않은 매장
+                if !viewModel.isCheer {
+                    HStack {
+                        Spacer()
+                        Image(systemName: "heart")
+                            .frame(width: 12, height: 12)
+                            .foregroundColor(.white)
+                        Text("공감하기")
+                            .font(Font.custom("Pretendard", size: 12).weight(.medium))
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(.white)
+                        Spacer()
+                    }
+                    .padding(.vertical, 8)
+                    .background(Color(hex:"#303030"))
+                    .cornerRadius(4)
+                } else {
+                    /// - NOTE: 이미 공감한 매장
+                    HStack {
+                        Spacer()
+                        Text("공감 완료")
+                            .font(Font.custom("Pretendard", size: 12).weight(.medium))
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(Color(hex: "#b0b0b0"))
+                        Spacer()
+                    }
+                    .padding(.vertical, 8)
+                    .background(Color(hex:"#e0e0e0"))
+                    .cornerRadius(4)
                 }
-                .padding(.vertical, 8)
-                .background(Color(hex:"#303030"))
-                .cornerRadius(4)
             }
             .frame(width: 162, height: 30)
             .padding(.top, 12)

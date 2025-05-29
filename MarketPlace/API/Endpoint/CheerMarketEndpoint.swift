@@ -49,6 +49,7 @@ enum CheerMarketEndpoint: Endpoint {
             ].compactMap { $0 })
             
             return items
+            
         case .searchCheerMarket(let lastPageIndex, let pageSize, let name):
             var items: [URLQueryItem] = []
             
@@ -59,6 +60,7 @@ enum CheerMarketEndpoint: Endpoint {
             ].compactMap { $0 })
             
             return items
+            
         case .fetchUpcomingMarket(let lastPageIndex, let lastCheerCount, let count):
             var items: [URLQueryItem] = []
             
