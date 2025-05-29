@@ -34,7 +34,13 @@ struct MapView: View {
                     MapAnnotation(coordinate: market.position ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)) {
                         VStack {
                             Button(action: {
-                                isSelectedPin = market.marketId
+                                withAnimation(.smooth()) {
+                                    isSelectedPin = market.marketId
+                                    region = MKCoordinateRegion(
+                                        center: market.position ?? CLLocationCoordinate2D(latitude: 0, longitude: 0),
+                                        span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005))
+                                    isUserTrackingEnabled = true
+                                }
                             }, label: {
                                 if isSelectedPin == market.marketId {
                                     VStack{
