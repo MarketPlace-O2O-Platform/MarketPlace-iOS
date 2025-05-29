@@ -2,18 +2,29 @@
 import SwiftUI
 
 struct HotCheerCardCell: View {
-    @ObservedObject private var viewModel: CheerListViewModel
+    @ObservedObject var viewModel: HotCheerCardCellViewModel
+    
+    enum CheerStatus {
+        case inProgress
+        case isFinished
+        
+        func toString() -> String {
+            switch self {
+            case .inProgress:
+                "공감 마감"
+            case .isFinished:
+                "공감 마감까지 3일 남음"
+            }
+        }
+    }
 
-    let title: String
-    let status: String 
-    let tempMarketId: Int
-    let imageUrl: String
+    private var status: CheerStatus { viewModel.hotCheerMarket.cheerCount>=14 ? .isFinished : .inProgress }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             AsyncImage(
                 url:URL(string:
-                    URLManager.shared.baseStringURL + "image/tempMarket/" + imageUrl
+                            URLManager.shared.baseStringURL + "image/tempMarket/" + viewModel.hotCheerMarket.thumbnail
                )) { phase in
                        switch phase {
                        case .empty:
@@ -34,21 +45,21 @@ struct HotCheerCardCell: View {
                        }
                    }
                                 
-            Text(title)
+            Text("'\(viewModel.hotCheerMarket.marketName)' 할인을 받고 싶어요!")
                 .font(.subheadline)
                 .fontWeight(.bold)
                 .lineLimit(1)
             
             HStack {
-                if status == "제휴 진행 중" {
-                    Text("공감 마감")
+                if status == .isFinished {
+                    Text(status.toString())
                         .font(.caption2)
                         .foregroundColor(.gray)
                     Text("제휴 컨택중")
                         .font(.caption2)
                         .foregroundColor(.black)
                 } else {
-                    Text("공감 마감까지 3일 남음")
+                    Text("공감 마감까지 \(viewModel.hotCheerMarket.dueDate)일 남음")
                         .font(.caption2)
                         .foregroundColor(.gray)
                 }
@@ -59,11 +70,11 @@ struct HotCheerCardCell: View {
             
             Button(action: {
                 Task {
-                    await viewModel.postCheerMarket(tempMarketId: tempMarketId)
+                    await viewModel.postCheerMarket(tempMarketId: viewModel.hotCheerMarket.marketId)
                 }
             }) {
-                if status == "제휴 진행 중" {
-                    Text("제휴 컨택 중")
+                if status == .inProgress {
+                    Text(status.toString())
                         .font(.caption)
                         .foregroundColor(.gray)
                         .padding(.vertical, 10)
@@ -72,9 +83,9 @@ struct HotCheerCardCell: View {
                         .cornerRadius(4)
                 } else {
                     HStack {
-                        Image(systemName: "heart")
+                        Image(systemName: viewModel.isCheer ? "heart.fill" : "heart")
                             .foregroundColor(.white)
-                        Text("공감하기")
+                        Text(viewModel.isCheer ? "공감 완료" : "공감하기")
                             .foregroundColor(.white)
                     }
                     .padding(.vertical, 10)

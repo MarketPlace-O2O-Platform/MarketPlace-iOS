@@ -2,7 +2,7 @@ import SwiftUI
 
 struct CheerListView: View {
     @State private var selectedTab = 0
-    @StateObject private var cheerVM = CheerGetViewModel()
+    @StateObject private var viewModel = CheerListViewModel()
     let tabs = ["전체", "식사", "디저트", "TEXT", "TEXT", "TEXT"]
 
     var body: some View {
@@ -45,37 +45,20 @@ struct CheerListView: View {
                 GridItem(.flexible(), spacing: 16),
                 GridItem(.flexible(), spacing: 16)
             ], spacing: 20) {
-                if cheerVM.tempMarkets.isEmpty {
+                if viewModel.cheerMarkets.isEmpty {
                     ProgressView("로딩 중...")
                 } else {
-                    ForEach(Array(cheerVM.tempMarkets.enumerated()), id: \.offset) { index, market in
-                        CheerCardView(
-                            marketName: market.marketName,
-                            thumbnail: market.thumbnail,
-                            daysLeft: 13,
-                            cheerCount: market.cheerCount,
-                            ischeer: market.isCheer,
-                            index: index,
-                            cheerVM: cheerVM 
-                        )
+                    ForEach(viewModel.cheerMarkets) { market in
+                        CheerCardCell(viewModel: CheerCardCellViewModel(cheerMarket: market))
                     }
-
                 }
             }
             .padding()
         }
         .onAppear {
             Task {
-                if KeychainManager.getToken() != nil {
-                    await cheerVM.fetchCheerGetMarkets(count: 10)
-                } else {
-                    print("❌ 토큰 없음")
-                }
+                await viewModel.fetchCheerMarkets(lastPageIndex: nil, category: nil, count: nil)
             }
         }
     }
-}
-
-#Preview {
-    CheerListView()
 }

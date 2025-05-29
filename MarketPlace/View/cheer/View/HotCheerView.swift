@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct HotCheerView: View {
-    @StateObject private var hotCheerVM = HotCheerGetViewModel()
     @State var cheerCoupon: Int = 0
+    @Binding var hotCheerMarkets: [CheerMarketModel]
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -46,23 +46,18 @@ struct HotCheerView: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 12) {
-                    ForEach(hotCheerVM.hotCheerMarkets, id: \.marketId) { market in
-                        HotCheerCardView(
-                            title: market.marketName,
-                            status: market.isCheer ? "제휴 확정" : "제휴 진행 중",
-                            tempMarketId: market.marketId,
-                            imageUrl: market.thumbnail
-                        )
+                    ForEach(hotCheerMarkets) { market in
+                        HotCheerCardCell(viewModel: HotCheerCardCellViewModel(hotCheerMarket: market))
                     }
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 8)
             }
         }
-        .onAppear {
-            Task {
-                await hotCheerVM.fetchHotCheerGetMarkets()
-            }
-        }
+//        .onAppear {
+//            Task {
+//                await viewModel.fetchUpcomingMarket(lastPageIndex: nil, lastCheerCount: nil, count: nil)
+//            }
+//        }
     }
 }
