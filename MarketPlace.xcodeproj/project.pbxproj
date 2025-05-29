@@ -514,7 +514,7 @@
 				B21F3CE72D267AF900B83B34 /* Main */,
 				B28349502D2FBBBD00EEDB02 /* Search */,
 				B283490F2D2E547F00EEDB02 /* Map */,
-				B2CD63EC2D4BAB4D000809F5 /* cheer */,
+				B2CD63EC2D4BAB4D000809F5 /* Cheer */,
 				B21F3CEA2D267AF900B83B34 /* myPage */,
 			);
 			name = View;
@@ -733,13 +733,13 @@
 			path = login;
 			sourceTree = "<group>";
 		};
-		B2CD63EC2D4BAB4D000809F5 /* cheer */ = {
+		B2CD63EC2D4BAB4D000809F5 /* Cheer */ = {
 			isa = PBXGroup;
 			children = (
 				29D53BF32DE83B06008E4F2E /* View */,
 				B293A1502D6FDC65003E8505 /* Components */,
 			);
-			path = cheer;
+			path = Cheer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
