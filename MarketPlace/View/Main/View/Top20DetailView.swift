@@ -17,7 +17,10 @@ struct Top20DetailView: View {
             ScrollView {
                 VStack(spacing: 16) {
                     ForEach(top20DetailVM.topCoupons) { coupon in
-                        NavigationLink(destination: StoreDetailView(marketId: coupon.marketId)) {
+                        NavigationLink(
+                            destination: MarketDetailView(
+                            viewModel: MarketDetailViewModel(marketId: coupon.marketId),
+                            marketId: coupon.marketId)) {
                             let coupon = CouponBasicModel(
                                 couponId: coupon.couponId,
                                 couponName: coupon.couponName,

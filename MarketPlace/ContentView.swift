@@ -23,7 +23,7 @@ struct ContentView: View {
                     }
                 }
             
-            MapContainerView()
+            MapView()
                 .tabItem {
                     VStack {
                         Image(systemName: "map.fill")
@@ -75,11 +75,5 @@ struct ContentView: View {
         return renderer.image { _ in
             image.draw(in: CGRect(origin: .zero, size: CGSize(width: width, height: height)))
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }

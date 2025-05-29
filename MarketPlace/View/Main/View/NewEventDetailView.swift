@@ -17,7 +17,11 @@ struct NewEventDetailView: View {
             ScrollView {
                 VStack(spacing: 16) {
                     ForEach(newEventVM.newCoupons) { coupon in
-                        NavigationLink(destination: StoreDetailView(marketId: coupon.marketId)) {
+                        NavigationLink(
+                            destination: MarketDetailView(
+                                viewModel: MarketDetailViewModel(
+                                    marketId: coupon.marketId),
+                                marketId: coupon.marketId)) {
                             let coupon = CouponBasicModel(
                                 couponId: coupon.couponId,
                                 couponName: coupon.couponName,
@@ -28,7 +32,6 @@ struct NewEventDetailView: View {
                                 isAvailable: coupon.isAvailable,
                                 isMemberIssued: coupon.isMemberIssued
                             )
-                            
                             CouponInfoCell(
                                 viewModel: CouponInfoCellViewModel(coupon: coupon)
                             )

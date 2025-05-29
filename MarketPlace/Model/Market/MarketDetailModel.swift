@@ -1,3 +1,6 @@
+import Foundation
+
+
 struct MarketDetailModel: Codable {
     let marketId: Int
     let name: String

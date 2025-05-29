@@ -24,8 +24,12 @@ struct Top20View: View {
             /// - NOTE: 쿠폰 리스트 수평스크롤
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
-                    ForEach(top20DetailVM.topCoupons, id: \.id) { coupon in
-                        NavigationLink(destination: StoreDetailView(marketId: coupon.marketId)) {
+                    ForEach(top20DetailVM.topCoupons) { coupon in
+                        NavigationLink(
+                            destination: MarketDetailView(
+                                viewModel: MarketDetailViewModel(
+                                    marketId: coupon.marketId),
+                                marketId: coupon.marketId)) {
                             ZStack {
                                 AsyncImage(
                                     url: URL(

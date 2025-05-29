@@ -8,7 +8,7 @@
 import Foundation
 
 enum CouponEndpoint: Endpoint {
-    case fetchValidCoupon
+    case fetchValidCoupon(marketId: Int, couponId: Int?, size: Int?)
     case fetchPopularCoupon(lastIssuedCount: Int?, lastCouponId: Int?, pageSize: Int?)
     case fetchLatestCoupon(lastCreatedAt: String?, lastCouponId: Int?, pageSize: Int?)
     case fetchClosingCoupon
@@ -55,6 +55,18 @@ enum CouponEndpoint: Endpoint {
             ].compactMap { $0 })
             
             return items
+            
+        case .fetchValidCoupon(let marketId, let couponId, let size):
+            var items: [URLQueryItem] = []
+            
+            items.append(contentsOf: [
+                URLQueryItem(name: "marketId", value: String(marketId)),
+                couponId.map { URLQueryItem(name: "couponId", value: String($0)) },
+                size.map { URLQueryItem(name: "size", value: String($0)) }
+            ].compactMap { $0 })
+            
+            return items
+            
         default:
             return nil
         }

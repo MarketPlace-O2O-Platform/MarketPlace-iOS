@@ -1,6 +1,6 @@
 import SwiftUI
 
-// 드롭다운 메뉴 뷰
+
 struct DropdownMenuView: View {
     let onLogout: () -> Void
     
@@ -19,7 +19,7 @@ struct DropdownMenuView: View {
     }
 }
 
-// 사용자 정보 뷰
+
 struct UserInfoView: View {
     let userId: String
     @Binding var isDropdownVisible: Bool
@@ -46,7 +46,7 @@ struct UserInfoView: View {
     }
 }
 
-// 쿠폰 버튼 뷰
+
 struct CouponButtonView: View {
     var body: some View {
         NavigationLink(destination: MyCouponView()) {
@@ -66,7 +66,7 @@ struct CouponButtonView: View {
     }
 }
 
-// 메인 헤더 뷰
+
 struct MyHeaderView: View {
     @State private var isDropdownVisible = false
     @State private var showLogoutAlert = false

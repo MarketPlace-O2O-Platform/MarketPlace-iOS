@@ -1,7 +1,7 @@
 import Foundation
+import CoreLocation
 
 struct MarketModel: Codable, Identifiable {
-    var id: UUID = UUID()  // This is for SwiftUI's Identifiable protocol
     var marketId: Int
     var marketName: String
     var marketDescription: String
@@ -10,10 +10,12 @@ struct MarketModel: Codable, Identifiable {
     var isFavorite: Bool
     var isNewCoupon: Bool
     var favoriteModifiedAt: String?
-//    var imageUrl: String?
+    var position: CLLocationCoordinate2D?
+    
+    var id: Int { return marketId }
 
     enum CodingKeys: String, CodingKey {
-        case marketId      // Should match the JSON exactly - "marketId", not "id"
+        case marketId
         case marketName
         case marketDescription
         case address
@@ -21,7 +23,5 @@ struct MarketModel: Codable, Identifiable {
         case isFavorite
         case isNewCoupon
         case favoriteModifiedAt
-//        case imageUrl
-        // Note: 'id' is not included here because it's not in the JSON
     }
 }

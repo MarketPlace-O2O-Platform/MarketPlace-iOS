@@ -28,7 +28,9 @@ struct NewEventView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
                     ForEach(newEventVM.newCoupons, id: \.id) { coupon in
-                        NavigationLink(destination: StoreDetailView(marketId: coupon.marketId)) {
+                        NavigationLink(destination: MarketDetailView(
+                            viewModel: MarketDetailViewModel(marketId: coupon.marketId),
+                            marketId: coupon.marketId)) {
                             ZStack {
                                 AsyncImage(
                                     url: URL(
