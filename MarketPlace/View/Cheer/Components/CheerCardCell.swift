@@ -76,6 +76,7 @@ struct CheerCardCell: View {
                     .cornerRadius(4)
                 }
             }
+            .disabled(viewModel.isCheer)
             .frame(width: 162, height: 30)
             .padding(.top, 12)
         }
