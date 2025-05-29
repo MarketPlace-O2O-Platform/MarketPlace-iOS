@@ -180,7 +180,6 @@
 		B2122E3A2D6F7AB400BD37F8 /* MapMarketListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarketListView.swift; sourceTree = "<group>"; };
 		B2122E3C2D6F7C0000BD37F8 /* MarketResDtos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketResDtos.swift; sourceTree = "<group>"; };
 		B2122E3E2D6F7D4000BD37F8 /* MarketCategoryDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketCategoryDetailViewModel.swift; sourceTree = "<group>"; };
-		B2122E412D6F85F700BD37F8 /* MapStoreDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapStoreDetailView.swift; sourceTree = "<group>"; };
 		B215F2902DE61C8400F53C51 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		B215F2932DE61D9600F53C51 /* AlertButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertButtonView.swift; sourceTree = "<group>"; };
 		B215F2952DE6D77B00F53C51 /* AlertListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertListView.swift; sourceTree = "<group>"; };
@@ -383,7 +382,6 @@
 				B28349102D2E548A00EEDB02 /* MapView.swift */,
 				B2122E3A2D6F7AB400BD37F8 /* MapMarketListView.swift */,
 				293DCF3E2DE6DDD8000122C5 /* MapTestView.swift */,
-				B2122E412D6F85F700BD37F8 /* MapStoreDetailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

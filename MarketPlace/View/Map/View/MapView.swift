@@ -19,6 +19,7 @@ struct MapView: View {
     @State private var isListVisible = false
     @State private var dragOffset = CGSize.zero
     @State private var selectedCategory = 0
+    @State private var isSelectedPin: Int = -1
     
     var body: some View {
         NavigationView {
@@ -28,15 +29,34 @@ struct MapView: View {
                     showsUserLocation: true,
                     annotationItems: viewModel.markets
                 ) { market in
+                    
                     /// - NOTE: - 안정적이지 않은듯, 사라졌다 다시 나타났다가 함
                     MapAnnotation(coordinate: market.position ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)) {
                         VStack {
-                            Image("mapCouponMarker")
-                                .resizable()
-                                .frame(width: 30, height: 30)
-                            
-                            Text(market.marketName)
-                                .font(.custom("Pretendard", size: 11))
+                            Button(action: {
+                                isSelectedPin = market.marketId
+                            }, label: {
+                                if isSelectedPin == market.marketId {
+                                    VStack{
+                                        Image("mapMarker2")
+                                            .resizable()
+                                            .frame(width: 55, height: 55)
+                                        
+                                        Text(market.marketName)
+                                            .font(.custom("Pretendard", size: 11))
+                                    }
+                                }
+                                else {
+                                    VStack{
+                                        Image("mapCouponMarker")
+                                            .resizable()
+                                            .frame(width: 30, height: 30)
+                                        
+                                        Text(market.marketName)
+                                            .font(.custom("Pretendard", size: 11))
+                                    }
+                                }
+                            })
                         }
                     }
                 }
@@ -44,6 +64,9 @@ struct MapView: View {
                     Task {
                         region = locationManager.region
                     }
+                }
+                .onDisappear {
+                    isSelectedPin = -1
                 }
                 .ignoresSafeArea()
                 .gesture(DragGesture()
@@ -140,7 +163,6 @@ struct MapView: View {
                                     if value.translation.height > 1 {
                                         dragOffset = value.translation
                                     }
-                                    
                                 }
                         )
                         .offset(y: max(dragOffset.height, 0))
@@ -150,7 +172,6 @@ struct MapView: View {
                 // MARK: - 리스트뷰 보일때
                 if isListVisible {
                     VStack {
-
                         Capsule()
                             .fill(Color.gray.opacity(0.5))
                             .frame(width: 40, height: 5)
@@ -158,7 +179,6 @@ struct MapView: View {
                         
                         MapMarketListView(selectedIndex: $selectedCategory)
                             .frame(height: UIScreen.main.bounds.height / 2)
-                        let _ = print(selectedCategory)
                     }
                     .frame(maxWidth: .infinity)
                     .background(Color.white.opacity(1))
