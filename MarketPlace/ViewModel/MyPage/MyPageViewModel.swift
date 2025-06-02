@@ -9,20 +9,38 @@ import Foundation
 
 final class MyPageViewModel: ObservableObject {
     @Published var favoriteMarkets: [MarketModel] = []
+    @Published var userId: Int = 0
     
     private var marketService: MarketServiceProtocol
+    private var memberService: MemberServiceProtocol
 
-    init(marketService: MarketServiceProtocol = MarketService()) {
+    init(
+        marketService: MarketServiceProtocol = MarketService(),
+         memberService: MemberServiceProtocol = MemberService()
+    ) {
         self.marketService = marketService
+        self.memberService = memberService
     }
     
-    // MARK: - 자신이 찜한 매장 조회 API
+    // MARK: - 자신이 찜한 매장 조회
     func fetchOwnFavoriteMarkets(lastModifiedAt: String?, pageSize: Int?) async {
         let result = await marketService.fetchOwnFavoriteMarkets(lastModifiedAt: lastModifiedAt, pageSize: pageSize)
         
         switch result {
-        case .success(let data, let statusCode):
+        case .success(let data, _):
             self.favoriteMarkets = data.response.marketResDtos
+        case .failure(let statusCode, let message):
+            print("[fetchOwnFavoriteMarkets] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+        }
+    }
+    
+    // MARK: - 회원 정보 조회
+    func fetchMemberInfo() async {
+        let result = await memberService.fetchMemberInfo()
+        
+        switch result {
+        case .success(let data, _):
+            self.userId = data.response.studentId
         case .failure(let statusCode, let message):
             print("[fetchOwnFavoriteMarkets] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }
