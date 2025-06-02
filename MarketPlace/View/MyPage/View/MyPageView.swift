@@ -3,7 +3,6 @@ import SwiftUI
 
 struct MyPageView: View {
     @State private var selectedCategory: Int = 0
-    let categories = ["음식", "디저트", "스포츠", "미용", "의료", "교육"]
 
     @StateObject private var viewModel = MarketGetFavoriteViewModel()
 
@@ -21,7 +20,7 @@ struct MyPageView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom, 8)
 
-                CategoryButtonView(categories: categories, selectedCategory: $selectedCategory)
+                CircleCategoryTabView(selectedTab: $selectedCategory)
 
                 if viewModel.isLoading {
                     ProgressView("로딩 중...")
@@ -32,7 +31,6 @@ struct MyPageView: View {
                         .padding()
                 } else {
                     FavoriteShopListView()
-//                        .padding(.horizontal, 16)
                 }
             }
             .background(Color.white)
