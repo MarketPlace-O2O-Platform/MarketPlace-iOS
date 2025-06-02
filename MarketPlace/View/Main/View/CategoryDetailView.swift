@@ -35,13 +35,13 @@ struct CategoryDetailView: View {
         /// - NOTE: 이전화면에서 넘어왔을 시 해당 탭의 데이터 불러오기
         .onAppear {
             Task {
-                await marketVM.fetchMarkets(category: Category(index: selectedTab)?.toString() ?? "")
+                await marketVM.fetchMarkets(category: Category(index: selectedTab)?.toString() ?? nil)
             }
         }
         /// - NOTE: 탭 눌렀을 시 해당 탭의 데이터 불러오기
         .onChange(of: selectedTab) {
             Task {
-                await marketVM.fetchMarkets(category: Category(index: selectedTab)?.toString() ?? "")
+                await marketVM.fetchMarkets(category: Category(index: selectedTab)?.toString() ?? nil)
             }
         }
         .toolbar {

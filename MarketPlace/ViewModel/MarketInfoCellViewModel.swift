@@ -10,6 +10,7 @@ import Foundation
 final class MarketInfoCellViewModel: ObservableObject {
     private var marketService: MarketServiceProtocol
     /// - NOTE: 처리 방법 생각해보기
+    /// 상세조회를 여러번 하므로 리소스 낭비 -> 다른 방법 생각해보아라
     @Published var market: MarketDetailModel = MarketDetailModel(marketId: 0, name: "", description: "", operationHours: "", closedDays: "", phoneNumber: "", address: "", imageResList: [])
     
     private var marketId: Int

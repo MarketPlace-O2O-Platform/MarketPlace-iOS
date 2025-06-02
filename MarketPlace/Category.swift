@@ -16,18 +16,19 @@ enum Category: String, CaseIterable {
     
     init?(index: Int) {
         switch index {
-        case 0: self = .FOOD
-        case 1: self = .DESSERT
-        case 2: self = .SPORT
-        case 3: self = .BEAUTY
-        case 4: self = .HOSPITAL
-        case 5: self = .EDUCATION
-        case 6: self = .ETC
+        case 0: self = .ALL
+        case 1: self = .FOOD
+        case 2: self = .DESSERT
+        case 3: self = .SPORT
+        case 4: self = .BEAUTY
+        case 5: self = .HOSPITAL
+        case 6: self = .EDUCATION
+        case 7: self = .ETC
         default: return nil
         }
     }
     
-    func toString() -> String {
+    func toString() -> String? {
         switch self {
         case .FOOD: return "FOOD"
         case .DESSERT: return "DESSERT"
@@ -36,7 +37,7 @@ enum Category: String, CaseIterable {
         case .HOSPITAL: return "HOSPITAL"
         case .EDUCATION: return "EDUCATION"
         case .ETC: return "ETC"
-        default: return ""
+        default: return nil
         }
     }
     
