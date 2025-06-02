@@ -49,7 +49,7 @@ struct ContentView: View {
                     }
                 }
             
-            MyView()
+            MyPageView()
                 .tabItem {
                     VStack {
                         Image(uiImage: resizeImage(named: "userIcon", width: 24, height: 24))

@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct MyView: View {
+struct MyPageView: View {
     @State private var selectedCategory: Int = 0
     let categories = ["음식", "디저트", "스포츠", "미용", "의료", "교육"]
 
@@ -44,11 +44,3 @@ struct MyView: View {
         }
     }
 }
-
-//
-//// Preview
-//struct MyView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MyView(memberID: 202101568)
-//    }
-//}
