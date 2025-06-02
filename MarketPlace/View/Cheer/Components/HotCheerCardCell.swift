@@ -14,7 +14,7 @@ struct HotCheerCardCell: View {
             case .isFinished:
                 "공감 마감"
             case .inProgress:
-                "공감 마감까지 \(dueDate)일 남음"
+                "공감 마감까지 \(String(describing: dueDate))일 남음"
             }
         }
     }
