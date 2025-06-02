@@ -2,17 +2,17 @@ import SwiftUI
 
 struct CouponCategoryView: View {
     @Binding var selectedCategory: Int
-    let categories = ["사용가능", "사용완료", "기간만료"]
+    private let categories: [String] = CouponStatus.allCases.map { $0.toUIName() }
     
     var body: some View {
         VStack(spacing: 0) {
             HStack(spacing: 0) {
-                ForEach(0..<categories.count, id: \.self) { index in
+                ForEach(Array(categories.enumerated()), id: \.offset) { index, category in
                     Button(action: {
                         selectedCategory = index
                     }) {
                         VStack(spacing: 5) {
-                            Text(categories[index])
+                            Text(category)
                                 .font(.system(size: 14))
                                 .foregroundColor(selectedCategory == index ? .black : Color(hex: "#A0A0A0"))
                                 .padding(.bottom, 9)
