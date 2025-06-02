@@ -3,13 +3,12 @@ import SwiftUI
 
 struct MyPageView: View {
     @State private var selectedCategory: Int = 0
-
-    @StateObject private var viewModel = MarketGetFavoriteViewModel()
+    @StateObject private var viewModel = MyPageViewModel()
 
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                MyHeaderView()
+                MyHeaderView(userId: $viewModel.userId)
                 
                 HStack {
                     Text("나만의 큐레이션")
@@ -21,22 +20,13 @@ struct MyPageView: View {
                 .padding(.bottom, 8)
 
                 CircleCategoryTabView(selectedTab: $selectedCategory)
-
-                if viewModel.isLoading {
-                    ProgressView("로딩 중...")
-                        .padding()
-                } else if let errorMessage = viewModel.errorMessage {
-                    Text(errorMessage)
-                        .foregroundColor(.red)
-                        .padding()
-                } else {
-                    FavoriteShopListView()
-                }
+                FavoriteShopListView(favoriteMarkets: $viewModel.favoriteMarkets)
             }
             .background(Color.white)
             .onAppear {
                 Task {
-                    await viewModel.fetchFavoriteMarkets()
+                    await viewModel.fetchOwnFavoriteMarkets(lastModifiedAt: nil, pageSize: nil)
+                    await viewModel.fetchMemberInfo()
                 }
             }
         }

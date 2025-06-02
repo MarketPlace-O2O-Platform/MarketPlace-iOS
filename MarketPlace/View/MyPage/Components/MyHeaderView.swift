@@ -70,7 +70,7 @@ struct CouponButtonView: View {
 struct MyHeaderView: View {
     @State private var isDropdownVisible = false
     @State private var showLogoutAlert = false
-    private let userId: String = "202201234"
+    @Binding var userId: Int
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -81,7 +81,7 @@ struct MyHeaderView: View {
                         .frame(width: MyHeaderViewConstants.profileSize,
                                height: MyHeaderViewConstants.profileSize)
                     
-                    UserInfoView(userId: userId, isDropdownVisible: $isDropdownVisible)
+                    UserInfoView(userId: String(userId), isDropdownVisible: $isDropdownVisible)
                     
                     CouponButtonView()
                         .padding(.trailing, MyHeaderViewConstants.padding)
@@ -110,8 +110,4 @@ struct MyHeaderView: View {
 //            }
 //        )
     }
-}
-
-#Preview {
-    MyHeaderView()
 }
