@@ -25,7 +25,8 @@ struct FavoriteShopListView: View {
                         }
                     }
                 }
-                .background(Color.white)            }
+                .background(Color.white)
+            }
         }
         .onAppear {
             Task {
