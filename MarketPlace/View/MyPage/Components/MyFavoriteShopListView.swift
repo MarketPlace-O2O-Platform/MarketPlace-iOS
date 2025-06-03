@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct FavoriteShopListView: View {
-    @Binding var favoriteMarkets: [MarketModel]
+    @Binding var favoriteMarkets: [FavoriteMarketModel]
 
     var body: some View {
         VStack {
@@ -11,7 +11,7 @@ struct FavoriteShopListView: View {
                         NavigationLink(destination:
                                         MarketDetailView(viewModel: MarketDetailViewModel(marketId: shop.marketId), marketId: shop.marketId)) {
                             MarketInfoCell(
-                                isBookmarked: shop.isFavorite,
+                                isBookmarked: shop.isCheer,
                                 viewModel: MarketInfoCellViewModel(marketId: shop.marketId))
                         }
                         .buttonStyle(PlainButtonStyle())

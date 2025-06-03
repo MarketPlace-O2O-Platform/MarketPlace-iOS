@@ -25,8 +25,13 @@ struct MyPageView: View {
             .background(Color.white)
             .onAppear {
                 Task {
-                    await viewModel.fetchOwnFavoriteMarkets(lastModifiedAt: nil, pageSize: nil)
+                    await viewModel.fetchFavoriteMarket(lastPageIndex: nil, category: nil, count: nil)
                     await viewModel.fetchMemberInfo()
+                }
+            }
+            .onChange(of: selectedCategory) {
+                Task{
+                    await viewModel.fetchFavoriteMarket(lastPageIndex: nil, category: Category(index: selectedCategory)?.toString() ?? nil, count: nil)
                 }
             }
         }

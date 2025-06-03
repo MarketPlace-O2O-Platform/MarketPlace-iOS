@@ -5,8 +5,6 @@ struct CouponPopup: View {
     @Binding var coupon: MembersCouponModel?
     var onConfirm: () -> Void
 
-    @StateObject private var viewModel = CouponUsePutViewModel()
-
     var body: some View {
         ZStack {
             DashEffect()
@@ -28,18 +26,12 @@ struct CouponPopup: View {
                                 isPopupVisible = false
                             }
                         }) {
-                            if viewModel.isLoading {
-                                ProgressView()
-                                    .frame(maxWidth: .infinity, minHeight: 40)
-                                    .padding(.horizontal, 16)
-                            } else {
-                                Text("확인")
+                            Text("확인")
                                     .frame(maxWidth: .infinity, minHeight: 40)
                                     .background(Color(hex: "#303030"))
                                     .foregroundColor(.white)
                                     .cornerRadius(8)
                                     .padding(.horizontal, 16)
-                            }
                         }
 
                         Button(action: {
@@ -63,16 +55,6 @@ struct CouponPopup: View {
                 .background(Color.white)
                 .cornerRadius(12)
                 .shadow(radius: 10)
-                .alert(isPresented: Binding<Bool>(
-                    get: { viewModel.errorMessage != nil },
-                    set: { _ in viewModel.errorMessage = nil }
-                )) {
-                    Alert(
-                        title: Text("오류"),
-                        message: Text(viewModel.errorMessage ?? "알 수 없는 오류"),
-                        dismissButton: .default(Text("확인"))
-                    )
-                }
             }
         }
     }
