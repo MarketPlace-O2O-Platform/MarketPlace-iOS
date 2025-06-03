@@ -21,10 +21,21 @@ final class MyCouponViewModel: ObservableObject {
         
         switch result {
         case .success(let data, _):
-            print("[fetchMemberCoupon] ", self.memberCoupons)
             self.memberCoupons = data.response.couponResDtos
+            print("[fetchMemberCoupon] ", self.memberCoupons)
         case .failure(let statusCode, let message):
             print("[fetchMemberCoupon] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+        }
+    }
+    
+    func useMemberCoupon(memberCouponId: Int) async {
+        let result = await memberCouponService.useMemberCoupon(memberCouponId: memberCouponId)
+        
+        switch result {
+        case .success(let data, _):
+            print(data.response.isUsed)
+        case .failure(let statusCode, let message):
+            print("[useMemberCoupon] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }
     }
 }

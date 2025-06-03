@@ -24,14 +24,8 @@ struct CouponPopup: View {
                     VStack(spacing: 12) {
                         Button(action: {
                             Task {
-                                if let memberCouponId = coupon?.memberCouponId {
-                                    await viewModel.useCoupon(memberCouponId: memberCouponId)
-                                    if viewModel.isSuccess {
-                                        coupon?.used = true
-                                        onConfirm()
-                                        isPopupVisible = false
-                                    }
-                                }
+                                onConfirm()
+                                isPopupVisible = false
                             }
                         }) {
                             if viewModel.isLoading {

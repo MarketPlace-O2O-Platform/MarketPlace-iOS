@@ -13,7 +13,7 @@ struct DashEffect: View {
 
 struct MyCouponView: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject private var viewModel = MyCouponViewModel()
+    @StateObject private var viewModel = MyCouponViewModel()
     
     @State private var showingPopup = false
     @State private var selectedCoupon: MembersCouponModel?
@@ -27,7 +27,7 @@ struct MyCouponView: View {
                     .padding(.top, 15)
                 
                 ScrollView {
-                    VStack(spacing: 16) {
+                    VStack(alignment: .center, spacing: 16) {
                         if viewModel.memberCoupons.isEmpty {
                             Text("해당 카테고리에 쿠폰이 없습니다.")
                                 .foregroundColor(.gray)
@@ -38,12 +38,13 @@ struct MyCouponView: View {
                                     selectedCoupon = coupon
                                     showingPopup = true
                                 }
+                                .frame(maxWidth: .infinity, alignment: .center)
                             }
                         }
                     }
-                    .padding(.top, 32)
+                    .frame(maxWidth: .infinity)
+                    .padding(.top, 20)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color.white)
             }
             
@@ -52,7 +53,9 @@ struct MyCouponView: View {
                     isPopupVisible: $showingPopup,
                     coupon: $selectedCoupon,
                     onConfirm: {
-                        /// - NOTE: 쿠폰 사용 APi 들어가야할 부분
+                        Task {
+                            await viewModel.useMemberCoupon(memberCouponId: selectedCoupon?.memberCouponId ?? 0)
+                        }
                     }
                 )
                 .zIndex(1)
