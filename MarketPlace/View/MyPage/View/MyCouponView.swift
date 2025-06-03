@@ -34,7 +34,7 @@ struct MyCouponView: View {
                                 .padding()
                         } else {
                             ForEach(viewModel.memberCoupons, id: \.memberCouponId) { coupon in
-                                CouponItem(coupon: coupon) {
+                                MyCouponCell(viewModel: MyCouponCellViewModel(coupon: coupon)) {
                                     selectedCoupon = coupon
                                     showingPopup = true
                                 }
