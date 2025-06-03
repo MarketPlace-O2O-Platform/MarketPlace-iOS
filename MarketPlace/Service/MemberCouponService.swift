@@ -13,6 +13,9 @@ protocol MemberCouponServiceProtocol {
     
     // MARK: - 회원 쿠폰 리스트 API
     func fetchMemberCoupon(type: String, memberCouponId: Int?, size: Int?) async -> NetworkResult<APIResDto<MembersCouponResponse>>
+    
+    // MARK: - 회원 쿠폰 사용처리 API
+    func useMemberCoupon(memberCouponId: Int) async -> NetworkResult<APIResDto<MyCouponResDto>>
 
 }
 
@@ -36,6 +39,13 @@ final class MemberCouponService: MemberCouponServiceProtocol {
     func fetchMemberCoupon(type: String, memberCouponId: Int?, size: Int?) async -> NetworkResult<APIResDto<MembersCouponResponse>> {
         return await networkService.request(
             MemberCouponEndpoint.fetchMemberCoupon(type: type, memberCouponId: memberCouponId, size: size)
+        )
+    }
+    
+    // MARK: - 회원 쿠폰 사용처리 API
+    func useMemberCoupon(memberCouponId: Int) async -> NetworkResult<APIResDto<MyCouponResDto>> {
+        return await networkService.request(
+            MemberCouponEndpoint.useMemberCoupon(memberCouponId: memberCouponId)
         )
     }
 }
