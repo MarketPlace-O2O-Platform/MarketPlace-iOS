@@ -20,7 +20,6 @@ struct MyCouponView: View {
     @State private var selectedCategoryIndex = 0
     
     var body: some View {
-        // NavigationView 제거 - 상위 뷰에서 이미 NavigationView를 사용중이므로
         ZStack {
             VStack(spacing: 0) {
                 CouponCategoryView(selectedCategory: $selectedCategoryIndex)
@@ -34,11 +33,7 @@ struct MyCouponView: View {
                                 .padding()
                         } else {
                             ForEach(viewModel.memberCoupons, id: \.memberCouponId) { coupon in
-                                MyCouponCell(viewModel: MyCouponCellViewModel(coupon: coupon)) {
-                                    selectedCoupon = coupon
-                                    showingPopup = true
-                                }
-                                .frame(maxWidth: .infinity, alignment: .center)
+                                makeCouponCell(for: coupon)
                             }
                         }
                     }
@@ -81,6 +76,17 @@ struct MyCouponView: View {
             Task {
                 await viewModel.fetchMemberCoupon(type: CouponStatus(index: selectedCategoryIndex)?.toString() ?? "", memberCouponId: nil, size: nil)
             }
+        }
+    }
+    
+    // MARK: - coupon Cell 생성
+    private func makeCouponCell(for coupon: MembersCouponModel) -> some View {
+        let status = CouponStatus(index: selectedCategoryIndex) ?? .issued
+        let viewModel = MyCouponCellViewModel(coupon: coupon, couponStatus: status)
+        
+        return MyCouponCell(viewModel: viewModel) {
+            selectedCoupon = coupon
+            showingPopup = true
         }
     }
 }

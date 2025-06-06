@@ -5,7 +5,7 @@ struct MyCouponCell: View {
     var onTap: () -> Void
 
     var body: some View {
-        Image(viewModel.coupon.used || viewModel.isExpired ? "myCoupon_used" : "myCoupon_canuse")
+        Image(viewModel.couponStatus==CouponStatus.issued ? "myCoupon_canuse" : "myCoupon_used")
             .resizable()
             .scaledToFit()
             .frame(width: 335, height: 102)
@@ -50,7 +50,7 @@ struct MyCouponCell: View {
                             onTap()
                         }
                     }) {
-                        Text(viewModel.coupon.used || viewModel.isExpired ? "사용 완료" : "사용 가능")
+                        Text(viewModel.couponStatusText)
                             .font(.custom("Pretendard", size: 13))
                             .fontWeight(.bold)
                             .foregroundStyle(Color.white)
