@@ -10,23 +10,29 @@ import Foundation
 final class MyCouponCellViewModel: ObservableObject {
     private var memberCouponService: MemberCouponServiceProtocol
     @Published var coupon: MembersCouponModel
-
+    @Published var couponStatus: CouponStatus
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
     
     init(
         coupon: MembersCouponModel,
+        couponStatus: CouponStatus,
         memberCouponService: MemberCouponServiceProtocol = MemberCouponService()
     ) {
         self.coupon = coupon
+        self.couponStatus = couponStatus
         self.memberCouponService = memberCouponService
     }
     
-    var isExpired: Bool {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
-        guard let expirationDate = formatter.date(from: coupon.deadLine) else { return false }
-        return expirationDate < Date()
+    var couponStatusText: String {
+        switch couponStatus {
+        case .issued:
+            return "사용 가능"
+        case .used:
+            return "사용 완료"
+        case .expired:
+            return "기간 만료"
+        }
     }
 
     var formattedDeadline: String {
@@ -38,7 +44,7 @@ final class MyCouponCellViewModel: ObservableObject {
     }
 
     var canUse: Bool {
-        return !coupon.used && !isExpired
+        return couponStatus == .issued
     }
     
     func useMemberCoupon(memberCouponId: Int) async {
