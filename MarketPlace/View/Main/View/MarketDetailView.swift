@@ -4,7 +4,6 @@ struct MarketDetailView: View {
     @ObservedObject var viewModel: MarketDetailViewModel
     @Environment(\.presentationMode) var presentationMode
     @State private var isBookmarked = false
-//    @StateObject private var couponViewModel = CouponValidGetViewModel()
     
     private let marketId: Int
     

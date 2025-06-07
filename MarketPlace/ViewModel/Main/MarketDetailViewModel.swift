@@ -50,7 +50,7 @@ final class MarketDetailViewModel: ObservableObject {
         )
         
         switch result {
-        case .success(let data, let statusCode):
+        case .success(let data, _):
             self.validCoupons = data.response.couponResDtos
         case .failure(let statusCode, let message):
             print("[fetchValidCoupons] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")

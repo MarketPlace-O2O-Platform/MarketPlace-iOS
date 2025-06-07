@@ -26,6 +26,9 @@ protocol MarketServiceProtocol {
     
     // MARK: - 매장 찜하기 API
     func postFavoriteMarket(marketId: Int) async -> NetworkResult<CommonMsgResDTO>
+    
+    // MARK: - 자신이 찜한 매장 조회 API
+    func fetchOwnFavoriteMarkets(lastModifiedAt: String?, pageSize: Int?) async -> NetworkResult<APIResDto<MarketResDto<MarketModel>>>
 }
 
 
@@ -76,6 +79,13 @@ final class MarketService: MarketServiceProtocol {
     func postFavoriteMarket(marketId: Int) async -> NetworkResult<CommonMsgResDTO> {
         return await networkService.request(
             MarketEndpoint.postFavoriteMarket(marketId: marketId)
+        )
+    }
+    
+    // MARK: - 자신이 찜한 매장 조회 API
+    func fetchOwnFavoriteMarkets(lastModifiedAt: String?, pageSize: Int?) async -> NetworkResult<APIResDto<MarketResDto<MarketModel>>> {
+        return await networkService.request(
+            MarketEndpoint.fetchOwnFavoriteMarkets(lastModifiedAt: lastModifiedAt, pageSize: pageSize)
         )
     }
 }

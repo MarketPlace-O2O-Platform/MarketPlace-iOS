@@ -5,6 +5,7 @@ struct MembersCouponModel: Codable {
     let memberCouponId: Int
     let couponId: Int
     let couponName: String
+    let thumbnail: String
     let description: String
     let deadLine: String
     var used: Bool
