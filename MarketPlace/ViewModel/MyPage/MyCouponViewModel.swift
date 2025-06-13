@@ -22,7 +22,6 @@ final class MyCouponViewModel: ObservableObject {
         switch result {
         case .success(let data, _):
             self.memberCoupons = data.response.couponResDtos
-            print("[fetchMemberCoupon] ", self.memberCoupons)
         case .failure(let statusCode, let message):
             print("[fetchMemberCoupon] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }

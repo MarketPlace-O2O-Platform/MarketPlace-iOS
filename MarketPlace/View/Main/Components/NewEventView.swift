@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 struct NewEventView: View {
-    @StateObject private var newEventVM = NewEventViewModel()
+    @Binding var latestCoupons: [CouponTopModel]
 
     var body: some View {
         VStack {
@@ -27,7 +27,7 @@ struct NewEventView: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
-                    ForEach(newEventVM.newCoupons, id: \.id) { coupon in
+                    ForEach(latestCoupons, id: \.id) { coupon in
                         NavigationLink(destination: MarketDetailView(
                             viewModel: MarketDetailViewModel(marketId: coupon.marketId),
                             marketId: coupon.marketId)) {
@@ -68,23 +68,5 @@ struct NewEventView: View {
                 }.padding(.horizontal, 20)
             }
         }
-        .onAppear {
-            Task {
-                await newEventVM.fetchLatestCoupons()
-            }
-        }
-        .alert("Error", isPresented: .constant(newEventVM.errorMessage != nil)) {
-            Button("OK") {
-                newEventVM.errorMessage = nil
-            }
-        } message: {
-            if let errorMessage = newEventVM.errorMessage {
-                Text(errorMessage)
-            }
-        }
     }
-}
-
-#Preview {
-    NewEventView()
 }

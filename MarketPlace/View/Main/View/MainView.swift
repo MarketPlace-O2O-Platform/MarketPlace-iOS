@@ -3,6 +3,7 @@ import SwiftUI
 struct MainView: View {
     @State private var selectedTab = 0
     @State private var selectedCategoryIndex: Int? = nil
+    @ObservedObject var viewModel = MainViewModel()
 
     var body: some View {
         NavigationStack {
@@ -36,15 +37,22 @@ struct MainView: View {
                             .frame(height: 8)
                         
                         // MARK: - Top 20 인기 멤버십
-                        Top20View()
+                        Top20View(popularCoupons: $viewModel.couponPopular)
                             .padding(.top, 40)
                         
                         // MARK: - 신규 멤버십
-                        NewEventView()
+                        NewEventView(latestCoupons: $viewModel.couponLatest)
                             .padding(.top, 40)
                             .padding(.bottom, 100)
                     }
                     .padding(.vertical, 20)
+                }
+            }
+            .onAppear {
+                Task {
+                    await viewModel.fetchCouponTopLatest(pageSize: nil)
+                    await viewModel.fetchCouponTopPopular(pageSize: nil)
+                    await viewModel.fetchCouponTopClosing(pageSize: nil)
                 }
             }
             .navigationDestination(item: $selectedCategoryIndex) { index in

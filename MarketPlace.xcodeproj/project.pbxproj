@@ -43,6 +43,8 @@
 		295DCBB82DED7C92009B5D82 /* CouponStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295DCBB72DED7C92009B5D82 /* CouponStatus.swift */; };
 		296CF4162DE805EB0000F200 /* KakaoMapsSDK-SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 296CF4152DE805EB0000F200 /* KakaoMapsSDK-SPM */; };
 		296CF4192DE806070000F200 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 296CF4182DE806070000F200 /* FirebaseMessaging */; };
+		2976FA292DFC4B56009782D1 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2976FA282DFC4B56009782D1 /* MainViewModel.swift */; };
+		2976FA2B2DFC4D2F009782D1 /* CouponTopModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2976FA2A2DFC4D2F009782D1 /* CouponTopModel.swift */; };
 		29BF18B02DE4492C00836D7E /* API_URL.plist in Resources */ = {isa = PBXBuildFile; fileRef = 29BF18AF2DE4492C00836D7E /* API_URL.plist */; };
 		29BF18BF2DE45B3900836D7E /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF18BE2DE45B3900836D7E /* Category.swift */; };
 		29BF18C12DE4950700836D7E /* APIResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF18C02DE4950700836D7E /* APIResDto.swift */; };
@@ -172,6 +174,8 @@
 		295DCBAF2DED6DC0009B5D82 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		295DCBB52DED78C0009B5D82 /* MyCouponViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCouponViewModel.swift; sourceTree = "<group>"; };
 		295DCBB72DED7C92009B5D82 /* CouponStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponStatus.swift; sourceTree = "<group>"; };
+		2976FA282DFC4B56009782D1 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		2976FA2A2DFC4D2F009782D1 /* CouponTopModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponTopModel.swift; sourceTree = "<group>"; };
 		29BF18AF2DE4492C00836D7E /* API_URL.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = API_URL.plist; sourceTree = "<group>"; };
 		29BF18BE2DE45B3900836D7E /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		29BF18C02DE4950700836D7E /* APIResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResDto.swift; sourceTree = "<group>"; };
@@ -294,6 +298,7 @@
 				290D93512DE57CDE008AC190 /* CouponInfoCellViewModel.swift */,
 				2941F7942DE5A5760063CEFE /* Top20DetailViewModel.swift */,
 				2941F7962DE5AAB50063CEFE /* NewEventViewModel.swift */,
+				2976FA282DFC4B56009782D1 /* MainViewModel.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -580,6 +585,7 @@
 				B28349152D2E604800EEDB02 /* ShopModel.swift */,
 				B27E56CC2D7037AF000D2881 /* CheerMarketModel.swift */,
 				29D87F822DE86D6900CE9011 /* MemberInfoModel.swift */,
+				2976FA2A2DFC4D2F009782D1 /* CouponTopModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -880,6 +886,7 @@
 			files = (
 				B28349132D2E5CA800EEDB02 /* CategoryTabView.swift in Sources */,
 				B21F3CFC2D267AF900B83B34 /* MarketDetailView.swift in Sources */,
+				2976FA2B2DFC4D2F009782D1 /* CouponTopModel.swift in Sources */,
 				B21F3CFC2D267AF900B83B34 /* MarketDetailView.swift in Sources */,
 				29D53BF52DE83F82008E4F2E /* CheerViewModel.swift in Sources */,
 				29D53BF72DE8412E008E4F2E /* CheerMarketEndpoint.swift in Sources */,
@@ -909,6 +916,7 @@
 				2941F79F2DE5E0F40063CEFE /* MapMarketListViewModel.swift in Sources */,
 				B293A15C2D6FE2A8003E8505 /* CheerSearchView.swift in Sources */,
 				29BF193A2DE4AC9600836D7E /* MainHeaderView.swift in Sources */,
+				2976FA292DFC4B56009782D1 /* MainViewModel.swift in Sources */,
 				29BF18BF2DE45B3900836D7E /* Category.swift in Sources */,
 				B255A5CE2D6218A000954837 /* MarketModel.swift in Sources */,
 				B28A22A82D64B0F900E86EF6 /* MarketDetailViewModel.swift in Sources */,
