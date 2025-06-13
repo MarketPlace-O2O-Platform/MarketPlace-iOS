@@ -7,6 +7,13 @@
 
 import Foundation
 
+enum HTTPMethod: String {
+    case get = "GET"
+    case post = "POST"
+    case put = "PUT"
+    case delete = "DELETE"
+}
+
 protocol NetworkServiceProtocol {
     func request<T: Decodable>(_ endpoint: Endpoint) async -> NetworkResult<T>
 }
@@ -14,7 +21,6 @@ protocol NetworkServiceProtocol {
 final class NetworkService: NetworkServiceProtocol {
     func request<T: Decodable>(_ endpoint: Endpoint) async -> NetworkResult<T>  {
         var request = endpoint.urlRequest
-        print(request.url)
         
         if let token = KeychainManager.getToken() {
             request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")

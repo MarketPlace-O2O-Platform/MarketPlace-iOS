@@ -61,6 +61,7 @@ struct MarketDetailView: View {
                                 Text("사용 가능한 쿠폰이 없습니다.")
                                     .foregroundColor(.gray)
                                     .font(.system(size: 13))
+                                    .padding(.leading, 16)
                             }
 
                             Text(shop.description)
@@ -68,7 +69,7 @@ struct MarketDetailView: View {
                                 .foregroundColor(.gray)
                                 .padding(.leading, 16)
                         }
-                        .zIndex(10) // 쿠폰 리스트를 최상단으로 배치
+                        .zIndex(10)
 
 
                         Rectangle()
