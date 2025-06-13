@@ -3,7 +3,7 @@ import SwiftUI
 struct CouponGetPopupView: View {
     @Binding var isPopupVisible: Bool
     @Binding var coupon: CouponValidModel
-    @ObservedObject var couponVaildVM: CouponValidGetViewModel
+//    @ObservedObject var couponVaildVM: CouponValidGetViewModel
     
     var marketId: Int
     
@@ -63,8 +63,8 @@ struct CouponGetPopupView: View {
         coupon.isMemberIssued = true
         isPopupVisible = false
         
-        Task {
-            await couponVaildVM.fetchCouponValid(marketId: marketId)
-        }
+//        Task {
+//            await couponVaildVM.fetchCouponValid(marketId: marketId)
+//        }
     }
 }

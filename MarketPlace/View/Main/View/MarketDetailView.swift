@@ -48,6 +48,7 @@ struct MarketDetailView: View {
                             Text("이벤트 쿠폰")
                                 .font(.system(size: 14, weight: .semibold))
                                 .foregroundColor(.black)
+                                .padding(.leading, 16)
 
                             if viewModel.isLoading {
                                 ProgressView("쿠폰 로딩 중...")
@@ -55,11 +56,7 @@ struct MarketDetailView: View {
                                 Text(errorMessage)
                                     .foregroundColor(.red)
                             } else if !viewModel.validCoupons.isEmpty {
-                                StoreCouponListView(coupons: .init(
-                                    get: { viewModel.validCoupons },
-                                    set: { viewModel.validCoupons = $0 }
-                                ), marketId: marketId)
-                                .zIndex(999)
+                                MarketCouponListView(coupons: $viewModel.validCoupons)
                             } else {
                                 Text("사용 가능한 쿠폰이 없습니다.")
                                     .foregroundColor(.gray)
@@ -69,8 +66,8 @@ struct MarketDetailView: View {
                             Text(shop.description)
                                 .font(.system(size: 13))
                                 .foregroundColor(.gray)
+                                .padding(.leading, 16)
                         }
-                        .padding(.leading, 20)
                         .zIndex(10) // 쿠폰 리스트를 최상단으로 배치
 
 

@@ -105,8 +105,7 @@
 		B28A22AB2D64F1A700E86EF6 /* StoreInfoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28A22AA2D64F1A700E86EF6 /* StoreInfoRow.swift */; };
 		B28A22AD2D64F1C000E86EF6 /* StoreSearchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28A22AC2D64F1C000E86EF6 /* StoreSearchButton.swift */; };
 		B28A22AF2D64F1ED00E86EF6 /* StoreImageSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28A22AE2D64F1ED00E86EF6 /* StoreImageSlider.swift */; };
-		B28A22B52D66636800E86EF6 /* StoreCouponListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28A22B42D66636800E86EF6 /* StoreCouponListView.swift */; };
-		B28A22BA2D6665C200E86EF6 /* CouponValidGetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28A22B92D6665C200E86EF6 /* CouponValidGetViewModel.swift */; };
+		B28A22B52D66636800E86EF6 /* MarketCouponListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28A22B42D66636800E86EF6 /* MarketCouponListView.swift */; };
 		B28A22BE2D666E7500E86EF6 /* CouponGetPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28A22BD2D666E7500E86EF6 /* CouponGetPopupView.swift */; };
 		B28A22C02D668B0600E86EF6 /* MyFavoriteShopListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28A22BF2D668B0600E86EF6 /* MyFavoriteShopListView.swift */; };
 		B293A1522D6FDC7B003E8505 /* CheerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B293A1512D6FDC7B003E8505 /* CheerListView.swift */; };
@@ -237,8 +236,7 @@
 		B28A22AA2D64F1A700E86EF6 /* StoreInfoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoRow.swift; sourceTree = "<group>"; };
 		B28A22AC2D64F1C000E86EF6 /* StoreSearchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreSearchButton.swift; sourceTree = "<group>"; };
 		B28A22AE2D64F1ED00E86EF6 /* StoreImageSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreImageSlider.swift; sourceTree = "<group>"; };
-		B28A22B42D66636800E86EF6 /* StoreCouponListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreCouponListView.swift; sourceTree = "<group>"; };
-		B28A22B92D6665C200E86EF6 /* CouponValidGetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponValidGetViewModel.swift; sourceTree = "<group>"; };
+		B28A22B42D66636800E86EF6 /* MarketCouponListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketCouponListView.swift; sourceTree = "<group>"; };
 		B28A22BD2D666E7500E86EF6 /* CouponGetPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponGetPopupView.swift; sourceTree = "<group>"; };
 		B28A22BF2D668B0600E86EF6 /* MyFavoriteShopListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFavoriteShopListView.swift; sourceTree = "<group>"; };
 		B293A1512D6FDC7B003E8505 /* CheerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerListView.swift; sourceTree = "<group>"; };
@@ -494,7 +492,7 @@
 			isa = PBXGroup;
 			children = (
 				B28A22AE2D64F1ED00E86EF6 /* StoreImageSlider.swift */,
-				B28A22B42D66636800E86EF6 /* StoreCouponListView.swift */,
+				B28A22B42D66636800E86EF6 /* MarketCouponListView.swift */,
 				B28A22AA2D64F1A700E86EF6 /* StoreInfoRow.swift */,
 				B28A22AC2D64F1C000E86EF6 /* StoreSearchButton.swift */,
 				B21F3CE32D267AF900B83B34 /* Top20View.swift */,
@@ -606,14 +604,6 @@
 			path = DTO;
 			sourceTree = "<group>";
 		};
-		B28A22B62D6664B700E86EF6 /* Coupons */ = {
-			isa = PBXGroup;
-			children = (
-				B28A22B92D6665C200E86EF6 /* CouponValidGetViewModel.swift */,
-			);
-			path = Coupons;
-			sourceTree = "<group>";
-		};
 		B293A1502D6FDC65003E8505 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -709,7 +699,6 @@
 				290D93502DE57CCD008AC190 /* Main */,
 				B2A42DCB2D843626005FAF15 /* Login */,
 				B27E56CE2D703B0B000D2881 /* Cheer */,
-				B28A22B62D6664B700E86EF6 /* Coupons */,
 				2941F76B2DE596590063CEFE /* SearchMarketViewModel.swift */,
 				2941F7A02DE5F7FE0063CEFE /* MarketInfoCellViewModel.swift */,
 			);
@@ -930,7 +919,6 @@
 				B21F3CF82D267AF900B83B34 /* MainView.swift in Sources */,
 				2941F7972DE5AAB50063CEFE /* NewEventViewModel.swift in Sources */,
 				B21F3CF62D267AF900B83B34 /* Top20View.swift in Sources */,
-				B28A22BA2D6665C200E86EF6 /* CouponValidGetViewModel.swift in Sources */,
 				B21F3CEF2D267AF900B83B34 /* Coupon.swift in Sources */,
 				B21F3CF52D267AF900B83B34 /* MainCategoryView.swift in Sources */,
 				B28889AA2D4BD5A50040EC3F /* CouponCategoryView.swift in Sources */,
@@ -970,7 +958,7 @@
 				293DCF142DE6CD2E000122C5 /* KakaoMapView.swift in Sources */,
 				B21F3CF22D267AF900B83B34 /* MarketInfoCell.swift in Sources */,
 				B22AB94C2D9B08FD006E13B4 /* CouponInfoCell.swift in Sources */,
-				B28A22B52D66636800E86EF6 /* StoreCouponListView.swift in Sources */,
+				B28A22B52D66636800E86EF6 /* MarketCouponListView.swift in Sources */,
 				2941F78F2DE5A2BB0063CEFE /* MarketService.swift in Sources */,
 				B21F3D012D2685F500B83B34 /* ImageTextOverlay.swift in Sources */,
 				B21F3CF92D267AF900B83B34 /* MyCouponView.swift in Sources */,
