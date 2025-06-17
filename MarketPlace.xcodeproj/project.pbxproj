@@ -568,9 +568,9 @@
 		B28349502D2FBBBD00EEDB02 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				B2DCB0642DF02CF800F9D4AB /* Step1 */,
-				2941F76A2DE595540063CEFE /* View */,
 				B28349512D2FBBCB00EEDB02 /* Component */,
+				2941F76A2DE595540063CEFE /* View */,
+				B2DCB0642DF02CF800F9D4AB /* Step1 */,
 			);
 			path = Search;
 			sourceTree = "<group>";

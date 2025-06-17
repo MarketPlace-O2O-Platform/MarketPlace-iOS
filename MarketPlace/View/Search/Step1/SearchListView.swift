@@ -7,61 +7,78 @@
 
 import SwiftUI
 
-
 struct SearchListView: View {
-    @ObservedObject var viewModel: MarketInfoCellViewModel
-    @State var isNewCoupon: Bool
-
-    init(isNewCoupon: Bool, viewModel: MarketInfoCellViewModel) {
-        self.isNewCoupon = isNewCoupon
-        self.viewModel = viewModel
+    @StateObject private var viewModel = SearchMarketViewModel()
+    
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 10) {
+                ForEach(viewModel.market, id: \.marketId) { market in
+                    SearchComponentView(viewModel: viewModel, market: market)
+                }
+            }
+            .padding()
+        }
+        .task {
+            await viewModel.fetchMarkets(name: viewModel.searchText)
+        }
     }
+}
+
+struct SearchComponentView<T: ObservableObject>: View {
+    @ObservedObject var viewModel: T
+    let market: MarketSearchModel
     
     var body: some View {
         HStack(alignment: .top) {
             AsyncImage(
                 url: URL(
-                    string: URLManager.shared.baseStringURL + "image/" + (viewModel.market.imageResList.first?.name ?? "")
-                )) { phase in
+                    string: URLManager.shared.baseStringURL + "image/" + market.thumbnail
+                )
+            ) { phase in
                 if let image = phase.image {
                     image
                         .resizable()
                         .scaledToFit()
                         .frame(width: 110, height: 110)
                         .clipShape(RoundedRectangle(cornerRadius: 4))
-
                 } else if phase.error != nil {
                     Image("defaultImage")
                         .resizable()
                         .scaledToFit()
+                        .frame(width: 110, height: 110)
+                        .clipShape(RoundedRectangle(cornerRadius: 4))
                 } else {
                     ProgressView()
+                        .frame(width: 110, height: 110)
                 }
             }
-            .frame(width: 110, height: 110)
-            .clipShape(RoundedRectangle(cornerRadius: 4))
+
 
             VStack(alignment: .leading) {
-                Text("참피온삼겹살 헤어샵")
+                Text(market.marketName)
                     .font(.system(size: 16))
                     .foregroundColor(Colors.textColor)
 
-                Text("맛있는 삼겹살맛있는 삼겹살맛있는 삼겹살맛있는 삼겹살맛있는 삼겹살맛있는 삼겹...")
+                Text(market.marketDescription ?? "설명 없음")
                     .font(.system(size: 13))
                     .foregroundColor(Color(hex: "#7D7D7D"))
+                    .lineLimit(2)
+
                 Spacer()
 
                 HStack(alignment: .bottom) {
                     Image("location")
                         .resizable()
                         .frame(width: 16, height: 16)
-                        .foregroundColor(Colors.textColor)
-                    Text(viewModel.market.address)
+                    Text(market.address)
                         .font(.system(size: 13))
                         .foregroundColor(Colors.textColor)
                     Spacer()
-                    
-                    CouponChip()
+
+                    if market.isNewCoupon {
+                        CouponChip()
+                    }
                 }
             }
             .padding(.leading, 10)
@@ -70,6 +87,8 @@ struct SearchListView: View {
         }
         .padding(15)
         .background(Color.white)
+        .cornerRadius(8)
+        .shadow(color: Color.black.opacity(0.05), radius: 3, x: 0, y: 2)
     }
 }
 
@@ -88,9 +107,9 @@ struct CouponChip: View {
 }
 
 
+
 #Preview("쿠폰 있음") {
     SearchListView(
-        isNewCoupon: true,
-        viewModel: MarketInfoCellViewModel(marketId: 1)
+        
     )
 }

@@ -13,7 +13,7 @@ struct MarketSearchModel: Identifiable, Codable {
     var marketDescription: String
     var address: String
     var thumbnail: String
-    var isNewCoupon: String
+    var isNewCoupon: Bool
     
     var id: Int { return marketId }
 }
