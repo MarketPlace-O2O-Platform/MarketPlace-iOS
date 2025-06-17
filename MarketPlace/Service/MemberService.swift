@@ -27,6 +27,7 @@ final class MemberService: MemberServiceProtocol {
         self.networkService = networkService
     }
     
+    
     // MARK: - 학생 학번 조회 API
     func fetchMemberInfo() async -> NetworkResult<APIResDto<MemberInfoModel>> {
         return await networkService.request(MemberEndPoint.fetchMemberInfo)

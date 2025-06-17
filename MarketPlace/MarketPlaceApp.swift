@@ -23,8 +23,7 @@ struct MarketPlaceApp: App {
                 LoginView()
             }
         }
-        .environmentObject(loginVM) 
-
+        .environmentObject(loginVM)
     }
 }
 
