@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct SearchListView: View {
     @ObservedObject var viewModel: MarketInfoCellViewModel
     @State var isNewCoupon: Bool
@@ -60,12 +61,7 @@ struct SearchListView: View {
                         .foregroundColor(Colors.textColor)
                     Spacer()
                     
-                    if isNewCoupon {
-                        Image("newCouponChip")
-                            .resizable()
-                            .frame(width: 16, height: 16)
-                            .foregroundColor(Colors.textColor)
-                    }
+                    CouponChip()
                 }
             }
             .padding(.leading, 10)
@@ -76,6 +72,21 @@ struct SearchListView: View {
         .background(Color.white)
     }
 }
+
+struct CouponChip: View {
+    var body: some View {
+        Text("신규 쿠폰")
+            .font(.system(size: 12))
+            .foregroundColor(.white)
+            .padding(.vertical, 3)
+            .padding(.horizontal, 6)
+            .background(
+                RoundedRectangle(cornerRadius: 2)
+                    .fill(Color(hex: "#C2A200"))
+            )
+    }
+}
+
 
 #Preview("쿠폰 있음") {
     SearchListView(
