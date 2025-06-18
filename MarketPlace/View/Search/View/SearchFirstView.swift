@@ -8,15 +8,10 @@
 import Foundation
 import SwiftUI
 
-struct SearchFirstView: View {
-    var body: some View {
-        ZStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: SearchViewConstants.Layout.spacing) {
-                    RecentSearchView()
-                    PopularBenefitView()
-                }
-            }
-        }
-    }
-}
+//struct SearchFirstView: View {
+//    
+//    
+//    var body: some View {
+//            
+//    }
+//}

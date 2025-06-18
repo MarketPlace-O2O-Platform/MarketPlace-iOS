@@ -40,7 +40,12 @@ struct SearchView: View {
             )
             
             if viewModel.searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                SearchFirstView()
+                ScrollView {
+                    VStack(alignment: .leading, spacing: SearchViewConstants.Layout.spacing) {
+                        RecentSearchView()
+                        PopularBenefitView(popularCoupon: $viewModel.popularCoupon)
+                    }
+                }
             } else {
                 if hasData {
                     SearchSecondView(
@@ -55,6 +60,11 @@ struct SearchView: View {
         .padding(.top, SearchViewConstants.Layout.spacing)
         .background(SearchViewConstants.Colors.backgroundColor)
         .navigationBarBackButtonHidden(true)
+        .onAppear{
+            Task {
+                await viewModel.fetchPopularCoupon(pageSize: nil)
+            }
+        }
         .onChange(of: viewModel.searchText){ _, newValue in
             Task {
                 hasData = await viewModel.fetchMarkets(name: newValue)

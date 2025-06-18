@@ -112,7 +112,6 @@
 		B28A22B52D66636800E86EF6 /* MarketCouponListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28A22B42D66636800E86EF6 /* MarketCouponListView.swift */; };
 		B28A22BE2D666E7500E86EF6 /* CouponGetPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28A22BD2D666E7500E86EF6 /* CouponGetPopupView.swift */; };
 		B28A22C02D668B0600E86EF6 /* MyFavoriteShopListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28A22BF2D668B0600E86EF6 /* MyFavoriteShopListView.swift */; };
-		B28E684F2E02BFB300FA0DA7 /* SearchFirstView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28E684E2E02BFB200FA0DA7 /* SearchFirstView.swift */; };
 		B293A1522D6FDC7B003E8505 /* CheerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B293A1512D6FDC7B003E8505 /* CheerListView.swift */; };
 		B293A1542D6FDCB2003E8505 /* HotCheerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B293A1532D6FDCB2003E8505 /* HotCheerView.swift */; };
 		B293A15A2D6FE0B4003E8505 /* CheerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B293A1592D6FE0B4003E8505 /* CheerView.swift */; };
@@ -250,7 +249,6 @@
 		B28A22B42D66636800E86EF6 /* MarketCouponListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketCouponListView.swift; sourceTree = "<group>"; };
 		B28A22BD2D666E7500E86EF6 /* CouponGetPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponGetPopupView.swift; sourceTree = "<group>"; };
 		B28A22BF2D668B0600E86EF6 /* MyFavoriteShopListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFavoriteShopListView.swift; sourceTree = "<group>"; };
-		B28E684E2E02BFB200FA0DA7 /* SearchFirstView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFirstView.swift; sourceTree = "<group>"; };
 		B293A1512D6FDC7B003E8505 /* CheerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerListView.swift; sourceTree = "<group>"; };
 		B293A1532D6FDCB2003E8505 /* HotCheerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotCheerView.swift; sourceTree = "<group>"; };
 		B293A1592D6FE0B4003E8505 /* CheerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerView.swift; sourceTree = "<group>"; };
@@ -351,7 +349,6 @@
 			children = (
 				B2DCB0652DF02CFE00F9D4AB /* SearchSecondView.swift */,
 				B2DCB0672DF031EC00F9D4AB /* SearchFailedView.swift */,
-				B28E684E2E02BFB200FA0DA7 /* SearchFirstView.swift */,
 				B28349562D2FBD2F00EEDB02 /* SearchView.swift */,
 			);
 			path = View;
@@ -978,7 +975,6 @@
 				2941F7912DE5A2E00063CEFE /* MemberService.swift in Sources */,
 				29D53BF92DE84728008E4F2E /* CheerMarketService.swift in Sources */,
 				2941F77F2DE5A0350063CEFE /* Endpoint.swift in Sources */,
-				B28E684F2E02BFB300FA0DA7 /* SearchFirstView.swift in Sources */,
 				2941F7802DE5A0350063CEFE /* MarketEndpoint.swift in Sources */,
 				2941F7812DE5A0350063CEFE /* MemberCouponEndpoint.swift in Sources */,
 				29D87F832DE86D6900CE9011 /* MemberInfoModel.swift in Sources */,
