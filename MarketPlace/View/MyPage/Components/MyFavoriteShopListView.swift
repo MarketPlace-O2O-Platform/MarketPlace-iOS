@@ -16,17 +16,17 @@ struct FavoriteShopListView: View {
                             )) {
                                 
                             let market = MarketModel(
-                                marketId: shop.id,
+                                marketId: shop.marketId,
                                 marketName: shop.marketName,
-                                marketDescription: "",
-                                address: "",
+                                marketDescription: shop.marketDescription,
+                                address: shop.address,
                                 thumbnail: shop.thumbnail,
-                                isFavorite: false,
-                                isNewCoupon: false
+                                isFavorite: shop.isFavorite,
+                                isNewCoupon: shop.isNewCoupon
                             )
                             
                             MarketInfoCell(
-                                isBookmarked: shop.isCheer,
+                                isBookmarked: shop.isFavorite,
                                 viewModel: MarketInfoCellViewModel(marketId: shop.marketId, marketData: market)
                             )
                         }

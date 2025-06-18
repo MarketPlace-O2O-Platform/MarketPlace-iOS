@@ -11,6 +11,7 @@
 		290A71AF2E027909009AEAF8 /* ShimmeringAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290A71AE2E027909009AEAF8 /* ShimmeringAsyncImage.swift */; };
 		290A71B12E02792A009AEAF8 /* ShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290A71B02E02792A009AEAF8 /* ShimmerView.swift */; };
 		290A71B32E029F04009AEAF8 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290A71B22E029F04009AEAF8 /* View+.swift */; };
+		290A71B52E02C8AE009AEAF8 /* CouponPopupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290A71B42E02C8AE009AEAF8 /* CouponPopupViewModel.swift */; };
 		290D92D32DE55AD5008AC190 /* CommonMsgResDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290D92D22DE55AD5008AC190 /* CommonMsgResDTO.swift */; };
 		290D93522DE57CDE008AC190 /* CouponInfoCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290D93512DE57CDE008AC190 /* CouponInfoCellViewModel.swift */; };
 		290D93542DE58418008AC190 /* CouponBasicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290D93532DE58418008AC190 /* CouponBasicModel.swift */; };
@@ -153,6 +154,7 @@
 		290A71AE2E027909009AEAF8 /* ShimmeringAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmeringAsyncImage.swift; sourceTree = "<group>"; };
 		290A71B02E02792A009AEAF8 /* ShimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerView.swift; sourceTree = "<group>"; };
 		290A71B22E029F04009AEAF8 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
+		290A71B42E02C8AE009AEAF8 /* CouponPopupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponPopupViewModel.swift; sourceTree = "<group>"; };
 		290D92D22DE55AD5008AC190 /* CommonMsgResDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonMsgResDTO.swift; sourceTree = "<group>"; };
 		290D93512DE57CDE008AC190 /* CouponInfoCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponInfoCellViewModel.swift; sourceTree = "<group>"; };
 		290D93532DE58418008AC190 /* CouponBasicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponBasicModel.swift; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 				2941F7942DE5A5760063CEFE /* Top20DetailViewModel.swift */,
 				2941F7962DE5AAB50063CEFE /* NewEventViewModel.swift */,
 				2976FA282DFC4B56009782D1 /* MainViewModel.swift */,
+				290A71B42E02C8AE009AEAF8 /* CouponPopupViewModel.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -991,6 +994,7 @@
 				B293A15A2D6FE0B4003E8505 /* CheerView.swift in Sources */,
 				29E749342DEEABFA00E765E0 /* MyCouponResDto.swift in Sources */,
 				2941F7A12DE5F7FE0063CEFE /* MarketInfoCellViewModel.swift in Sources */,
+				290A71B52E02C8AE009AEAF8 /* CouponPopupViewModel.swift in Sources */,
 				290D93522DE57CDE008AC190 /* CouponInfoCellViewModel.swift in Sources */,
 				B293A1522D6FDC7B003E8505 /* CheerListView.swift in Sources */,
 				293DCF142DE6CD2E000122C5 /* KakaoMapView.swift in Sources */,

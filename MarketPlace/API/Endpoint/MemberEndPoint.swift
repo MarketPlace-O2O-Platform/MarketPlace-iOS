@@ -10,7 +10,7 @@ import Foundation
 enum MemberEndPoint: Endpoint {
     case fetchMemberInfo
     case signIn(studentId: String, password: String)
-    case fetchFavoriteMarket(lastPageIndex: Int?, category: String?, count: Int?)
+    case fetchFavoriteMarket(lastModifiedAt: String?, pageSize: Int?)
 
     var baseURL: URL { URLManager.shared.baseURL }
 
@@ -18,7 +18,7 @@ enum MemberEndPoint: Endpoint {
         switch self {
         case .fetchMemberInfo: return "api/members"
         case .signIn: return "api/members"
-        case .fetchFavoriteMarket: return "api/tempMarkets"
+        case .fetchFavoriteMarket: return "api/markets/my-favorite"
         }
     }
 
@@ -45,13 +45,12 @@ enum MemberEndPoint: Endpoint {
     
     var queryItems: [URLQueryItem]? {
         switch self {
-        case .fetchFavoriteMarket(let lastPageIndex, let category, let count):
+        case .fetchFavoriteMarket(let lastModifiedAt, let pageSize):
             var items: [URLQueryItem] = []
             
             items.append(contentsOf: [
-                lastPageIndex.map { URLQueryItem(name: "lastPageIndex", value: String($0)) },
-                (category?.isEmpty == false ? URLQueryItem(name: "category", value: category!) : nil),
-                count.map { URLQueryItem(name: "count", value: String($0)) }
+                lastModifiedAt.map { URLQueryItem(name: "lastModifiedAt", value: $0) },
+                pageSize.map { URLQueryItem(name: "pageSize", value: String($0)) }
             ].compactMap { $0 })
             
             return items
