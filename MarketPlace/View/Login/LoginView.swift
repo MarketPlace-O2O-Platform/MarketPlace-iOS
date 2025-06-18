@@ -65,6 +65,7 @@ struct LoginView: View {
                         }
                     }
                     
+                    // MARK: - 로그인 TextField
                     VStack(alignment: .leading, spacing: 8) {
                         Text("학번(ID)")
                             .font(Font.custom("Pretendard", size: 14))
@@ -98,6 +99,7 @@ struct LoginView: View {
                             .padding(.top, 10)
                     }
                     
+                    // MARK: - 로그인 버튼
                     Button(action: {
                         Task {
                             await viewModel.signIn(studentId: studentID, password: password)
@@ -124,6 +126,8 @@ struct LoginView: View {
                 .padding(.horizontal, 20)
                 
                 Spacer()
+            } .onTapGesture {
+                self.endTextEditing()
             }
         }
     }
