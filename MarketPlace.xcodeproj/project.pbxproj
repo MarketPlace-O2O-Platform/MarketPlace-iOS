@@ -319,7 +319,6 @@
 			isa = PBXGroup;
 			children = (
 				293DCF432DE6FE43000122C5 /* Array+.swift */,
-				290A71AE2E027909009AEAF8 /* ShimmeringAsyncImage.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -516,6 +515,7 @@
 				B21F3CDD2D267AF900B83B34 /* MarketInfoCell.swift */,
 				29D87F492DE8629900CE9011 /* CircleCategoryTabView.swift */,
 				290A71B02E02792A009AEAF8 /* ShimmerView.swift */,
+				290A71AE2E027909009AEAF8 /* ShimmeringAsyncImage.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
