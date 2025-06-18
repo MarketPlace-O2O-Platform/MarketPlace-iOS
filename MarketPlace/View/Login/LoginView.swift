@@ -106,15 +106,14 @@ struct LoginView: View {
                         }
                     }) {
                         Text("로그인")
-                            .font(.system(size: 18, weight: .bold))
+                            .font(.custom("Pretendard-Bold", size: 14))
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity)
                             .frame(height: 50)
-                            .background(Color.gray.opacity(0.8))
+                            .background(studentID.isEmpty || password.isEmpty ? Color.gray.opacity(0.4) : .black)
                             .cornerRadius(8)
-                    }
+                    }.disabled(studentID.isEmpty || password.isEmpty)
                     
-                    // Checkboxes
                     HStack(spacing: 20) {
                         CheckboxView(title: "학번(ID) 저장", isChecked: $saveID)
                         
