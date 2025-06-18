@@ -4,7 +4,7 @@ import SwiftUI
 /// - NOTE: NewEventDetailView와 합치기 고려
 struct Top20DetailView: View {
     @Environment(\.presentationMode) var presentationMode
-    @StateObject var top20DetailVM = Top20DetailViewModel()
+    @StateObject var viewModel = Top20DetailViewModel()
 
     init() {
         setupNavigationBarAppearance()
@@ -16,7 +16,7 @@ struct Top20DetailView: View {
                 .background(Color.gray.opacity(0.5))
             ScrollView {
                 VStack(spacing: 16) {
-                    ForEach(top20DetailVM.topCoupons) { coupon in
+                    ForEach(viewModel.topCoupons) { coupon in
                         NavigationLink(
                             destination: MarketDetailView(
                             viewModel: MarketDetailViewModel(marketId: coupon.marketId),
@@ -44,7 +44,7 @@ struct Top20DetailView: View {
         }
         .onAppear {
             Task {
-                await top20DetailVM.fetchCouponPopular()
+                await viewModel.fetchCouponPopular()
             }
         }
         .navigationTitle("Top 20 인기 이벤트")

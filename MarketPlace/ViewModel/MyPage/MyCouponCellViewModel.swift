@@ -51,8 +51,7 @@ final class MyCouponCellViewModel: ObservableObject {
         let result = await memberCouponService.useMemberCoupon(memberCouponId: memberCouponId)
         
         switch result {
-        case .success(let data, _):
-            print(data.response.isUsed)
+        case .success( _, _): break
         case .failure(let statusCode, let message):
             print("[useMemberCoupon] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }

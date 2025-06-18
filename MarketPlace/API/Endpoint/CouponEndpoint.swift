@@ -9,18 +9,22 @@ import Foundation
 
 enum CouponEndpoint: Endpoint {
     case fetchValidCoupon(marketId: Int, couponId: Int?, size: Int?)
+    case fetchTopPoplarCoupon(pageSize: Int?)
+    case fetchTopLatestCoupon(pageSize: Int?)
+    case fetchTopClosingCoupon(pageSize: Int?)
     case fetchPopularCoupon(lastIssuedCount: Int?, lastCouponId: Int?, pageSize: Int?)
     case fetchLatestCoupon(lastCreatedAt: String?, lastCouponId: Int?, pageSize: Int?)
-    case fetchClosingCoupon
     
     var baseURL: URL { URLManager.shared.baseURL }
 
     var path: String {
         switch self {
         case .fetchValidCoupon: return "api/coupons"
+        case .fetchTopPoplarCoupon: return "api/coupons/top/popular"
+        case .fetchTopLatestCoupon: return "api/coupons/top/latest"
+        case .fetchTopClosingCoupon: return "api/coupons/top/closing"
         case .fetchPopularCoupon: return "api/coupons/popular"
         case .fetchLatestCoupon: return "api/coupons/latest"
-        case .fetchClosingCoupon: return "api/coupons/closing"
         }
     }
 
@@ -34,6 +38,11 @@ enum CouponEndpoint: Endpoint {
     
     var queryItems: [URLQueryItem]? {
         switch self {
+        case .fetchTopPoplarCoupon(let pageSize),
+                .fetchTopLatestCoupon(let pageSize),
+                .fetchTopClosingCoupon(let pageSize):
+            return pageSize.map { [URLQueryItem(name: "pageSize", value: String($0))] } ?? nil
+            
         case .fetchPopularCoupon(let lastIssuedCount, let lastCouponId, let pageSize):
             var items: [URLQueryItem] = []
 
@@ -66,9 +75,6 @@ enum CouponEndpoint: Endpoint {
             ].compactMap { $0 })
             
             return items
-            
-        default:
-            return nil
         }
     }
 }

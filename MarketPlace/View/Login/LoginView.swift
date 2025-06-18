@@ -6,16 +6,15 @@ struct LoginView: View {
     @State private var password: String = ""
     @State private var saveID: Bool = false
     @State private var savePassword: Bool = false
-    @StateObject private var loginVM = LoginViewModel()
+    @StateObject private var viewModel = LoginViewModel()
 
     let schools = ["인천대학교"]
     
     var body: some View {
-        if loginVM.isLoggedIn {
-            ContentView() // ✅ 로그인 성공 시 ContentView로 이동
+        if viewModel.isLoggedIn {
+            ContentView()
         } else {
             VStack(alignment: .leading, spacing: 4) {
-                // Logo
                 Image("logo")
                     .resizable()
                     .frame(width: 124, height: 40)
@@ -23,7 +22,6 @@ struct LoginView: View {
                     .padding(.bottom, 20)
                     .padding(.leading, 20)
                 
-                // Introduction text
                 VStack(alignment: .leading, spacing: 10) {
                     Text("매번 마라탕 한 그릇, 이천 원 더 내고 있어요.")
                         .font(Font.custom("Pretendard", size: 12).weight(.semibold))
@@ -36,9 +34,7 @@ struct LoginView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom, 14)
                 
-                // Form fields
                 VStack(alignment: .leading, spacing: 16) {
-                    // School selector (Dropdown)
                     VStack(alignment: .leading, spacing: 12) {
                         Text("학교")
                             .font(Font.custom("Pretendard", size: 14))
@@ -69,7 +65,6 @@ struct LoginView: View {
                         }
                     }
                     
-                    // Student ID field
                     VStack(alignment: .leading, spacing: 8) {
                         Text("학번(ID)")
                             .font(Font.custom("Pretendard", size: 14))
@@ -81,7 +76,6 @@ struct LoginView: View {
                             .background(RoundedRectangle(cornerRadius: 2).stroke(Color.gray.opacity(0.5), lineWidth: 1))
                     }
                     
-                    // Password field
                     VStack(alignment: .leading, spacing: 8) {
                         Text("비밀번호")
                             .font(Font.custom("Pretendard", size: 14))
@@ -97,18 +91,16 @@ struct LoginView: View {
                         .font(Font.custom("Pretendard", size: 12).weight(.medium))
                         .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
                     
-                    // Error message
-                    if let errorMessage = loginVM.errorMessage {
+                    if let errorMessage = viewModel.errorMessage {
                         Text(errorMessage)
                             .font(.system(size: 14))
                             .foregroundColor(.red)
                             .padding(.top, 10)
                     }
                     
-                    // Login button
                     Button(action: {
                         Task {
-                            await loginVM.postLogin(studentId: studentID, password: password)
+                            await viewModel.signIn(studentId: studentID, password: password)
                         }
                     }) {
                         Text("로그인")
@@ -137,7 +129,6 @@ struct LoginView: View {
     }
 }
 
-// Custom checkbox component
 struct CheckboxView: View {
     let title: String
     @Binding var isChecked: Bool
@@ -154,11 +145,5 @@ struct CheckboxView: View {
                     .foregroundColor(.black)
             }
         }
-    }
-}
-
-struct LoginView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginView()
     }
 }

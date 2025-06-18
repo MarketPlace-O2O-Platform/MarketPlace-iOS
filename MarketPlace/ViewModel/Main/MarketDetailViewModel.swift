@@ -34,6 +34,7 @@ final class MarketDetailViewModel: ObservableObject {
         case .failure(let statusCode, let message):
             print("[fetchMarketDetail] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }
+        isLoading = false
     }
     
     // MARK: - 유효 쿠폰 리스트 조회 

@@ -11,25 +11,15 @@ struct MarketInfoCell: View {
     
     var body: some View {
         HStack(alignment: .top) {
-            AsyncImage(
+            ShimmeringAsyncImage(
                 url: URL(
                     string: URLManager.shared.baseStringURL + "image/" + (viewModel.market.imageResList.first?.name ?? "")
-                )) { phase in
-                if let image = phase.image {
-                    image
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 110, height: 110)
-                        .clipShape(RoundedRectangle(cornerRadius: 4))
-
-                } else if phase.error != nil {
-                    Image("defaultImage")
-                        .resizable()
-                        .scaledToFit()
-                } else {
-                    ProgressView()
-                }
-            }
+                ),
+                cornerRadius: 4,
+                width: 110,
+                height: 110
+            )
+            
             .frame(width: 110, height: 110)
             .clipShape(RoundedRectangle(cornerRadius: 4))
 

@@ -5,18 +5,11 @@ struct CheerCardCell: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            AsyncImage(
+            ShimmeringAsyncImage(
                 url: URL(
                     string: URLManager.shared.baseStringURL + "image/tempMarket/" + viewModel.cheerMarket.thumbnail
-                )) { image in
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-            } placeholder: {
-                ProgressView()
-            }
-            .frame(width: 162, height: 162)
-            .clipped()
+                ),
+                cornerRadius: 0, width: 162, height: 162)
 
             Text(viewModel.cheerMarket.marketName)
                 .font(.subheadline)

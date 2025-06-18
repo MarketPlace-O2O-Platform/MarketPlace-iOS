@@ -3,7 +3,7 @@ import SwiftUI
 
 struct NewEventDetailView: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var newEventVM = NewEventViewModel()
+    @ObservedObject var viewModel = NewEventViewModel()
     
     init() {
         /// - NOTE: 이거 왜 설정한걸까요?!
@@ -16,7 +16,7 @@ struct NewEventDetailView: View {
                 .background(Color.gray.opacity(0.5))
             ScrollView {
                 VStack(spacing: 16) {
-                    ForEach(newEventVM.newCoupons) { coupon in
+                    ForEach(viewModel.newCoupons) { coupon in
                         NavigationLink(
                             destination: MarketDetailView(
                                 viewModel: MarketDetailViewModel(
@@ -44,7 +44,7 @@ struct NewEventDetailView: View {
         }
         .onAppear {
             Task {
-                await newEventVM.fetchLatestCoupons()
+                await viewModel.fetchLatestCoupons()
             }
         }
         .navigationTitle("이번달 신규 이벤트")

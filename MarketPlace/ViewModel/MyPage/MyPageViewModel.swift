@@ -22,13 +22,12 @@ final class MyPageViewModel: ObservableObject {
         let result = await memberService.fetchFavoriteMarket(lastPageIndex: lastPageIndex, category: category, count: count)
         
         switch result {
-        case .success(let data, let statusCode):
+        case .success(let data, _):
             self.favoriteMarkets = data.response.marketResDtos
         case .failure(let statusCode, let message):
             print("[fetchFavoriteMarket] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }
     }
-
     
     // MARK: - 회원 정보 조회
     func fetchMemberInfo() async {

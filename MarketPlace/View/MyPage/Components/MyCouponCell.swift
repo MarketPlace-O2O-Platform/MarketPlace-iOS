@@ -11,19 +11,14 @@ struct MyCouponCell: View {
             .frame(width: 335, height: 102)
             .overlay {
                 HStack(spacing: 0) {
-                    AsyncImage(
+                    ShimmeringAsyncImage(
                         url: URL(
                             string: URLManager.shared.baseStringURL + "image/" + viewModel.coupon.thumbnail
-                        )) { phase in
-                            if let image = phase.image {
-                                image
-                                    .resizable()
-                                    .frame(width: 102, height: 102)
-                            } else {
-                                ProgressView()
-                            }
-                        }
-                        .frame(width: 102, height: 102)
+                        ),
+                        cornerRadius: 0,
+                        width: 102,
+                        height: 102
+                    )
                     
                     VStack(alignment: .leading, spacing: 4) {
                         Text(viewModel.coupon.couponName)

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct Top20View: View {
-    @StateObject private var top20DetailVM = Top20DetailViewModel()
+    @Binding var popularCoupons: [CouponTopModel]
 
     var body: some View {
         VStack {
@@ -24,26 +24,21 @@ struct Top20View: View {
             /// - NOTE: 쿠폰 리스트 수평스크롤
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
-                    ForEach(top20DetailVM.topCoupons) { coupon in
+                    ForEach(popularCoupons) { coupon in
                         NavigationLink(
                             destination: MarketDetailView(
                                 viewModel: MarketDetailViewModel(
                                     marketId: coupon.marketId),
                                 marketId: coupon.marketId)) {
                             ZStack {
-                                AsyncImage(
-                                    url: URL(
+                                ShimmeringAsyncImage(
+                                    url:  URL(
                                         string: URLManager.shared.baseStringURL + "image/" + coupon.thumbnail
-                                    )) { image in
-                                        image.resizable()
-                                            .scaledToFill()
-                                            .frame(width: 280, height: 280)
-                                            .clipShape(RoundedRectangle(cornerRadius: 4))
-                                            .clipped()
-                                    } placeholder: {
-                                        Color.gray
-                                            .frame(width: 280, height: 280)
-                                    }
+                                    ),
+                                    cornerRadius: 4,
+                                    width: 280,
+                                    height: 280
+                                )
                                 
                                 VStack {
                                     Spacer()
@@ -68,27 +63,7 @@ struct Top20View: View {
                 .padding(.horizontal, 20)
             }
         }
-        
-        /// - NOTE: 화면 나타날 시 API 호출
-        .onAppear {
-            Task {
-                await top20DetailVM.fetchCouponPopular()
-            }
-        }
-
-        .alert("Error", isPresented: .constant(top20DetailVM.errorMessage != nil)) {
-            Button("OK") {
-                top20DetailVM.errorMessage = nil
-            }
-        } message: {
-            if let errorMessage = top20DetailVM.errorMessage {
-                Text(errorMessage)
-            }
-        }
     }
 }
 
 
-#Preview {
-    Top20View()
-}

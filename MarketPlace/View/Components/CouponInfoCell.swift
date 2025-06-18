@@ -13,22 +13,14 @@ struct CouponInfoCell: View {
 
     var body: some View {
         HStack(alignment: .top) {
-            AsyncImage(
+            ShimmeringAsyncImage(
                 url: URL(
                     string: URLManager.shared.baseStringURL + "image/" + viewModel.coupon.thumbnail
-                )) { phase in
-                if let image = phase.image {
-                    image
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 110, height: 110)
-                        .clipShape(RoundedRectangle(cornerRadius: 4))
-                } else {
-                    ProgressView()
-                }
-            }
-            .frame(width: 110, height: 110)
-            .clipShape(RoundedRectangle(cornerRadius: 4))
+                ),
+                cornerRadius: 110,
+                width: 110,
+                height: 4
+            )
 
             VStack(alignment: .leading) {
                 Text(viewModel.coupon.marketName)

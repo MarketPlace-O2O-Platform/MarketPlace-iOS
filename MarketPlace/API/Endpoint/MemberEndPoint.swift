@@ -9,7 +9,7 @@ import Foundation
 
 enum MemberEndPoint: Endpoint {
     case fetchMemberInfo
-    case signIn
+    case signIn(studentId: String, password: String)
     case fetchFavoriteMarket(lastPageIndex: Int?, category: String?, count: Int?)
 
     var baseURL: URL { URLManager.shared.baseURL }
@@ -33,7 +33,15 @@ enum MemberEndPoint: Endpoint {
 
     var headers: [String : String]? { ["Content-Type": "application/json"] }
 
-    var body: Data? { nil }
+    var body: Data? {
+        switch self {
+        case .signIn(let studentId, let password):
+            let request = ["studentId": studentId, "password": password]
+            return try? JSONEncoder().encode(request)
+        default:
+            return nil
+        }
+    }
     
     var queryItems: [URLQueryItem]? {
         switch self {
