@@ -126,6 +126,8 @@
 		B2C3991A2CA145CC004800DD /* MarketPlaceUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C399192CA145CC004800DD /* MarketPlaceUITestsLaunchTests.swift */; };
 		B2C3992D2CA1BF7F004800DD /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C3992C2CA1BF7F004800DD /* CategoryButton.swift */; };
 		B2C462982D8172BE007637DC /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C462972D8172BE007637DC /* LoginView.swift */; };
+		B2DCB0662DF02CFE00F9D4AB /* SearchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DCB0652DF02CFE00F9D4AB /* SearchListView.swift */; };
+		B2DCB0682DF031EC00F9D4AB /* SearchIgnoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DCB0672DF031EC00F9D4AB /* SearchIgnoreView.swift */; };
 		B2F85BE72D6FAB210011DDF3 /* MapLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F85BE62D6FAB210011DDF3 /* MapLocationManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -264,6 +266,8 @@
 		B2C399192CA145CC004800DD /* MarketPlaceUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketPlaceUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B2C3992C2CA1BF7F004800DD /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		B2C462972D8172BE007637DC /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		B2DCB0652DF02CFE00F9D4AB /* SearchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListView.swift; sourceTree = "<group>"; };
+		B2DCB0672DF031EC00F9D4AB /* SearchIgnoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchIgnoreView.swift; sourceTree = "<group>"; };
 		B2F85BE62D6FAB210011DDF3 /* MapLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocationManager.swift; sourceTree = "<group>"; };
 		B2F85BE82D6FAE9A0011DDF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -343,6 +347,8 @@
 		2941F76A2DE595540063CEFE /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B2DCB0652DF02CFE00F9D4AB /* SearchListView.swift */,
+				B2DCB0672DF031EC00F9D4AB /* SearchIgnoreView.swift */,
 				B28349562D2FBD2F00EEDB02 /* SearchView.swift */,
 			);
 			path = View;
@@ -604,8 +610,8 @@
 		B28349502D2FBBBD00EEDB02 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				2941F76A2DE595540063CEFE /* View */,
 				B28349512D2FBBCB00EEDB02 /* Component */,
+				2941F76A2DE595540063CEFE /* View */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -899,6 +905,7 @@
 				B28349132D2E5CA800EEDB02 /* CategoryTabView.swift in Sources */,
 				B21F3CFC2D267AF900B83B34 /* MarketDetailView.swift in Sources */,
 				2976FA2B2DFC4D2F009782D1 /* CouponTopModel.swift in Sources */,
+				B2DCB0682DF031EC00F9D4AB /* SearchIgnoreView.swift in Sources */,
 				B21F3CFC2D267AF900B83B34 /* MarketDetailView.swift in Sources */,
 				29D53BF52DE83F82008E4F2E /* CheerViewModel.swift in Sources */,
 				29D53BF72DE8412E008E4F2E /* CheerMarketEndpoint.swift in Sources */,
@@ -961,6 +968,7 @@
 				B21F3D052D2B057000B83B34 /* Top20DetailView.swift in Sources */,
 				2941F76E2DE597280063CEFE /* MarketSearchModel.swift in Sources */,
 				B2A42DCF2D8B3716005FAF15 /* LoginViewModel.swift in Sources */,
+				B2DCB0662DF02CFE00F9D4AB /* SearchListView.swift in Sources */,
 				B28A22BE2D666E7500E86EF6 /* CouponGetPopupView.swift in Sources */,
 				2941F77E2DE5A0350063CEFE /* CouponEndpoint.swift in Sources */,
 				29D87F4A2DE8629900CE9011 /* CircleCategoryTabView.swift in Sources */,
