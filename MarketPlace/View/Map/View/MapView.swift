@@ -40,6 +40,8 @@ struct MapView: View {
                                         center: market.position ?? CLLocationCoordinate2D(latitude: 0, longitude: 0),
                                         span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005))
                                     isUserTrackingEnabled = true
+                                    
+                                    viewModel.moveMarketToFront(withId: market.marketId)
                                 }
                             }, label: {
                                 if isSelectedPin == market.marketId {
@@ -146,7 +148,7 @@ struct MapView: View {
                                 .frame(width: 40, height: 5)
                                 .padding(.top, 10)
                             
-                            MapMarketListView(selectedIndex: $selectedCategory)
+                            MapMarketListView(viewModel: viewModel, selectedIndex: $selectedCategory)
                                 .frame(height: UIScreen.main.bounds.height / 6)
                         }
                         .frame(maxWidth: .infinity)
@@ -183,7 +185,7 @@ struct MapView: View {
                             .frame(width: 40, height: 5)
                             .padding(.top, 10)
                         
-                        MapMarketListView(selectedIndex: $selectedCategory)
+                        MapMarketListView(viewModel: viewModel, selectedIndex: $selectedCategory)
                             .frame(height: UIScreen.main.bounds.height / 2)
                     }
                     .frame(maxWidth: .infinity)

@@ -13,7 +13,7 @@ struct MarketInfoCell: View {
         HStack(alignment: .top) {
             ShimmeringAsyncImage(
                 url: URL(
-                    string: URLManager.shared.baseStringURL + "image/" + (viewModel.market.imageResList.first?.name ?? "")
+                    string: URLManager.shared.baseStringURL + "image/" + (viewModel.marketData.thumbnail)
                 ),
                 cornerRadius: 4,
                 width: 110,
@@ -24,11 +24,11 @@ struct MarketInfoCell: View {
             .clipShape(RoundedRectangle(cornerRadius: 4))
 
             VStack(alignment: .leading) {
-                Text(viewModel.market.name)
+                Text(viewModel.marketData.marketName)
                     .font(.system(size: 16))
                     .foregroundColor(Color(hex: "333333"))
 
-                Text(viewModel.market.description)
+                Text(viewModel.marketData.marketDescription)
                     .font(.system(size: 13))
                     .foregroundColor(Color(hex: "7D7D7D"))
                 Spacer()
@@ -38,7 +38,7 @@ struct MarketInfoCell: View {
                         .resizable()
                         .frame(width: 16, height: 16)
                         .foregroundColor(Color(hex: "333333"))
-                    Text(viewModel.market.address)
+                    Text(viewModel.marketData.address)
                         .font(.system(size: 13))
                         .foregroundColor(Color(hex: "333333"))
                     Spacer()

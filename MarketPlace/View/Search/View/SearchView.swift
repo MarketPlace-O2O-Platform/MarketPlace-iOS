@@ -57,6 +57,9 @@ struct SearchView: View {
                 }
             }
         }
+        .onTapGesture {
+            self.endTextEditing()
+        }
         .padding(.top, SearchViewConstants.Layout.spacing)
         .background(SearchViewConstants.Colors.backgroundColor)
         .navigationBarBackButtonHidden(true)

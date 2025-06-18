@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct StoreImageSliderView: View {
+struct MarketImageSliderView: View {
     let imageResList: [ImageResource]
     @State private var currentIndex = 0
     

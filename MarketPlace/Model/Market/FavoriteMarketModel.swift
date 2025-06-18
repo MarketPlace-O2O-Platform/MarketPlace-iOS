@@ -10,10 +10,12 @@ import Foundation
 struct FavoriteMarketModel: Identifiable, Codable {
     let marketId: Int
     let marketName: String
+    let marketDescription: String
+    let address: String
     let thumbnail: String
-    let cheerCount: Int
-    let isCheer: Bool
-    let dueDate: Int
-    
+    let isFavorite: Bool
+    let isNewCoupon: Bool
+    let favoriteModifiedAt: String
+
     var id: Int { return marketId }
 }

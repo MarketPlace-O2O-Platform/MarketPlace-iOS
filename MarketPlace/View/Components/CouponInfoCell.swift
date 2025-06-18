@@ -17,9 +17,9 @@ struct CouponInfoCell: View {
                 url: URL(
                     string: URLManager.shared.baseStringURL + "image/" + viewModel.coupon.thumbnail
                 ),
-                cornerRadius: 110,
+                cornerRadius: 4,
                 width: 110,
-                height: 4
+                height: 110
             )
 
             VStack(alignment: .leading) {
