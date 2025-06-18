@@ -40,7 +40,6 @@
 		2941F7952DE5A5760063CEFE /* Top20DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2941F7942DE5A5760063CEFE /* Top20DetailViewModel.swift */; };
 		2941F7972DE5AAB50063CEFE /* NewEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2941F7962DE5AAB50063CEFE /* NewEventViewModel.swift */; };
 		2941F79B2DE5DFDB0063CEFE /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2941F79A2DE5DFDB0063CEFE /* MapViewModel.swift */; };
-		2941F79F2DE5E0F40063CEFE /* MapMarketListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2941F79E2DE5E0F40063CEFE /* MapMarketListViewModel.swift */; };
 		2941F7A12DE5F7FE0063CEFE /* MarketInfoCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2941F7A02DE5F7FE0063CEFE /* MarketInfoCellViewModel.swift */; };
 		295DCBB02DED6DC0009B5D82 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295DCBAF2DED6DC0009B5D82 /* MyPageViewModel.swift */; };
 		295DCBB62DED78C0009B5D82 /* MyCouponViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295DCBB52DED78C0009B5D82 /* MyCouponViewModel.swift */; };
@@ -180,7 +179,6 @@
 		2941F7942DE5A5760063CEFE /* Top20DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top20DetailViewModel.swift; sourceTree = "<group>"; };
 		2941F7962DE5AAB50063CEFE /* NewEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEventViewModel.swift; sourceTree = "<group>"; };
 		2941F79A2DE5DFDB0063CEFE /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
-		2941F79E2DE5E0F40063CEFE /* MapMarketListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarketListViewModel.swift; sourceTree = "<group>"; };
 		2941F7A02DE5F7FE0063CEFE /* MarketInfoCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketInfoCellViewModel.swift; sourceTree = "<group>"; };
 		295DCBAF2DED6DC0009B5D82 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		295DCBB52DED78C0009B5D82 /* MyCouponViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCouponViewModel.swift; sourceTree = "<group>"; };
@@ -416,7 +414,6 @@
 			isa = PBXGroup;
 			children = (
 				2941F79A2DE5DFDB0063CEFE /* MapViewModel.swift */,
-				2941F79E2DE5E0F40063CEFE /* MapMarketListViewModel.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -936,7 +933,6 @@
 				B210EC242D3D686500B1551E /* MyHeaderView.swift in Sources */,
 				290A71B12E02792A009AEAF8 /* ShimmerView.swift in Sources */,
 				B210EC282D3D797F00B1551E /* SearchHeader.swift in Sources */,
-				2941F79F2DE5E0F40063CEFE /* MapMarketListViewModel.swift in Sources */,
 				B293A15C2D6FE2A8003E8505 /* CheerSearchView.swift in Sources */,
 				29BF193A2DE4AC9600836D7E /* MainHeaderView.swift in Sources */,
 				2976FA292DFC4B56009782D1 /* MainViewModel.swift in Sources */,

@@ -9,7 +9,8 @@ import Foundation
 
 final class MapViewModel: ObservableObject {
     @Published var markets: [MarketModel] = []
-    
+    @Published var isLoading = false
+
     private var marketService: MarketServiceProtocol
     
     init(
@@ -18,6 +19,7 @@ final class MapViewModel: ObservableObject {
         self.marketService = marketService
     }
     
+    // MARK: - 카데고리별 매장 전체 정보 받아오기
     func fetchMarkets(
         lastPageIndex: Int? = nil,
         category: String?,
@@ -39,5 +41,15 @@ final class MapViewModel: ObservableObject {
         case .failure(let code, let message):
             print("[fetchMarkets] - [\(code)]: \(message ?? "알 수 없는 오류")")
         }
+    }
+    
+    // MARK: - 지도의 PIN 클릭시 배열의 맨 위로 데이터 가져오기
+    func moveMarketToFront(withId id: Int) {
+        guard let index = markets.firstIndex(where: { $0.id == id }) else {
+            return
+        }
+
+        let market = markets.remove(at: index)
+        markets.insert(market, at: 0)
     }
 }

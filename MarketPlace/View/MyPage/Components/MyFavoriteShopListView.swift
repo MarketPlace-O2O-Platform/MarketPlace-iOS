@@ -8,11 +8,27 @@ struct FavoriteShopListView: View {
             ScrollView {
                 VStack(spacing: 16) {
                     ForEach(favoriteMarkets) { shop in
-                        NavigationLink(destination:
-                                        MarketDetailView(viewModel: MarketDetailViewModel(marketId: shop.marketId), marketId: shop.marketId)) {
+                        NavigationLink(
+                            destination: MarketDetailView(
+                                viewModel: MarketDetailViewModel(
+                                    marketId: shop.marketId),
+                                marketId: shop.marketId
+                            )) {
+                                
+                            let market = MarketModel(
+                                marketId: shop.id,
+                                marketName: shop.marketName,
+                                marketDescription: "",
+                                address: "",
+                                thumbnail: shop.thumbnail,
+                                isFavorite: false,
+                                isNewCoupon: false
+                            )
+                            
                             MarketInfoCell(
                                 isBookmarked: shop.isCheer,
-                                viewModel: MarketInfoCellViewModel(marketId: shop.marketId))
+                                viewModel: MarketInfoCellViewModel(marketId: shop.marketId, marketData: market)
+                            )
                         }
                         .buttonStyle(PlainButtonStyle())
                     }
