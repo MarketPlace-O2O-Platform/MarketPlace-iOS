@@ -30,6 +30,8 @@ struct SearchView: View {
     @State private var searchText: String = ""
     @StateObject private var viewModel = SearchMarketViewModel()
     
+    @State private var hasData: Bool = true
+    
     var body: some View {
         VStack(spacing: SearchViewConstants.Layout.spacing) {
             SearchHeader(
@@ -40,19 +42,22 @@ struct SearchView: View {
             if viewModel.searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                 SearchFirstView()
             } else {
-                SearchSecondView(
-                    searchText: $viewModel.searchText,
-                    viewModel: viewModel
-                )
-                
+                if hasData {
+                    SearchSecondView(
+                        searchText: $viewModel.searchText,
+                        viewModel: viewModel
+                    )
+                } else{
+                    SearchFailedView()
+                }
             }
         }
         .padding(.top, SearchViewConstants.Layout.spacing)
         .background(SearchViewConstants.Colors.backgroundColor)
         .navigationBarBackButtonHidden(true)
-        .onChange(of: viewModel.searchText){ newValue in
+        .onChange(of: viewModel.searchText){ _, newValue in
             Task {
-                await viewModel.fetchMarkets(name: newValue)
+                hasData = await viewModel.fetchMarkets(name: newValue)
             }
         }
     }

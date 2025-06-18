@@ -18,7 +18,9 @@ final class SearchMarketViewModel: ObservableObject {
     }
     
     @MainActor
-    func fetchMarkets(name: String) async {
+    func fetchMarkets(name: String) async -> Bool {
+        var hasData: Bool = true
+        
         let result = await marketService.searchMarketsList(
             lastPageIndex: nil,
             pageSize: nil,
@@ -28,8 +30,13 @@ final class SearchMarketViewModel: ObservableObject {
         switch result {
         case .success(let data, _):
             self.market = data.response.marketResDtos
+            if market.isEmpty {
+                hasData = false
+            }
         case .failure(let statusCode, let message):
             print("[MarketSearch] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }
+        
+        return hasData
     }
 }
