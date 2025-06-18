@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SearchIgnoreView: View {
+struct SearchFailedView: View {
     var body: some View {
         VStack {
             VStack{
@@ -44,5 +44,5 @@ struct SearchIgnoreView: View {
 }
 
 #Preview {
-    SearchIgnoreView()
+    SearchFailedView()
 }

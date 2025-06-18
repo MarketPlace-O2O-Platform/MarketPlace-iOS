@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SearchListView: View {
+struct SearchSecondView: View {
     @StateObject private var viewModel = SearchMarketViewModel()
     
     var body: some View {
@@ -109,7 +109,7 @@ struct CouponChip: View {
 
 
 #Preview("쿠폰 있음") {
-    SearchListView(
+    SearchSecondView(
         
     )
 }

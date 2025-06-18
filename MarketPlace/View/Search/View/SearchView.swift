@@ -40,14 +40,7 @@ struct SearchView: View {
                 onBack: { presentationMode.wrappedValue.dismiss() }
             )
             
-            ZStack {
-                ScrollView {
-                    VStack(alignment: .leading, spacing: SearchViewConstants.Layout.spacing) {
-                        RecentSearchView()
-                        PopularBenefitView()
-                    }
-                }
-            }
+            SearchFirstView()
         }
         .padding(.top, SearchViewConstants.Layout.spacing)
         .background(SearchViewConstants.Colors.backgroundColor)
