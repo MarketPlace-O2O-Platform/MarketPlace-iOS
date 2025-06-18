@@ -6,23 +6,34 @@ struct ImageTextOverlay: View {
     
     var body: some View {
         ZStack(alignment: .bottomLeading) {
-            Image(imageName)
-                .resizable()
-                .scaledToFit()
-                .clipShape(RoundedRectangle(cornerRadius: 4))
+            AsyncImage(
+                url: URL(
+                    string: URLManager.shared.baseStringURL + "image/" + imageName
+                )) { image in
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 350, height: 400)
+                        .clipShape(RoundedRectangle(cornerRadius: 4))
+                        .clipped()
+            } placeholder: {
+                Color.gray
+                    .frame(width: 350, height: 400)
+            }
             
             VStack(alignment: .leading, spacing: 5) {
                 ForEach(texts.indices, id: \.self) { index in
                     Text(texts[index])
-                        .foregroundColor(index == 1 || index == 2 ? Color.white : Color.white) // 조건에 따른 색상
-                        .font(.custom("Pretendard", size: index == 0 || index == 3 ? 13 : 26)) // 조건에 따른 font-size
-                        .fontWeight(index == 1 || index == 2 ? .heavy : .bold) // 조건에 따른 font-weight
-                        .lineSpacing(index == 1 || index == 2 ? 33.8 : 3.12) // 조건에 따른 line-height
+                        .foregroundColor(Color.white)
+                        .font(.custom(index == 1 ? "Pretendard-Heavy" : "Pretendard-Bold", size: index == 0 || index == 2 ? 18 : 26))
+                        .lineLimit(index == 1 ? 2 : 1)
+                        .lineSpacing(index == 0 || index == 1 ? 33.8 : 3.12)
                         .padding(.leading, 5)
                         .bold()
                 }
             }
-            .padding([.leading, .bottom], 16)
+            .offset(CGSize(width: 10, height: -5))
+            .padding(.vertical, 16)
         }
     }
 }

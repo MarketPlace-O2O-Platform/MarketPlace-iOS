@@ -18,7 +18,7 @@ protocol CouponServiceProtocol {
     func fetchCouponTopLatest(pageSize: Int?) async -> NetworkResult<APIResDto<[CouponTopModel]>>
     
     // MARK: - 마감 임박 쿠폰 TOP 조회
-    func fetchCouponTopClosing(pageSize: Int?) async -> NetworkResult<APIResDto<[CouponTopModel]>>
+    func fetchCouponTopClosing(pageSize: Int?) async -> NetworkResult<APIResDto<[TopClosingCouponResDto]>>
     
     // MARK: - 인기 쿠폰 더보기 조회 API
     func fetchCouponPopular(lastIssuedCount: Int?, lastCouponId: Int?, pageSize: Int?) async -> NetworkResult<APIResDto<CouponPopularResponse>>
@@ -48,7 +48,7 @@ final class CouponService: CouponServiceProtocol {
     }
     
     // MARK: - 마감 임박 쿠폰 TOP 조회
-    func fetchCouponTopClosing(pageSize: Int?) async -> NetworkResult<APIResDto<[CouponTopModel]>> {
+    func fetchCouponTopClosing(pageSize: Int?) async -> NetworkResult<APIResDto<[TopClosingCouponResDto]>> {
         return await networkService.request(CouponEndpoint.fetchTopClosingCoupon(pageSize: pageSize))
     }
     

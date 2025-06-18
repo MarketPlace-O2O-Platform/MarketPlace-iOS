@@ -13,15 +13,7 @@ struct MainView: View {
                 ScrollView {
                     VStack {
                         // MARK: - 메인 화면 배너
-                        ImageTextOverlay(
-                            imageName: "MainEx",
-                            texts: [
-                                "오크우드 프리미어 인천",
-                                "오크레스토랑오크레스토",
-                                "20% 할인",
-                                "2024.9.28 - 2024.10.28"
-                            ])
-                            .padding(.horizontal, 20)
+                        MainBannerView(closingCouponList: $viewModel.couponClosing)
             
                         // MARK: - 메인화면 카테고리 버튼 
                         MainCategoryView(

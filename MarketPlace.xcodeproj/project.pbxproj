@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		290A71AD2E026969009AEAF8 /* TopClosingCouponResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290A71AC2E026969009AEAF8 /* TopClosingCouponResDto.swift */; };
 		290D92D32DE55AD5008AC190 /* CommonMsgResDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290D92D22DE55AD5008AC190 /* CommonMsgResDTO.swift */; };
 		290D93522DE57CDE008AC190 /* CouponInfoCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290D93512DE57CDE008AC190 /* CouponInfoCellViewModel.swift */; };
 		290D93542DE58418008AC190 /* CouponBasicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290D93532DE58418008AC190 /* CouponBasicModel.swift */; };
@@ -144,6 +145,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		290A71AC2E026969009AEAF8 /* TopClosingCouponResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopClosingCouponResDto.swift; sourceTree = "<group>"; };
 		290D92D22DE55AD5008AC190 /* CommonMsgResDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonMsgResDTO.swift; sourceTree = "<group>"; };
 		290D93512DE57CDE008AC190 /* CouponInfoCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponInfoCellViewModel.swift; sourceTree = "<group>"; };
 		290D93532DE58418008AC190 /* CouponBasicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponBasicModel.swift; sourceTree = "<group>"; };
@@ -620,6 +622,7 @@
 				29BF18C02DE4950700836D7E /* APIResDto.swift */,
 				29E749332DEEABFA00E765E0 /* MyCouponResDto.swift */,
 				290D92D22DE55AD5008AC190 /* CommonMsgResDTO.swift */,
+				290A71AC2E026969009AEAF8 /* TopClosingCouponResDto.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -990,6 +993,7 @@
 				29E749322DEEA91100E765E0 /* MyCouponCellViewModel.swift in Sources */,
 				B28889A32D4BC9370040EC3F /* CouponResDtos.swift in Sources */,
 				B207A25F2D54B18C0099A8DB /* MyCouponCell.swift in Sources */,
+				290A71AD2E026969009AEAF8 /* TopClosingCouponResDto.swift in Sources */,
 				B215F2962DE6D77B00F53C51 /* AlertListView.swift in Sources */,
 				B28349162D2E604800EEDB02 /* ShopModel.swift in Sources */,
 				B21F3CF72D267AF900B83B34 /* NewEventView.swift in Sources */,

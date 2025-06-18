@@ -10,7 +10,7 @@ import Foundation
 final class MainViewModel: ObservableObject {
     @Published var couponPopular: [CouponTopModel] = []
     @Published var couponLatest: [CouponTopModel] = []
-    @Published var couponClosing: [CouponTopModel] = []
+    @Published var couponClosing: [TopClosingCouponResDto] = []
     
     private var couponService: CouponServiceProtocol
     

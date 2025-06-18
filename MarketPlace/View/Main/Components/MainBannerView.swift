@@ -8,11 +8,36 @@
 import SwiftUI
 
 struct MainBannerView: View {
+    @State private var currentIndex = 0
+    @Binding var closingCouponList: [TopClosingCouponResDto]
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack(alignment: .bottomTrailing) {
+            TabView(selection: $currentIndex) {
+                ForEach(closingCouponList.indices, id: \.self) { index in
+                    ImageTextOverlay(
+                        imageName: closingCouponList[index].thumbnail,
+                        texts: [
+                            closingCouponList[index].marketName,
+                            closingCouponList[index].couponName,
+                            closingCouponList[index].deadline
+                        ]
+                    )
+                    .padding(.horizontal, 20)
+                    .tag(index)
+                }
+            }
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+            .frame(height: 420)
+            
+            Text("\(currentIndex + 1) / \(closingCouponList.count)")
+                .font(.custom("Pretendard-Regular", size: 12))
+                .padding(8)
+                .background(Color.black.opacity(0.6))
+                .foregroundColor(.white)
+                .clipShape(Capsule())
+                .padding([.bottom, .trailing], 16)
+                .offset(CGSize(width: -20, height: -6))
+        }
     }
-}
-
-#Preview {
-    MainBannerView()
 }
