@@ -45,29 +45,26 @@ struct BookmarkButton: View {
 
 // 혜택 카드 컴포넌트
 struct BenefitCard: View {
-    let benefit: Benefit
+    let benefit: CouponTopModel
     @Binding var isBookmarked: Bool
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             ZStack(alignment: .topTrailing) {
-                Image(benefit.image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: BenefitViewConstants.Layout.cardWidth,
-                           height: BenefitViewConstants.Layout.cardWidth)
-                    .cornerRadius(BenefitViewConstants.Layout.cornerRadius)
-                
+                ShimmeringAsyncImage(url: URL(
+                    string: URLManager.shared.baseStringURL + "image/" + benefit.thumbnail)
+                    , cornerRadius: BenefitViewConstants.Layout.cornerRadius, width: BenefitViewConstants.Layout.cardWidth, height: BenefitViewConstants.Layout.cardWidth)
+
                 BookmarkButton(isBookmarked: $isBookmarked)
             }
             
             VStack(alignment: .leading, spacing: 4){
-                Text(benefit.title)
+                Text(benefit.marketName)
                     .font(.custom("Pretendard-SemiBold", size: BenefitViewConstants.Font.storeName))
                     .foregroundColor(.black)
                     .frame(maxWidth: .infinity, alignment: .topLeading)
                 
-                Text(benefit.subtitle)
+                Text(benefit.couponName)
                     .font(.custom("Pretendard-Medium", size: BenefitViewConstants.Font.description))
                     .foregroundColor(.black)
                     .frame(maxWidth: .infinity, alignment: .topLeading)
@@ -76,17 +73,10 @@ struct BenefitCard: View {
     }
 }
 
+
 struct PopularBenefitView: View {
-    @State private var isBookmarked: [Bool] = [false, false]
-    
-    private let benefits = [
-        Benefit(image: "recentSample1",
-               title: "콜드케이스 인하대점",
-               subtitle: "방탈출카페 2인 이용권"),
-        Benefit(image: "recentSample1",
-               title: "콜드케이스 인하대점",
-               subtitle: "방탈출카페 2인 이용권")
-    ]
+    @Binding var popularCoupon: [CouponTopModel]
+    @State private var isBookmarked: Bool = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -97,20 +87,14 @@ struct PopularBenefitView: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: BenefitViewConstants.Layout.spacing) {
-                    ForEach(benefits.indices, id: \.self) { index in
-                        BenefitCard(benefit: benefits[index],
-                                  isBookmarked: $isBookmarked[index])
+                    ForEach(popularCoupon) { coupon in
+                        BenefitCard(
+                            benefit: coupon,
+                            isBookmarked: $isBookmarked)
                     }
                 }
             }
         }
         .padding(.leading, 20)
-    }
-}
-
-struct PopularBenefitView_Previews: PreviewProvider {
-    static var previews: some View {
-        PopularBenefitView()
-            .previewLayout(.sizeThatFits)
     }
 }

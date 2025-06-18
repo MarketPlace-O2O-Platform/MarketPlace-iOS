@@ -56,7 +56,7 @@ struct SearchBar: View {
 
 struct SearchHeader: View {
     @Binding var searchText: String
-    
+
     let onBack: () -> Void
     
     var body: some View {

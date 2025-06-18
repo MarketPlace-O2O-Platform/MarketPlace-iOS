@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SearchIgnoreView: View {
+struct SearchFailedView: View {
     var body: some View {
         VStack {
             VStack{
@@ -39,10 +39,9 @@ struct SearchIgnoreView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Colors.gray_100)
-//        .ignoresSafeArea()
     }
 }
 
 #Preview {
-    SearchIgnoreView()
+    SearchFailedView()
 }

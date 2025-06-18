@@ -7,58 +7,43 @@
 
 import SwiftUI
 
-struct SearchListView: View {
-    @StateObject private var viewModel = SearchMarketViewModel()
+struct SearchSecondView: View {
+    @Binding var searchText: String
+    @ObservedObject var viewModel: SearchMarketViewModel
     
     var body: some View {
         ScrollView {
             VStack(spacing: 10) {
-                ForEach(viewModel.market, id: \.marketId) { market in
-                    SearchComponentView(viewModel: viewModel, market: market)
+                ForEach(viewModel.market) { market in
+                    SearchComponentView(market: market)
+                    Divider()
                 }
             }
             .padding()
         }
-        .task {
-            await viewModel.fetchMarkets(name: viewModel.searchText)
-        }
     }
 }
 
-struct SearchComponentView<T: ObservableObject>: View {
-    @ObservedObject var viewModel: T
+
+struct SearchComponentView: View {
     let market: MarketSearchModel
     
     var body: some View {
         HStack(alignment: .top) {
-            AsyncImage(
+            ShimmeringAsyncImage(
                 url: URL(
                     string: URLManager.shared.baseStringURL + "image/" + market.thumbnail
-                )
-            ) { phase in
-                if let image = phase.image {
-                    image
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 110, height: 110)
-                        .clipShape(RoundedRectangle(cornerRadius: 4))
-                } else if phase.error != nil {
-                    Image("defaultImage")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 110, height: 110)
-                        .clipShape(RoundedRectangle(cornerRadius: 4))
-                } else {
-                    ProgressView()
-                        .frame(width: 110, height: 110)
-                }
-            }
-
+                ),
+                cornerRadius: 4,
+                width: 110,
+                height: 110
+            )
 
             VStack(alignment: .leading) {
                 Text(market.marketName)
                     .font(.system(size: 16))
                     .foregroundColor(Colors.textColor)
+                    .lineLimit(1)
 
                 Text(market.marketDescription)
                     .font(.system(size: 13))
@@ -81,14 +66,11 @@ struct SearchComponentView<T: ObservableObject>: View {
                     }
                 }
             }
-            .padding(.leading, 10)
-            .padding(5)
-            .frame(maxHeight: 110)
+            .padding(.leading, 16)
+            .frame(height: 110)
         }
         .padding(15)
         .background(Color.white)
-        .cornerRadius(8)
-        .shadow(color: Color.black.opacity(0.05), radius: 3, x: 0, y: 2)
     }
 }
 
@@ -106,10 +88,3 @@ struct CouponChip: View {
     }
 }
 
-
-
-#Preview("쿠폰 있음") {
-    SearchListView(
-        
-    )
-}

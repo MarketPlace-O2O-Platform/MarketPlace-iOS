@@ -30,8 +30,7 @@ struct SearchView: View {
     @State private var searchText: String = ""
     @StateObject private var viewModel = SearchMarketViewModel()
     
-    @State var hasResult: Bool = false
-    @State var isNotStartSearching: Bool = false
+    @State private var hasData: Bool = true
     
     var body: some View {
         VStack(spacing: SearchViewConstants.Layout.spacing) {
@@ -40,12 +39,21 @@ struct SearchView: View {
                 onBack: { presentationMode.wrappedValue.dismiss() }
             )
             
-            ZStack {
+            if viewModel.searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                 ScrollView {
                     VStack(alignment: .leading, spacing: SearchViewConstants.Layout.spacing) {
                         RecentSearchView()
-                        PopularBenefitView()
+                        PopularBenefitView(popularCoupon: $viewModel.popularCoupon)
                     }
+                }
+            } else {
+                if hasData {
+                    SearchSecondView(
+                        searchText: $viewModel.searchText,
+                        viewModel: viewModel
+                    )
+                } else{
+                    SearchFailedView()
                 }
             }
         }
@@ -55,9 +63,15 @@ struct SearchView: View {
         .padding(.top, SearchViewConstants.Layout.spacing)
         .background(SearchViewConstants.Colors.backgroundColor)
         .navigationBarBackButtonHidden(true)
+        .onAppear{
+            Task {
+                await viewModel.fetchPopularCoupon(pageSize: nil)
+            }
+        }
+        .onChange(of: viewModel.searchText){ _, newValue in
+            Task {
+                hasData = await viewModel.fetchMarkets(name: newValue)
+            }
+        }
     }
-}
-
-#Preview {
-    SearchView()
 }
