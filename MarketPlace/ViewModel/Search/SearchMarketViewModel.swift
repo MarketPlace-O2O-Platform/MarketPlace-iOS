@@ -9,13 +9,19 @@ import Foundation
 
 final class SearchMarketViewModel: ObservableObject {
     private let marketService: MarketServiceProtocol
+    private let couponService: CouponServiceProtocol
     
     @Published var searchText: String = ""
     @Published var market: [MarketSearchModel] = []
     
-    init(marketService: MarketServiceProtocol = MarketService()) {
+    @Published var popularCoupon: [CouponTopModel] = []
+    
+    init(marketService: MarketServiceProtocol = MarketService(),
+    couponService: CouponServiceProtocol = CouponService()) {
         self.marketService = marketService
+        self.couponService = couponService
     }
+    
     
     @MainActor
     func fetchMarkets(name: String) async -> Bool {
@@ -39,4 +45,15 @@ final class SearchMarketViewModel: ObservableObject {
         
         return hasData
     }
+    
+    func fetchPopularCoupon(pageSize: Int?) async {
+        let result = await couponService.fetchCouponTopPopular(pageSize: pageSize)
+        
+        switch result {
+        case .success(let data, _):
+            self.popularCoupon = data.response
+        case .failure(let statusCode, let message):
+            print("[popularCoupon] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+        }
+            }
 }
