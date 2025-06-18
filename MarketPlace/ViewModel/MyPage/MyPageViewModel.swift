@@ -28,7 +28,6 @@ final class MyPageViewModel: ObservableObject {
             print("[fetchFavoriteMarket] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }
     }
-
     
     // MARK: - 회원 정보 조회
     func fetchMemberInfo() async {

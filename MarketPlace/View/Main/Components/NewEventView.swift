@@ -32,20 +32,15 @@ struct NewEventView: View {
                             viewModel: MarketDetailViewModel(marketId: coupon.marketId),
                             marketId: coupon.marketId)) {
                             ZStack {
-                                AsyncImage(
+                                ShimmeringAsyncImage(
                                     url: URL(
                                         string: URLManager.shared.baseStringURL + "image/" + coupon.thumbnail
-                                    )) { image in
-                                    image.resizable()
-                                        .scaledToFill()
-                                        .frame(width: 280, height: 280)
-                                        .clipShape(RoundedRectangle(cornerRadius: 4))
-                                        .clipped()
-                                } placeholder: {
-                                    Color.gray
-                                        .frame(width: 280, height: 280)
-                                }
-                                
+                                    ),
+                                    cornerRadius: 4,
+                                    width: 280,
+                                    height: 280
+                                )
+                                    
                                 VStack {
                                     Spacer()
                                     VStack(alignment: .leading) {

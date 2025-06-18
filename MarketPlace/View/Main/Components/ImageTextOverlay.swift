@@ -6,21 +6,15 @@ struct ImageTextOverlay: View {
     
     var body: some View {
         ZStack(alignment: .bottomLeading) {
-            AsyncImage(
+            ShimmeringAsyncImage(
                 url: URL(
                     string: URLManager.shared.baseStringURL + "image/" + imageName
-                )) { image in
-                    image
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 350, height: 400)
-                        .clipShape(RoundedRectangle(cornerRadius: 4))
-                        .clipped()
-            } placeholder: {
-                Color.gray
-                    .frame(width: 350, height: 400)
-            }
-            
+                ),
+                cornerRadius: 4,
+                width: 350,
+                height: 400
+            )
+                
             VStack(alignment: .leading, spacing: 5) {
                 ForEach(texts.indices, id: \.self) { index in
                     Text(texts[index])

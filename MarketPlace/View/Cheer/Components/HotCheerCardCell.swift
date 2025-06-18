@@ -23,28 +23,14 @@ struct HotCheerCardCell: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            AsyncImage(
-                url:URL(string:
-                            URLManager.shared.baseStringURL + "image/tempMarket/" + viewModel.hotCheerMarket.thumbnail
-               )) { phase in
-                       switch phase {
-                       case .empty:
-                           ProgressView()
-                               .frame(width: 284, height: 284)
-                       case .success(let image):
-                           image
-                               .resizable()
-                               .aspectRatio(contentMode: .fill)
-                               .frame(width: 284, height: 284)
-                               .clipped()
-                       case .failure:
-                           Rectangle()
-                               .fill(Color.gray)
-                               .frame(width: 284, height: 284)
-                       @unknown default:
-                           EmptyView()
-                       }
-                   }
+            ShimmeringAsyncImage(
+                url: URL(string:
+                        URLManager.shared.baseStringURL + "image/tempMarket/" + viewModel.hotCheerMarket.thumbnail
+                    ),
+                cornerRadius: 0,
+                width: 284,
+                height: 284
+            )
                                 
             Text("'\(viewModel.hotCheerMarket.marketName)' 할인을 받고 싶어요!")
                 .font(.subheadline)
