@@ -2,7 +2,7 @@ import SwiftUI
 
 
 struct MapMarketListView: View {
-    @StateObject var viewModel = MapMarketListViewModel()
+    @ObservedObject var viewModel: MapViewModel
     @Binding var selectedIndex: Int
     
     var body: some View {
@@ -24,7 +24,7 @@ struct MapMarketListView: View {
                             VStack(spacing: 0){
                                 MarketInfoCell(
                                     isBookmarked: shop.isFavorite,
-                                    viewModel: MarketInfoCellViewModel(marketId: shop.marketId)
+                                    viewModel: MarketInfoCellViewModel(marketId: shop.marketId, marketData: shop)
                                 )
                                     .padding(.bottom, 10)
                                 Divider()
@@ -39,11 +39,6 @@ struct MapMarketListView: View {
             .padding(.horizontal, 16)
         }
         .background(Color.white)
-        .onAppear {
-            Task {
-                await viewModel.fetchMarkets(category: Category(index: selectedIndex)?.toString() ?? "")
-            }
-        }
         .onChange(of: selectedIndex) {
             Task {
                 await viewModel.fetchMarkets(category: Category(index: selectedIndex)?.toString() ?? "")

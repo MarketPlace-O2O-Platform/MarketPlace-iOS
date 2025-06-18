@@ -20,7 +20,7 @@ struct MainBannerView: View {
                         texts: [
                             closingCouponList[index].marketName,
                             closingCouponList[index].couponName,
-                            closingCouponList[index].deadline
+                            closingCouponList[index].deadline.toKoreanDateFormat()
                         ]
                     )
                     .padding(.horizontal, 20)

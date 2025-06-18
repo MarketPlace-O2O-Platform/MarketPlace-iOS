@@ -60,7 +60,7 @@ struct SearchComponentView<T: ObservableObject>: View {
                     .font(.system(size: 16))
                     .foregroundColor(Colors.textColor)
 
-                Text(market.marketDescription ?? "설명 없음")
+                Text(market.marketDescription)
                     .font(.system(size: 13))
                     .foregroundColor(Color(hex: "#7D7D7D"))
                     .lineLimit(2)

@@ -21,20 +21,20 @@ struct ShimmerView: View {
 
             GeometryReader { geometry in
                 let gradient = LinearGradient(
-                    gradient: Gradient(colors: [Color.clear, Color.white.opacity(0.2), Color.clear]),
+                    gradient: Gradient(colors: [Color.clear, Color.white.opacity(0.05), Color.white.opacity(0.2), Color.white.opacity(0.05),Color.clear]),
                     startPoint: .top,
                     endPoint: .bottom
                 )
 
                 Rectangle()
                     .fill(gradient)
-                    .frame(width: geometry.size.width * 2)
+                    .frame(width: geometry.size.width * 3)
                     .rotationEffect(.degrees(45))
-                    .offset(x: isAnimating ? geometry.size.width : -geometry.size.width)
+                    .offset(x: isAnimating ? geometry.size.width : -geometry.size.width, y: isAnimating ? -geometry.size.height : geometry.size.height)
                     .onAppear {
                         withAnimation(
-                            .linear(duration: 1.2)
-                                .repeatForever(autoreverses: false)
+                            .linear(duration: 1.5)
+                            .repeatForever(autoreverses: false)
                         ) {
                             isAnimating = true
                         }

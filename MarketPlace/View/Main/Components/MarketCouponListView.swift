@@ -3,10 +3,28 @@ import SwiftUI
 /// - NOTE: 이벤트 쿠폰 부분 수평 스크롤 coupon List 뷰입니다.
 struct MarketCouponListView: View {
     @Binding var coupons: [CouponValidModel]
-    @State private var isPopupVisible = false
-    @State private var selectedCouponId: Int?
-    @State private var showToast = false
-    @State private var toastMessage = ""
+    @Binding var isPopupVisible: Bool
+    @Binding private var selectedCouponId: Int
+    @Binding private var showToast: Bool
+    @Binding private var toastMessage: String
+    
+    private let marketId: Int
+    
+    init(
+        coupons: Binding<[CouponValidModel]>,
+        isPopupVisible: Binding<Bool>,
+        selectedCouponId: Binding<Int>,
+        showToast: Binding<Bool>,
+        toastMessage: Binding<String>,
+        marketId: Int
+    ) {
+        self._coupons = coupons
+        self._isPopupVisible = isPopupVisible
+        self._selectedCouponId = selectedCouponId
+        self._showToast = showToast
+        self._toastMessage = toastMessage
+        self.marketId = marketId
+    }
 
     var body: some View {
         ZStack {
@@ -48,21 +66,6 @@ struct MarketCouponListView: View {
                             }
                     }
                 }.padding(.horizontal, 16)
-            }
-
-            if isPopupVisible, let selectedId = selectedCouponId, let couponBinding = $coupons.first(where: { $0.wrappedValue.id == selectedId }) {
-//                CouponGetPopupView(
-//                    isPopupVisible: $isPopupVisible,
-//                    coupon: couponBinding,
-//                    couponVaildVM: couponValidVM,
-//                    marketId: marketId
-//                )
-//                .transition(.scale)
-            }
-
-            if showToast {
-                ToastView(message: toastMessage, isShowing: $showToast)
-                    .transition(.move(edge: .bottom))
             }
         }
     }
