@@ -15,6 +15,7 @@ enum MarketEndpoint: Endpoint {
     case fetchMarketsForMap
     case postFavoriteMarket(marketId: Int)
     case fetchMarketRequest(page: Int?, size: Int?)
+    case postMarketRequest(name: String, address: String)
     
     var baseURL: URL { URLManager.shared.baseURL }
 
@@ -27,6 +28,8 @@ enum MarketEndpoint: Endpoint {
         case .fetchMarketsForMap: return "api/markets/map"
         case .postFavoriteMarket: return "api/favorites"
         case .fetchMarketRequest: return "api/request-markets"
+        case .postMarketRequest: return "api/request-markets"
+
         }
     }
 
@@ -80,7 +83,29 @@ enum MarketEndpoint: Endpoint {
                 pageSize.map { URLQueryItem(name: "pageSize", value: String($0)) }
             ].compactMap { $0 })
             
+            
             return items
+            
+        case .fetchMarketRequest(let page, let size):
+            var items: [URLQueryItem] = []
+
+            items.append(contentsOf: [
+                page.map { URLQueryItem(name: "page", value: String($0)) },
+                size.map { URLQueryItem(name: "size", value: String($0)) }
+            ].compactMap { $0 })
+            
+            
+            return items
+            
+//        case .postMarketRequest(let name, let address):
+//            var items: [URLQueryItem] = []
+//            
+//            items.append(contentsOf:[
+//                name.map {URLQueryItem(name: "name", value: String($0)) },
+//                address.map { URLQueryItem(name: "address", value: String($0)) }
+//            ].compactMap { $0 })
+//                            
+//            return items
         
         default:
             return nil
