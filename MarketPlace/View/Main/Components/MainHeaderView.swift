@@ -10,7 +10,8 @@ import SwiftUI
 struct MainHeaderView: View {
     @State private var searchText: String = ""
     @State private var isSearchViewActive: Bool = false
-    
+    @State private var isAlertViewActive: Bool = false
+
     var body: some View {
         HStack {
             Image("logo")
@@ -67,11 +68,14 @@ struct MainHeaderView: View {
             Spacer()
             
             Button(action: {
-                print("Notification tapped")
+                isAlertViewActive = true
             }) {
                 Image(systemName: "bell")
                     .font(.system(size: 20))
                     .foregroundColor(Color(hex: "#545454"))
+            }
+            .navigationDestination(isPresented: $isAlertViewActive) {
+                AlertView()
             }
         }
         .frame(height: 44)

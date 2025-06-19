@@ -3,13 +3,14 @@ import SwiftUI
 struct MainView: View {
     @State private var selectedTab = 0
     @State private var selectedCategoryIndex: Int? = nil
+    
     @ObservedObject var viewModel = MainViewModel()
 
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
                 MainHeaderView()
-                
+
                 ScrollView {
                     VStack {
                         // MARK: - 메인 화면 배너
