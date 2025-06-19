@@ -27,11 +27,11 @@ struct LoginView: View {
                 
                 VStack(alignment: .leading, spacing: 10) {
                     Text("매번 마라탕 한 그릇, 이천 원 더 내고 있어요.")
-                        .font(Font.custom("Pretendard", size: 12).weight(.semibold))
+                        .font(.custom("Pretendard-SemiBold", size: 12))
                         .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
                     
                     Text("이제, 다니는 대학 제휴 멤버십으로 \n쿠폰 꾸러미 받아볼까요?")
-                        .font(Font.custom("Pretendard", size: 16).weight(.medium))
+                        .font(.custom("Pretendard-Medium", size: 16))
                         .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
                 }
                 .padding(.horizontal, 20)
@@ -40,7 +40,7 @@ struct LoginView: View {
                 VStack(alignment: .leading, spacing: 16) {
                     VStack(alignment: .leading, spacing: 12) {
                         Text("학교")
-                            .font(Font.custom("Pretendard", size: 14))
+                            .font(Font.custom("Pretendard-Regular", size: 14))
                             .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
                         
                         Menu {
@@ -77,7 +77,10 @@ struct LoginView: View {
                         TextField("학번을 입력해 주세요.", text: $studentID)
                             .padding()
                             .frame(height: 48)
-                            .background(RoundedRectangle(cornerRadius: 2).stroke(Color.gray.opacity(0.5), lineWidth: 1))
+                            .background(
+                                RoundedRectangle(cornerRadius: 2)
+                                    .stroke(studentID.isEmpty ? Color.gray.opacity(0.5) : .black, lineWidth: 1)
+                            )
                             .focused($isEditing)
                     }
                     
@@ -89,7 +92,9 @@ struct LoginView: View {
                         SecureField("비밀번호는 꼭꼭 지켜줄게요", text: $password)
                             .padding()
                             .frame(height: 48)
-                            .background(RoundedRectangle(cornerRadius: 2).stroke(Color.gray.opacity(0.5), lineWidth: 1))
+                            .background(
+                                RoundedRectangle(cornerRadius: 2)
+                                    .stroke(password.isEmpty ? Color.gray.opacity(0.5) : .black, lineWidth: 1))
                             .focused($isEditing)
                     }
                     
@@ -163,7 +168,7 @@ struct CheckboxView: View {
                 Image(systemName: isChecked ? "checkmark.square.fill" : "square")
                     .foregroundColor(.black)
                 Text(title)
-                    .font(.system(size: 14))
+                    .font(.custom("Pretendard-Bold", size: 12))
                     .foregroundColor(.black)
             }
         }
