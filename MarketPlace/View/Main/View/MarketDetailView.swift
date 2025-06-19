@@ -28,7 +28,7 @@ struct MarketDetailView: View {
                             VStack(alignment: .leading, spacing: 8) {
                                 HStack {
                                     Text(shop.name)
-                                        .font(.custom("Pretendard-SemiBold", size: 19))
+                                        .pretendardFont(size: 19, weight: .semibold)
                                         .foregroundColor(.black)
                                         .frame(maxWidth: .infinity, alignment: .topLeading)
                                     Spacer()
@@ -43,7 +43,7 @@ struct MarketDetailView: View {
                                 .padding(.top, 20)
                                 
                                 Text(shop.description)
-                                    .font(.custom("Pretendard-Medium", size: 15))
+                                    .pretendardFont(size: 15, weight: .medium)
                                     .foregroundColor(.gray)
                                     .lineSpacing(4)
                             }
@@ -55,7 +55,7 @@ struct MarketDetailView: View {
                             
                             VStack(alignment: .leading, spacing: 20) {
                                 Text("이벤트 쿠폰")
-                                    .font(.custom("Pretendard-SemiBold", size: 14))
+                                    .pretendardFont(size: 14, weight: .semibold)
                                     .foregroundColor(.black)
                                     .padding(.leading, 16)
                                 
@@ -76,12 +76,12 @@ struct MarketDetailView: View {
                                 } else {
                                     Text("사용 가능한 쿠폰이 없습니다.")
                                         .foregroundColor(.gray)
-                                        .font(.custom("Pretendard-SemiBold", size: 13))
+                                        .pretendardFont(size: 13, weight: .semibold)
                                         .padding(.leading, 16)
                                 }
                                 
                                 Text(shop.description)
-                                    .font(.custom("Pretendard-Regular", size: 13))
+                                    .pretendardFont(size: 13, weight: .regular)
                                     .foregroundColor(.gray)
                                     .padding(.leading, 16)
                             }
@@ -93,7 +93,7 @@ struct MarketDetailView: View {
                             
                             VStack(alignment: .leading, spacing: 16) {
                                 Text("영업정보")
-                                    .font(.custom("Pretendard-SemiBold", size: 14))
+                                    .pretendardFont(size: 14, weight: .semibold)
                                     .foregroundColor(.black)
                                 
                                 VStack(spacing: 12) {

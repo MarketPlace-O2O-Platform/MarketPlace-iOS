@@ -55,7 +55,7 @@ struct CategoryButton: View {
                 .foregroundColor(.black)
             
             Text(text)
-                .font(.system(size: 13))
+                .pretendardFont(size: 13, weight: .regular)
                 .foregroundColor(.black)
         }
         .padding(.vertical, 8)

@@ -36,15 +36,15 @@ struct MainHeaderView: View {
                         /// - NOTE: placeholder
                         if searchText.isEmpty {
                             Text("찾으시려는 이용권을 검색해보세요")
+                                .pretendardFont(size: 8, weight: .regular)
                                 .foregroundColor(Color(hex: "#C6C6C6"))
-                                .font(.system(size: 9))
                                 .padding(.leading, 6)
                                 .padding(.leading, 45)
                             
                         }
                         
                         TextField("", text: $searchText)
-                            .font(.system(size: 9))
+                            .pretendardFont(size: 8, weight: .regular)
                             .foregroundColor(Color(hex: "#333333"))
                             .padding(.vertical, 8)
                             .padding(.leading, 6)
