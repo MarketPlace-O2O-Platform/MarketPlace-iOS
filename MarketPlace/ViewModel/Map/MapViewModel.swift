@@ -38,11 +38,23 @@ final class MapViewModel: ObservableObject {
                 updatedMarket.position = try? await ConvertAddress().getCoordinateFromRoadAddress(from: market.address)
                 return updatedMarket
             }
-        case .failure(let code, let message):
-            print("[fetchMarkets] - [\(code)]: \(message ?? "알 수 없는 오류")")
+        case .failure(let statusCode, let message):
+            print("[fetchMarkets] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }
     }
     
+    // MARK: - 주소별 매장 조회 API
+    func fetchMarketsWithAddress(lastPageIndex: Int?, category: String?, pageSize: Int?) async {
+        let result = await marketService.fetchMarketsWithAddress(lastPageIndex: lastPageIndex, category: category, pageSize: pageSize)
+        
+        switch result {
+        case .success(let data, let statusCode):
+            print(data, statusCode)
+        case .failure(let statusCode, let message):
+            print("[fetchMarketsWithAddress] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+        }
+    }
+
     // MARK: - 지도의 PIN 클릭시 배열의 맨 위로 데이터 가져오기
     func moveMarketToFront(withId id: Int) {
         guard let index = markets.firstIndex(where: { $0.id == id }) else {
