@@ -4,7 +4,7 @@ struct LoginView: View {
     @State private var selectedSchool: String = ""
     @State private var studentID: String = ""
     @State private var password: String = ""
-    @StateObject private var viewModel = LoginViewModel()
+    @EnvironmentObject var viewModel: LoginViewModel
     
     @AppStorage(UserDefaultsKeys.saveId) private var saveID: Bool = false
     @AppStorage(UserDefaultsKeys.savePassword) private var savePassword: Bool = false

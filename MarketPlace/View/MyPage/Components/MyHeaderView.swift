@@ -27,10 +27,10 @@ struct UserInfoView: View {
     var body: some View {
         HStack(spacing: 4) {
             Text(userId)
-                .pretendardFont(size: MyHeaderViewConstants.FontSize.userName, weight: .bold)
+                .pretendardFont(size: MyHeaderViewConstants.FontSize.userName, weight: .medium)
                 .foregroundColor(Colors.textColor)
             Text("님")
-                .pretendardFont(size: MyHeaderViewConstants.FontSize.userName, weight: .semibold)
+                .pretendardFont(size: MyHeaderViewConstants.FontSize.userName, weight: .medium)
             
             Button(action: {
                     isDropdownVisible.toggle()
@@ -48,8 +48,10 @@ struct UserInfoView: View {
 
 struct MyHeaderView: View {
     @State private var isDropdownVisible = false
-    @State private var showLogoutAlert = false
+    @Binding var showLogoutAlert: Bool
     @Binding var userId: Int
+    
+    @EnvironmentObject var loginVM: LoginViewModel
     
     var body: some View {
         ZStack(alignment: .top) {

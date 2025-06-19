@@ -40,8 +40,4 @@ final class MyPageViewModel: ObservableObject {
             print("[fetchMemberInfo] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }
     }
-    
-    func logout() {
-        KeychainManager.delete(KeyChainKeys.token)
-    }
 }

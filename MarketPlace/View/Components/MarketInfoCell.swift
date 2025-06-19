@@ -25,11 +25,11 @@ struct MarketInfoCell: View {
 
             VStack(alignment: .leading) {
                 Text(viewModel.marketData.marketName)
-                    .pretendardFont(size: 15, weight: .semibold)
+                    .pretendardFont(size: 16, weight: .semibold)
                     .foregroundColor(Color(hex: "333333"))
 
                 Text(viewModel.marketData.marketDescription)
-                    .pretendardFont(size: 12, weight: .medium)
+                    .pretendardFont(size: 13, weight: .medium)
                     .foregroundColor(Color(hex: "7D7D7D"))
                 Spacer()
 

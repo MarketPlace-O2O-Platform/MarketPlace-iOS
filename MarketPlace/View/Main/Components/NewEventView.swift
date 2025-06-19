@@ -13,7 +13,7 @@ struct NewEventView: View {
                 Spacer()
                 NavigationLink(destination: NewEventDetailView()) {
                     Text("더보기 >")
-                        .pretendardFont(size: 14, weight: 14)
+                        .pretendardFont(size: 14, weight: .medium)
                         .foregroundColor(Color(red: 0.29, green: 0.29, blue: 0.29))
                 }
             }

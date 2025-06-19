@@ -41,4 +41,11 @@ final class LoginViewModel: ObservableObject {
             userErrorMessage = message
         }
     }
+    
+    func logout() {
+        KeychainManager.delete(KeyChainKeys.token)
+        DispatchQueue.main.async {
+            self.isLoggedIn = false
+        }
+    }
 }
