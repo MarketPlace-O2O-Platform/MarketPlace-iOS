@@ -23,7 +23,6 @@ final class MyPageViewModel: ObservableObject {
         
         switch result {
         case .success(let data, _):
-            print(data.response.marketResDtos)
             self.favoriteMarkets = data.response.marketResDtos
         case .failure(let statusCode, let message):
             print("[fetchFavoriteMarket] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")

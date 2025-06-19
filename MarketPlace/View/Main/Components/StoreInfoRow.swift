@@ -9,17 +9,11 @@ struct StoreInfoRow: View {
             Text(title)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .layoutPriority(1)
-                .font(
-                    Font.custom("Pretendard", size: 13)
-                    .weight(.medium)
-                )
+                .font(.custom("Pretendard-Medium", size: 13))
                 .foregroundColor(Color(red: 0.53, green: 0.53, blue: 0.53))
             
             Text(content)
-                .font(
-                    Font.custom("Pretendard", size: 13)
-                    .weight(.medium)
-                )
+                .font(.custom("Pretendard-Medium", size: 13))
                 .foregroundColor(Color(red: 0.37, green: 0.37, blue: 0.37))
                 .lineSpacing(4)
                 .frame(maxWidth: .infinity, alignment: .leading)

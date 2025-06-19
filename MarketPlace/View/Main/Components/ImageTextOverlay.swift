@@ -10,7 +10,7 @@ struct ImageTextOverlay: View {
                 url: URL(
                     string: URLManager.shared.baseStringURL + "image/" + imageName
                 ),
-                cornerRadius: 4,
+                cornerRadius: 12,
                 width: 350,
                 height: 400
             )

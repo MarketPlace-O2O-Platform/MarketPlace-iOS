@@ -28,19 +28,22 @@ struct MarketDetailView: View {
                             VStack(alignment: .leading, spacing: 8) {
                                 HStack {
                                     Text(shop.name)
-                                        .font(.system(size: 19, weight: .semibold))
+                                        .font(.custom("Pretendard-SemiBold", size: 19))
                                         .foregroundColor(.black)
                                         .frame(maxWidth: .infinity, alignment: .topLeading)
                                     Spacer()
                                     Button(action: { isBookmarked.toggle() }) {
                                         Image(systemName: isBookmarked ? "bookmark.fill" : "bookmark")
+                                            .resizable()
+                                            .scaledToFit()
                                             .foregroundColor(.black)
+                                            .frame(width: 16)
                                     }
                                 }
                                 .padding(.top, 20)
                                 
                                 Text(shop.description)
-                                    .font(.system(size: 14))
+                                    .font(.custom("Pretendard-Medium", size: 15))
                                     .foregroundColor(.gray)
                                     .lineSpacing(4)
                             }
@@ -52,7 +55,7 @@ struct MarketDetailView: View {
                             
                             VStack(alignment: .leading, spacing: 20) {
                                 Text("이벤트 쿠폰")
-                                    .font(.system(size: 14, weight: .semibold))
+                                    .font(.custom("Pretendard-SemiBold", size: 14))
                                     .foregroundColor(.black)
                                     .padding(.leading, 16)
                                 
@@ -73,12 +76,12 @@ struct MarketDetailView: View {
                                 } else {
                                     Text("사용 가능한 쿠폰이 없습니다.")
                                         .foregroundColor(.gray)
-                                        .font(.system(size: 13))
+                                        .font(.custom("Pretendard-SemiBold", size: 13))
                                         .padding(.leading, 16)
                                 }
                                 
                                 Text(shop.description)
-                                    .font(.system(size: 13))
+                                    .font(.custom("Pretendard-Regular", size: 13))
                                     .foregroundColor(.gray)
                                     .padding(.leading, 16)
                             }
@@ -90,7 +93,7 @@ struct MarketDetailView: View {
                             
                             VStack(alignment: .leading, spacing: 16) {
                                 Text("영업정보")
-                                    .font(.system(size: 14, weight: .semibold))
+                                    .font(.custom("Pretendard-SemiBold", size: 14))
                                     .foregroundColor(.black)
                                 
                                 VStack(spacing: 12) {
