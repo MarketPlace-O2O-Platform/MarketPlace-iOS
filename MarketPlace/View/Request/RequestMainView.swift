@@ -8,9 +8,15 @@
 import SwiftUI
 
 struct RequestMainView: View {
+    @Environment(\.presentationMode) var presentationMode
+
     @State var marketName : String = ""
     @StateObject private var viewModel = MarketRequestViewModel()
     @State private var hasData: Bool = true
+    
+    init() {
+        setupNavigationBarAppearance()
+    }
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -19,6 +25,7 @@ struct RequestMainView: View {
                 Text("검색해주세요")
             }
             .font(.system(size: 24))
+            .padding(.top, 40)
             
             TextField("매장명 또는 지번, 도로명으로 검색", text: $marketName)
                 .padding(.horizontal, 20)
@@ -31,8 +38,6 @@ struct RequestMainView: View {
                             lineWidth: 1
                         )
                 }
-            
-           
             
             if viewModel.marketName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                 Spacer()
@@ -49,11 +54,39 @@ struct RequestMainView: View {
                 }
             }
         }
-        .onChange(of: viewModel.marketName){ _, newValue in
+        .onChange(of: marketName){ _, newValue in
             Task {
-                hasData = await viewModel.fetchMarketRequest(marketName: newValue)
+                /// - note: 매장요청 주소 검색 APi
             }
         }
+        .navigationTitle("요청하기")
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    Image(systemName: "chevron.backward")
+                        .foregroundColor(.black)
+                }
+            }
+        }
+    }
+    
+    private func setupNavigationBarAppearance() {
+        /// UINavigationBar의 기본 설정을 수정합니다.
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor.white
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
+        
+        /// 기본 back indicator를 숨깁니다.
+        appearance.setBackIndicatorImage(UIImage(), transitionMaskImage: UIImage())
+        
+        /// 설정된 appearance 적용
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
 }
 

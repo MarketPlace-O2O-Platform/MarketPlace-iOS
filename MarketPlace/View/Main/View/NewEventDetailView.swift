@@ -6,7 +6,6 @@ struct NewEventDetailView: View {
     @ObservedObject var viewModel = NewEventViewModel()
     
     init() {
-        /// - NOTE: 이거 왜 설정한걸까요?!
         setupNavigationBarAppearance()
     }
     

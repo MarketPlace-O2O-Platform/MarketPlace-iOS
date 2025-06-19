@@ -14,7 +14,6 @@ enum MarketEndpoint: Endpoint {
     case fetchOwnFavoriteMarkets(lastModifiedAt: String?, pageSize: Int?)
     case fetchMarketsForMap
     case postFavoriteMarket(marketId: Int)
-    case fetchMarketRequest(page: Int?, size: Int?)
     case postMarketRequest(name: String, address: String)
     
     var baseURL: URL { URLManager.shared.baseURL }
@@ -27,7 +26,6 @@ enum MarketEndpoint: Endpoint {
         case .fetchOwnFavoriteMarkets: return "api/markets/my-favorite"
         case .fetchMarketsForMap: return "api/markets/map"
         case .postFavoriteMarket: return "api/favorites"
-        case .fetchMarketRequest: return "api/request-markets"
         case .postMarketRequest: return "api/request-markets"
 
         }
@@ -35,7 +33,8 @@ enum MarketEndpoint: Endpoint {
 
     var method: HTTPMethod {
         switch self {
-        case .postFavoriteMarket:
+        case .postFavoriteMarket,
+                .postMarketRequest:
             .post
         default:
             .get
@@ -44,7 +43,15 @@ enum MarketEndpoint: Endpoint {
 
     var headers: [String : String]? { ["Content-Type": "application/json"] }
 
-    var body: Data? { nil }
+    var body: Data? {
+        switch self {
+        case .postMarketRequest(let name, let address):
+            let body = ["name": name, "address": address]
+            return try? JSONEncoder().encode(body)
+        default:
+            return nil
+        }
+    }
     
     var queryItems: [URLQueryItem]? {
         switch self {
@@ -85,27 +92,6 @@ enum MarketEndpoint: Endpoint {
             
             
             return items
-            
-        case .fetchMarketRequest(let page, let size):
-            var items: [URLQueryItem] = []
-
-            items.append(contentsOf: [
-                page.map { URLQueryItem(name: "page", value: String($0)) },
-                size.map { URLQueryItem(name: "size", value: String($0)) }
-            ].compactMap { $0 })
-            
-            
-            return items
-            
-//        case .postMarketRequest(let name, let address):
-//            var items: [URLQueryItem] = []
-//            
-//            items.append(contentsOf:[
-//                name.map {URLQueryItem(name: "name", value: String($0)) },
-//                address.map { URLQueryItem(name: "address", value: String($0)) }
-//            ].compactMap { $0 })
-//                            
-//            return items
         
         default:
             return nil

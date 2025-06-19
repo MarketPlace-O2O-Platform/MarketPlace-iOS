@@ -21,6 +21,7 @@ protocol NetworkServiceProtocol {
 final class NetworkService: NetworkServiceProtocol {
     func request<T: Decodable>(_ endpoint: Endpoint) async -> NetworkResult<T>  {
         var request = endpoint.urlRequest
+        print(request.url)
         
         if let token = KeychainManager.getToken() {
             request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
