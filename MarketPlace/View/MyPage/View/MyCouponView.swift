@@ -29,6 +29,7 @@ struct MyCouponView: View {
                     VStack(alignment: .center, spacing: 16) {
                         if viewModel.memberCoupons.isEmpty {
                             Text("해당 카테고리에 쿠폰이 없습니다.")
+                                .pretendardFont(size: 16, weight: .semibold)
                                 .foregroundColor(.gray)
                                 .padding()
                         } else {

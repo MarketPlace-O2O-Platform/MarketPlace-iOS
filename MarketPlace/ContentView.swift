@@ -18,7 +18,7 @@ struct ContentView: View {
                     VStack {
                         Image(uiImage: resizeImage(named: "homeIcon", width: 30, height: 30))
                         Text("홈")
-                            .font(Font.custom("Pretendard", size: 12).weight(.medium))
+                            .pretendardFont(size: 12, weight: .medium)
                             .multilineTextAlignment(.center)
                     }
                 }
@@ -31,7 +31,7 @@ struct ContentView: View {
                             .scaledToFit()
                             .frame(width: 21, height: 17)
                         Text("지도")
-                            .font(Font.custom("Pretendard", size: 12).weight(.medium))
+                            .pretendardFont(size: 12, weight: .medium)
                             .multilineTextAlignment(.center)
                     }
                 }
@@ -44,7 +44,7 @@ struct ContentView: View {
                             .scaledToFit()
                             .frame(width: 18, height: 16)
                         Text("공감")
-                            .font(Font.custom("Pretendard", size: 12).weight(.medium))
+                            .pretendardFont(size: 12, weight: .medium)
                             .multilineTextAlignment(.center)
                     }
                 }
@@ -54,7 +54,7 @@ struct ContentView: View {
                     VStack {
                         Image(uiImage: resizeImage(named: "userIcon", width: 24, height: 24))
                         Text("마이페이지")
-                            .font(Font.custom("Pretendard", size: 12).weight(.medium))
+                            .pretendardFont(size: 12, weight: .medium)
                             .multilineTextAlignment(.center)
                     }
                 }

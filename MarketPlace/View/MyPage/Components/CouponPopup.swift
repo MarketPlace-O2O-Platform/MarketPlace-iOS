@@ -14,8 +14,7 @@ struct CouponPopup: View {
             if isPopupVisible {
                 VStack(spacing: 24) {
                     Text("쿠폰을 사용하시겠습니까?")
-                        .font(.title3)
-                        .fontWeight(.bold)
+                        .pretendardFont(size: 20, weight: .bold)
                         .foregroundColor(Color(hex: "#303030"))
                         .multilineTextAlignment(.center)
 
@@ -27,17 +26,19 @@ struct CouponPopup: View {
                             }
                         }) {
                             Text("확인")
-                                    .frame(maxWidth: .infinity, minHeight: 40)
-                                    .background(Color(hex: "#303030"))
-                                    .foregroundColor(.white)
-                                    .cornerRadius(8)
-                                    .padding(.horizontal, 16)
+                                .pretendardFont(size: 12, weight: .medium)
+                                .frame(maxWidth: .infinity, minHeight: 40)
+                                .background(Color(hex: "#303030"))
+                                .foregroundColor(.white)
+                                .cornerRadius(8)
+                                .padding(.horizontal, 16)
                         }
 
                         Button(action: {
                             isPopupVisible = false
                         }) {
                             Text("취소")
+                                .pretendardFont(size: 12, weight: .medium)
                                 .frame(maxWidth: .infinity, minHeight: 40)
                                 .background(Color.white)
                                 .foregroundColor(Color(hex: "#303030"))

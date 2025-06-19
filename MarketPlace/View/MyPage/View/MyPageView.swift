@@ -12,7 +12,7 @@ struct MyPageView: View {
                 
                 HStack {
                     Text("나만의 큐레이션")
-                        .font(Font.custom("Pretendard", size: 17).weight(.bold))
+                        .pretendardFont(size: 17, weight: .bold)
                         .foregroundColor(Color(red: 0.07, green: 0.07, blue: 0.07))
                     Spacer()
                 }

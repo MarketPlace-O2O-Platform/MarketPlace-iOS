@@ -7,7 +7,7 @@ struct DropdownMenuView: View {
     var body: some View {
         Button(action: onLogout) {
             Text("로그아웃")
-                .font(.custom("Pretendard", size: MyHeaderViewConstants.FontSize.dropdownText))
+                .pretendardFont(size: MyHeaderViewConstants.FontSize.dropdownText, weight: .medium)
                 .foregroundColor(Colors.textColor)
                 .frame(maxWidth: MyHeaderViewConstants.dropdownWidth, alignment: .leading)
                 .padding(.vertical, 12)
@@ -27,10 +27,10 @@ struct UserInfoView: View {
     var body: some View {
         HStack(spacing: 4) {
             Text(userId)
-                .font(.custom("Bold", size: MyHeaderViewConstants.FontSize.userName))
+                .pretendardFont(size: MyHeaderViewConstants.FontSize.userName, weight: .bold)
                 .foregroundColor(Colors.textColor)
             Text("님")
-                .font(.custom("Pretendard-SemiBold", size: MyHeaderViewConstants.FontSize.userName))
+                .pretendardFont(size: MyHeaderViewConstants.FontSize.userName, weight: .semibold)
             
             Button(action: {
                     isDropdownVisible.toggle()
@@ -64,7 +64,7 @@ struct MyHeaderView: View {
                     
                     NavigationLink(destination: MyCouponView()) {
                         Text("받은 쿠폰함")
-                            .font(.custom("Pretendard-Medium", size: MyHeaderViewConstants.FontSize.buttonText))
+                            .pretendardFont(size: MyHeaderViewConstants.FontSize.buttonText, weight: .medium)
                             .foregroundColor(Colors.textColor)
                             .padding(.vertical, 6)
                             .padding(.horizontal, 12)
