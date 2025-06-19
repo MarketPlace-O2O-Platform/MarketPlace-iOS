@@ -13,6 +13,7 @@ enum MarketEndpoint: Endpoint {
     case fetchMarketsWithSearching(lastPageIndex: Int?, pageSize: Int?, content: String)
     case fetchOwnFavoriteMarkets(lastModifiedAt: String?, pageSize: Int?)
     case postFavoriteMarket(marketId: Int)
+    case postMarketRequest(name: String, address: String)
     case fetchMarketsWithAddress(lastPageIndex: Int?, category: String?, pageSize: Int?, address: String="인쳔광역시 연수구")
     
     var baseURL: URL { URLManager.shared.baseURL }
@@ -25,12 +26,15 @@ enum MarketEndpoint: Endpoint {
         case .fetchOwnFavoriteMarkets: return "api/markets/my-favorite"
         case .fetchMarketsWithAddress: return "api/markets/map"
         case .postFavoriteMarket: return "api/favorites"
+        case .postMarketRequest: return "api/request-markets"
+
         }
     }
 
     var method: HTTPMethod {
         switch self {
-        case .postFavoriteMarket:
+        case .postFavoriteMarket,
+                .postMarketRequest:
             .post
         default:
             .get
@@ -39,7 +43,15 @@ enum MarketEndpoint: Endpoint {
 
     var headers: [String : String]? { ["Content-Type": "application/json"] }
 
-    var body: Data? { nil }
+    var body: Data? {
+        switch self {
+        case .postMarketRequest(let name, let address):
+            let body = ["name": name, "address": address]
+            return try? JSONEncoder().encode(body)
+        default:
+            return nil
+        }
+    }
     
     var queryItems: [URLQueryItem]? {
         switch self {
@@ -77,6 +89,7 @@ enum MarketEndpoint: Endpoint {
                 lastModifiedAt.map { URLQueryItem(name: "lastModifiedAt", value: String($0)) },
                 pageSize.map { URLQueryItem(name: "pageSize", value: String($0)) }
             ].compactMap { $0 })
+            
             
             return items
             

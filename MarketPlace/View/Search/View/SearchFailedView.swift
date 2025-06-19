@@ -1,16 +1,9 @@
-//
-//  searchIgnore.swift
-//  MarketPlace
-//
-//  Created by 이예나 on 6/4/25.
-//
-
 import SwiftUI
 
 struct SearchFailedView: View {
     var body: some View {
         VStack {
-            VStack{
+            VStack {
                 Text("검색 결과가 없어요.")
                 Text("찾으시는 매장이 없으신가요?")
             }
@@ -26,7 +19,7 @@ struct SearchFailedView: View {
                 .frame(width: 302, height: 185)
                 .padding(.top, 40)
             
-            Button(action: {}) {
+            NavigationLink(destination: RequestMainView()) {
                 Text("요청하기")
                     .pretendardFont(size: 14, weight: .bold)
                     .frame(width: 240, height: 38)
@@ -41,8 +34,4 @@ struct SearchFailedView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Colors.gray_100)
     }
-}
-
-#Preview {
-    SearchFailedView()
 }
