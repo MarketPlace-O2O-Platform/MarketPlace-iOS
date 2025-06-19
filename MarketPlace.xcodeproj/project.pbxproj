@@ -127,6 +127,9 @@
 		B2C3991A2CA145CC004800DD /* MarketPlaceUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C399192CA145CC004800DD /* MarketPlaceUITestsLaunchTests.swift */; };
 		B2C3992D2CA1BF7F004800DD /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C3992C2CA1BF7F004800DD /* CategoryButton.swift */; };
 		B2C462982D8172BE007637DC /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C462972D8172BE007637DC /* LoginView.swift */; };
+		B2DC8CC32E03E2D000035476 /* RequestMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DC8CC22E03E2D000035476 /* RequestMainView.swift */; };
+		B2DC8CC72E03F15600035476 /* MarketRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DC8CC62E03F15600035476 /* MarketRequestViewModel.swift */; };
+		B2DC8CC92E03F2E500035476 /* MarketRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DC8CC82E03F2E500035476 /* MarketRequest.swift */; };
 		B2DCB0662DF02CFE00F9D4AB /* SearchSecondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DCB0652DF02CFE00F9D4AB /* SearchSecondView.swift */; };
 		B2DCB0682DF031EC00F9D4AB /* SearchFailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DCB0672DF031EC00F9D4AB /* SearchFailedView.swift */; };
 		B2F85BE72D6FAB210011DDF3 /* MapLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F85BE62D6FAB210011DDF3 /* MapLocationManager.swift */; };
@@ -268,6 +271,9 @@
 		B2C399192CA145CC004800DD /* MarketPlaceUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketPlaceUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B2C3992C2CA1BF7F004800DD /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		B2C462972D8172BE007637DC /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		B2DC8CC22E03E2D000035476 /* RequestMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMainView.swift; sourceTree = "<group>"; };
+		B2DC8CC62E03F15600035476 /* MarketRequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketRequestViewModel.swift; sourceTree = "<group>"; };
+		B2DC8CC82E03F2E500035476 /* MarketRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketRequest.swift; sourceTree = "<group>"; };
 		B2DCB0652DF02CFE00F9D4AB /* SearchSecondView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSecondView.swift; sourceTree = "<group>"; };
 		B2DCB0672DF031EC00F9D4AB /* SearchFailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFailedView.swift; sourceTree = "<group>"; };
 		B2F85BE62D6FAB210011DDF3 /* MapLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocationManager.swift; sourceTree = "<group>"; };
@@ -486,6 +492,7 @@
 				B255A5CD2D6218A000954837 /* MarketModel.swift */,
 				B28A22A52D64B06F00E86EF6 /* MarketDetailModel.swift */,
 				2941F76D2DE597280063CEFE /* MarketSearchModel.swift */,
+				B2DC8CC82E03F2E500035476 /* MarketRequest.swift */,
 				29E749352DEECFBA00E765E0 /* FavoriteMarketModel.swift */,
 			);
 			path = Market;
@@ -561,6 +568,7 @@
 		B21F3CEE2D267AF900B83B34 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B2DC8CC12E03E2BD00035476 /* Request */,
 				B215F28F2DE619DF00F53C51 /* Alert */,
 				B21F3CDF2D267AF900B83B34 /* Components */,
 				B2C462962D8172AC007637DC /* Login */,
@@ -731,6 +739,7 @@
 		B2C399262CA14D85004800DD /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				B2DC8CC52E03F14100035476 /* Request */,
 				2976FA262DFC3457009782D1 /* Search */,
 				295DCBAE2DED6DB0009B5D82 /* MyPage */,
 				2941F7992DE5DFCE0063CEFE /* Map */,
@@ -767,6 +776,30 @@
 				B293A1502D6FDC65003E8505 /* Components */,
 			);
 			path = Cheer;
+			sourceTree = "<group>";
+		};
+		B2DC8CC12E03E2BD00035476 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				B2DC8CC42E03EB9900035476 /* Component */,
+				B2DC8CC22E03E2D000035476 /* RequestMainView.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		B2DC8CC42E03EB9900035476 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		B2DC8CC52E03F14100035476 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				B2DC8CC62E03F15600035476 /* MarketRequestViewModel.swift */,
+			);
+			path = Request;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -920,6 +953,7 @@
 				B21F3D072D2B066F00B83B34 /* NewEventDetailView.swift in Sources */,
 				29D53BFD2DE84F5D008E4F2E /* CheerListViewModel.swift in Sources */,
 				B2C3992D2CA1BF7F004800DD /* CategoryButton.swift in Sources */,
+				B2DC8CC92E03F2E500035476 /* MarketRequest.swift in Sources */,
 				290D92D32DE55AD5008AC190 /* CommonMsgResDTO.swift in Sources */,
 				2941F7952DE5A5760063CEFE /* Top20DetailViewModel.swift in Sources */,
 				B2F85BE72D6FAB210011DDF3 /* MapLocationManager.swift in Sources */,
@@ -965,6 +999,7 @@
 				B28349662D36C02C00EEDB02 /* CouponModel.swift in Sources */,
 				B28A22A62D64B06F00E86EF6 /* MarketDetailModel.swift in Sources */,
 				290A71B32E029F04009AEAF8 /* View+.swift in Sources */,
+				B2DC8CC72E03F15600035476 /* MarketRequestViewModel.swift in Sources */,
 				B28889A12D4BBCB80040EC3F /* Logger.swift in Sources */,
 				B21F3D092D2D57BE00B83B34 /* Color.swift in Sources */,
 				B27E56D32D703FBB000D2881 /* CheerCardCell.swift in Sources */,
@@ -979,6 +1014,7 @@
 				29D53BF92DE84728008E4F2E /* CheerMarketService.swift in Sources */,
 				2941F77F2DE5A0350063CEFE /* Endpoint.swift in Sources */,
 				2941F7802DE5A0350063CEFE /* MarketEndpoint.swift in Sources */,
+				B2DC8CC32E03E2D000035476 /* RequestMainView.swift in Sources */,
 				2941F7812DE5A0350063CEFE /* MemberCouponEndpoint.swift in Sources */,
 				29D87F832DE86D6900CE9011 /* MemberInfoModel.swift in Sources */,
 				2941F7822DE5A0350063CEFE /* MemberEndPoint.swift in Sources */,

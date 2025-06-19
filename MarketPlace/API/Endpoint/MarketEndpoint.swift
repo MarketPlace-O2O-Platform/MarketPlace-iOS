@@ -14,6 +14,7 @@ enum MarketEndpoint: Endpoint {
     case fetchOwnFavoriteMarkets(lastModifiedAt: String?, pageSize: Int?)
     case fetchMarketsForMap
     case postFavoriteMarket(marketId: Int)
+    case fetchMarketRequest(page: Int?, size: Int?)
     
     var baseURL: URL { URLManager.shared.baseURL }
 
@@ -25,6 +26,7 @@ enum MarketEndpoint: Endpoint {
         case .fetchOwnFavoriteMarkets: return "api/markets/my-favorite"
         case .fetchMarketsForMap: return "api/markets/map"
         case .postFavoriteMarket: return "api/favorites"
+        case .fetchMarketRequest: return "api/request-markets"
         }
     }
 
