@@ -2,7 +2,8 @@ import SwiftUI
 
 final class LoginViewModel: ObservableObject {
     @Published var isLoggedIn: Bool = false
-    @Published var errorMessage: String?
+    
+    @Published var userErrorMessage: String?
     
     var token: String? {
         KeychainManager.getToken()
@@ -24,11 +25,12 @@ final class LoginViewModel: ObservableObject {
                 do {
                     try KeychainManager.save(studentId: studentId, token: tokenData)
                 } catch {
-                    errorMessage = "login 토큰 저장 오류: \(error.localizedDescription)"
+                    print("login 토큰 저장 오류: \(error.localizedDescription)")
                 }
             }
         case .failure(let statusCode, let message):
             print("[signIn] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+            userErrorMessage = message
         }
     }
 
@@ -37,7 +39,7 @@ final class LoginViewModel: ObservableObject {
             try KeychainManager.delete()
             isLoggedIn = false
         } catch {
-            errorMessage = "⚠️ 로그아웃 중 오류 발생: \(error.localizedDescription)"
+            print("로그아웃 중 오류 발생: \(error.localizedDescription)")
         }
     }
 }

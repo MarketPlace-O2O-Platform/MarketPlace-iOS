@@ -7,7 +7,9 @@ struct LoginView: View {
     @State private var saveID: Bool = false
     @State private var savePassword: Bool = false
     @StateObject private var viewModel = LoginViewModel()
-
+    
+    @FocusState var isEditing: Bool
+    
     let schools = ["인천대학교"]
     
     var body: some View {
@@ -75,6 +77,7 @@ struct LoginView: View {
                             .padding()
                             .frame(height: 48)
                             .background(RoundedRectangle(cornerRadius: 2).stroke(Color.gray.opacity(0.5), lineWidth: 1))
+                            .focused($isEditing)
                     }
                     
                     VStack(alignment: .leading, spacing: 8) {
@@ -86,15 +89,16 @@ struct LoginView: View {
                             .padding()
                             .frame(height: 48)
                             .background(RoundedRectangle(cornerRadius: 2).stroke(Color.gray.opacity(0.5), lineWidth: 1))
+                            .focused($isEditing)
                     }
                     
                     Text("학교 포털 아이디 / 비밀번호를 적어주세요!")
                         .font(Font.custom("Pretendard", size: 12).weight(.medium))
                         .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
                     
-                    if let errorMessage = viewModel.errorMessage {
+                    if !isEditing, let errorMessage = viewModel.userErrorMessage {
                         Text(errorMessage)
-                            .font(.system(size: 14))
+                            .font(.custom("Pretendard-Regular", size: 14))
                             .foregroundColor(.red)
                             .padding(.top, 10)
                     }
@@ -102,6 +106,7 @@ struct LoginView: View {
                     // MARK: - 로그인 버튼
                     Button(action: {
                         Task {
+                            isEditing = false
                             await viewModel.signIn(studentId: studentID, password: password)
                         }
                     }) {
@@ -125,7 +130,11 @@ struct LoginView: View {
                 .padding(.horizontal, 20)
                 
                 Spacer()
-            } .onTapGesture {
+            }
+            .onChange(of: isEditing == true, { _, _ in
+                viewModel.userErrorMessage = nil
+            })
+            .onTapGesture {
                 self.endTextEditing()
             }
         }
