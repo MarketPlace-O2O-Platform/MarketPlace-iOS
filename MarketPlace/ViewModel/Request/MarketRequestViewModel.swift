@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class MarketRequestViewModel {
+final class MarketRequestViewModel: ObservableObject {
     private let marketService: MarketServiceProtocol
     
     @Published var marketName: String = ""
@@ -18,7 +18,7 @@ final class MarketRequestViewModel {
     }
     
     @MainActor
-    func fetchMarketRequest() async -> Bool {
+    func fetchMarketRequest(marketName: String) async -> Bool {
         var hasData: Bool = true
 
         let result = await marketService.fetchMarketRequest(page: 1, size: 10)

@@ -9,7 +9,8 @@ import SwiftUI
 
 struct RequestMainView: View {
     @State var marketName : String = ""
-    
+    @StateObject private var viewModel = MarketRequestViewModel()
+    @State private var hasData: Bool = true
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -31,17 +32,39 @@ struct RequestMainView: View {
                         )
                 }
             
-            RequestListView()
+           
+            
+            if viewModel.marketName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                Spacer()
+            } else {
+                if hasData {
+                    ScrollView{
+                        VStack(alignment: .leading, spacing: 20) {
+                            ForEach(viewModel.market) { market in
+                                RequestListView(market: market)
+                                Divider()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .onChange(of: viewModel.marketName){ _, newValue in
+            Task {
+                hasData = await viewModel.fetchMarketRequest(marketName: newValue)
+            }
         }
     }
 }
 
 struct RequestListView : View {
+    let market: MarketRequestModel
+
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("content.name")
+            Text(market.name)
                 .font(.system(size: 14))
-            Text("content.name")
+            Text(market.address)
                 .font(.system(size: 14))
                 .foregroundColor(Color(hex: "#7D7D7D"))
         }

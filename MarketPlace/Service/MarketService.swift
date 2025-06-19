@@ -32,7 +32,7 @@ protocol MarketServiceProtocol {
     
     func fetchMarketRequest(page: Int?, size: Int?) async -> NetworkResult<APIResDto<MarketRequestResponse>>
     
-    func postMarketRequest(name: String, address: String) async -> NetworkResult<APIResDto<MarketRequest>>
+    func postMarketRequest(name: String, address: String) async -> NetworkResult<APIResDto<MarketRequestModel>>
 }
 
 
@@ -99,7 +99,7 @@ final class MarketService: MarketServiceProtocol {
         )
     }
     
-    func postMarketRequest(name: String, address: String) async -> NetworkResult<APIResDto<MarketRequest>> {
+    func postMarketRequest(name: String, address: String) async -> NetworkResult<APIResDto<MarketRequestModel>> {
         return await networkService.request(
             MarketEndpoint.postMarketRequest(name: name, address: address)
         )
