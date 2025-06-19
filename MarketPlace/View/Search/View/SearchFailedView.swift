@@ -14,11 +14,11 @@ struct SearchFailedView: View {
                 Text("검색 결과가 없어요.")
                 Text("찾으시는 매장이 없으신가요?")
             }
-            .font(.system(size: 14))
+            .pretendardFont(size: 14, weight: .medium)
             .foregroundColor(Colors.gray_700)
             
             Text("매장 요청하기를 해보세요!")
-                .font(.system(size: 15))
+                .pretendardFont(size: 15, weight: .semibold)
                 .padding(.top, 26)
             
             Image("searchIgnore")
@@ -28,6 +28,7 @@ struct SearchFailedView: View {
             
             Button(action: {}) {
                 Text("요청하기")
+                    .pretendardFont(size: 14, weight: .bold)
                     .frame(width: 240, height: 38)
                     .foregroundColor(.white)
                     .background(

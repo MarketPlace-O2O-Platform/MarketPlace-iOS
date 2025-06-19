@@ -32,14 +32,14 @@ struct SearchBar: View {
                 .padding(.leading, SearchViewConstants.Layout.dividerPadding)
             
             if searchText.isEmpty {
-                Text("찾으시려는 이용권을 검색해보세요")
+                Text("가고 싶은 매장을 찾아보세요")
+                    .pretendardFont(size: SearchViewConstants.FontSize.searchText, weight: .regular)
                     .foregroundColor(SearchViewConstants.Colors.placeholderColor)
-                    .font(.system(size: SearchViewConstants.FontSize.searchText))
                     .padding(.leading, SearchViewConstants.Layout.textPadding)
             }
             
             TextField("", text: $searchText)
-                .font(.system(size: SearchViewConstants.FontSize.searchText))
+                .pretendardFont(size: SearchViewConstants.FontSize.searchText, weight: .regular)
                 .foregroundColor(SearchViewConstants.Colors.textColor)
                 .padding(.leading, SearchViewConstants.Layout.textPadding)
                 .frame(height: SearchViewConstants.Layout.searchBarHeight)

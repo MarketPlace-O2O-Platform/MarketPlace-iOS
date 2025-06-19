@@ -41,12 +41,12 @@ struct SearchComponentView: View {
 
             VStack(alignment: .leading) {
                 Text(market.marketName)
-                    .font(.system(size: 16))
+                    .pretendardFont(size: 16, weight: .semibold)
                     .foregroundColor(Colors.textColor)
                     .lineLimit(1)
 
                 Text(market.marketDescription)
-                    .font(.system(size: 13))
+                    .pretendardFont(size: 13, weight: .medium)
                     .foregroundColor(Color(hex: "#7D7D7D"))
                     .lineLimit(2)
 
@@ -57,7 +57,7 @@ struct SearchComponentView: View {
                         .resizable()
                         .frame(width: 16, height: 16)
                     Text(market.address)
-                        .font(.system(size: 13))
+                        .pretendardFont(size: 13, weight: .medium)
                         .foregroundColor(Colors.textColor)
                     Spacer()
 
@@ -77,7 +77,7 @@ struct SearchComponentView: View {
 struct CouponChip: View {
     var body: some View {
         Text("신규 쿠폰")
-            .font(.system(size: 12))
+            .pretendardFont(size: 12, weight: .bold)
             .foregroundColor(.white)
             .padding(.vertical, 3)
             .padding(.horizontal, 6)

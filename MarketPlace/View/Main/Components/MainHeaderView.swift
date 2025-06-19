@@ -35,7 +35,7 @@ struct MainHeaderView: View {
                         
                         /// - NOTE: placeholder
                         if searchText.isEmpty {
-                            Text("찾으시려는 이용권을 검색해보세요")
+                            Text("가고 싶은 매장을 찾아보세요")
                                 .pretendardFont(size: 8, weight: .regular)
                                 .foregroundColor(Color(hex: "#C6C6C6"))
                                 .padding(.leading, 6)
