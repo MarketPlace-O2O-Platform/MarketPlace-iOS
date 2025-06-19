@@ -47,7 +47,7 @@ struct AlertView: View {
                     markAllAsRead()
                 }) {
                     Text("전체 읽음")
-                        .font(.system(size: 12))
+                        .pretendardFont(size: 12, weight: .regular)
                         .foregroundColor(Color.black)
                 }
             }

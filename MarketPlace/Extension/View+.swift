@@ -17,7 +17,7 @@ extension View {
         )
     }
     
-    func pretendardFont(size: CGFloat, weight: Font.Weight = .regular) -> some View {
+    func pretendardFont(size: CGFloat, weight: Font.Weight) -> some View {
         self.font(.pretendard(size, weight: weight))
     }
 }
