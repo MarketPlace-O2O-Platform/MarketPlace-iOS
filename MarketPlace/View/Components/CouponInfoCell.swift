@@ -24,11 +24,11 @@ struct CouponInfoCell: View {
 
             VStack(alignment: .leading) {
                 Text(viewModel.coupon.marketName)
-                    .font(.system(size: 16))
+                    .pretendardFont(size: 14, weight: .semibold)
                     .foregroundColor(Color(hex: "333333"))
 
                 Text(viewModel.coupon.couponName)
-                    .font(Font.custom("Pretendard", size: 18).weight(.bold))
+                    .pretendardFont(size: 18, weight: .bold)
                     .foregroundColor(Color(hex: "#4B4B4B"))
 
                 Spacer()
@@ -39,7 +39,7 @@ struct CouponInfoCell: View {
                         .frame(width: 16, height: 16)
                         .foregroundColor(Color(hex: "333333"))
                     Text(viewModel.coupon.address)
-                        .font(.system(size: 13))
+                        .pretendardFont(size: 13, weight: .medium)
                         .foregroundColor(Color(hex: "333333"))
                     Spacer()
                     

@@ -17,13 +17,14 @@ struct CheerSearchView: View {
                     .foregroundColor(Color.black)
                 
                 Text("|")
+                    .pretendardFont(size: 12, weight: .regular)
                     .foregroundColor(Color.black)
                     .padding(.horizontal, 4)
                 
                 ZStack(alignment: .leading) {
                     TextField("제휴 할인 받고 싶은 매장을 알려주세요.", text: $searchText)
+                        .pretendardFont(size: 12, weight: .regular)
                         .onTapGesture { isEditing = true }
-                        .font(Font.custom("Pretendard", size: 12))
                     
                     if isEditing {
                         Button {
@@ -47,7 +48,3 @@ struct CheerSearchView: View {
         }
     
     }
-
-#Preview {
-    CheerSearchView(searchText: .constant(""))
-}

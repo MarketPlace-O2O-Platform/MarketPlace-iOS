@@ -4,15 +4,19 @@ import SwiftUI
 struct MyPageView: View {
     @State private var selectedCategory: Int = 0
     @StateObject private var viewModel = MyPageViewModel()
+    @EnvironmentObject var loginVM: LoginViewModel
+    
+    @State var showLogoutAlert: Bool = false
 
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                MyHeaderView(userId: $viewModel.userId)
+                MyHeaderView(showLogoutAlert: $showLogoutAlert, userId: $viewModel.userId)
+                    .environmentObject(loginVM)
                 
                 HStack {
                     Text("나만의 큐레이션")
-                        .font(Font.custom("Pretendard", size: 17).weight(.bold))
+                        .pretendardFont(size: 17, weight: .bold)
                         .foregroundColor(Color(red: 0.07, green: 0.07, blue: 0.07))
                     Spacer()
                 }
@@ -32,6 +36,11 @@ struct MyPageView: View {
             .onChange(of: selectedCategory) {
                 Task{
                     await viewModel.fetchFavoriteMarket(lastModifiedAt: nil, pageSize: nil)
+                }
+            }
+            .overlay {
+                CustomAlertView(isPresented: $showLogoutAlert, title: "로그아웃 하시겠습니까?", buttonTitle: "로그아웃") {
+                    loginVM.logout()
                 }
             }
         }

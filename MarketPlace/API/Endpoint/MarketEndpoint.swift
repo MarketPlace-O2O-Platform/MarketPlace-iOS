@@ -12,9 +12,9 @@ enum MarketEndpoint: Endpoint {
     case fetchMarket(marketId: Int)
     case fetchMarketsWithSearching(lastPageIndex: Int?, pageSize: Int?, content: String)
     case fetchOwnFavoriteMarkets(lastModifiedAt: String?, pageSize: Int?)
-    case fetchMarketsForMap
     case postFavoriteMarket(marketId: Int)
     case postMarketRequest(name: String, address: String)
+    case fetchMarketsWithAddress(lastPageIndex: Int?, category: String?, pageSize: Int?, address: String="인쳔광역시 연수구")
     
     var baseURL: URL { URLManager.shared.baseURL }
 
@@ -24,7 +24,7 @@ enum MarketEndpoint: Endpoint {
         case .fetchMarket(let id): return "api/markets/\(id)"
         case .fetchMarketsWithSearching: return "api/markets/search"
         case .fetchOwnFavoriteMarkets: return "api/markets/my-favorite"
-        case .fetchMarketsForMap: return "api/markets/map"
+        case .fetchMarketsWithAddress: return "api/markets/map"
         case .postFavoriteMarket: return "api/favorites"
         case .postMarketRequest: return "api/request-markets"
 
@@ -90,6 +90,18 @@ enum MarketEndpoint: Endpoint {
                 pageSize.map { URLQueryItem(name: "pageSize", value: String($0)) }
             ].compactMap { $0 })
             
+            
+            return items
+            
+        case .fetchMarketsWithAddress(let lastPageIndex, let category, let pageSize, let address):
+            var items: [URLQueryItem] = []
+
+            items.append(contentsOf: [
+                lastPageIndex.map { URLQueryItem(name: "lastPageIndex", value: String($0)) },
+                ((category?.isEmpty) == nil) ? nil : URLQueryItem(name: "category", value: category),
+                pageSize.map { URLQueryItem(name: "pageSize", value: String($0)) },
+                URLQueryItem(name: "address", value: address)
+            ].compactMap { $0 })
             
             return items
         

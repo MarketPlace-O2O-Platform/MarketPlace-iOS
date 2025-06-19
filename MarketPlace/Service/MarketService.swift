@@ -31,6 +31,9 @@ protocol MarketServiceProtocol {
     func fetchOwnFavoriteMarkets(lastModifiedAt: String?, pageSize: Int?) async -> NetworkResult<APIResDto<MarketResDto<MarketModel>>>
         
     func postMarketRequest(name: String, address: String) async -> NetworkResult<APIResDto<MarketRequestModel>>
+    
+    // MARK: - 주소별 매장 조회 API
+    func fetchMarketsWithAddress(lastPageIndex: Int?, category: String?, pageSize: Int?) async -> NetworkResult<APIResDto<MarketResDto<MarketModel>>>
 }
 
 
@@ -95,5 +98,9 @@ final class MarketService: MarketServiceProtocol {
         return await networkService.request(
             MarketEndpoint.postMarketRequest(name: name, address: address)
         )
+      
+    // MARK: - 주소별 매장 조회 API
+    func fetchMarketsWithAddress(lastPageIndex: Int?, category: String?, pageSize: Int?) async -> NetworkResult<APIResDto<MarketResDto<MarketModel>>> {
+        return await networkService.request(MarketEndpoint.fetchMarketsWithAddress(lastPageIndex: lastPageIndex, category: category, pageSize: pageSize))
     }
 }

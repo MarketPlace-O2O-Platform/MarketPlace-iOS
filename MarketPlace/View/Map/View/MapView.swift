@@ -51,7 +51,7 @@ struct MapView: View {
                                             .frame(width: 55, height: 55)
                                         
                                         Text(market.marketName)
-                                            .font(.custom("Pretendard", size: 11))
+                                            .pretendardFont(size: 11, weight: .semibold)
                                     }
                                 }
                                 else {
@@ -61,7 +61,7 @@ struct MapView: View {
                                             .frame(width: 30, height: 30)
                                         
                                         Text(market.marketName)
-                                            .font(.custom("Pretendard", size: 11))
+                                            .pretendardFont(size: 11, weight: .semibold)
                                     }
                                 }
                             })
@@ -134,6 +134,7 @@ struct MapView: View {
                                 .foregroundColor(.init(hex: "#333"))
                             
                             Text("목록 보기")
+                                .pretendardFont(size: 14, weight: .medium)
                                 .foregroundColor(.init(hex: "#333"))
                         }
                         .padding()
@@ -224,6 +225,7 @@ struct MapView: View {
                             .frame(width: 16, height: 16)
                         
                         Text("지도 보기")
+                            .pretendardFont(size: 14, weight: .medium)
                             .foregroundColor(Color.white)
                     }
                     .padding()
@@ -250,6 +252,7 @@ struct MapView: View {
         .navigationViewStyle(StackNavigationViewStyle())
     }
 }
+
 extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
         clipShape(RoundedCorner(radius: radius, corners: corners))

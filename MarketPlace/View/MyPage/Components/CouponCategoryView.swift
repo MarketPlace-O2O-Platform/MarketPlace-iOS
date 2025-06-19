@@ -13,7 +13,7 @@ struct CouponCategoryView: View {
                     }) {
                         VStack(spacing: 5) {
                             Text(category)
-                                .font(.system(size: 14))
+                                .pretendardFont(size: 14, weight: .semibold)
                                 .foregroundColor(selectedCategory == index ? .black : Color(hex: "#A0A0A0"))
                                 .padding(.bottom, 9)
                             

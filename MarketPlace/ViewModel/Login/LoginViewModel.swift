@@ -2,7 +2,7 @@ import SwiftUI
 
 final class LoginViewModel: ObservableObject {
     @Published var isLoggedIn: Bool = false
-    @Published var errorMessage: String?
+    @Published var userErrorMessage: String?
     
     var token: String? {
         KeychainManager.getToken()
@@ -14,30 +14,38 @@ final class LoginViewModel: ObservableObject {
         self.memberService = memberService
     }
     
-    func signIn(studentId: String, password: String) async {
+    func signIn(studentId: String, password: String, saveID: Bool, savePassword: Bool) async {
         let result = await memberService.signIn(studentId: studentId, password: password)
         
         switch result {
         case .success(let data, _):
             isLoggedIn = true
-            if let tokenData = data.response.data(using: .utf8) {
-                do {
-                    try KeychainManager.save(studentId: studentId, token: tokenData)
-                } catch {
-                    errorMessage = "login 토큰 저장 오류: \(error.localizedDescription)"
-                }
+            
+            /// - NOTE: 키체인에 토큰 저장
+            KeychainManager.save(KeyChainKeys.token, value: data.response)
+            
+            if saveID {
+                KeychainManager.save(KeyChainKeys.studentId, value: studentId)
+            } else {
+                KeychainManager.delete(KeyChainKeys.studentId)
             }
+            
+            if savePassword {
+                KeychainManager.save(KeyChainKeys.password, value: password)
+            } else {
+                KeychainManager.delete(KeyChainKeys.password)
+            }
+            
         case .failure(let statusCode, let message):
             print("[signIn] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+            userErrorMessage = message
         }
     }
-
+    
     func logout() {
-        do {
-            try KeychainManager.delete()
-            isLoggedIn = false
-        } catch {
-            errorMessage = "⚠️ 로그아웃 중 오류 발생: \(error.localizedDescription)"
+        KeychainManager.delete(KeyChainKeys.token)
+        DispatchQueue.main.async {
+            self.isLoggedIn = false
         }
     }
 }

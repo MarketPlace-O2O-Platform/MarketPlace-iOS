@@ -15,13 +15,13 @@ struct CouponGetPopupView: View {
             VStack(spacing: 24) {
                 VStack(alignment: .center, spacing: 16) {
                     Text("이 쿠폰을 받으시겠습니까?")
-                        .font(.custom("Pretendard-Bold", size: 20))
+                        .pretendardFont(size: 20, weight: .bold)
                         .multilineTextAlignment(.center)
                         .foregroundColor(.black)
                         .frame(maxWidth: .infinity, alignment: .top)
                     
                     Text("3일 이내 사용하셔야 합니다.\n다운 받은 시점으로 3일 후에 만료됩니다")
-                        .font(.custom("Pretendard", size: 14))
+                        .pretendardFont(size: 14, weight: .regular)
                         .multilineTextAlignment(.center)
                         .foregroundColor(Color(red: 0.4, green: 0.42, blue: 0.46))
                         .frame(maxWidth: .infinity, alignment: .top)
@@ -32,6 +32,7 @@ struct CouponGetPopupView: View {
                         onConfirm()
                     }) {
                         Text("Yes")
+                            .pretendardFont(size: 12, weight: .medium)
                             .frame(maxWidth: .infinity, minHeight: 40)
                             .background(Color.black)
                             .foregroundColor(.white)
@@ -43,6 +44,7 @@ struct CouponGetPopupView: View {
                         isPopupVisible = false
                     }) {
                         Text("No")
+                            .pretendardFont(size: 12, weight: .medium)
                             .frame(maxWidth: .infinity, minHeight: 40)
                             .background(Color.white)
                             .foregroundColor(.black)

@@ -7,7 +7,7 @@ struct DropdownMenuView: View {
     var body: some View {
         Button(action: onLogout) {
             Text("로그아웃")
-                .font(.custom("Pretendard", size: MyHeaderViewConstants.FontSize.dropdownText))
+                .pretendardFont(size: MyHeaderViewConstants.FontSize.dropdownText, weight: .medium)
                 .foregroundColor(Colors.textColor)
                 .frame(maxWidth: MyHeaderViewConstants.dropdownWidth, alignment: .leading)
                 .padding(.vertical, 12)
@@ -27,10 +27,10 @@ struct UserInfoView: View {
     var body: some View {
         HStack(spacing: 4) {
             Text(userId)
-                .font(.custom("Bold", size: MyHeaderViewConstants.FontSize.userName))
+                .pretendardFont(size: MyHeaderViewConstants.FontSize.userName, weight: .medium)
                 .foregroundColor(Colors.textColor)
             Text("님")
-                .font(.custom("Pretendard-SemiBold", size: MyHeaderViewConstants.FontSize.userName))
+                .pretendardFont(size: MyHeaderViewConstants.FontSize.userName, weight: .medium)
             
             Button(action: {
                     isDropdownVisible.toggle()
@@ -46,31 +46,12 @@ struct UserInfoView: View {
     }
 }
 
-
-struct CouponButtonView: View {
-    var body: some View {
-        NavigationLink(destination: MyCouponView()) {
-            Text("받은 쿠폰함")
-                .font(.custom("Pretendard-Medium", size: MyHeaderViewConstants.FontSize.buttonText))
-                .foregroundColor(Colors.textColor)
-                .padding(.vertical, 6)
-                .padding(.horizontal, 12)
-                .background(Colors.backgroundColor)
-                .cornerRadius(MyHeaderViewConstants.cornerRadius)
-                .overlay(
-                    RoundedRectangle(cornerRadius: MyHeaderViewConstants.cornerRadius)
-                        .stroke(Colors.borderColor, lineWidth: 1)
-                        .frame(height: MyHeaderViewConstants.buttonHeight)
-                )
-        }
-    }
-}
-
-
 struct MyHeaderView: View {
     @State private var isDropdownVisible = false
-    @State private var showLogoutAlert = false
+    @Binding var showLogoutAlert: Bool
     @Binding var userId: Int
+    
+    @EnvironmentObject var loginVM: LoginViewModel
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -83,8 +64,20 @@ struct MyHeaderView: View {
                     
                     UserInfoView(userId: String(userId), isDropdownVisible: $isDropdownVisible)
                     
-                    CouponButtonView()
-                        .padding(.trailing, MyHeaderViewConstants.padding)
+                    NavigationLink(destination: MyCouponView()) {
+                        Text("받은 쿠폰함")
+                            .pretendardFont(size: MyHeaderViewConstants.FontSize.buttonText, weight: .medium)
+                            .foregroundColor(Colors.textColor)
+                            .padding(.vertical, 6)
+                            .padding(.horizontal, 12)
+                            .background(Colors.backgroundColor)
+                            .cornerRadius(MyHeaderViewConstants.cornerRadius)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: MyHeaderViewConstants.cornerRadius)
+                                    .stroke(Colors.borderColor, lineWidth: 1)
+                                    .frame(height: MyHeaderViewConstants.buttonHeight)
+                            )
+                    }.padding(.trailing, MyHeaderViewConstants.padding)
                 }
                 .padding(.leading, MyHeaderViewConstants.padding)
                 
@@ -97,17 +90,12 @@ struct MyHeaderView: View {
             
             if isDropdownVisible {
                 DropdownMenuView {
-//                    showLogoutAlert = true
+                    showLogoutAlert = true
                 }
                 .offset(x: MyHeaderViewConstants.dropdownOffsetX, y: MyHeaderViewConstants.dropdownOffsetY)
                 .transition(.scale.combined(with: .opacity))
                 .zIndex(1)
             }
         }
-//        .overlay(
-//            LogoutAlert(isPresented: $showLogoutAlert) {
-//                print("로그아웃 실행")
-//            }
-//        )
     }
 }

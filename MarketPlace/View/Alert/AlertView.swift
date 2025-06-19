@@ -47,7 +47,7 @@ struct AlertView: View {
                     markAllAsRead()
                 }) {
                     Text("전체 읽음")
-                        .font(.system(size: 12))
+                        .pretendardFont(size: 12, weight: .regular)
                         .foregroundColor(Color.black)
                 }
             }
@@ -63,13 +63,4 @@ struct AlertView: View {
             alert.isRead = true
         }
     }
-}
-
-#Preview("AlertView Preview") {
-    AlertView()
-}
-
-#Preview("AlertButtonGroup Preview") {
-    @State var selectedCategory = "전체"
-    return AlertButtonGroup(selectedCategory: $selectedCategory)
 }

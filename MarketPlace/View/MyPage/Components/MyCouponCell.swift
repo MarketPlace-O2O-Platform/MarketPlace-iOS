@@ -22,17 +22,18 @@ struct MyCouponCell: View {
                     
                     VStack(alignment: .leading, spacing: 4) {
                         Text(viewModel.coupon.couponName)
+                            .pretendardFont(size: 18, weight: .medium)
                             .font(.headline)
                             .lineLimit(1)
                             .foregroundColor(Color(hex: "#121212"))
                         
                         Text(viewModel.coupon.description)
-                            .font(Font.custom("Pretendard", size: 15).weight(.semibold))
+                            .pretendardFont(size: 15, weight: .semibold)
                             .lineLimit(1)
                             .foregroundColor(Color(red: 0.07, green: 0.07, blue: 0.07))
                         
                         Text(viewModel.formattedDeadline)
-                            .font(Font.custom("Pretendard", size: 13))
+                            .pretendardFont(size: 13, weight: .regular)
                             .foregroundColor(Color(red: 0.33, green: 0.33, blue: 0.33))
                     }
                     .padding(.horizontal, 12)
@@ -46,8 +47,7 @@ struct MyCouponCell: View {
                         }
                     }) {
                         Text(viewModel.couponStatusText)
-                            .font(.custom("Pretendard", size: 13))
-                            .fontWeight(.bold)
+                            .pretendardFont(size: 13, weight: .bold)
                             .foregroundStyle(Color.white)
                     }.disabled(!viewModel.canUse)
                     

@@ -38,14 +38,14 @@ struct MarketCouponListView: View {
                             .overlay(alignment: .leading) {
                                 VStack(alignment: .leading, spacing: 5) {
                                     Text(coupon.couponName)
-                                        .font(.system(size: 16, weight: .semibold))
+                                        .pretendardFont(size: 16, weight: .semibold)
                                         .foregroundColor(.white)
                                         .lineLimit(2)
                                         .multilineTextAlignment(.leading)
                                         .frame(maxWidth: 200, alignment: .leading)
                                     
                                     Text(coupon.deadLine.toKoreanDateFormat())
-                                        .font(.system(size: 14))
+                                        .pretendardFont(size: 14, weight: .regular)
                                         .foregroundColor(.white)
                                 }
                                 .padding(.leading, 25)

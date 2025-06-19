@@ -62,7 +62,7 @@ struct AlertChipView: View {
     
     var body: some View {
         Text(title)
-            .font(.system(size: 10))
+            .pretendardFont(size: 10, weight: .regular)
             .foregroundColor(Color.gray)
             .padding(.vertical, 6)
             .padding(.horizontal, 10)
@@ -84,17 +84,17 @@ struct AlertCardView: View {
                 .padding(.bottom, 12)
             
             Text(alert.boldText)
-                .font(.system(size: 16, weight: .semibold))
+                .pretendardFont(size: 16, weight: .semibold)
                 .foregroundColor(.black)
-                .frame(maxWidth: .infinity, alignment: .leading)  // 텍스트 왼쪽 정렬 보장
+                .frame(maxWidth: .infinity, alignment: .leading)
             
             Text(alert.subText)
-                .font(.system(size: 14))
+                .pretendardFont(size: 14, weight: .medium)
                 .foregroundColor(Color.gray)
                 .frame(maxWidth: .infinity, alignment: .leading)  // 텍스트 왼쪽 정렬 보장
             
             Text(alert.timeText)
-                .font(.system(size: 12))
+                .pretendardFont(size: 12, weight: .medium)
                 .foregroundColor(Color.gray)
                 .frame(maxWidth: .infinity, alignment: .leading)  // 텍스트 왼쪽 정렬 보장
         }
