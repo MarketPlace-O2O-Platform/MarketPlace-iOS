@@ -10,7 +10,8 @@ import SwiftUI
 struct MainHeaderView: View {
     @State private var searchText: String = ""
     @State private var isSearchViewActive: Bool = false
-    
+    @State private var isAlertViewActive: Bool = false
+
     var body: some View {
         HStack {
             Image("logo")
@@ -35,16 +36,16 @@ struct MainHeaderView: View {
                         
                         /// - NOTE: placeholder
                         if searchText.isEmpty {
-                            Text("찾으시려는 이용권을 검색해보세요")
+                            Text("가고 싶은 매장을 찾아보세요")
+                                .pretendardFont(size: 8, weight: .regular)
                                 .foregroundColor(Color(hex: "#C6C6C6"))
-                                .font(.system(size: 9))
                                 .padding(.leading, 6)
                                 .padding(.leading, 45)
                             
                         }
                         
                         TextField("", text: $searchText)
-                            .font(.system(size: 9))
+                            .pretendardFont(size: 8, weight: .regular)
                             .foregroundColor(Color(hex: "#333333"))
                             .padding(.vertical, 8)
                             .padding(.leading, 6)
@@ -67,11 +68,14 @@ struct MainHeaderView: View {
             Spacer()
             
             Button(action: {
-                print("Notification tapped")
+                isAlertViewActive = true
             }) {
                 Image(systemName: "bell")
                     .font(.system(size: 20))
                     .foregroundColor(Color(hex: "#545454"))
+            }
+            .navigationDestination(isPresented: $isAlertViewActive) {
+                AlertView()
             }
         }
         .frame(height: 44)

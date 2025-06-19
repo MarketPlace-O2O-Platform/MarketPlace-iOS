@@ -17,7 +17,7 @@ struct AlertButtonView: View {
             onTap()
         }) {
             Text(title)
-                .font(.system(size: 12, weight: .semibold))
+                .pretendardFont(size: 12, weight: .semibold)
                 .foregroundColor(isSelected ? .white : Color.gray)
                 .padding(.vertical, 8)
                 .padding(.horizontal, 16)

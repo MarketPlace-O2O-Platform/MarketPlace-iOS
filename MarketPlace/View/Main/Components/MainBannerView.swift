@@ -31,7 +31,7 @@ struct MainBannerView: View {
             .frame(height: 420)
             
             Text("\(currentIndex + 1) / \(closingCouponList.count)")
-                .font(.custom("Pretendard-Regular", size: 12))
+                .pretendardFont(size: 12, weight: .regular)
                 .padding(8)
                 .background(Color.black.opacity(0.6))
                 .foregroundColor(.white)

@@ -17,7 +17,7 @@ struct CategoryTabView: View {
                             ForEach(Array(categories.enumerated()), id: \.offset) { index, category in
                                 VStack(spacing: 0) {
                                     Text(category)
-                                        .font(.system(size: 16, weight: selectedTab == index ? .medium : .regular))
+                                        .pretendardFont(size: 16, weight: selectedTab == index ? .medium : .regular)
                                         .foregroundColor(selectedTab == index ? .black : .gray)
                                         .padding(.bottom, 8)
                                     

@@ -48,7 +48,7 @@ struct CategoryDetailView: View {
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text("카테고리")
-                    .font(.headline)
+                    .pretendardFont(size: 14, weight: .bold)
                     .foregroundColor(.black)
             }
         }

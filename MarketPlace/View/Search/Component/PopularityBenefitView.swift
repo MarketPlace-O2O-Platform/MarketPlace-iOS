@@ -16,14 +16,6 @@ struct BenefitViewConstants {
     }
 }
 
-// 혜택 모델
-struct Benefit: Identifiable {
-    let id = UUID()
-    let image: String
-    let title: String
-    let subtitle: String
-}
-
 // 북마크 버튼 컴포넌트
 struct BookmarkButton: View {
     @Binding var isBookmarked: Bool
@@ -51,21 +43,25 @@ struct BenefitCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             ZStack(alignment: .topTrailing) {
-                ShimmeringAsyncImage(url: URL(
-                    string: URLManager.shared.baseStringURL + "image/" + benefit.thumbnail)
-                    , cornerRadius: BenefitViewConstants.Layout.cornerRadius, width: BenefitViewConstants.Layout.cardWidth, height: BenefitViewConstants.Layout.cardWidth)
+                ShimmeringAsyncImage(
+                    url: URL(
+                        string: URLManager.shared.baseStringURL + "image/" + benefit.thumbnail),
+                    cornerRadius: BenefitViewConstants.Layout.cornerRadius,
+                    width: BenefitViewConstants.Layout.cardWidth,
+                    height: BenefitViewConstants.Layout.cardWidth
+                )
 
                 BookmarkButton(isBookmarked: $isBookmarked)
             }
             
             VStack(alignment: .leading, spacing: 4){
                 Text(benefit.marketName)
-                    .font(.custom("Pretendard-SemiBold", size: BenefitViewConstants.Font.storeName))
+                    .pretendardFont(size: BenefitViewConstants.Font.storeName, weight: .semibold)
                     .foregroundColor(.black)
                     .frame(maxWidth: .infinity, alignment: .topLeading)
                 
                 Text(benefit.couponName)
-                    .font(.custom("Pretendard-Medium", size: BenefitViewConstants.Font.description))
+                    .pretendardFont(size: BenefitViewConstants.Font.description, weight: .medium)
                     .foregroundColor(.black)
                     .frame(maxWidth: .infinity, alignment: .topLeading)
             }
@@ -81,8 +77,7 @@ struct PopularBenefitView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             Text("인기 혜택")
-                .font(.custom("Pretendard-Bold",
-                            size: BenefitViewConstants.Font.titleSize))
+                .pretendardFont(size: BenefitViewConstants.Font.titleSize, weight: .bold)
                 .foregroundColor(.black)
             
             ScrollView(.horizontal, showsIndicators: false) {

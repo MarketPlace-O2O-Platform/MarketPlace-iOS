@@ -11,13 +11,11 @@ import KakaoMapsSDK
 @main
 struct MarketPlaceApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
-    @StateObject private var loginVM = LoginViewModel()  // ✅ 로그인 뷰 모델을 전역으로 생성
-
+    @StateObject private var loginVM = LoginViewModel()
 
     var body: some Scene {
         WindowGroup {
-            if isLoggedIn {
+            if loginVM.isLoggedIn {
                 ContentView()
             } else {
                 LoginView()
@@ -27,6 +25,7 @@ struct MarketPlaceApp: App {
     }
 }
 
+/// - NOTE: 카카오맵을 위한 코드
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {

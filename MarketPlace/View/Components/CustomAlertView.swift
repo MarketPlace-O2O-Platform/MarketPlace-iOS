@@ -1,44 +1,48 @@
+//
+//  CustomAlertView.swift
+//  MarketPlace
+//
+//  Created by Bowon Han on 6/19/25.
+//
+
 import SwiftUI
 
-struct CouponPopup: View {
-    @Binding var isPopupVisible: Bool
-    @Binding var coupon: MembersCouponModel?
-    var onConfirm: () -> Void
-
+struct CustomAlertView: View {
+    @Binding var isPresented: Bool
+    
+    @State var title: String
+    @State var buttonTitle: String
+    
+    let onTap: () -> Void
+    
     var body: some View {
-        ZStack {
-            DashEffect()
-                .opacity(isPopupVisible ? 1 : 0)
-                .animation(.easeInOut, value: isPopupVisible)
-
-            if isPopupVisible {
-                VStack(spacing: 24) {
-                    Text("쿠폰을 사용하시겠습니까?")
-                        .pretendardFont(size: 20, weight: .bold)
-                        .foregroundColor(Color(hex: "#303030"))
-                        .multilineTextAlignment(.center)
-
-                    VStack(spacing: 12) {
+        if isPresented {
+            ZStack {
+                Color.black.opacity(0.3)
+                    .ignoresSafeArea()
+                
+                VStack(spacing: 40) {
+                    Text(title)
+                        .pretendardFont(size: 20, weight: .regular)
+                    
+                    VStack(spacing: 10) {
                         Button(action: {
-                            Task {
-                                onConfirm()
-                                isPopupVisible = false
-                            }
+                            onTap()
                         }) {
-                            Text("확인")
-                                .pretendardFont(size: 12, weight: .medium)
+                            Text(buttonTitle)
+                                .pretendardFont(size: 15, weight: .bold)
                                 .frame(maxWidth: .infinity, minHeight: 40)
                                 .background(Color(hex: "#303030"))
                                 .foregroundColor(.white)
                                 .cornerRadius(8)
                                 .padding(.horizontal, 16)
                         }
-
+                        
                         Button(action: {
-                            isPopupVisible = false
+                            isPresented = false
                         }) {
                             Text("취소")
-                                .pretendardFont(size: 12, weight: .medium)
+                                .pretendardFont(size: 15, weight: .medium)
                                 .frame(maxWidth: .infinity, minHeight: 40)
                                 .background(Color.white)
                                 .foregroundColor(Color(hex: "#303030"))
@@ -50,9 +54,11 @@ struct CouponPopup: View {
                                 .padding(.horizontal, 16)
                         }
                     }
+                    .padding(.horizontal, 10)
                 }
                 .frame(width: 320, height: 210)
-                .padding()
+                .padding(.vertical, 10)
+                .padding(.horizontal, 10)
                 .background(Color.white)
                 .cornerRadius(12)
                 .shadow(radius: 10)

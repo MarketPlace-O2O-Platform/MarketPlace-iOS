@@ -11,14 +11,16 @@ struct HotCheerView: View {
                 Image(systemName: "heart.fill")
                     .foregroundStyle(.black)
                 Text("내 공감권")
+                    .pretendardFont(size: 16, weight: .medium)
                 Text("\(cheerTicket)개")
+                    .pretendardFont(size: 16, weight: .bold)
                 
                 Spacer()
                 
                 Text("공감권은 매일 자정에 충전됩니다.")
-                  .foregroundColor(Color(red: 0.45, green: 0.45, blue: 0.45))
+                    .pretendardFont(size: 12, weight: .regular)
+                    .foregroundColor(Color(red: 0.45, green: 0.45, blue: 0.45))
             }
-            .font(Font.custom("Pretendard", size: 12))
             .padding(.horizontal, 20)
             .padding(.bottom, 8)
             
@@ -30,12 +32,10 @@ struct HotCheerView: View {
             // MARK: - "달성 임박" 헤더와 HotCheer 카드뷰
             HStack(spacing: 8) {
                 Text("달성 임박")
-                    .font(.headline)
-                    .fontWeight(.bold)
+                    .pretendardFont(size: 20, weight: .semibold)
                 
                 Text("HOT🔥")
-                    .font(.caption)
-                    .fontWeight(.bold)
+                    .pretendardFont(size: 12, weight: .regular)
                     .foregroundColor(.white)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)

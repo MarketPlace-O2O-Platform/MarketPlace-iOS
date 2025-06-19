@@ -40,14 +40,14 @@ struct HotCheerCardCell: View {
             HStack {
                 if status == .isFinished {
                     Text(status.toString(dueDate: nil))
-                        .font(.caption2)
+                        .pretendardFont(size: 12, weight: .medium)
                         .foregroundColor(.gray)
                     Text("제휴 컨택중")
-                        .font(.caption2)
+                        .pretendardFont(size: 12, weight: .medium)
                         .foregroundColor(.black)
                 } else {
                     Text(status.toString(dueDate: viewModel.hotCheerMarket.dueDate))
-                        .font(.caption2)
+                        .pretendardFont(size: 12, weight: .medium)
                         .foregroundColor(.gray)
                 }
             }
@@ -62,7 +62,7 @@ struct HotCheerCardCell: View {
             }) {
                 if status == .isFinished {
                     Text("제휴 컨택 중")
-                        .font(.caption)
+                        .pretendardFont(size: 12, weight: .medium)
                         .foregroundColor(.gray)
                         .padding(.vertical, 10)
                         .frame(maxWidth: .infinity)
@@ -73,6 +73,7 @@ struct HotCheerCardCell: View {
                         Image(systemName: viewModel.isCheer ? "heart.fill" : "heart")
                             .foregroundColor(.white)
                         Text(viewModel.isCheer ? "공감 완료" : "공감하기")
+                            .pretendardFont(size: 12, weight: .medium)
                             .foregroundColor(.white)
                     }
                     .padding(.vertical, 10)

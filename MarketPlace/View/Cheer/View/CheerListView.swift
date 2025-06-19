@@ -8,9 +8,9 @@ struct CheerListView: View {
         VStack(spacing: 0) {
             HStack {
                 Text("지금 공감하면 할인권을 드려요")
-                    .font(.headline)
+                    .pretendardFont(size: 20, weight: .semibold)
                 Text("EVENT")
-                    .font(.caption)
+                    .pretendardFont(size: 12, weight: .regular)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)
                     .background(Color.black)

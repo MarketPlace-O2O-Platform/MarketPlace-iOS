@@ -7,13 +7,12 @@ struct Top20View: View {
         VStack {
             HStack {
                 Text("Top 20 인기 | 멤버십 혜택")
-                    .font(Font.custom("Pretendard", size: 19))
-                    .bold()
+                    .pretendardFont(size: 19, weight: .semibold)
                     .foregroundColor(.black)
                 Spacer()
                 NavigationLink(destination: Top20DetailView()) {
                     Text("더보기 >")
-                        .font(Font.custom("Pretendard", size: 14).weight(.medium))
+                        .pretendardFont(size: 14, weight: .medium)
                         .foregroundColor(Color(red: 0.29, green: 0.29, blue: 0.29))
                         .padding(.trailing, 20)
                 }
@@ -44,12 +43,12 @@ struct Top20View: View {
                                     Spacer()
                                     VStack(alignment: .leading) {
                                         Text(coupon.marketName)
-                                            .font(Font.custom("Pretendard", size: 14).weight(.semibold))
+                                            .pretendardFont(size: 14, weight: .semibold)
                                             .foregroundColor(.white)
                                             .padding(.leading, 20)
                                         
                                         Text(coupon.couponName)
-                                            .font(Font.custom("Pretendard", size: 18).weight(.bold))
+                                            .pretendardFont(size: 18, weight: .bold)
                                             .foregroundColor(.white)
                                             .padding(.leading, 20)
                                     }

@@ -17,7 +17,7 @@ struct CircleCategoryTabView: View {
                 ForEach(Array(categories.enumerated()), id: \.offset) { index, category in
                     VStack {
                         Text(category)
-                            .font(.system(size: 12, weight: selectedTab == index ? .bold : .regular))
+                            .pretendardFont(size: 12, weight: selectedTab == index ? .bold: .regular)
                             .foregroundColor(selectedTab == index ? Color.white : .gray)
                             .padding(.horizontal, 20)
                             .padding(.vertical, 8)

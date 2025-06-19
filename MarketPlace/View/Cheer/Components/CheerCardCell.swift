@@ -12,7 +12,7 @@ struct CheerCardCell: View {
                 cornerRadius: 0, width: 162, height: 162)
 
             Text(viewModel.cheerMarket.marketName)
-                .font(.subheadline)
+                .pretendardFont(size: 16, weight: .semibold)
             
             HStack {
                 HStack {
@@ -22,12 +22,12 @@ struct CheerCardCell: View {
                     Text("\(viewModel.cheerMarket.dueDate)일 남음")
                         .foregroundColor(Color(hex: "#545454"))
                 }
-                .font(.caption)
+                .pretendardFont(size: 12, weight: .medium)
                 
                 Spacer()
                 
                 Text("\(viewModel.cheerMarket.cheerCount)")
-                    .font(.caption)
+                    .pretendardFont(size: 12, weight: .regular)
                     .foregroundColor(.gray)
                 Image(systemName: viewModel.isCheer ? "heart.fill" : "heart")
                     .foregroundColor(viewModel.isCheer ? .red : .gray)
@@ -46,7 +46,7 @@ struct CheerCardCell: View {
                             .frame(width: 12, height: 12)
                             .foregroundColor(.white)
                         Text("공감하기")
-                            .font(Font.custom("Pretendard", size: 12).weight(.medium))
+                            .pretendardFont(size: 12, weight: .medium)
                             .multilineTextAlignment(.center)
                             .foregroundColor(.white)
                         Spacer()
@@ -59,7 +59,7 @@ struct CheerCardCell: View {
                     HStack {
                         Spacer()
                         Text("공감 완료")
-                            .font(Font.custom("Pretendard", size: 12).weight(.medium))
+                            .pretendardFont(size: 12, weight: .medium)
                             .multilineTextAlignment(.center)
                             .foregroundColor(Color(hex: "#b0b0b0"))
                         Spacer()

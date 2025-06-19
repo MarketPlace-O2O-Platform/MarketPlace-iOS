@@ -50,6 +50,19 @@
 		2976FA292DFC4B56009782D1 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2976FA282DFC4B56009782D1 /* MainViewModel.swift */; };
 		2976FA2B2DFC4D2F009782D1 /* CouponTopModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2976FA2A2DFC4D2F009782D1 /* CouponTopModel.swift */; };
 		2976FA2F2DFC5D90009782D1 /* MainBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2976FA2E2DFC5D90009782D1 /* MainBannerView.swift */; };
+		29B3EBA72E03CE0D0095A310 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B3EBA62E03CE0D0095A310 /* UserDefaultsKeys.swift */; };
+		29B3EBA92E03CF800095A310 /* KeyChainKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B3EBA82E03CF800095A310 /* KeyChainKeys.swift */; };
+		29B3EBB42E03D94E0095A310 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 29B3EBB22E03D94E0095A310 /* Pretendard-SemiBold.otf */; };
+		29B3EBB52E03D94E0095A310 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 29B3EBB32E03D94E0095A310 /* Pretendard-Thin.otf */; };
+		29B3EBB62E03D94E0095A310 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 29B3EBAC2E03D94E0095A310 /* Pretendard-Bold.otf */; };
+		29B3EBB72E03D94E0095A310 /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 29B3EBAE2E03D94E0095A310 /* Pretendard-ExtraLight.otf */; };
+		29B3EBB82E03D94E0095A310 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 29B3EBB12E03D94E0095A310 /* Pretendard-Regular.otf */; };
+		29B3EBB92E03D94E0095A310 /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 29B3EBAB2E03D94E0095A310 /* Pretendard-Black.otf */; };
+		29B3EBBA2E03D94E0095A310 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 29B3EBB02E03D94E0095A310 /* Pretendard-Medium.otf */; };
+		29B3EBBB2E03D94E0095A310 /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 29B3EBAD2E03D94E0095A310 /* Pretendard-ExtraBold.otf */; };
+		29B3EBBC2E03D94E0095A310 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 29B3EBAF2E03D94E0095A310 /* Pretendard-Light.otf */; };
+		29B3EBBE2E03DABD0095A310 /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B3EBBD2E03DABD0095A310 /* Font+.swift */; };
+		29B3EBC02E03F3260095A310 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B3EBBF2E03F3260095A310 /* CustomAlertView.swift */; };
 		29BF18B02DE4492C00836D7E /* API_URL.plist in Resources */ = {isa = PBXBuildFile; fileRef = 29BF18AF2DE4492C00836D7E /* API_URL.plist */; };
 		29BF18BF2DE45B3900836D7E /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF18BE2DE45B3900836D7E /* Category.swift */; };
 		29BF18C12DE4950700836D7E /* APIResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF18C02DE4950700836D7E /* APIResDto.swift */; };
@@ -74,7 +87,6 @@
 		B215F2912DE61C8400F53C51 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B215F2902DE61C8400F53C51 /* AlertView.swift */; };
 		B215F2942DE61D9600F53C51 /* AlertButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B215F2932DE61D9600F53C51 /* AlertButtonView.swift */; };
 		B215F2962DE6D77B00F53C51 /* AlertListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B215F2952DE6D77B00F53C51 /* AlertListView.swift */; };
-		B21F3CEF2D267AF900B83B34 /* Coupon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21F3CDA2D267AF900B83B34 /* Coupon.swift */; };
 		B21F3CF22D267AF900B83B34 /* MarketInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21F3CDD2D267AF900B83B34 /* MarketInfoCell.swift */; };
 		B21F3CF42D267AF900B83B34 /* CategoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21F3CE02D267AF900B83B34 /* CategoryDetailView.swift */; };
 		B21F3CF52D267AF900B83B34 /* MainCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21F3CE22D267AF900B83B34 /* MainCategoryView.swift */; };
@@ -188,6 +200,19 @@
 		2976FA282DFC4B56009782D1 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		2976FA2A2DFC4D2F009782D1 /* CouponTopModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponTopModel.swift; sourceTree = "<group>"; };
 		2976FA2E2DFC5D90009782D1 /* MainBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBannerView.swift; sourceTree = "<group>"; };
+		29B3EBA62E03CE0D0095A310 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
+		29B3EBA82E03CF800095A310 /* KeyChainKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainKeys.swift; sourceTree = "<group>"; };
+		29B3EBAB2E03D94E0095A310 /* Pretendard-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.otf"; sourceTree = "<group>"; };
+		29B3EBAC2E03D94E0095A310 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
+		29B3EBAD2E03D94E0095A310 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
+		29B3EBAE2E03D94E0095A310 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
+		29B3EBAF2E03D94E0095A310 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
+		29B3EBB02E03D94E0095A310 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
+		29B3EBB12E03D94E0095A310 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
+		29B3EBB22E03D94E0095A310 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
+		29B3EBB32E03D94E0095A310 /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
+		29B3EBBD2E03DABD0095A310 /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
+		29B3EBBF2E03F3260095A310 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 		29BF18AF2DE4492C00836D7E /* API_URL.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = API_URL.plist; sourceTree = "<group>"; };
 		29BF18BE2DE45B3900836D7E /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		29BF18C02DE4950700836D7E /* APIResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResDto.swift; sourceTree = "<group>"; };
@@ -212,7 +237,6 @@
 		B215F2902DE61C8400F53C51 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		B215F2932DE61D9600F53C51 /* AlertButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertButtonView.swift; sourceTree = "<group>"; };
 		B215F2952DE6D77B00F53C51 /* AlertListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertListView.swift; sourceTree = "<group>"; };
-		B21F3CDA2D267AF900B83B34 /* Coupon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coupon.swift; sourceTree = "<group>"; };
 		B21F3CDD2D267AF900B83B34 /* MarketInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarketInfoCell.swift; sourceTree = "<group>"; };
 		B21F3CE02D267AF900B83B34 /* CategoryDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDetailView.swift; sourceTree = "<group>"; };
 		B21F3CE22D267AF900B83B34 /* MainCategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCategoryView.swift; sourceTree = "<group>"; };
@@ -323,6 +347,7 @@
 			children = (
 				293DCF432DE6FE43000122C5 /* Array+.swift */,
 				290A71B22E029F04009AEAF8 /* View+.swift */,
+				29B3EBBD2E03DABD0095A310 /* Font+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -453,8 +478,26 @@
 			children = (
 				29BF18BE2DE45B3900836D7E /* Category.swift */,
 				295DCBB72DED7C92009B5D82 /* CouponStatus.swift */,
+				29B3EBA62E03CE0D0095A310 /* UserDefaultsKeys.swift */,
+				29B3EBA82E03CF800095A310 /* KeyChainKeys.swift */,
 			);
 			path = Types;
+			sourceTree = "<group>";
+		};
+		29B3EBAA2E03D8CF0095A310 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				29B3EBAB2E03D94E0095A310 /* Pretendard-Black.otf */,
+				29B3EBAC2E03D94E0095A310 /* Pretendard-Bold.otf */,
+				29B3EBAD2E03D94E0095A310 /* Pretendard-ExtraBold.otf */,
+				29B3EBAE2E03D94E0095A310 /* Pretendard-ExtraLight.otf */,
+				29B3EBAF2E03D94E0095A310 /* Pretendard-Light.otf */,
+				29B3EBB02E03D94E0095A310 /* Pretendard-Medium.otf */,
+				29B3EBB12E03D94E0095A310 /* Pretendard-Regular.otf */,
+				29B3EBB22E03D94E0095A310 /* Pretendard-SemiBold.otf */,
+				29B3EBB32E03D94E0095A310 /* Pretendard-Thin.otf */,
+			);
+			path = Font;
 			sourceTree = "<group>";
 		};
 		29D53BF32DE83B06008E4F2E /* View */ = {
@@ -513,12 +556,12 @@
 			isa = PBXGroup;
 			children = (
 				B28349122D2E5CA800EEDB02 /* CategoryTabView.swift */,
-				B21F3CDA2D267AF900B83B34 /* Coupon.swift */,
 				B22AB94B2D9B08FD006E13B4 /* CouponInfoCell.swift */,
 				B21F3CDD2D267AF900B83B34 /* MarketInfoCell.swift */,
 				29D87F492DE8629900CE9011 /* CircleCategoryTabView.swift */,
 				290A71B02E02792A009AEAF8 /* ShimmerView.swift */,
 				290A71AE2E027909009AEAF8 /* ShimmeringAsyncImage.swift */,
+				29B3EBBF2E03F3260095A310 /* CustomAlertView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -682,6 +725,7 @@
 		B2C398FB2CA145CB004800DD /* MarketPlace */ = {
 			isa = PBXGroup;
 			children = (
+				29B3EBAA2E03D8CF0095A310 /* Font */,
 				2976FA272DFC4507009782D1 /* Types */,
 				293DCF422DE6FE3A000122C5 /* Extension */,
 				2941F78A2DE5A0EF0063CEFE /* Service */,
@@ -878,6 +922,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				B2C399042CA145CC004800DD /* Preview Assets.xcassets in Resources */,
+				29B3EBB42E03D94E0095A310 /* Pretendard-SemiBold.otf in Resources */,
+				29B3EBB52E03D94E0095A310 /* Pretendard-Thin.otf in Resources */,
+				29B3EBB62E03D94E0095A310 /* Pretendard-Bold.otf in Resources */,
+				29B3EBB72E03D94E0095A310 /* Pretendard-ExtraLight.otf in Resources */,
+				29B3EBB82E03D94E0095A310 /* Pretendard-Regular.otf in Resources */,
+				29B3EBB92E03D94E0095A310 /* Pretendard-Black.otf in Resources */,
+				29B3EBBA2E03D94E0095A310 /* Pretendard-Medium.otf in Resources */,
+				29B3EBBB2E03D94E0095A310 /* Pretendard-ExtraBold.otf in Resources */,
+				29B3EBBC2E03D94E0095A310 /* Pretendard-Light.otf in Resources */,
 				293DCF192DE6CDE2000122C5 /* KakaoMapKey.xcconfig in Resources */,
 				B2C399012CA145CC004800DD /* Assets.xcassets in Resources */,
 				29BF18B02DE4492C00836D7E /* API_URL.plist in Resources */,
@@ -938,6 +991,7 @@
 				B210EC282D3D797F00B1551E /* SearchHeader.swift in Sources */,
 				B293A15C2D6FE2A8003E8505 /* CheerSearchView.swift in Sources */,
 				29BF193A2DE4AC9600836D7E /* MainHeaderView.swift in Sources */,
+				29B3EBA92E03CF800095A310 /* KeyChainKeys.swift in Sources */,
 				2976FA292DFC4B56009782D1 /* MainViewModel.swift in Sources */,
 				29BF18BF2DE45B3900836D7E /* Category.swift in Sources */,
 				B255A5CE2D6218A000954837 /* MarketModel.swift in Sources */,
@@ -954,12 +1008,13 @@
 				B28349112D2E548A00EEDB02 /* MapView.swift in Sources */,
 				290D93542DE58418008AC190 /* CouponBasicModel.swift in Sources */,
 				B2C398FD2CA145CB004800DD /* MarketPlaceApp.swift in Sources */,
+				29B3EBC02E03F3260095A310 /* CustomAlertView.swift in Sources */,
 				B28A22AD2D64F1C000E86EF6 /* StoreSearchButton.swift in Sources */,
 				2941F78D2DE5A28A0063CEFE /* CouponService.swift in Sources */,
 				B21F3CF82D267AF900B83B34 /* MainView.swift in Sources */,
 				2941F7972DE5AAB50063CEFE /* NewEventViewModel.swift in Sources */,
 				B21F3CF62D267AF900B83B34 /* Top20View.swift in Sources */,
-				B21F3CEF2D267AF900B83B34 /* Coupon.swift in Sources */,
+				29B3EBBE2E03DABD0095A310 /* Font+.swift in Sources */,
 				B21F3CF52D267AF900B83B34 /* MainCategoryView.swift in Sources */,
 				B28889AA2D4BD5A50040EC3F /* CouponCategoryView.swift in Sources */,
 				B28349662D36C02C00EEDB02 /* CouponModel.swift in Sources */,
@@ -982,6 +1037,7 @@
 				2941F7812DE5A0350063CEFE /* MemberCouponEndpoint.swift in Sources */,
 				29D87F832DE86D6900CE9011 /* MemberInfoModel.swift in Sources */,
 				2941F7822DE5A0350063CEFE /* MemberEndPoint.swift in Sources */,
+				29B3EBA72E03CE0D0095A310 /* UserDefaultsKeys.swift in Sources */,
 				295DCBB82DED7C92009B5D82 /* CouponStatus.swift in Sources */,
 				2941F7832DE5A0350063CEFE /* NetworkError.swift in Sources */,
 				2941F7842DE5A0350063CEFE /* NetworkService.swift in Sources */,
@@ -1180,7 +1236,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MarketPlace/Preview Content\"";
-				DEVELOPMENT_TEAM = 7RR74CRWQW;
+				DEVELOPMENT_TEAM = F7GYZYWC6V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MarketPlace/Info.plist;
@@ -1212,7 +1268,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MarketPlace/Preview Content\"";
-				DEVELOPMENT_TEAM = 7RR74CRWQW;
+				DEVELOPMENT_TEAM = F7GYZYWC6V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MarketPlace/Info.plist;
