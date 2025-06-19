@@ -19,7 +19,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
     }
 
-    // Location manager updates
+    // MARK: - Location manager updates
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
         DispatchQueue.main.async {
@@ -30,7 +30,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
     }
 
-    // Location authorization changes
+    // MARK: - Location authorization changes
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus {
         case .authorizedWhenInUse, .authorizedAlways:
@@ -44,30 +44,34 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
     }
 
-    // Handling location manager failure
+    // MARK: - Handling location manager failure
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         // Handle errors when the location manager fails to get the user's location
         print("Location manager failed with error: \(error.localizedDescription)")
     }
 }
 
-class ConvertAddress {
-    ///좌표 -> 도로명 주소
+enum AddressError: Error {
+    case failedToConvertAddress
+}
+
+final class ConvertAddress {
+    /// - NOTE: 좌표 -> 도로명 주소
     func loadCurrentUserRoadAddress(latitude: Double, longitude: Double) async throws -> String {
         let geoCoder = CLGeocoder()
         let places = try await geoCoder.reverseGeocodeLocation(CLLocation(latitude: latitude, longitude: longitude))
         guard let place = places.last,
               let sido = place.administrativeArea,
-              let gugun = place.locality else { throw fatalError() }
+              let gugun = place.locality else { throw AddressError.failedToConvertAddress }
         return "\(sido) \(gugun)"
     }
     
-    ///도로명 주소 -> 좌표
+    /// - NOTE: 도로명 주소 -> 좌표
     func getCoordinateFromRoadAddress(from address: String) async throws -> CLLocationCoordinate2D {
         let geoCoder = CLGeocoder()
         let places = try await geoCoder.geocodeAddressString(address)
         guard let place = places.last,
-              let coordinate = place.location?.coordinate else { throw fatalError() }
+              let coordinate = place.location?.coordinate else { throw AddressError.failedToConvertAddress }
         return coordinate
     }
 }

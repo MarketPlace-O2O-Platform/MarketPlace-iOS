@@ -64,12 +64,3 @@ struct AlertView: View {
         }
     }
 }
-
-#Preview("AlertView Preview") {
-    AlertView()
-}
-
-#Preview("AlertButtonGroup Preview") {
-    @State var selectedCategory = "전체"
-    return AlertButtonGroup(selectedCategory: $selectedCategory)
-}

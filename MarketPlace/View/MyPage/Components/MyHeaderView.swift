@@ -46,27 +46,6 @@ struct UserInfoView: View {
     }
 }
 
-
-struct CouponButtonView: View {
-    var body: some View {
-        NavigationLink(destination: MyCouponView()) {
-            Text("받은 쿠폰함")
-                .font(.custom("Pretendard-Medium", size: MyHeaderViewConstants.FontSize.buttonText))
-                .foregroundColor(Colors.textColor)
-                .padding(.vertical, 6)
-                .padding(.horizontal, 12)
-                .background(Colors.backgroundColor)
-                .cornerRadius(MyHeaderViewConstants.cornerRadius)
-                .overlay(
-                    RoundedRectangle(cornerRadius: MyHeaderViewConstants.cornerRadius)
-                        .stroke(Colors.borderColor, lineWidth: 1)
-                        .frame(height: MyHeaderViewConstants.buttonHeight)
-                )
-        }
-    }
-}
-
-
 struct MyHeaderView: View {
     @State private var isDropdownVisible = false
     @State private var showLogoutAlert = false
@@ -83,8 +62,20 @@ struct MyHeaderView: View {
                     
                     UserInfoView(userId: String(userId), isDropdownVisible: $isDropdownVisible)
                     
-                    CouponButtonView()
-                        .padding(.trailing, MyHeaderViewConstants.padding)
+                    NavigationLink(destination: MyCouponView()) {
+                        Text("받은 쿠폰함")
+                            .font(.custom("Pretendard-Medium", size: MyHeaderViewConstants.FontSize.buttonText))
+                            .foregroundColor(Colors.textColor)
+                            .padding(.vertical, 6)
+                            .padding(.horizontal, 12)
+                            .background(Colors.backgroundColor)
+                            .cornerRadius(MyHeaderViewConstants.cornerRadius)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: MyHeaderViewConstants.cornerRadius)
+                                    .stroke(Colors.borderColor, lineWidth: 1)
+                                    .frame(height: MyHeaderViewConstants.buttonHeight)
+                            )
+                    }.padding(.trailing, MyHeaderViewConstants.padding)
                 }
                 .padding(.leading, MyHeaderViewConstants.padding)
                 
@@ -97,17 +88,12 @@ struct MyHeaderView: View {
             
             if isDropdownVisible {
                 DropdownMenuView {
-//                    showLogoutAlert = true
+                    showLogoutAlert = true
                 }
                 .offset(x: MyHeaderViewConstants.dropdownOffsetX, y: MyHeaderViewConstants.dropdownOffsetY)
                 .transition(.scale.combined(with: .opacity))
                 .zIndex(1)
             }
         }
-//        .overlay(
-//            LogoutAlert(isPresented: $showLogoutAlert) {
-//                print("로그아웃 실행")
-//            }
-//        )
     }
 }

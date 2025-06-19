@@ -4,10 +4,11 @@ struct LoginView: View {
     @State private var selectedSchool: String = ""
     @State private var studentID: String = ""
     @State private var password: String = ""
-    @State private var saveID: Bool = false
-    @State private var savePassword: Bool = false
     @StateObject private var viewModel = LoginViewModel()
     
+    @AppStorage(UserDefaultsKeys.saveId) private var saveID: Bool = false
+    @AppStorage(UserDefaultsKeys.savePassword) private var savePassword: Bool = false
+        
     @FocusState var isEditing: Bool
     
     let schools = ["인천대학교"]
@@ -107,7 +108,7 @@ struct LoginView: View {
                     Button(action: {
                         Task {
                             isEditing = false
-                            await viewModel.signIn(studentId: studentID, password: password)
+                            await viewModel.signIn(studentId: studentID, password: password, saveID: saveID, savePassword: savePassword)
                         }
                     }) {
                         Text("로그인")
@@ -130,6 +131,15 @@ struct LoginView: View {
                 .padding(.horizontal, 20)
                 
                 Spacer()
+            }
+            .onAppear {
+                if saveID, let id = KeychainManager.load(KeyChainKeys.studentId) {
+                    studentID = id
+                }
+                
+                if savePassword, let password = KeychainManager.load(KeyChainKeys.password) {
+                    self.password = password
+                }
             }
             .onChange(of: isEditing == true, { _, _ in
                 viewModel.userErrorMessage = nil
