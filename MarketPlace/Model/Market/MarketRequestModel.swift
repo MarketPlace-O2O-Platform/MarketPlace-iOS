@@ -8,18 +8,18 @@
 import Foundation
 
 struct MarketRequestResponse: Codable {
-    let content: [MarketRequest]
-    let page: MarketRequestPage
+    let content: [MarketRequestModel]
+    let page: MarketRequestPageModel
 }
 
-struct MarketRequest: Codable, Identifiable {
+struct MarketRequestModel: Codable, Identifiable {
     let id: Int
     let name: String
     let address: String
     let count: Int
 }
 
-struct MarketRequestPage: Codable {
+struct MarketRequestPageModel: Codable {
     let size: Int
     let number: Int
     let totalElements: Int
