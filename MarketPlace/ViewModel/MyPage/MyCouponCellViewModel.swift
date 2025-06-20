@@ -27,7 +27,7 @@ final class MyCouponCellViewModel: ObservableObject {
     var couponStatusText: String {
         switch couponStatus {
         case .issued:
-            return "사용 가능"
+            return "사용하러 가기"
         case .used:
             return "사용 완료"
         case .expired:

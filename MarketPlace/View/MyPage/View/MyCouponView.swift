@@ -39,9 +39,9 @@ struct MyCouponView: View {
                         }
                     }
                     .frame(maxWidth: .infinity)
-                    .padding(.top, 20)
+                    .padding(.vertical, 20)
                 }
-                .background(Color.white)
+                .background(Color(hex: "#FAFAFA"))
             }
             
             if showingPopup {
