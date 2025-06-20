@@ -2,7 +2,6 @@ import Foundation
 import SwiftUI
 
 struct MyPageView: View {
-    @State private var selectedCategory: Int = 0
     @StateObject private var viewModel = MyPageViewModel()
     @EnvironmentObject var loginVM: LoginViewModel
     
@@ -23,7 +22,6 @@ struct MyPageView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom, 8)
 
-                CircleCategoryTabView(selectedTab: $selectedCategory)
                 FavoriteShopListView(favoriteMarkets: $viewModel.favoriteMarkets)
             }
             .background(Color.white)
@@ -31,11 +29,6 @@ struct MyPageView: View {
                 Task {
                     await viewModel.fetchFavoriteMarket(lastModifiedAt: nil, pageSize: nil)
                     await viewModel.fetchMemberInfo()
-                }
-            }
-            .onChange(of: selectedCategory) {
-                Task{
-                    await viewModel.fetchFavoriteMarket(lastModifiedAt: nil, pageSize: nil)
                 }
             }
             .overlay {
