@@ -98,6 +98,7 @@ final class MarketService: MarketServiceProtocol {
         return await networkService.request(
             MarketEndpoint.postMarketRequest(name: name, address: address)
         )
+    }
       
     // MARK: - 주소별 매장 조회 API
     func fetchMarketsWithAddress(lastPageIndex: Int?, category: String?, pageSize: Int?) async -> NetworkResult<APIResDto<MarketResDto<MarketModel>>> {
