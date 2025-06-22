@@ -85,7 +85,7 @@ struct MarketCouponListView: View {
                 Spacer()
             }
             
-            Text(coupons.indices.contains(currentIndex) ? coupons[currentIndex].couponDescription : "")
+            Text(coupons.indices.contains(currentIndex) ? "\(coupons[currentIndex].couponDescription)\n쿠폰 다운로드 시점으로부터 3일 이내로 미사용 시 소멸 예정" : "")
                 .pretendardFont(size: 13, weight: .regular)
                 .foregroundColor(.gray)
                 .padding(.top, 10)
