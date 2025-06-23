@@ -79,11 +79,6 @@ struct MarketDetailView: View {
                                         .pretendardFont(size: 13, weight: .semibold)
                                         .padding(.leading, 16)
                                 }
-                                
-                                Text(shop.description)
-                                    .pretendardFont(size: 13, weight: .regular)
-                                    .foregroundColor(.gray)
-                                    .padding(.leading, 16)
                             }
                             .zIndex(10)
                             

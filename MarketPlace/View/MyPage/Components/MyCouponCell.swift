@@ -5,53 +5,64 @@ struct MyCouponCell: View {
     var onTap: () -> Void
 
     var body: some View {
-        Image(viewModel.couponStatus==CouponStatus.issued ? "myCoupon_canuse" : "myCoupon_used")
+        Image("myCoupon")
             .resizable()
             .scaledToFit()
-            .frame(width: 335, height: 102)
+            .frame(width: 335)
             .overlay {
-                HStack(spacing: 0) {
-                    ShimmeringAsyncImage(
-                        url: URL(
-                            string: URLManager.shared.baseStringURL + "image/" + viewModel.coupon.thumbnail
-                        ),
-                        cornerRadius: 0,
-                        width: 102,
-                        height: 102
-                    )
-                    
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(viewModel.coupon.couponName)
-                            .pretendardFont(size: 18, weight: .medium)
-                            .font(.headline)
-                            .lineLimit(1)
-                            .foregroundColor(Color(hex: "#121212"))
+                VStack(alignment: .leading) {
+                    HStack(alignment: .top, spacing: 12) {
+                        ShimmeringAsyncImage(
+                            url: URL(
+                                string: URLManager.shared.baseStringURL + "image/" + viewModel.coupon.thumbnail
+                            ),
+                            cornerRadius: 4,
+                            width: 60,
+                            height: 65
+                        )
                         
-                        Text(viewModel.coupon.description)
-                            .pretendardFont(size: 15, weight: .semibold)
-                            .lineLimit(1)
-                            .foregroundColor(Color(red: 0.07, green: 0.07, blue: 0.07))
-                        
-                        Text(viewModel.formattedDeadline)
-                            .pretendardFont(size: 13, weight: .regular)
-                            .foregroundColor(Color(red: 0.33, green: 0.33, blue: 0.33))
+                        VStack(alignment: .leading, spacing: 7) {
+                            Text("하노이키친 인천대점")
+                                .pretendardFont(size: 14, weight: .regular)
+                                .lineLimit(1)
+                                .foregroundStyle(Color(hex: "#727272"))
+                            
+                            Text(viewModel.coupon.couponName)
+                                .pretendardFont(size: 24, weight: .medium)
+                                .lineLimit(1)
+                                .foregroundStyle(Color(hex: "#303030"))
+                        }.padding(.top, 5)
                     }
-                    .padding(.horizontal, 12)
-                    .frame(width: 165, alignment: .leading)
-                    
-                    Spacer()
+                    .padding(.top, 10)
+                    .padding(.horizontal, 20)
                     
                     Button(action: {
                         if viewModel.canUse {
                             onTap()
                         }
-                    }) {
+                    }, label: {
                         Text(viewModel.couponStatusText)
-                            .pretendardFont(size: 13, weight: .bold)
-                            .foregroundStyle(Color.white)
-                    }.disabled(!viewModel.canUse)
+                            .foregroundStyle(viewModel.couponStatus==CouponStatus.issued ? .white : Color(hex: "#727272"))
+                            .pretendardFont(size: 14, weight: .semibold)
+                            .padding(.vertical, 15)
+                            .frame(maxWidth: .infinity)
+                            .background(
+                                RoundedRectangle(cornerRadius: 4)
+                                    .fill(viewModel.couponStatus==CouponStatus.issued ? Color(hex: "#303030") : Color(hex: "#E0E0E0"))
+                            )
+                    })
+                    .padding(.horizontal ,20)
+                    .disabled(!viewModel.canUse)
                     
-                    Spacer()
+                    Button(action: {
+                        
+                    }, label: {
+                        Text("쿠러미 카카오채널로 영수증 전송")
+                            .pretendardFont(size: 14, weight: .regular)
+                            .foregroundStyle(Color(hex: "#727272"))
+                    })
+                    .padding(.leading, 20)
+                    .padding(.top, 20)
                 }
             }
     }
