@@ -48,3 +48,15 @@ struct CheerSearchView: View {
         }
     
     }
+
+#Preview {
+    CheerSearchPreviewWrapper()
+}
+
+struct CheerSearchPreviewWrapper: View {
+    @State private var text: String = ""
+
+    var body: some View {
+        CheerSearchView(searchText: $text)
+    }
+}
