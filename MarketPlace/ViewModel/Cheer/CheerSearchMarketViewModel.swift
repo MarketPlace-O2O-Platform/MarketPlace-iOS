@@ -19,25 +19,5 @@ final class CheerSearchMarketViewModel: ObservableObject {
     
     
     @MainActor
-    func fetchSearchCheerMarket(name: String) async -> Bool {
-        var hasData: Bool = true
-        
-        let result = await cheerMarketService.fetchSearchCheerMarket(
-            lastPageIndex: nil,
-            pageSize: nil,
-            name: name
-        )
-        
-        switch result {
-        case .success(let data, _):
-            self.market = data.response.marketResDtos
-            if market.isEmpty {
-                hasData = false
-            }
-        case .failure(let statusCode, let message):
-            print("[CheerSearchMarket] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
-        }
-        
-        return hasData
-    }
+    
 }
