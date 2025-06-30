@@ -12,7 +12,7 @@ protocol CheerMarketServiceProtocol {
     func fetchCheerMarket(lastPageIndex: Int?, category: String?, count: Int?) async -> NetworkResult<APIResDto<MarketResDto<CheerMarketModel>>>
     
     // MARK: - 공감 매장 검색 조회 API
-    func searchCheerMarket(lastPageIndex: Int?, pageSize: Int?, name: String) async -> NetworkResult<APIResDto<MarketResDto<CheerMarketModel>>>
+    func fetchSearchCheerMarket(lastPageIndex: Int?, pageSize: Int?, name: String) async -> NetworkResult<APIResDto<MarketResDto<CheerMarketModel>>>
     
     // MARK: - 공감 달성 임박 매장 조회 API
     func fetchUpcomingMarket(lastPageIndex: Int?, lastCheerCount: Int?, count: Int?) async -> NetworkResult<APIResDto<MarketResDto<CheerMarketModel>>>
@@ -44,13 +44,13 @@ final class CheerMarketService: CheerMarketServiceProtocol {
     }
     
     // MARK: - 공감 매장 검색 조회 API
-    func searchCheerMarket(
+    func fetchSearchCheerMarket(
         lastPageIndex: Int?,
         pageSize: Int?,
         name: String
     ) async -> NetworkResult<APIResDto<MarketResDto<CheerMarketModel>>> {
         return await networkService.request(
-            CheerMarketEndpoint.searchCheerMarket(
+            CheerMarketEndpoint.fetchSearchCheerMarket(
                 lastPageIndex: lastPageIndex,
                 pageSize: pageSize,
                 name: name

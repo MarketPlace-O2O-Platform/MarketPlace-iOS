@@ -9,7 +9,7 @@ import Foundation
 
 protocol MarketServiceProtocol {
     // MARK: - 검색 매장 조회 API
-    func searchMarketsList(
+    func fetchSearchMarketsList(
         lastPageIndex: Int?,
         pageSize: Int?,
         name: String
@@ -47,7 +47,7 @@ final class MarketService: MarketServiceProtocol {
     }
     
     // MARK: - 검색 매장 조회 API
-    func searchMarketsList(
+    func fetchSearchMarketsList(
             lastPageIndex: Int?,
             pageSize: Int?,
             name: String

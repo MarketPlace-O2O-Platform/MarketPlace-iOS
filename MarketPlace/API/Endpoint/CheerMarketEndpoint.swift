@@ -9,7 +9,7 @@ import Foundation
 
 enum CheerMarketEndpoint: Endpoint {
     case fetchCheerMarket(lastPageIndex: Int?, category: String?, count: Int?)
-    case searchCheerMarket(lastPageIndex: Int?, pageSize: Int?, name: String)
+    case fetchSearchCheerMarket(lastPageIndex: Int?, pageSize: Int?, name: String)
     case fetchUpcomingMarket(lastPageIndex: Int?, lastCheerCount: Int?, count: Int?)
     case postCheerMarket(tempMarketId: Int)
     
@@ -18,7 +18,7 @@ enum CheerMarketEndpoint: Endpoint {
     var path: String {
         switch self {
         case .fetchCheerMarket: return "api/tempMarkets"
-        case .searchCheerMarket: return "api/tempMarkets/search"
+        case .fetchSearchCheerMarket: return "api/tempMarkets/search"
         case .fetchUpcomingMarket: return "api/tempMarkets/cheer"
         case .postCheerMarket: return "api/cheer"
         }
@@ -50,7 +50,7 @@ enum CheerMarketEndpoint: Endpoint {
             
             return items
             
-        case .searchCheerMarket(let lastPageIndex, let pageSize, let name):
+        case .fetchSearchCheerMarket(let lastPageIndex, let pageSize, let name):
             var items: [URLQueryItem] = []
             
             items.append(contentsOf: [
