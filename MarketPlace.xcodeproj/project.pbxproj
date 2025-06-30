@@ -129,6 +129,7 @@
 		B293A1542D6FDCB2003E8505 /* HotCheerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B293A1532D6FDCB2003E8505 /* HotCheerView.swift */; };
 		B293A15A2D6FE0B4003E8505 /* CheerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B293A1592D6FE0B4003E8505 /* CheerView.swift */; };
 		B293A15C2D6FE2A8003E8505 /* CheerSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B293A15B2D6FE2A8003E8505 /* CheerSearchView.swift */; };
+		B29C5A172E12CABB00C56B82 /* CheerSearchMarketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29C5A162E12CABB00C56B82 /* CheerSearchMarketViewModel.swift */; };
 		B2A42DCF2D8B3716005FAF15 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A42DCE2D8B3716005FAF15 /* LoginViewModel.swift */; };
 		B2C398FD2CA145CB004800DD /* MarketPlaceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C398FC2CA145CB004800DD /* MarketPlaceApp.swift */; };
 		B2C398FF2CA145CB004800DD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C398FE2CA145CB004800DD /* ContentView.swift */; };
@@ -284,6 +285,7 @@
 		B293A1532D6FDCB2003E8505 /* HotCheerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotCheerView.swift; sourceTree = "<group>"; };
 		B293A1592D6FE0B4003E8505 /* CheerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerView.swift; sourceTree = "<group>"; };
 		B293A15B2D6FE2A8003E8505 /* CheerSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerSearchView.swift; sourceTree = "<group>"; };
+		B29C5A162E12CABB00C56B82 /* CheerSearchMarketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerSearchMarketViewModel.swift; sourceTree = "<group>"; };
 		B2A42DCE2D8B3716005FAF15 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		B2C398F92CA145CB004800DD /* MarketPlace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarketPlace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2C398FC2CA145CB004800DD /* MarketPlaceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketPlaceApp.swift; sourceTree = "<group>"; };
@@ -637,6 +639,7 @@
 				29D53BFC2DE84F5D008E4F2E /* CheerListViewModel.swift */,
 				29D87F432DE8560500CE9011 /* HotCheerCardCellViewModel.swift */,
 				29D87F452DE85AC500CE9011 /* CheerCardCellViewModel.swift */,
+				B29C5A162E12CABB00C56B82 /* CheerSearchMarketViewModel.swift */,
 			);
 			path = Cheer;
 			sourceTree = "<group>";
@@ -1062,6 +1065,7 @@
 				B28A22A62D64B06F00E86EF6 /* MarketDetailModel.swift in Sources */,
 				290A71B32E029F04009AEAF8 /* View+.swift in Sources */,
 				B2DC8CC72E03F15600035476 /* MarketRequestViewModel.swift in Sources */,
+				B29C5A172E12CABB00C56B82 /* CheerSearchMarketViewModel.swift in Sources */,
 				B28889A12D4BBCB80040EC3F /* Logger.swift in Sources */,
 				B21F3D092D2D57BE00B83B34 /* Color.swift in Sources */,
 				B27E56D32D703FBB000D2881 /* CheerCardCell.swift in Sources */,
@@ -1280,7 +1284,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MarketPlace/Preview Content\"";
-				DEVELOPMENT_TEAM = F7GYZYWC6V;
+				DEVELOPMENT_TEAM = 7RR74CRWQW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MarketPlace/Info.plist;
@@ -1312,7 +1316,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MarketPlace/Preview Content\"";
-				DEVELOPMENT_TEAM = F7GYZYWC6V;
+				DEVELOPMENT_TEAM = 7RR74CRWQW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MarketPlace/Info.plist;

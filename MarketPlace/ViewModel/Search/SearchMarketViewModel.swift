@@ -13,7 +13,6 @@ final class SearchMarketViewModel: ObservableObject {
     
     @Published var searchText: String = ""
     @Published var market: [MarketSearchModel] = []
-    
     @Published var popularCoupon: [CouponTopModel] = []
     
     init(marketService: MarketServiceProtocol = MarketService(),
