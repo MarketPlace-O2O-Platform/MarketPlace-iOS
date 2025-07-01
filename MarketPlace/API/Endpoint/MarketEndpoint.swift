@@ -14,7 +14,7 @@ enum MarketEndpoint: Endpoint {
     case fetchOwnFavoriteMarkets(lastModifiedAt: String?, pageSize: Int?)
     case postFavoriteMarket(marketId: Int)
     case postMarketRequest(name: String, address: String)
-    case fetchMarketsWithAddress(lastPageIndex: Int?, category: String?, pageSize: Int?, address: String="인쳔광역시 연수구")
+    case fetchMarketsWithAddress(lastPageIndex: Int?, category: String?, pageSize: Int?, address: String="인천광역시 연수구")
     case searchKakaoMarketKeyword(keyword: String)
     
     var baseURL: URL {

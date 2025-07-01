@@ -22,7 +22,6 @@ protocol NetworkServiceProtocol {
 final class NetworkService: NetworkServiceProtocol {
     func requestFindMarketAPI<T>(_ endpoint: any Endpoint) async -> NetworkResult<T> where T : Decodable {
         var request = endpoint.urlRequest
-        print(request.url)
         
         if let token = Bundle.main.infoDictionary?["KAKAO_API_TOKEN"] as? String {
             request.addValue("KakaoAK \(token)", forHTTPHeaderField: "Authorization")
@@ -56,7 +55,7 @@ final class NetworkService: NetworkServiceProtocol {
     
     func request<T: Decodable>(_ endpoint: Endpoint) async -> NetworkResult<T>  {
         var request = endpoint.urlRequest
-        
+
         if let token = KeychainManager.getToken() {
             request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         } else {

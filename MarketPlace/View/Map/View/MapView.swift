@@ -34,7 +34,7 @@ struct MapView: View {
                 Map(
                     coordinateRegion: $region,
                     showsUserLocation: true,
-                    annotationItems: viewModel.markets
+                    annotationItems: viewModel.marketsForMap
                 ) { market in
                     
                     /// - NOTE: - 안정적이지 않은듯, 사라졌다 다시 나타났다가 함
@@ -247,11 +247,13 @@ struct MapView: View {
             .onAppear(perform: {
                 Task {
                     await viewModel.fetchMarkets(category: Category(index: selectedCategory)?.toString() ?? nil)
+                    await viewModel.fetchMarketsWithAddress(lastPageIndex: nil, category: Category(index: selectedCategory)?.toString() ?? nil, pageSize: nil)
                 }
             })
             .onChange(of: selectedCategory) {
                 Task {
                     await viewModel.fetchMarkets(category: Category(index: selectedCategory)?.toString() ?? nil)
+                    await viewModel.fetchMarketsWithAddress(lastPageIndex: nil, category: Category(index: selectedCategory)?.toString() ?? nil, pageSize: nil)
                 }
             }
             .mapScope(mapScope)
