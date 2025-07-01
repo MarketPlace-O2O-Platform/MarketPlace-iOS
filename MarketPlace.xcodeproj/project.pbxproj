@@ -142,8 +142,10 @@
 		B2DC8CC32E03E2D000035476 /* RequestMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DC8CC22E03E2D000035476 /* RequestMainView.swift */; };
 		B2DC8CC72E03F15600035476 /* MarketRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DC8CC62E03F15600035476 /* MarketRequestViewModel.swift */; };
 		B2DC8CC92E03F2E500035476 /* MarketRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DC8CC82E03F2E500035476 /* MarketRequestModel.swift */; };
+		B2DC8D162E0903FC00035476 /* CheerSearchCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DC8D152E0903FC00035476 /* CheerSearchCardCell.swift */; };
 		B2DCB0662DF02CFE00F9D4AB /* SearchSecondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DCB0652DF02CFE00F9D4AB /* SearchSecondView.swift */; };
 		B2DCB0682DF031EC00F9D4AB /* SearchFailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DCB0672DF031EC00F9D4AB /* SearchFailedView.swift */; };
+		B2E3F57A2E0D486100091250 /* CheerSearchfailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E3F5792E0D486100091250 /* CheerSearchfailedView.swift */; };
 		B2F85BE72D6FAB210011DDF3 /* MapLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F85BE62D6FAB210011DDF3 /* MapLocationManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -298,8 +300,10 @@
 		B2DC8CC22E03E2D000035476 /* RequestMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMainView.swift; sourceTree = "<group>"; };
 		B2DC8CC62E03F15600035476 /* MarketRequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketRequestViewModel.swift; sourceTree = "<group>"; };
 		B2DC8CC82E03F2E500035476 /* MarketRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketRequestModel.swift; sourceTree = "<group>"; };
+		B2DC8D152E0903FC00035476 /* CheerSearchCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerSearchCardCell.swift; sourceTree = "<group>"; };
 		B2DCB0652DF02CFE00F9D4AB /* SearchSecondView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSecondView.swift; sourceTree = "<group>"; };
 		B2DCB0672DF031EC00F9D4AB /* SearchFailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFailedView.swift; sourceTree = "<group>"; };
+		B2E3F5792E0D486100091250 /* CheerSearchfailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerSearchfailedView.swift; sourceTree = "<group>"; };
 		B2F85BE62D6FAB210011DDF3 /* MapLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocationManager.swift; sourceTree = "<group>"; };
 		B2F85BE82D6FAE9A0011DDF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -513,6 +517,7 @@
 				B293A1512D6FDC7B003E8505 /* CheerListView.swift */,
 				B293A1532D6FDCB2003E8505 /* HotCheerView.swift */,
 				B293A15B2D6FE2A8003E8505 /* CheerSearchView.swift */,
+				B2E3F5792E0D486100091250 /* CheerSearchfailedView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -697,6 +702,7 @@
 			isa = PBXGroup;
 			children = (
 				B27E56D22D703FBB000D2881 /* CheerCardCell.swift */,
+				B2DC8D152E0903FC00035476 /* CheerSearchCardCell.swift */,
 				B27E56D42D704438000D2881 /* HotCheerCardCell.swift */,
 			);
 			path = Components;
@@ -994,6 +1000,7 @@
 				B28349132D2E5CA800EEDB02 /* CategoryTabView.swift in Sources */,
 				B21F3CFC2D267AF900B83B34 /* MarketDetailView.swift in Sources */,
 				2976FA2B2DFC4D2F009782D1 /* CouponTopModel.swift in Sources */,
+				B2DC8D162E0903FC00035476 /* CheerSearchCardCell.swift in Sources */,
 				B2DCB0682DF031EC00F9D4AB /* SearchFailedView.swift in Sources */,
 				B21F3CFC2D267AF900B83B34 /* MarketDetailView.swift in Sources */,
 				29D53BF52DE83F82008E4F2E /* CheerViewModel.swift in Sources */,
@@ -1073,6 +1080,7 @@
 				2941F7812DE5A0350063CEFE /* MemberCouponEndpoint.swift in Sources */,
 				29D87F832DE86D6900CE9011 /* MemberInfoModel.swift in Sources */,
 				2941F7822DE5A0350063CEFE /* MemberEndPoint.swift in Sources */,
+				B2E3F57A2E0D486100091250 /* CheerSearchfailedView.swift in Sources */,
 				29B3EBA72E03CE0D0095A310 /* UserDefaultsKeys.swift in Sources */,
 				295DCBB82DED7C92009B5D82 /* CouponStatus.swift in Sources */,
 				2941F7832DE5A0350063CEFE /* NetworkError.swift in Sources */,
@@ -1272,7 +1280,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MarketPlace/Preview Content\"";
-				DEVELOPMENT_TEAM = F7GYZYWC6V;
+				DEVELOPMENT_TEAM = 7RR74CRWQW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MarketPlace/Info.plist;
@@ -1304,7 +1312,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MarketPlace/Preview Content\"";
-				DEVELOPMENT_TEAM = F7GYZYWC6V;
+				DEVELOPMENT_TEAM = 7RR74CRWQW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MarketPlace/Info.plist;

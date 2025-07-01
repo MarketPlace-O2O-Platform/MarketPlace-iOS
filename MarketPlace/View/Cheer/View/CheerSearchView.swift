@@ -7,12 +7,13 @@
 
 import SwiftUI
 
-struct CheerSearchView: View {
+struct CheerSearchView: View {    
     @Binding var searchText: String
-    @State private var isEditing: Bool = false
-        
+    @State private var isEditing: Bool = true
+
         var body: some View {
             HStack{
+                // Search Header
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(Color.black)
                 
@@ -30,6 +31,7 @@ struct CheerSearchView: View {
                         Button {
                             searchText = ""
                         } label: {
+                            Spacer()
                             Image(systemName: "multiply.circle.fill")
                                 .foregroundColor(.gray)
                                 .padding(.trailing, 16)
@@ -38,13 +40,13 @@ struct CheerSearchView: View {
                     }
                     Spacer()
                 }
-                }
-                .frame(height: SearchViewConstants.Layout.searchBarHeight)
-                .background(Color.white)
-                .padding(.horizontal, 20)
+            }
+            .frame(height: SearchViewConstants.Layout.searchBarHeight)
+            .background(Color.white)
+            .padding(.horizontal, 20)
 
-            Divider()
-                .foregroundStyle(Color.black)
-        }
-    
+        Divider()
+            .foregroundStyle(Color.black)
     }
+
+}

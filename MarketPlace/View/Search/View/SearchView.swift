@@ -49,7 +49,7 @@ struct SearchView: View {
             } else {
                 if hasData {
                     SearchSecondView(
-                        searchText: $viewModel.searchText,
+//                        searchText: $viewModel.searchText,
                         viewModel: viewModel
                     )
                 } else{

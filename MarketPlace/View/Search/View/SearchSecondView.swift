@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchSecondView: View {
-    @Binding var searchText: String
+//    @Binding var searchText: String
     @ObservedObject var viewModel: SearchMarketViewModel
     
     var body: some View {

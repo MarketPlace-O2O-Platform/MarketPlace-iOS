@@ -13,7 +13,6 @@ final class SearchMarketViewModel: ObservableObject {
     
     @Published var searchText: String = ""
     @Published var market: [MarketSearchModel] = []
-    
     @Published var popularCoupon: [CouponTopModel] = []
     
     init(marketService: MarketServiceProtocol = MarketService(),
@@ -27,7 +26,7 @@ final class SearchMarketViewModel: ObservableObject {
     func fetchMarkets(name: String) async -> Bool {
         var hasData: Bool = true
         
-        let result = await marketService.searchMarketsList(
+        let result = await marketService.fetchSearchMarketsList(
             lastPageIndex: nil,
             pageSize: nil,
             name: name
