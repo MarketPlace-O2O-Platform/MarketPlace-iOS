@@ -16,9 +16,44 @@ enum HTTPMethod: String {
 
 protocol NetworkServiceProtocol {
     func request<T: Decodable>(_ endpoint: Endpoint) async -> NetworkResult<T>
+    func requestFindMarketAPI<T: Decodable>(_ endpoint: Endpoint) async -> NetworkResult<T>
 }
 
 final class NetworkService: NetworkServiceProtocol {
+    func requestFindMarketAPI<T>(_ endpoint: any Endpoint) async -> NetworkResult<T> where T : Decodable {
+        var request = endpoint.urlRequest
+        print(request.url)
+        
+        if let token = Bundle.main.infoDictionary?["KAKAO_API_TOKEN"] as? String {
+            request.addValue("KakaoAK \(token)", forHTTPHeaderField: "Authorization")
+        } else {
+            fatalError("Kakao App Key is missing ")
+        }
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                return .failure(statusCode: -1, message: "[Error] - Invalid Response")
+            }
+
+            switch httpResponse.statusCode {
+            case 200..<300:
+                if let decoded = try? JSONDecoder().decode(T.self, from: data) {
+                    return .success(data: decoded, statusCode: httpResponse.statusCode)
+                } else {
+                    return .failure(statusCode: httpResponse.statusCode, message: "[Error] - Decoding Error")
+                }
+            default:
+                let message = try? JSONDecoder().decode(CommonMsgResDTO.self, from: data).message
+                return .failure(statusCode: httpResponse.statusCode, message: message)
+            }
+
+        } catch {
+            return .failure(statusCode: -1, message: error.localizedDescription)
+        }
+    }
+    
     func request<T: Decodable>(_ endpoint: Endpoint) async -> NetworkResult<T>  {
         var request = endpoint.urlRequest
         

@@ -15,8 +15,16 @@ enum MarketEndpoint: Endpoint {
     case postFavoriteMarket(marketId: Int)
     case postMarketRequest(name: String, address: String)
     case fetchMarketsWithAddress(lastPageIndex: Int?, category: String?, pageSize: Int?, address: String="인쳔광역시 연수구")
+    case searchKakaoMarketKeyword(keyword: String)
     
-    var baseURL: URL { URLManager.shared.baseURL }
+    var baseURL: URL {
+        switch self {
+        case .searchKakaoMarketKeyword:
+            return URL(string: "https://dapi.kakao.com/v2/local/search") ?? URLManager.shared.baseURL
+        default:
+            return URLManager.shared.baseURL
+        }
+    }
 
     var path: String {
         switch self {
@@ -27,7 +35,7 @@ enum MarketEndpoint: Endpoint {
         case .fetchMarketsWithAddress: return "api/markets/map"
         case .postFavoriteMarket: return "api/favorites"
         case .postMarketRequest: return "api/request-markets"
-
+        case .searchKakaoMarketKeyword: return "/keyword.json"
         }
     }
 
@@ -102,6 +110,13 @@ enum MarketEndpoint: Endpoint {
                 pageSize.map { URLQueryItem(name: "pageSize", value: String($0)) },
                 URLQueryItem(name: "address", value: address)
             ].compactMap { $0 })
+            
+            return items
+            
+        case .searchKakaoMarketKeyword(let keyword):
+            var items: [URLQueryItem] = []
+            items.append(URLQueryItem(name: "query", value: keyword))
+            items.append(URLQueryItem(name: "category_group_code", value: "FD6"))
             
             return items
         
