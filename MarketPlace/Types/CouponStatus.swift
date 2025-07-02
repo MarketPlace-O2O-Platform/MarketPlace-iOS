@@ -35,3 +35,4 @@ enum CouponStatus: String, CaseIterable {
         }
     }
 }
+

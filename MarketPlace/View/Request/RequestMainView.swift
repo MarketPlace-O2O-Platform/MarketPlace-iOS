@@ -55,7 +55,6 @@ struct RequestMainView: View {
         .onChange(of: marketName){ _, newValue in
             Task {
                 await viewModel.searchKakaoMarketKeyword(keyword: marketName)
-                marketName = ""
             }
         }
         .navigationTitle("요청하기")

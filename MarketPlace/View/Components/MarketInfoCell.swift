@@ -20,7 +20,7 @@ struct MarketInfoCell: View {
                 height: 110
             )
             
-            .frame(width: 110, height: 110)
+            .frame(width: 110, height: .infinity)
             .clipShape(RoundedRectangle(cornerRadius: 4))
 
             VStack(alignment: .leading) {
