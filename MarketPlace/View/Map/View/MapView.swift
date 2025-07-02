@@ -10,6 +10,8 @@ struct MapView: View {
     @StateObject private var viewModel = MapViewModel()
     @ObservedObject private var locationManager = LocationManager.shared
 
+    @State var draw: Bool = false
+    
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 37.5665, longitude: 126.978),
         span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
@@ -24,10 +26,15 @@ struct MapView: View {
     var body: some View {
         NavigationView {
             ZStack(alignment: .bottom) {
+//                KakaoMapView(draw: $draw, longitude: 126.978, latitude: 37.5665).onAppear(perform: {
+//                    self.draw = true
+//                }).onDisappear(perform: {
+//                    self.draw = false
+//                }).frame(maxWidth: .infinity, maxHeight: .infinity)
                 Map(
                     coordinateRegion: $region,
                     showsUserLocation: true,
-                    annotationItems: viewModel.markets
+                    annotationItems: viewModel.marketsForMap
                 ) { market in
                     
                     /// - NOTE: - 안정적이지 않은듯, 사라졌다 다시 나타났다가 함
@@ -240,11 +247,13 @@ struct MapView: View {
             .onAppear(perform: {
                 Task {
                     await viewModel.fetchMarkets(category: Category(index: selectedCategory)?.toString() ?? nil)
+                    await viewModel.fetchMarketsWithAddress(lastPageIndex: nil, category: Category(index: selectedCategory)?.toString() ?? nil, pageSize: nil)
                 }
             })
             .onChange(of: selectedCategory) {
                 Task {
                     await viewModel.fetchMarkets(category: Category(index: selectedCategory)?.toString() ?? nil)
+                    await viewModel.fetchMarketsWithAddress(lastPageIndex: nil, category: Category(index: selectedCategory)?.toString() ?? nil, pageSize: nil)
                 }
             }
             .mapScope(mapScope)

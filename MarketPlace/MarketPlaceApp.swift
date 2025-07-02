@@ -29,17 +29,12 @@ struct MarketPlaceApp: App {
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-//        let key = Bundle.main.infoDictionary?["KakaoAppKey"] as! String
-
         if let kakaoAppKey = Bundle.main.infoDictionary?["KAKAO_APP_KEY"] as? String {
             SDKInitializer.InitSDK(appKey: kakaoAppKey)
-
         } else {
             fatalError("Kakao App Key is missing ")
         }
         
-//        if let kakaoAppKey = Bundle.main.object(forInfoDictionaryKey: "KAKAO_APP_KEY") as? String {
-//        }
         return true
     }
 }

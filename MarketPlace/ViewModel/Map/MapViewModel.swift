@@ -9,6 +9,7 @@ import Foundation
 
 final class MapViewModel: ObservableObject {
     @Published var markets: [MarketModel] = []
+    @Published var marketsForMap: [MarketModel] = []
     @Published var isLoading = false
 
     private var marketService: MarketServiceProtocol
@@ -32,12 +33,7 @@ final class MapViewModel: ObservableObject {
         
         switch result {
         case .success(let data, _):
-            /// - NOTE: 서버에서 받아오는 주소를 위도, 경도 값으로 변경
-            self.markets = await data.response.marketResDtos.asyncMap { market in
-                var updatedMarket = market
-                updatedMarket.position = try? await ConvertAddress().getCoordinateFromRoadAddress(from: market.address)
-                return updatedMarket
-            }
+            self.markets = data.response.marketResDtos
         case .failure(let statusCode, let message):
             print("[fetchMarkets] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }
@@ -48,8 +44,13 @@ final class MapViewModel: ObservableObject {
         let result = await marketService.fetchMarketsWithAddress(lastPageIndex: lastPageIndex, category: category, pageSize: pageSize)
         
         switch result {
-        case .success(let data, let statusCode):
-            print(data, statusCode)
+        case .success(let data, _):
+            /// - NOTE: 서버에서 받아오는 주소를 위도, 경도 값으로 변경
+            self.marketsForMap = await data.response.marketResDtos.asyncMap { market in
+                var updatedMarket = market
+                updatedMarket.position = try? await ConvertAddress().getCoordinateFromRoadAddress(from: market.address)
+                return updatedMarket
+            }
         case .failure(let statusCode, let message):
             print("[fetchMarketsWithAddress] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }

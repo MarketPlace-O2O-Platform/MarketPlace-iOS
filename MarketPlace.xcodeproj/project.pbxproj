@@ -18,7 +18,6 @@
 		293DCF142DE6CD2E000122C5 /* KakaoMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293DCF132DE6CD2E000122C5 /* KakaoMapView.swift */; };
 		293DCF172DE6CD89000122C5 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		293DCF192DE6CDE2000122C5 /* KakaoMapKey.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 293DCF182DE6CDE2000122C5 /* KakaoMapKey.xcconfig */; };
-		293DCF3F2DE6DDD8000122C5 /* MapTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293DCF3E2DE6DDD8000122C5 /* MapTestView.swift */; };
 		293DCF442DE6FE43000122C5 /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293DCF432DE6FE43000122C5 /* Array+.swift */; };
 		293DCF472DE72B9E000122C5 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		293DCF4D2DE7449F000122C5 /* KakaoMapsSDK-SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 293DCF4C2DE7449F000122C5 /* KakaoMapsSDK-SPM */; };
@@ -67,6 +66,9 @@
 		29BF18BF2DE45B3900836D7E /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF18BE2DE45B3900836D7E /* Category.swift */; };
 		29BF18C12DE4950700836D7E /* APIResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF18C02DE4950700836D7E /* APIResDto.swift */; };
 		29BF193A2DE4AC9600836D7E /* MainHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF19392DE4AC9600836D7E /* MainHeaderView.swift */; };
+		29D19D1C2E13CC2000DEEADD /* KakaoMarketDataResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D19D1B2E13CC2000DEEADD /* KakaoMarketDataResDto.swift */; };
+		29D19D202E13E63B00DEEADD /* RequestMarketMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D19D1F2E13E63B00DEEADD /* RequestMarketMapView.swift */; };
+		29D19D2D2E14234900DEEADD /* RequestMarketMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D19D2C2E14234900DEEADD /* RequestMarketMapViewModel.swift */; };
 		29D53BF52DE83F82008E4F2E /* CheerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D53BF42DE83F82008E4F2E /* CheerViewModel.swift */; };
 		29D53BF72DE8412E008E4F2E /* CheerMarketEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D53BF62DE8412E008E4F2E /* CheerMarketEndpoint.swift */; };
 		29D53BF92DE84728008E4F2E /* CheerMarketService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D53BF82DE84728008E4F2E /* CheerMarketService.swift */; };
@@ -140,7 +142,7 @@
 		B2C3992D2CA1BF7F004800DD /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C3992C2CA1BF7F004800DD /* CategoryButton.swift */; };
 		B2C462982D8172BE007637DC /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C462972D8172BE007637DC /* LoginView.swift */; };
 		B2DC8CC32E03E2D000035476 /* RequestMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DC8CC22E03E2D000035476 /* RequestMainView.swift */; };
-		B2DC8CC72E03F15600035476 /* MarketRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DC8CC62E03F15600035476 /* MarketRequestViewModel.swift */; };
+		B2DC8CC72E03F15600035476 /* RequestMarketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DC8CC62E03F15600035476 /* RequestMarketViewModel.swift */; };
 		B2DC8CC92E03F2E500035476 /* MarketRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DC8CC82E03F2E500035476 /* MarketRequestModel.swift */; };
 		B2DC8D162E0903FC00035476 /* CheerSearchCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DC8D152E0903FC00035476 /* CheerSearchCardCell.swift */; };
 		B2DCB0662DF02CFE00F9D4AB /* SearchSecondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DCB0652DF02CFE00F9D4AB /* SearchSecondView.swift */; };
@@ -177,7 +179,6 @@
 		290D93532DE58418008AC190 /* CouponBasicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponBasicModel.swift; sourceTree = "<group>"; };
 		293DCF132DE6CD2E000122C5 /* KakaoMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMapView.swift; sourceTree = "<group>"; };
 		293DCF182DE6CDE2000122C5 /* KakaoMapKey.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = KakaoMapKey.xcconfig; sourceTree = "<group>"; };
-		293DCF3E2DE6DDD8000122C5 /* MapTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTestView.swift; sourceTree = "<group>"; };
 		293DCF432DE6FE43000122C5 /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		2941F76B2DE596590063CEFE /* SearchMarketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMarketViewModel.swift; sourceTree = "<group>"; };
 		2941F76D2DE597280063CEFE /* MarketSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketSearchModel.swift; sourceTree = "<group>"; };
@@ -222,6 +223,9 @@
 		29BF18BE2DE45B3900836D7E /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		29BF18C02DE4950700836D7E /* APIResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResDto.swift; sourceTree = "<group>"; };
 		29BF19392DE4AC9600836D7E /* MainHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHeaderView.swift; sourceTree = "<group>"; };
+		29D19D1B2E13CC2000DEEADD /* KakaoMarketDataResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMarketDataResDto.swift; sourceTree = "<group>"; };
+		29D19D1F2E13E63B00DEEADD /* RequestMarketMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMarketMapView.swift; sourceTree = "<group>"; };
+		29D19D2C2E14234900DEEADD /* RequestMarketMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMarketMapViewModel.swift; sourceTree = "<group>"; };
 		29D53BF42DE83F82008E4F2E /* CheerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerViewModel.swift; sourceTree = "<group>"; };
 		29D53BF62DE8412E008E4F2E /* CheerMarketEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerMarketEndpoint.swift; sourceTree = "<group>"; };
 		29D53BF82DE84728008E4F2E /* CheerMarketService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerMarketService.swift; sourceTree = "<group>"; };
@@ -298,7 +302,7 @@
 		B2C3992C2CA1BF7F004800DD /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		B2C462972D8172BE007637DC /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		B2DC8CC22E03E2D000035476 /* RequestMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMainView.swift; sourceTree = "<group>"; };
-		B2DC8CC62E03F15600035476 /* MarketRequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketRequestViewModel.swift; sourceTree = "<group>"; };
+		B2DC8CC62E03F15600035476 /* RequestMarketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMarketViewModel.swift; sourceTree = "<group>"; };
 		B2DC8CC82E03F2E500035476 /* MarketRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketRequestModel.swift; sourceTree = "<group>"; };
 		B2DC8D152E0903FC00035476 /* CheerSearchCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerSearchCardCell.swift; sourceTree = "<group>"; };
 		B2DCB0652DF02CFE00F9D4AB /* SearchSecondView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSecondView.swift; sourceTree = "<group>"; };
@@ -443,7 +447,6 @@
 			children = (
 				B28349102D2E548A00EEDB02 /* MapView.swift */,
 				B2122E3A2D6F7AB400BD37F8 /* MapMarketListView.swift */,
-				293DCF3E2DE6DDD8000122C5 /* MapTestView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -694,6 +697,7 @@
 				29E749332DEEABFA00E765E0 /* MyCouponResDto.swift */,
 				290D92D22DE55AD5008AC190 /* CommonMsgResDTO.swift */,
 				290A71AC2E026969009AEAF8 /* TopClosingCouponResDto.swift */,
+				29D19D1B2E13CC2000DEEADD /* KakaoMarketDataResDto.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -831,23 +835,17 @@
 		B2DC8CC12E03E2BD00035476 /* Request */ = {
 			isa = PBXGroup;
 			children = (
-				B2DC8CC42E03EB9900035476 /* Component */,
 				B2DC8CC22E03E2D000035476 /* RequestMainView.swift */,
+				29D19D1F2E13E63B00DEEADD /* RequestMarketMapView.swift */,
 			);
 			path = Request;
-			sourceTree = "<group>";
-		};
-		B2DC8CC42E03EB9900035476 /* Component */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Component;
 			sourceTree = "<group>";
 		};
 		B2DC8CC52E03F14100035476 /* Request */ = {
 			isa = PBXGroup;
 			children = (
-				B2DC8CC62E03F15600035476 /* MarketRequestViewModel.swift */,
+				B2DC8CC62E03F15600035476 /* RequestMarketViewModel.swift */,
+				29D19D2C2E14234900DEEADD /* RequestMarketMapViewModel.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -916,7 +914,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1630;
+				LastUpgradeCheck = 1640;
 				TargetAttributes = {
 					B2C398F82CA145CB004800DD = {
 						CreatedOnToolsVersion = 15.4;
@@ -1009,7 +1007,6 @@
 				295DCBB62DED78C0009B5D82 /* MyCouponViewModel.swift in Sources */,
 				2941F76C2DE596590063CEFE /* SearchMarketViewModel.swift in Sources */,
 				B2122E3B2D6F7AB400BD37F8 /* MapMarketListView.swift in Sources */,
-				293DCF3F2DE6DDD8000122C5 /* MapTestView.swift in Sources */,
 				B21F3D072D2B066F00B83B34 /* NewEventDetailView.swift in Sources */,
 				29D53BFD2DE84F5D008E4F2E /* CheerListViewModel.swift in Sources */,
 				B2C3992D2CA1BF7F004800DD /* CategoryButton.swift in Sources */,
@@ -1041,6 +1038,8 @@
 				2941F7932DE5A2FD0063CEFE /* MemberCouponService.swift in Sources */,
 				B215F2942DE61D9600F53C51 /* AlertButtonView.swift in Sources */,
 				B2122E3D2D6F7C0000BD37F8 /* MarketResDtos.swift in Sources */,
+				29D19D202E13E63B00DEEADD /* RequestMarketMapView.swift in Sources */,
+				29D19D2D2E14234900DEEADD /* RequestMarketMapViewModel.swift in Sources */,
 				B2122E3F2D6F7D4000BD37F8 /* MarketCategoryDetailViewModel.swift in Sources */,
 				29E749362DEECFBA00E765E0 /* FavoriteMarketModel.swift in Sources */,
 				B28349552D2FBC4B00EEDB02 /* PopularityBenefitView.swift in Sources */,
@@ -1061,7 +1060,7 @@
 				B28349662D36C02C00EEDB02 /* CouponModel.swift in Sources */,
 				B28A22A62D64B06F00E86EF6 /* MarketDetailModel.swift in Sources */,
 				290A71B32E029F04009AEAF8 /* View+.swift in Sources */,
-				B2DC8CC72E03F15600035476 /* MarketRequestViewModel.swift in Sources */,
+				B2DC8CC72E03F15600035476 /* RequestMarketViewModel.swift in Sources */,
 				B28889A12D4BBCB80040EC3F /* Logger.swift in Sources */,
 				B21F3D092D2D57BE00B83B34 /* Color.swift in Sources */,
 				B27E56D32D703FBB000D2881 /* CheerCardCell.swift in Sources */,
@@ -1072,6 +1071,7 @@
 				B28A22BE2D666E7500E86EF6 /* CouponGetPopupView.swift in Sources */,
 				2941F77E2DE5A0350063CEFE /* CouponEndpoint.swift in Sources */,
 				29D87F4A2DE8629900CE9011 /* CircleCategoryTabView.swift in Sources */,
+				29D19D1C2E13CC2000DEEADD /* KakaoMarketDataResDto.swift in Sources */,
 				2941F7912DE5A2E00063CEFE /* MemberService.swift in Sources */,
 				29D53BF92DE84728008E4F2E /* CheerMarketService.swift in Sources */,
 				2941F77F2DE5A0350063CEFE /* Endpoint.swift in Sources */,
@@ -1155,6 +1155,7 @@
 /* Begin XCBuildConfiguration section */
 		B2C3991B2CA145CC004800DD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 293DCF182DE6CDE2000122C5 /* KakaoMapKey.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1218,6 +1219,7 @@
 		};
 		B2C3991C2CA145CC004800DD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 293DCF182DE6CDE2000122C5 /* KakaoMapKey.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;

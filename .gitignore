@@ -76,5 +76,3 @@ xcuserdata
 API_URL.plist
 
 MarketPlace/KakaoMapKey.xcconfig
-MarketPlace/View/Map/KakaoMapView.swift
-MarketPlace/View/Map/View/MapTestView.swift
