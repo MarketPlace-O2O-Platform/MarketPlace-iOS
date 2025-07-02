@@ -169,10 +169,10 @@ struct CheckboxView: View {
         }) {
             HStack {
                 Image(systemName: isChecked ? "checkmark.square.fill" : "square")
-                    .foregroundColor(.black)
+                    .foregroundColor(Colors.grayscale_gray_400)
                 Text(title)
                     .pretendardFont(size: 12, weight: .bold)
-                    .foregroundColor(.black)
+                    .foregroundColor(Colors.gray_900)
             }
         }
     }

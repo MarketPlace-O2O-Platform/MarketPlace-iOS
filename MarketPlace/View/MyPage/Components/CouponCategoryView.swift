@@ -2,7 +2,7 @@ import SwiftUI
 
 struct CouponCategoryView: View {
     @Binding var selectedCategory: Int
-    private let categories: [String] = CouponStatus.allCases.map { $0.toUIName() }
+    private let categories: [String] = ["환급형 쿠폰", "증정형 쿠폰", "끝난 쿠폰"]
     
     var body: some View {
         VStack(spacing: 0) {

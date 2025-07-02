@@ -1,0 +1,145 @@
+//
+//  RegisterReceiptView.swift
+//  MarketPlace
+//
+//  Created by Bowon Han on 7/2/25.
+//
+
+import SwiftUI
+
+struct RegisterReceiptView: View {
+    @Environment(\.presentationMode) var presentationMode
+    @State private var isShowImagePicker: Bool = false
+    @State private var bank: String = ""
+    @State private var accountNumber: String = ""
+    @State private var isSaveAccount: Bool = false
+    @State var image: UIImage?
+    
+    init() {
+        setupNavigationBarAppearance()
+    }
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text("환급받을 영수증을\n등록해주세요")
+                .pretendardFont(size: 26, weight: .bold)
+                .lineLimit(2)
+                .multilineTextAlignment(.leading)
+                .padding(.top, 20)
+            
+            Text("결제 금액이 보이게 영수증 사진을\n첨부해주세요")
+                .pretendardFont(size: 16, weight: .regular)
+                .lineLimit(2)
+                .multilineTextAlignment(.center)
+                .foregroundStyle(Color(hex: "9B9B9B"))
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 2)
+                        .stroke(
+                            Color(Colors.gray_100),
+                            lineWidth: 1
+                        )
+                }
+                .overlay(alignment: .topTrailing) {
+                    Image(systemName: "plus")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 40)
+                        .foregroundStyle(Colors.gray_100)
+                        .offset(x: -20, y: 20)
+                }
+                .overlay {
+                    if let image = image {
+                        Image(uiImage: image)
+                            .resizable()
+                            .scaledToFit()
+                            .padding(.horizontal, 40)
+                    }
+                }
+                .onTapGesture {
+                    self.isShowImagePicker.toggle()
+                }
+            
+            Text("환급받을 계좌를\n알려주세요")
+                .pretendardFont(size: 26, weight: .bold)
+                .lineLimit(2)
+                .multilineTextAlignment(.leading)
+                .padding(.top, 20)
+            
+            HStack(spacing: 10) {
+                TextField("은행 입력", text: $bank)
+                    .pretendardFont(size: 13, weight: .regular)
+                    .padding()
+                    .frame(width: 90, height: 48)
+                    .background(
+                        RoundedRectangle(cornerRadius: 2)
+                            .stroke(Colors.gray_100, lineWidth: 1)
+                    )
+                
+                TextField("계좌번호 입력", text: $accountNumber)
+                    .pretendardFont(size: 13, weight: .regular)
+                    .padding()
+                    .frame(height: 48)
+                    .background(
+                        RoundedRectangle(cornerRadius: 2)
+                            .stroke(Colors.gray_100, lineWidth: 1)
+                    )
+            }.padding(.bottom, 10)
+            
+            CheckboxView(title: "계좌번호 저장", isChecked: $isSaveAccount)
+            
+            Button(action: {
+                // - TODO: 영수증 보내는 API
+                presentationMode.wrappedValue.dismiss()
+            }) {
+                Text("저장하기")
+                    .pretendardFont(size: 14, weight: .bold)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 50)
+                    .background(bank.isEmpty || accountNumber.isEmpty ? Color.gray.opacity(0.4) : .black)
+                    .cornerRadius(8)
+            }
+            .disabled(bank.isEmpty || accountNumber.isEmpty)
+            .padding(.bottom, 10)
+        }
+        .sheet(isPresented: $isShowImagePicker) {
+            UImagePicker(sourceType: .photoLibrary) { image in
+                self.image = image
+            }
+        }
+        .padding(.horizontal, 30)
+        .navigationTitle("환급하기")
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    Image(systemName: "chevron.backward")
+                        .foregroundColor(.black)
+                }
+            }
+        }
+    }
+    
+    private func setupNavigationBarAppearance() {
+        /// UINavigationBar의 기본 설정을 수정합니다.
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor.white
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
+        
+        /// 기본 back indicator를 숨깁니다.
+        appearance.setBackIndicatorImage(UIImage(), transitionMaskImage: UIImage())
+        
+        /// 설정된 appearance 적용
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+    }
+}
+
+#Preview {
+    RegisterReceiptView()
+}

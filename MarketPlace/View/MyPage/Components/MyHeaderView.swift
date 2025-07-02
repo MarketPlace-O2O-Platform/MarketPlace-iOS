@@ -64,8 +64,8 @@ struct MyHeaderView: View {
                     
                     UserInfoView(userId: String(userId), isDropdownVisible: $isDropdownVisible)
                     
-                    NavigationLink(destination: MyCouponView()) {
-                        Text("받은 쿠폰함")
+                    NavigationLink(destination: MyFavoriteShopListView()) {
+                        Text("큐레이션")
                             .pretendardFont(size: MyHeaderViewConstants.FontSize.buttonText, weight: .medium)
                             .foregroundColor(Colors.textColor)
                             .padding(.vertical, 6)
@@ -77,15 +77,16 @@ struct MyHeaderView: View {
                                     .stroke(Colors.borderColor, lineWidth: 1)
                                     .frame(height: MyHeaderViewConstants.buttonHeight)
                             )
-                    }.padding(.trailing, MyHeaderViewConstants.padding)
+                    }
+                    .padding(.trailing, MyHeaderViewConstants.padding)
                 }
                 .padding(.leading, MyHeaderViewConstants.padding)
                 
                 Rectangle()
                     .fill(Colors.borderColor)
-                    .frame(height: MyHeaderViewConstants.dividerHeight)
+                    .frame(height: 1)
             }
-            .frame(height: MyHeaderViewConstants.height)
+            .padding(.bottom, 15)
             .background(Colors.backgroundColor)
             
             if isDropdownVisible {

@@ -12,7 +12,6 @@ struct DashEffect: View {
 }
 
 struct MyCouponView: View {
-    @Environment(\.presentationMode) var presentationMode
     @StateObject private var viewModel = MyCouponViewModel()
     
     @State private var showingPopup = false
@@ -23,7 +22,6 @@ struct MyCouponView: View {
         ZStack {
             VStack(spacing: 0) {
                 CouponCategoryView(selectedCategory: $selectedCategoryIndex)
-                    .padding(.top, 15)
                 
                 ScrollView {
                     VStack(alignment: .center, spacing: 16) {
@@ -57,23 +55,15 @@ struct MyCouponView: View {
                 .zIndex(1)
             }
         }
-        .navigationTitle("받은쿠폰함")
-        .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: { presentationMode.wrappedValue.dismiss() }) {
-                    Image(systemName: "chevron.backward")
-                        .foregroundColor(.black)
-                }
-            }
-        }
         .onAppear {
             Task {
+                // TODO: 환급형 쿠폰 발급
                 await viewModel.fetchMemberCoupon(type: CouponStatus(index: selectedCategoryIndex)?.toString() ?? "", memberCouponId: nil, size: nil)
             }
         }
         .onChange(of: selectedCategoryIndex) {
+            // TODO: switch로 카테고리 별로 다르게 API 해야할듯
             Task {
                 await viewModel.fetchMemberCoupon(type: CouponStatus(index: selectedCategoryIndex)?.toString() ?? "", memberCouponId: nil, size: nil)
             }
@@ -86,6 +76,7 @@ struct MyCouponView: View {
         let viewModel = MyCouponCellViewModel(coupon: coupon, couponStatus: status)
         
         return MyCouponCell(viewModel: viewModel) {
+            // TODO: 쿠폰 타입에 따른 영수증 등록 or 팝업 올라가도록 구현하면될듯
             selectedCoupon = coupon
             showingPopup = true
         }
