@@ -38,7 +38,6 @@ struct BookmarkButton: View {
 // 혜택 카드 컴포넌트
 struct BenefitCard: View {
     let benefit: CouponTopModel
-    @Binding var isBookmarked: Bool
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -50,8 +49,6 @@ struct BenefitCard: View {
                     width: BenefitViewConstants.Layout.cardWidth,
                     height: BenefitViewConstants.Layout.cardWidth
                 )
-
-                BookmarkButton(isBookmarked: $isBookmarked)
             }
             
             VStack(alignment: .leading, spacing: 4){
@@ -72,24 +69,23 @@ struct BenefitCard: View {
 
 struct PopularBenefitView: View {
     @Binding var popularCoupon: [CouponTopModel]
-    @State private var isBookmarked: Bool = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             Text("인기 혜택")
                 .pretendardFont(size: BenefitViewConstants.Font.titleSize, weight: .bold)
                 .foregroundColor(.black)
+                .padding(.leading, 20)
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: BenefitViewConstants.Layout.spacing) {
                     ForEach(popularCoupon) { coupon in
                         BenefitCard(
-                            benefit: coupon,
-                            isBookmarked: $isBookmarked)
+                            benefit: coupon
+                        )
                     }
-                }
+                }.padding(.leading, 20)
             }
         }
-        .padding(.leading, 20)
     }
 }

@@ -1,3 +1,4 @@
+
 import SwiftUI
 
 struct CheerCardCell: View {
@@ -19,18 +20,18 @@ struct CheerCardCell: View {
                     Text("마감까지")
                         .foregroundColor(Color(hex: "#A0A0A2"))
 
-                    Text("\(viewModel.cheerMarket.dueDate)일 남음")
+                    Text("\(viewModel.cheerMarket.dueDateFormmater)일 남음")
                         .foregroundColor(Color(hex: "#545454"))
                 }
                 .pretendardFont(size: 12, weight: .medium)
                 
                 Spacer()
                 
-                Text("\(viewModel.cheerMarket.cheerCount)")
+                Text("\(viewModel.cheerMarket.cheerCountFormatter)")
                     .pretendardFont(size: 12, weight: .regular)
                     .foregroundColor(.gray)
                 Image(systemName: viewModel.isCheer ? "heart.fill" : "heart")
-                    .foregroundColor(viewModel.isCheer ? .red : .gray)
+                    .foregroundColor(.gray)
             }
             
             Button(action: {
