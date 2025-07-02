@@ -75,6 +75,8 @@ struct SearchView: View {
         .navigationBarBackButtonHidden(true)
         .onAppear{
             Task {
+                refreshRecentSearches()
+
                 await viewModel.fetchPopularCoupon(pageSize: nil)
             }
         }
