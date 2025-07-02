@@ -8,14 +8,20 @@
 import SwiftUI
 
 struct SearchSecondView: View {
-//    @Binding var searchText: String
     @ObservedObject var viewModel: SearchMarketViewModel
     
     var body: some View {
         ScrollView {
             VStack(spacing: 10) {
                 ForEach(viewModel.market) { market in
-                    SearchComponentView(market: market)
+                    NavigationLink {
+                       MarketDetailView(
+                        viewModel: MarketDetailViewModel(marketId: market.id),
+                           marketId: market.id
+                       )
+                   } label: {
+                       SearchComponentView(market: market)
+                   }
                     Divider()
                 }
             }

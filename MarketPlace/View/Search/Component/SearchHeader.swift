@@ -7,19 +7,38 @@
 
 import SwiftUI
 
-struct BackButton: View {
-    let action: () -> Void
-    
+
+struct SearchHeader: View {
+    @Binding var searchText: String
+    @Binding var recentSearches: [String]
+
+    let onBack: () -> Void
+    let onSearchSubmit: (String) -> Void
+
     var body: some View {
-        Button(action: action) {
-            Image(systemName: "chevron.left")
-                .foregroundColor(.black)
+        HStack {
+            Button(action: onBack) {
+                Image(systemName: "chevron.left")
+                    .foregroundColor(.black)
+            }
+            
+            Spacer()
+            
+            SearchBar(
+                searchText: $searchText,
+                onSearchSubmit: onSearchSubmit
+            )
+            
+            Spacer()
+                .frame(width: 10)
         }
+        .padding(.horizontal)
     }
 }
 
 struct SearchBar: View {
     @Binding var searchText: String
+    let onSearchSubmit: (String) -> Void
     
     var body: some View {
         ZStack(alignment: .leading) {
@@ -43,33 +62,12 @@ struct SearchBar: View {
                 .foregroundColor(SearchViewConstants.Colors.textColor)
                 .padding(.leading, SearchViewConstants.Layout.textPadding)
                 .frame(height: SearchViewConstants.Layout.searchBarHeight)
+                .onSubmit {
+                    onSearchSubmit(searchText)
+                }
         }
         .background(SearchViewConstants.Colors.searchBarBackground)
         .cornerRadius(SearchViewConstants.Layout.searchBarCornerRadius)
-        .overlay(
-            RoundedRectangle(cornerRadius: SearchViewConstants.Layout.searchBarCornerRadius)
-                .stroke(Color.clear, lineWidth: 0)
-        )
         .frame(height: SearchViewConstants.Layout.searchBarHeight)
-    }
-}
-
-struct SearchHeader: View {
-    @Binding var searchText: String
-
-    let onBack: () -> Void
-    
-    var body: some View {
-        HStack {
-            BackButton(action: onBack)
-            
-            Spacer()
-            
-            SearchBar(searchText: $searchText)
-            
-            Spacer()
-                .frame(width: 10)
-        }
-        .padding(.horizontal)
     }
 }

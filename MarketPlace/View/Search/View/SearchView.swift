@@ -27,29 +27,37 @@ struct SearchViewConstants {
 
 struct SearchView: View {
     @Environment(\.presentationMode) var presentationMode
-    @State private var searchText: String = ""
     @StateObject private var viewModel = SearchMarketViewModel()
     
     @State private var hasData: Bool = true
-    
+        
     var body: some View {
         VStack(spacing: SearchViewConstants.Layout.spacing) {
             SearchHeader(
                 searchText: $viewModel.searchText,
-                onBack: { presentationMode.wrappedValue.dismiss() }
+                recentSearches: $viewModel.recentSearches,
+                onBack: { presentationMode.wrappedValue.dismiss() },
+                onSearchSubmit: { searchQuery in
+                    viewModel.addRecentSearch(searchQuery)
+                }
             )
             
             if viewModel.searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                ScrollView {
-                    VStack(alignment: .leading, spacing: SearchViewConstants.Layout.spacing) {
-                        RecentSearchView()
+                    ScrollView {
+                        RecentSearchView(
+                            recentSearches: $viewModel.recentSearches,
+                            onRecentSearchTap: { selectedSearch in
+                                viewModel.searchText = selectedSearch
+                                viewModel.addRecentSearch(selectedSearch)
+                            }
+                        )
+                    
                         PopularBenefitView(popularCoupon: $viewModel.popularCoupon)
+                            .padding(.top, 48)
                     }
-                }
-            } else {
+                } else {
                 if hasData {
                     SearchSecondView(
-//                        searchText: $viewModel.searchText,
                         viewModel: viewModel
                     )
                 } else{
@@ -65,6 +73,8 @@ struct SearchView: View {
         .navigationBarBackButtonHidden(true)
         .onAppear{
             Task {
+                viewModel.reloadRecentSearches()
+
                 await viewModel.fetchPopularCoupon(pageSize: nil)
             }
         }
@@ -72,6 +82,10 @@ struct SearchView: View {
             Task {
                 hasData = await viewModel.fetchMarkets(name: newValue)
             }
+
+            if newValue.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                viewModel.reloadRecentSearches()
+           }
         }
     }
 }
