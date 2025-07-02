@@ -71,7 +71,7 @@ struct HotCheerCardCell: View {
                 } else {
                     HStack {
                         Image(systemName: viewModel.isCheer ? "heart.fill" : "heart")
-                            .foregroundColor(.white)
+                            .foregroundColor(viewModel.isCheer ? .gray : .white)
                         Text(viewModel.isCheer ? "공감 완료" : "공감하기")
                             .pretendardFont(size: 12, weight: .medium)
                             .foregroundColor(.white)
