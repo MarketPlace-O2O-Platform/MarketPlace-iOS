@@ -80,9 +80,14 @@ struct PopularBenefitView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: BenefitViewConstants.Layout.spacing) {
                     ForEach(popularCoupon) { coupon in
-                        BenefitCard(
-                            benefit: coupon
-                        )
+                        NavigationLink {
+                           MarketDetailView(
+                            viewModel: MarketDetailViewModel(marketId: coupon.marketId),
+                               marketId: coupon.marketId
+                           )
+                       } label: {
+                           BenefitCard(benefit: coupon)
+                       }
                     }
                 }.padding(.leading, 20)
             }
