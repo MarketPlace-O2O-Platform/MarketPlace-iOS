@@ -393,10 +393,10 @@
 			children = (
 				B21F3CE02D267AF900B83B34 /* CategoryDetailView.swift */,
 				B21F3D042D2B057000B83B34 /* Top20DetailView.swift */,
-				B21F3CE62D267AF900B83B34 /* MainView.swift */,
 				B21F3D062D2B066F00B83B34 /* NewEventDetailView.swift */,
 				B21F3CED2D267AF900B83B34 /* MarketDetailView.swift */,
 				B28A22BD2D666E7500E86EF6 /* CouponGetPopupView.swift */,
+				B21F3CE62D267AF900B83B34 /* MainView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

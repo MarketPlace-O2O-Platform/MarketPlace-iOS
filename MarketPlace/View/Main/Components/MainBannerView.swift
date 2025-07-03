@@ -10,26 +10,32 @@ import SwiftUI
 struct MainBannerView: View {
     @State private var currentIndex = 0
     @Binding var closingCouponList: [TopClosingCouponResDto]
-    
+
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             TabView(selection: $currentIndex) {
-                ForEach(closingCouponList.indices, id: \.self) { index in
-                    ImageTextOverlay(
-                        imageName: closingCouponList[index].thumbnail,
-                        texts: [
-                            closingCouponList[index].marketName,
-                            closingCouponList[index].couponName,
-                            closingCouponList[index].deadline.toKoreanDateFormat()
-                        ]
-                    )
-                    .padding(.horizontal, 20)
-                    .tag(index)
+                ForEach(closingCouponList) { coupon in
+                    NavigationLink {
+                        MarketDetailView(viewModel: MarketDetailViewModel(marketId: coupon.marketId),
+                                         marketId: coupon.marketId)
+                    } label: {
+                        ImageTextOverlay(
+                            imageName: coupon.thumbnail,
+                            texts: [
+                                coupon.marketName,
+                                coupon.couponName,
+                                coupon.deadline.toKoreanDateFormat()
+                            ]
+                        )
+                        .padding(.horizontal, 20)
+                        .tag(closingCouponList.firstIndex(where: { $0.id == coupon.id }) ?? 0)
+                    
+                    }
                 }
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             .frame(height: 420)
-            
+
             Text("\(currentIndex + 1) / \(closingCouponList.count)")
                 .pretendardFont(size: 12, weight: .regular)
                 .padding(8)
