@@ -20,6 +20,7 @@ protocol NetworkServiceProtocol {
 }
 
 final class NetworkService: NetworkServiceProtocol {
+    // MARK: - 카카오 키워드 검색 API를 위한 request 메서드
     func requestFindMarketAPI<T>(_ endpoint: any Endpoint) async -> NetworkResult<T> where T : Decodable {
         var request = endpoint.urlRequest
         
@@ -53,6 +54,7 @@ final class NetworkService: NetworkServiceProtocol {
         }
     }
     
+    // MARK: - 기본 API request 메서드
     func request<T: Decodable>(_ endpoint: Endpoint) async -> NetworkResult<T>  {
         var request = endpoint.urlRequest
 

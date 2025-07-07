@@ -3,10 +3,11 @@ import SwiftUI
 
 struct StoreSearchButton: View {
     let shopName: String
+    let onTap: () -> Void
     
     var body: some View {
         Button(action: {
-            /// - NOTE: 카카오맵 검색 기능 구현
+            onTap()
         }) {
             HStack {
                 Image(systemName: "magnifyingglass")

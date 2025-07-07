@@ -101,7 +101,12 @@ struct MarketDetailView: View {
                             .padding(.horizontal, 20)
                         }
                         
-                        StoreSearchButton(shopName: shop.name)
+                        StoreSearchButton(shopName: shop.name, onTap: {
+                            Task {
+                                let (latitude, longitude) = try await ConvertAddress().getPositionFromRoadAddress(from: viewModel.marketDetail?.address ?? "")
+                                openKakaoMap(latitude: latitude, longitude: longitude)
+                            }
+                        })
                             .padding(.horizontal, 24)
                             .padding(.vertical, 34)
                     }
@@ -138,6 +143,18 @@ struct MarketDetailView: View {
                 ToastView(message: toastMessage, isShowing: $showToast)
                     .transition(.move(edge: .bottom))
             }
+        }
+    }
+    
+    func openKakaoMap(latitude: Double, longitude: Double) {
+        let urlString = "kakaomap://look?p=\(latitude),\(longitude)"
+        guard let encodedStr = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+              let url = URL(string: encodedStr),
+              let appStoreURL = URL(string: "itms-apps://itunes.apple.com/app/id304608425")
+        else { return }
+        
+        UIApplication.shared.open(url, options: [:]) { success in
+            if !success { UIApplication.shared.open(appStoreURL) }
         }
     }
 }
