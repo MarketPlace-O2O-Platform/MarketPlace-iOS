@@ -14,7 +14,7 @@ final class LoginViewModel: ObservableObject {
         self.memberService = memberService
     }
     
-    func signIn(studentId: String, password: String, saveID: Bool, savePassword: Bool) async {
+    func signIn(studentId: String, password: String, saveAccount: Bool) async {
         let result = await memberService.signIn(studentId: studentId, password: password)
         
         switch result {
@@ -24,16 +24,14 @@ final class LoginViewModel: ObservableObject {
             /// - NOTE: 키체인에 토큰 저장
             KeychainManager.save(KeyChainKeys.token, value: data.response)
             
-            if saveID {
+            if saveAccount {
                 KeychainManager.save(KeyChainKeys.studentId, value: studentId)
+                KeychainManager.save(KeyChainKeys.password, value: password)
+
             } else {
                 KeychainManager.delete(KeyChainKeys.studentId)
-            }
-            
-            if savePassword {
-                KeychainManager.save(KeyChainKeys.password, value: password)
-            } else {
                 KeychainManager.delete(KeyChainKeys.password)
+
             }
             
         case .failure(let statusCode, let message):
