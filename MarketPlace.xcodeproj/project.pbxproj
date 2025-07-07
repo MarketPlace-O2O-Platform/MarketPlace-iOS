@@ -44,6 +44,7 @@
 		295DCBB02DED6DC0009B5D82 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295DCBAF2DED6DC0009B5D82 /* MyPageViewModel.swift */; };
 		295DCBB62DED78C0009B5D82 /* MyCouponViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295DCBB52DED78C0009B5D82 /* MyCouponViewModel.swift */; };
 		295DCBB82DED7C92009B5D82 /* CouponStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295DCBB72DED7C92009B5D82 /* CouponStatus.swift */; };
+		296085B72E1B88CD009CE38B /* ConvertAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296085B62E1B88C9009CE38B /* ConvertAddress.swift */; };
 		296CF4162DE805EB0000F200 /* KakaoMapsSDK-SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 296CF4152DE805EB0000F200 /* KakaoMapsSDK-SPM */; };
 		296CF4192DE806070000F200 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 296CF4182DE806070000F200 /* FirebaseMessaging */; };
 		2976FA292DFC4B56009782D1 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2976FA282DFC4B56009782D1 /* MainViewModel.swift */; };
@@ -153,7 +154,7 @@
 		B2DCB0662DF02CFE00F9D4AB /* SearchSecondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DCB0652DF02CFE00F9D4AB /* SearchSecondView.swift */; };
 		B2DCB0682DF031EC00F9D4AB /* SearchFailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DCB0672DF031EC00F9D4AB /* SearchFailedView.swift */; };
 		B2E3F57A2E0D486100091250 /* CheerSearchfailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E3F5792E0D486100091250 /* CheerSearchfailedView.swift */; };
-		B2F85BE72D6FAB210011DDF3 /* MapLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F85BE62D6FAB210011DDF3 /* MapLocationManager.swift */; };
+		B2F85BE72D6FAB210011DDF3 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F85BE62D6FAB210011DDF3 /* LocationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -208,6 +209,7 @@
 		295DCBAF2DED6DC0009B5D82 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		295DCBB52DED78C0009B5D82 /* MyCouponViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCouponViewModel.swift; sourceTree = "<group>"; };
 		295DCBB72DED7C92009B5D82 /* CouponStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponStatus.swift; sourceTree = "<group>"; };
+		296085B62E1B88C9009CE38B /* ConvertAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertAddress.swift; sourceTree = "<group>"; };
 		2976FA282DFC4B56009782D1 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		2976FA2A2DFC4D2F009782D1 /* CouponTopModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponTopModel.swift; sourceTree = "<group>"; };
 		2976FA2E2DFC5D90009782D1 /* MainBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBannerView.swift; sourceTree = "<group>"; };
@@ -318,7 +320,7 @@
 		B2DCB0652DF02CFE00F9D4AB /* SearchSecondView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSecondView.swift; sourceTree = "<group>"; };
 		B2DCB0672DF031EC00F9D4AB /* SearchFailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFailedView.swift; sourceTree = "<group>"; };
 		B2E3F5792E0D486100091250 /* CheerSearchfailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerSearchfailedView.swift; sourceTree = "<group>"; };
-		B2F85BE62D6FAB210011DDF3 /* MapLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocationManager.swift; sourceTree = "<group>"; };
+		B2F85BE62D6FAB210011DDF3 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		B2F85BE82D6FAE9A0011DDF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -758,6 +760,7 @@
 		B2C398FB2CA145CB004800DD /* MarketPlace */ = {
 			isa = PBXGroup;
 			children = (
+				296085B62E1B88C9009CE38B /* ConvertAddress.swift */,
 				29B3EBAA2E03D8CF0095A310 /* Font */,
 				2976FA272DFC4507009782D1 /* Types */,
 				293DCF422DE6FE3A000122C5 /* Extension */,
@@ -774,7 +777,7 @@
 				B2C399002CA145CC004800DD /* Assets.xcassets */,
 				B2C399022CA145CC004800DD /* Preview Content */,
 				29BF18AF2DE4492C00836D7E /* API_URL.plist */,
-				B2F85BE62D6FAB210011DDF3 /* MapLocationManager.swift */,
+				B2F85BE62D6FAB210011DDF3 /* LocationManager.swift */,
 				293DCF182DE6CDE2000122C5 /* KakaoMapKey.xcconfig */,
 			);
 			path = MarketPlace;
@@ -1028,10 +1031,11 @@
 				B2DC8CC92E03F2E500035476 /* MarketRequestModel.swift in Sources */,
 				290D92D32DE55AD5008AC190 /* CommonMsgResDTO.swift in Sources */,
 				2941F7952DE5A5760063CEFE /* Top20DetailViewModel.swift in Sources */,
-				B2F85BE72D6FAB210011DDF3 /* MapLocationManager.swift in Sources */,
+				B2F85BE72D6FAB210011DDF3 /* LocationManager.swift in Sources */,
 				B28349572D2FBD2F00EEDB02 /* SearchView.swift in Sources */,
 				B21F3CFA2D267AF900B83B34 /* MyPageView.swift in Sources */,
 				B28889AC2D4BD5F10040EC3F /* CouponPopup.swift in Sources */,
+				296085B72E1B88CD009CE38B /* ConvertAddress.swift in Sources */,
 				B28A22AB2D64F1A700E86EF6 /* StoreInfoRow.swift in Sources */,
 				B2C398FF2CA145CB004800DD /* ContentView.swift in Sources */,
 				B293A1542D6FDCB2003E8505 /* HotCheerView.swift in Sources */,

@@ -103,7 +103,3 @@ struct RequestListView : View {
         .frame(height: 65)
     }
 }
-
-#Preview {
-    RequestMainView()
-}
