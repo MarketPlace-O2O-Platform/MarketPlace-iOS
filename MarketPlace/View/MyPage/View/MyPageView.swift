@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 
 struct MyPageView: View {
+    @State private var isDropdownVisible = false
     @StateObject private var viewModel = MyPageViewModel()
     @EnvironmentObject var loginVM: LoginViewModel
     
@@ -9,23 +10,33 @@ struct MyPageView: View {
 
     var body: some View {
         NavigationView {
-            VStack(spacing: 0) {
-                MyHeaderView(showLogoutAlert: $showLogoutAlert, userId: $viewModel.userId)
-                    .environmentObject(loginVM)
-
-                MyCouponView()
-            }
-            .background(Color.white)
-            .onAppear {
-                Task {
-                    await viewModel.fetchMemberInfo()
+            ZStack(alignment: .top) {
+                VStack(spacing: 0) {
+                    MyHeaderView(isDropdownVisible: $isDropdownVisible, userId: $viewModel.userId)
+                    
+                    MyCouponView()
+                }
+                .background(Color.white)
+                .onAppear {
+                    Task {
+                        await viewModel.fetchMemberInfo()
+                    }
+                }
+                .overlay {
+                    CustomAlertView(isPresented: $showLogoutAlert, title: "로그아웃 하시겠습니까?", buttonTitle: "로그아웃") {
+                        loginVM.logout()
+                    }
+                }
+                
+                if isDropdownVisible {
+                    DropdownMenuView {
+                        showLogoutAlert = true
+                    }
+                    .offset(x: 0, y: 35)
+                    .transition(.scale.combined(with: .opacity))
+                    .zIndex(1)
                 }
             }
-            .overlay {
-                CustomAlertView(isPresented: $showLogoutAlert, title: "로그아웃 하시겠습니까?", buttonTitle: "로그아웃") {
-                    loginVM.logout()
-                }
-            }
-        }
+        }.environmentObject(loginVM)
     }
 }

@@ -1,25 +1,5 @@
 import SwiftUI
 
-
-struct DropdownMenuView: View {
-    let onLogout: () -> Void
-    
-    var body: some View {
-        Button(action: onLogout) {
-            Text("로그아웃")
-                .pretendardFont(size: MyHeaderViewConstants.FontSize.dropdownText, weight: .medium)
-                .foregroundColor(Colors.textColor)
-                .frame(maxWidth: MyHeaderViewConstants.dropdownWidth, alignment: .leading)
-                .padding(.vertical, 12)
-                .padding(.horizontal, 16)
-        }
-        .background(Colors.backgroundColor)
-        .cornerRadius(4)
-        .shadow(color: Color.black.opacity(0.1), radius: 12, x: 0, y: 4)
-    }
-}
-
-
 struct UserInfoView: View {
     let userId: String
     @Binding var isDropdownVisible: Bool
@@ -47,12 +27,9 @@ struct UserInfoView: View {
 }
 
 struct MyHeaderView: View {
-    @State private var isDropdownVisible = false
-    @Binding var showLogoutAlert: Bool
+    @Binding var isDropdownVisible: Bool
     @Binding var userId: Int
-    
-    @EnvironmentObject var loginVM: LoginViewModel
-    
+        
     var body: some View {
         ZStack(alignment: .top) {
             VStack(spacing: 10) {
@@ -88,15 +65,6 @@ struct MyHeaderView: View {
             }
             .padding(.bottom, 15)
             .background(Colors.backgroundColor)
-            
-            if isDropdownVisible {
-                DropdownMenuView {
-                    showLogoutAlert = true
-                }
-                .offset(x: MyHeaderViewConstants.dropdownOffsetX, y: MyHeaderViewConstants.dropdownOffsetY)
-                .transition(.scale.combined(with: .opacity))
-                .zIndex(1)
-            }
         }
     }
 }
