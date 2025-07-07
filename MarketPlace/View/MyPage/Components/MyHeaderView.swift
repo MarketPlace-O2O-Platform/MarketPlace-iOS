@@ -41,23 +41,36 @@ struct MyHeaderView: View {
                     
                     UserInfoView(userId: String(userId), isDropdownVisible: $isDropdownVisible)
                     
-                    NavigationLink(destination: MyFavoriteShopListView()) {
-                        Text("큐레이션")
+                    HStack {
+                        NavigationLink(destination: MyFavoriteShopListView()) {
+                            Text("큐레이션")
+                                .pretendardFont(size: MyHeaderViewConstants.FontSize.buttonText, weight: .medium)
+                                .foregroundColor(Colors.textColor)
+                                .padding(.vertical, 6)
+                                .padding(.leading, 10)
+                        }
+                        
+                        Text("|")
                             .pretendardFont(size: MyHeaderViewConstants.FontSize.buttonText, weight: .medium)
-                            .foregroundColor(Colors.textColor)
-                            .padding(.vertical, 6)
-                            .padding(.horizontal, 12)
-                            .background(Colors.backgroundColor)
-                            .cornerRadius(MyHeaderViewConstants.cornerRadius)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: MyHeaderViewConstants.cornerRadius)
-                                    .stroke(Colors.borderColor, lineWidth: 1)
-                                    .frame(height: MyHeaderViewConstants.buttonHeight)
-                            )
+                            .foregroundColor(Colors.borderColor)
+                        
+                        Button(action: {
+                            /// - note: 고객 센터로가기
+                        }, label: {
+                            Text("고객센터")
+                                .pretendardFont(size: MyHeaderViewConstants.FontSize.buttonText, weight: .medium)
+                                .foregroundColor(Colors.textColor)
+                                .padding(.vertical, 6)
+                                .padding(.trailing, 10)
+                        })
                     }
-                    .padding(.trailing, MyHeaderViewConstants.padding)
-                }
-                .padding(.leading, MyHeaderViewConstants.padding)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: MyHeaderViewConstants.cornerRadius)
+                            .stroke(Colors.borderColor, lineWidth: 1)
+                            .frame(height: MyHeaderViewConstants.buttonHeight)
+                    )
+                    .padding(.trailing, 15)
+                }.padding(.leading, 15)
                 
                 Rectangle()
                     .fill(Colors.borderColor)

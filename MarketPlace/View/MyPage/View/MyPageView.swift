@@ -13,6 +13,7 @@ struct MyPageView: View {
             ZStack(alignment: .top) {
                 VStack(spacing: 0) {
                     MyHeaderView(isDropdownVisible: $isDropdownVisible, userId: $viewModel.userId)
+                        .padding(.top, 5)
                     
                     MyCouponView()
                 }
