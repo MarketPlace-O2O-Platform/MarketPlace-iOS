@@ -10,12 +10,12 @@ import Foundation
 final class Top20DetailViewModel: ObservableObject {
     @Published var topCoupons: [CouponPopularModel] = []
     @Published var errorMessage: String?
-    @Published var hasNextPage: Bool = true
-    @Published var isLoading: Bool = false
     @Published var lastCouponId: Int?
     @Published var lastIssuedCount: Int?
     
     var currentPage: Int = 1
+    var isLoading: Bool = false
+    var hasNextPage: Bool = true
     
     private var couponService: CouponServiceProtocol
     

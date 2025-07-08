@@ -10,12 +10,12 @@ import Foundation
 final class NewEventViewModel: ObservableObject {
     @Published var newCoupons: [CouponNewModel] = []
     @Published var errorMessage: String?
-    @Published var hasNextPage: Bool = true
-    @Published var isLoading: Bool = false
     @Published var lastCouponId: Int?
     @Published var lastCreatedAt: String?
     
     var currentPage: Int = 1
+    var hasNextPage: Bool = true
+    var isLoading: Bool = false
 
     private var couponService: CouponServiceProtocol
     

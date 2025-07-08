@@ -10,12 +10,12 @@ import Foundation
 final class MapViewModel: ObservableObject {
     @Published var markets: [MarketModel] = []
     @Published var marketsForMap: [MarketModel] = []
-    @Published var isLoading: Bool = false
-    @Published var hasNextPage: Bool = true
     @Published var lastMarketId: Int?
     @Published var currentCategory: String?
     
     var currentPage: Int = 1
+    var isLoading: Bool = false
+    var hasNextPage: Bool = true
 
     private var marketService: MarketServiceProtocol
     
