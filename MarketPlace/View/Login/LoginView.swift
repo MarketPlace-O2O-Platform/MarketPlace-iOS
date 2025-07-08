@@ -6,9 +6,8 @@ struct LoginView: View {
     @State private var password: String = ""
     @EnvironmentObject var viewModel: LoginViewModel
     
-    @AppStorage(UserDefaultsKeys.saveId) private var saveID: Bool = false
-    @AppStorage(UserDefaultsKeys.savePassword) private var savePassword: Bool = false
-        
+    @AppStorage(UserDefaultsKeys.saveId) private var saveAccount: Bool = false
+    
     @FocusState var isEditing: Bool
     
     let schools = ["인천대학교"]
@@ -116,7 +115,7 @@ struct LoginView: View {
                     Button(action: {
                         Task {
                             isEditing = false
-                            await viewModel.signIn(studentId: studentID, password: password, saveID: saveID, savePassword: savePassword)
+                            await viewModel.signIn(studentId: studentID, password: password, saveAccount: saveAccount)
                         }
                     }) {
                         Text("로그인")
@@ -129,11 +128,7 @@ struct LoginView: View {
                     }.disabled(studentID.isEmpty || password.isEmpty)
                     
                     HStack(spacing: 20) {
-                        CheckboxView(title: "학번(ID) 저장", isChecked: $saveID)
-                        
-                        Spacer()
-                        
-                        CheckboxView(title: "비밀번호 저장", isChecked: $savePassword)
+                        CheckboxView(title: "계정 정보 저장", isChecked: $saveAccount)
                     }
                 }
                 .padding(.horizontal, 20)
@@ -141,12 +136,10 @@ struct LoginView: View {
                 Spacer()
             }
             .onAppear {
-                if saveID, let id = KeychainManager.load(KeyChainKeys.studentId) {
-                    studentID = id
-                }
-                
-                if savePassword, let password = KeychainManager.load(KeyChainKeys.password) {
+                if saveAccount, let id = KeychainManager.load(KeyChainKeys.studentId), let password = KeychainManager.load(KeyChainKeys.password) {
+                    self.studentID = id
                     self.password = password
+
                 }
             }
             .onChange(of: isEditing == true, { _, _ in
