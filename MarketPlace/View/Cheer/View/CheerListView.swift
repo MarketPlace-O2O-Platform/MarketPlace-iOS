@@ -38,13 +38,13 @@ struct CheerListView: View {
         /// - NOTE: 처음 View가 초기화될 시 해당 탭의 데이터 불러오기
         .onAppear {
             Task {
-                await viewModel.fetchCheerMarkets(lastPageIndex: nil, category: nil, count: nil)
+                await viewModel.fetchCheerMarkets()
             }
         }
         /// - NOTE: 탭 눌렀을 시 해당 탭의 데이터 불러오기
         .onChange(of: selectedTab) {
             Task {
-                await viewModel.fetchCheerMarkets(lastPageIndex: nil, category: Category(index: selectedTab)?.toString() ?? nil, count: nil)
+                await viewModel.fetchCheerMarkets(category: Category(index: selectedTab)?.toString() ?? nil)
             }
         }
     }

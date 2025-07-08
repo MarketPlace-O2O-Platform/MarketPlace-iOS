@@ -17,7 +17,7 @@ final class CheerListViewModel: ObservableObject {
     }
 
     // MARK: - 공감 매장 기본 조회
-    func fetchCheerMarkets(lastPageIndex: Int?, category: String?, count: Int?) async {
+    func fetchCheerMarkets(lastPageIndex: Int? = nil, category: String? = nil , count: Int? = nil) async {
         let result = await cheerMarketService.fetchCheerMarket(lastPageIndex: lastPageIndex, category: category, count: count)
         
         switch result {

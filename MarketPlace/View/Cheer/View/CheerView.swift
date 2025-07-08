@@ -4,6 +4,7 @@ import SwiftUI
 struct CheerView: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject private var viewModel = CheerViewModel()
+    @State var lastIndex: Int = 0
     
     @State private var hasData: Bool = true
     
@@ -13,9 +14,8 @@ struct CheerView: View {
                 CheerSearchView(searchText: $viewModel.searchText)
                 
                 VStack(spacing:20) {
-                    
                     if viewModel.searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                        HotCheerView(hotCheerMarkets: $viewModel.cheerMarket, cheerTicket: $viewModel.memberCheerTicket)
+                        HotCheerView(hotCheerMarkets: $viewModel.cheerMarket, cheerTicket: $viewModel.memberCheerTicket, lastIndex: $lastIndex)
                             .padding(.top, 10)
                         
                         Rectangle()
@@ -45,10 +45,15 @@ struct CheerView: View {
             }
             .onAppear{
                 Task {
-                    await viewModel.fetchUpcomingMarket(lastPageIndex: nil, lastCheerCount: nil, count: nil)
+                    await viewModel.fetchUpcomingMarket()
                 }
             }
-            .onChange(of: viewModel.searchText){ _, newValue in
+            .onChange(of: lastIndex) { _, newValue in
+                Task {
+                    await viewModel.fetchUpcomingMarket(lastPageIndex: viewModel.lastMarketId)
+                }
+            }
+            .onChange(of: viewModel.searchText) { _, newValue in
                 Task {
                     hasData = await viewModel.fetchSearchCheerMarket(name: newValue)
                 }

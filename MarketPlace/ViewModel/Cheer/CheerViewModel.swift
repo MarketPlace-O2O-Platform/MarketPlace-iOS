@@ -11,6 +11,11 @@ final class CheerViewModel: ObservableObject {
     @Published var cheerMarket: [CheerMarketModel] = []
     @Published var memberCheerTicket: Int = 0
     @Published var searchText: String = ""
+    @Published var lastMarketId: Int = 0
+    
+    var currentPage: Int = 1
+    var hasNextPage: Bool = true
+    var isLoading: Bool = false
     
     private var cheerMarketService: CheerMarketServiceProtocol
     private var memberService: MemberServiceProtocol
@@ -24,11 +29,15 @@ final class CheerViewModel: ObservableObject {
         
         Task {
             await fetchMemberInfo()
-            let hasData = await fetchSearchCheerMarket(name: self.searchText)
         }
     }
         
-    func fetchUpcomingMarket(lastPageIndex: Int?, lastCheerCount: Int?, count: Int?) async {
+    func fetchUpcomingMarket(lastPageIndex: Int? = nil, lastCheerCount: Int? = nil, count: Int? = nil) async {
+        guard !isLoading, hasNextPage else { return }
+        print("들어옴")
+
+        isLoading = true
+        
         let result = await cheerMarketService.fetchUpcomingMarket(
             lastPageIndex: lastPageIndex,
             lastCheerCount: lastCheerCount,
@@ -37,10 +46,24 @@ final class CheerViewModel: ObservableObject {
         
         switch result {
         case .success(let data, _):
-            self.cheerMarket = data.response.marketResDtos
+            if currentPage == 1 {
+                self.cheerMarket = data.response.marketResDtos
+            } else {
+                self.cheerMarket.append(contentsOf: data.response.marketResDtos)
+            }
+            
+            if let last = data.response.marketResDtos.last {
+                self.lastMarketId = last.marketId
+            }
+            
+            self.hasNextPage = data.response.hasNext
+            currentPage += 1
+            
         case .failure(let statusCode, let message):
             print("[fetchUpcomingMarket] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }
+        
+        isLoading = false
     }
     
     func fetchMemberInfo() async {
