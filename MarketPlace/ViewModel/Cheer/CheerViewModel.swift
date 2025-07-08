@@ -34,7 +34,6 @@ final class CheerViewModel: ObservableObject {
         
     func fetchUpcomingMarket(lastPageIndex: Int? = nil, lastCheerCount: Int? = nil, count: Int? = nil) async {
         guard !isLoading, hasNextPage else { return }
-        print("들어옴")
 
         isLoading = true
         
