@@ -28,9 +28,15 @@ struct Top20DetailView: View {
                                 isMemberIssued: coupon.isMemberIssued
                             )
                             
-                            CouponInfoCell(
-                                viewModel: CouponInfoCellViewModel(coupon: coupon)
-                            )
+                            VStack {
+                                CouponInfoCell(
+                                    viewModel: CouponInfoCellViewModel(coupon: coupon)
+                                )
+                                
+                                Divider()
+                                    .background(Color.gray.opacity(0.5))
+                                    .padding(.horizontal, -20)
+                            }
                         }
                         .onAppear {
                             guard index == viewModel.topCoupons.count - 1,

@@ -18,10 +18,16 @@ struct CategoryDetailView: View {
                                     marketId: shop.marketId),
                                 marketId: shop.marketId)
                         ) {
-                            MarketInfoCell(
-                                isBookmarked: shop.isFavorite,
-                                viewModel: MarketInfoCellViewModel(marketId: shop.marketId, marketData: shop)
-                            )
+                            VStack {
+                                MarketInfoCell(
+                                    isBookmarked: shop.isFavorite,
+                                    viewModel: MarketInfoCellViewModel(marketId: shop.marketId, marketData: shop)
+                                )
+                                
+                                Divider()
+                                    .background(Color.gray.opacity(0.5))
+                                    .padding(.horizontal, -20)
+                            }
                         }
                         .onAppear {
                             guard index == viewModel.markets.count - 1,

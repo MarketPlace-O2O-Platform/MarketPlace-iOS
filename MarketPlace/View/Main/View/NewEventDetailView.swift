@@ -29,9 +29,16 @@ struct NewEventDetailView: View {
                                 isAvailable: coupon.isAvailable,
                                 isMemberIssued: coupon.isMemberIssued
                             )
-                            CouponInfoCell(
-                                viewModel: CouponInfoCellViewModel(coupon: coupon)
-                            )
+                            
+                            VStack {
+                                CouponInfoCell(
+                                    viewModel: CouponInfoCellViewModel(coupon: coupon)
+                                )
+                                
+                                Divider()
+                                    .background(Color.gray.opacity(0.5))
+                                    .padding(.horizontal, -20)
+                            }
                         }.onAppear {
                             guard index == viewModel.newCoupons.count - 1,
                                   let lastId = viewModel.lastCouponId,

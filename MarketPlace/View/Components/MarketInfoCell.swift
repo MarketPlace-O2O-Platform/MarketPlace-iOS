@@ -31,6 +31,8 @@ struct MarketInfoCell: View {
                 Text(viewModel.marketData.marketDescription)
                     .pretendardFont(size: 13, weight: .medium)
                     .foregroundColor(Color(hex: "7D7D7D"))
+                    .multilineTextAlignment(.leading)
+                
                 Spacer()
 
                 HStack(alignment: .bottom) {

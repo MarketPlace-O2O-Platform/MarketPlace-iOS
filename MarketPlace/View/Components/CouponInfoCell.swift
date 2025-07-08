@@ -29,6 +29,7 @@ struct CouponInfoCell: View {
 
                 Text(viewModel.coupon.couponName)
                     .pretendardFont(size: 18, weight: .bold)
+                    .multilineTextAlignment(.leading)
                     .foregroundColor(Color(hex: "#4B4B4B"))
 
                 Spacer()
