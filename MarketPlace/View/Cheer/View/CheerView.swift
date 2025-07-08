@@ -8,48 +8,51 @@ struct CheerView: View {
     @State private var hasData: Bool = true
     
     var body: some View {
-        ScrollView{
-            CheerSearchView(searchText: $viewModel.searchText)
-            
-            VStack(spacing:20) {
+        NavigationStack {
+            ScrollView{
+                CheerSearchView(searchText: $viewModel.searchText)
                 
-                // Body
-                if viewModel.searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                    HotCheerView(hotCheerMarkets: $viewModel.cheerMarket, cheerTicket: $viewModel.memberCheerTicket)
-                        .padding(.top, 10)
+                VStack(spacing:20) {
                     
-                    Rectangle()
-                        .foregroundStyle(Color(hex: "#EEEEEE"))
-                        .frame(height: 4)
-                    
-                    CheerListView()
-                } else {
-                    if hasData {
-                        ScrollView {
-                            VStack(spacing: 10) {
-                                ForEach($viewModel.cheerMarket) { $market in
-                                    CheerSearchCardCell(market: $market)
-                                    Divider()
+                    if viewModel.searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                        HotCheerView(hotCheerMarkets: $viewModel.cheerMarket, cheerTicket: $viewModel.memberCheerTicket)
+                            .padding(.top, 10)
+                        
+                        Rectangle()
+                            .foregroundStyle(Color(hex: "#EEEEEE"))
+                            .frame(height: 4)
+                        
+                        CheerListView()
+                    } else {
+                        if hasData {
+                            ScrollView {
+                                VStack(spacing: 10) {
+                                    ForEach($viewModel.cheerMarket) { $market in
+                                        CheerSearchCardCell(market: $market)
+                                        Divider()
+                                    }
                                 }
+                                .padding()
                             }
-                            .padding()
+                        } else{
+                            CheerSearchfailedView()
                         }
-                    } else{
-                        CheerSearchfailedView()
                     }
                 }
             }
-        }
-        .onAppear{
-            Task {
-                await viewModel.fetchUpcomingMarket(lastPageIndex: nil, lastCheerCount: nil, count: nil)
+            .onTapGesture {
+                self.endTextEditing()
             }
-        }
-        .onChange(of: viewModel.searchText){ _, newValue in
-            Task {
-                hasData = await viewModel.fetchSearchCheerMarket(name: newValue)
+            .onAppear{
+                Task {
+                    await viewModel.fetchUpcomingMarket(lastPageIndex: nil, lastCheerCount: nil, count: nil)
+                }
+            }
+            .onChange(of: viewModel.searchText){ _, newValue in
+                Task {
+                    hasData = await viewModel.fetchSearchCheerMarket(name: newValue)
+                }
             }
         }
     }
-        
 }

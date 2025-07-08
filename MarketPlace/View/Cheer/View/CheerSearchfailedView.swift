@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CheerSearchfailedView: View {
-    
     var body: some View {
         VStack{
             VStack(alignment: .center) {
@@ -27,9 +26,7 @@ struct CheerSearchfailedView: View {
             Image("searchIgnore")
                 .padding(.top, 30)
             
-            Button(action: {
-                // 요청 액션
-            }) {
+            NavigationLink(destination: RequestMainView()) {
                 Text("요청하기")
                     .foregroundColor(.white)
                     .font(.custom("Pretendard-Bold", size: 14))
@@ -38,8 +35,7 @@ struct CheerSearchfailedView: View {
                         RoundedCorner(radius: 4)
                             .fill(Colors.primary)
                     )
-            }
-            .padding(.top, 20)
+            }.padding(.top, 20)
             
             Spacer()
         }
