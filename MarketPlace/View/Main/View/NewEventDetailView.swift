@@ -35,11 +35,9 @@ struct NewEventDetailView: View {
                                 viewModel: CouponInfoCellViewModel(coupon: coupon)
                             )
                         }
-                        .buttonStyle(PlainButtonStyle())
                     }
                 }
             }
-            .background(Color.white)
         }
         .onAppear {
             Task {
