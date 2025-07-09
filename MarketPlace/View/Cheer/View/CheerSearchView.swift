@@ -13,7 +13,6 @@ struct CheerSearchView: View {
 
         var body: some View {
             HStack{
-                // Search Header
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(Color.black)
                 

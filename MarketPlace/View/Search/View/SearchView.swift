@@ -86,6 +86,7 @@ struct SearchView: View {
         .onChange(of: viewModel.searchText) { _, newValue in
             Task {
                 hasData = await viewModel.fetchMarkets(keyword: newValue)
+                viewModel.currentKeyword = newValue
             }
 
             if newValue.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
