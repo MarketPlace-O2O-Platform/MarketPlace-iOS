@@ -5,22 +5,20 @@ struct NewEventDetailView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel = NewEventViewModel()
     
-    init() {
-        setupNavigationBarAppearance()
-    }
-    
     var body: some View {
         VStack(spacing: 0) {
             Divider()
                 .background(Color.gray.opacity(0.5))
             ScrollView {
-                VStack(spacing: 16) {
-                    ForEach(viewModel.newCoupons) { coupon in
+                LazyVStack(spacing: 16) {
+                    ForEach(Array(viewModel.newCoupons.enumerated()), id: \.offset) { index, coupon in
                         NavigationLink(
                             destination: MarketDetailView(
                                 viewModel: MarketDetailViewModel(
-                                    marketId: coupon.marketId),
-                                marketId: coupon.marketId)) {
+                                    marketId: coupon.marketId
+                                ),
+                                marketId: coupon.marketId)
+                        ) {
                             let coupon = CouponBasicModel(
                                 couponId: coupon.couponId,
                                 couponName: coupon.couponName,
@@ -31,15 +29,29 @@ struct NewEventDetailView: View {
                                 isAvailable: coupon.isAvailable,
                                 isMemberIssued: coupon.isMemberIssued
                             )
-                            CouponInfoCell(
-                                viewModel: CouponInfoCellViewModel(coupon: coupon)
-                            )
+                            
+                            VStack {
+                                CouponInfoCell(
+                                    viewModel: CouponInfoCellViewModel(coupon: coupon)
+                                )
+                                
+                                Divider()
+                                    .background(Color.gray.opacity(0.5))
+                                    .padding(.horizontal, -20)
+                            }
+                        }.onAppear {
+                            guard index == viewModel.newCoupons.count - 1,
+                                  let lastId = viewModel.lastCouponId,
+                                  let lastCreated = viewModel.lastCreatedAt
+                            else { return }
+                            
+                            Task {
+                                await viewModel.fetchLatestCoupons(lastCreatedAt: lastCreated, lastCouponId: lastId)
+                            }
                         }
-                        .buttonStyle(PlainButtonStyle())
                     }
                 }
             }
-            .background(Color.white)
         }
         .onAppear {
             Task {
@@ -59,20 +71,5 @@ struct NewEventDetailView: View {
                 }
             }
         }
-    }
-    
-    private func setupNavigationBarAppearance() {
-        /// UINavigationBar의 기본 설정을 수정합니다.
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = UIColor.white
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
-        
-        /// 기본 back indicator를 숨깁니다.
-        appearance.setBackIndicatorImage(UIImage(), transitionMaskImage: UIImage())
-        
-        /// 설정된 appearance 적용
-        UINavigationBar.appearance().standardAppearance = appearance
-        UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
 }

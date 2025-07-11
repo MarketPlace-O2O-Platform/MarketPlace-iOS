@@ -3,6 +3,7 @@ import SwiftUI
 struct HotCheerView: View {
     @Binding var hotCheerMarkets: [CheerMarketModel]
     @Binding var cheerTicket: Int
+    @Binding var lastIndex: Int
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -45,9 +46,13 @@ struct HotCheerView: View {
             .padding(.horizontal)
             
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 12) {
-                    ForEach(hotCheerMarkets) { market in
+                LazyHStack(spacing: 12) {
+                    ForEach(Array(hotCheerMarkets.enumerated()), id: \.offset) { index, market in
                         HotCheerCardCell(viewModel: HotCheerCardCellViewModel(hotCheerMarket: market))
+                            .onAppear {
+                                guard index == hotCheerMarkets.count - 1 else { return }
+                                lastIndex = index
+                            }
                     }
                 }
                 .padding(.horizontal)

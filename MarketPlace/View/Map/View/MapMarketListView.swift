@@ -7,13 +7,13 @@ struct MapMarketListView: View {
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 16) {
+            LazyVStack(spacing: 16) {
                 if viewModel.isLoading {
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle())
                         .padding()
                 } else {
-                    ForEach(viewModel.markets) { shop in
+                    ForEach(Array(viewModel.markets.enumerated()), id: \.offset) { index, shop in
                         NavigationLink(
                             destination: 
                             MarketDetailView(
@@ -21,27 +21,37 @@ struct MapMarketListView: View {
                                     marketId: shop.marketId),
                                 marketId: shop.marketId)
                         ) {
-                            VStack(spacing: 0){
+                            VStack(spacing: 0) {
                                 MarketInfoCell(
                                     isBookmarked: shop.isFavorite,
                                     viewModel: MarketInfoCellViewModel(marketId: shop.marketId, marketData: shop)
-                                )
-                                    .padding(.bottom, 10)
+                                ).padding(.bottom, 10)
+                                
                                 Divider()
                                     .background(Color.gray.opacity(0.5))
                                     .padding(.horizontal, -20)
                             }
                         }
-                        .buttonStyle(PlainButtonStyle())
+                        .onAppear {
+                            guard index == viewModel.markets.count - 1,
+                                  let lastId = viewModel.lastMarketId
+                            else { return }
+                                                        
+                            viewModel.currentCategory = Category(index: selectedIndex)?.toString()
+                            
+                            Task {
+                                await viewModel.fetchMarkets(lastPageIndex: lastId, category: Category(index: selectedIndex)?.toString() ?? nil)
+                            }
+                        }
                     }
                 }
             }
             .padding(.horizontal, 16)
         }
-        .background(Color.white)
         .onChange(of: selectedIndex) {
             Task {
                 await viewModel.fetchMarkets(category: Category(index: selectedIndex)?.toString() ?? "")
+                viewModel.currentCategory = Category(index: selectedIndex)?.toString()
             }
         }
     }

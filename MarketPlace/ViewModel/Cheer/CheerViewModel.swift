@@ -9,8 +9,22 @@ import Foundation
 
 final class CheerViewModel: ObservableObject {
     @Published var cheerMarket: [CheerMarketModel] = []
+    @Published var searchMarkets: [CheerMarketModel] = []
     @Published var memberCheerTicket: Int = 0
     @Published var searchText: String = ""
+    
+    @Published var upcomingMarketLastMarketId: Int?
+    
+    var upcomingMarketCurrentPage: Int = 1
+    var upcomingMarketHasNextPage: Bool = true
+    var upcomingMarketIsLoading: Bool = false
+    
+    @Published var searchLastMarketId: Int?
+    @Published var currentKeyword: String = ""
+
+    var searchCurrentPage: Int = 1
+    var searchHasNextPage: Bool = true
+    var searchIsLoading: Bool = false
     
     private var cheerMarketService: CheerMarketServiceProtocol
     private var memberService: MemberServiceProtocol
@@ -24,11 +38,15 @@ final class CheerViewModel: ObservableObject {
         
         Task {
             await fetchMemberInfo()
-            let hasData = await fetchSearchCheerMarket(name: self.searchText)
         }
     }
         
-    func fetchUpcomingMarket(lastPageIndex: Int?, lastCheerCount: Int?, count: Int?) async {
+    // MARK: - 달성임박 조회
+    func fetchUpcomingMarket(lastPageIndex: Int? = nil, lastCheerCount: Int? = nil, count: Int? = nil) async {
+        guard !upcomingMarketIsLoading, upcomingMarketHasNextPage else { return }
+
+        upcomingMarketIsLoading = true
+        
         let result = await cheerMarketService.fetchUpcomingMarket(
             lastPageIndex: lastPageIndex,
             lastCheerCount: lastCheerCount,
@@ -37,12 +55,27 @@ final class CheerViewModel: ObservableObject {
         
         switch result {
         case .success(let data, _):
-            self.cheerMarket = data.response.marketResDtos
+            if upcomingMarketCurrentPage == 1 {
+                self.cheerMarket = data.response.marketResDtos
+            } else {
+                self.cheerMarket.append(contentsOf: data.response.marketResDtos)
+            }
+            
+            if let last = data.response.marketResDtos.last {
+                self.upcomingMarketLastMarketId = last.marketId
+            }
+            
+            self.upcomingMarketHasNextPage = data.response.hasNext
+            upcomingMarketCurrentPage += 1
+            
         case .failure(let statusCode, let message):
             print("[fetchUpcomingMarket] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }
+        
+        upcomingMarketIsLoading = false
     }
     
+    // MARK: - 회원 남은 티켓 수 조회
     func fetchMemberInfo() async {
         let result = await memberService.fetchMemberInfo()
         
@@ -54,26 +87,52 @@ final class CheerViewModel: ObservableObject {
         }
     }
     
-    func fetchSearchCheerMarket(name: String) async -> Bool {
+    // MARK: - 공감 매장 검색 조회
+    func fetchSearchCheerMarket(
+        lastPageIndex: Int? = nil,
+        pageSize: Int? = nil,
+        name: String
+    ) async -> Bool {
         var hasData: Bool = true
         
+        if currentKeyword != name {
+            searchCurrentPage = 1
+            searchHasNextPage = true
+        }
+        
+        guard !searchIsLoading, searchHasNextPage else { return false }
+
+        searchIsLoading = true
+        
         let result = await cheerMarketService.fetchSearchCheerMarket(
-            lastPageIndex: nil,
-            pageSize: nil,
+            lastPageIndex: lastPageIndex,
+            pageSize: pageSize,
             name: name
         )
         
         switch result {
         case .success(let data, _):
-            self.cheerMarket = data.response.marketResDtos
-            if cheerMarket.isEmpty {
-                hasData = false
+            if searchCurrentPage == 1 {
+                self.searchMarkets = data.response.marketResDtos
+            } else {
+                self.searchMarkets.append(contentsOf: data.response.marketResDtos)
             }
             
-            print("[CheerSearchMarket] : \(data.response.marketResDtos)")
+            if let last = data.response.marketResDtos.last {
+                self.searchLastMarketId = last.marketId
+            }
+            
+            self.searchHasNextPage = data.response.hasNext
+            searchCurrentPage += 1
+            
+            if searchMarkets.isEmpty {
+                hasData = false
+            }
         case .failure(let statusCode, let message):
             print("[CheerSearchMarket] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }
+        
+        searchIsLoading = false
         
         return hasData
     }

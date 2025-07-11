@@ -9,23 +9,28 @@ import SwiftUI
 
 struct SearchSecondView: View {
     @ObservedObject var viewModel: SearchMarketViewModel
+    @Binding var lastIndex: Int
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 10) {
-                ForEach(viewModel.market) { market in
-                    NavigationLink {
-                       MarketDetailView(
-                        viewModel: MarketDetailViewModel(marketId: market.id),
-                           marketId: market.id
-                       )
-                   } label: {
-                       SearchComponentView(market: market)
-                   }
-                    Divider()
+            LazyVStack(spacing: 10) {
+                ForEach(Array(viewModel.market.enumerated()), id: \.offset) { index, market in
+                    NavigationLink(
+                        destination: MarketDetailView(
+                            viewModel: MarketDetailViewModel(marketId: market.id),
+                            marketId: market.id)
+                    ) {
+                        VStack {
+                            SearchComponentView(market: market)
+                            Divider()
+                        }
+                    }
+                    .onAppear {
+                        guard index == viewModel.market.count - 1 else { return }
+                        lastIndex = index
+                    }
                 }
-            }
-            .padding()
+            }.padding()
         }
     }
 }

@@ -10,7 +10,12 @@ import Foundation
 final class MapViewModel: ObservableObject {
     @Published var markets: [MarketModel] = []
     @Published var marketsForMap: [MarketModel] = []
-    @Published var isLoading = false
+    @Published var lastMarketId: Int?
+    @Published var currentCategory: String?
+    
+    var currentPage: Int = 1
+    var isLoading: Bool = false
+    var hasNextPage: Bool = true
 
     private var marketService: MarketServiceProtocol
     
@@ -23,21 +28,46 @@ final class MapViewModel: ObservableObject {
     // MARK: - 카데고리별 매장 전체 정보 받아오기
     func fetchMarkets(
         lastPageIndex: Int? = nil,
-        category: String?,
+        category: String? = nil,
         pageSize: Int? = nil
     ) async {
+        if currentCategory != category {
+            currentPage = 1
+            hasNextPage = true
+        }
+        
+        guard !isLoading, hasNextPage else { return }
+        
+        isLoading = true
+        
         let result = await marketService.fetchMarketAll(
                 lastPageIndex: lastPageIndex,
                 category: category,
-                pageSize: pageSize)
+                pageSize: pageSize
+        )
         
         switch result {
         case .success(let data, _):
-            self.markets = data.response.marketResDtos
-        case .failure(let statusCode, let message):
-            print("[fetchMarkets] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+            if currentPage == 1 {
+                self.markets = data.response.marketResDtos
+            } else {
+                self.markets.append(contentsOf: data.response.marketResDtos)
+            }
+            
+            if let last = data.response.marketResDtos.last {
+                self.lastMarketId = last.marketId
+            }
+            
+            self.hasNextPage = data.response.hasNext
+            currentPage += 1
+            
+        case .failure(let code, let message):
+            print("[fetchMarkets] - [\(code)]: \(message ?? "알 수 없는 오류")")
         }
+            
+        isLoading = false
     }
+
     
     // MARK: - 주소별 매장 조회 API
     func fetchMarketsWithAddress(lastPageIndex: Int?, category: String?, pageSize: Int?) async {

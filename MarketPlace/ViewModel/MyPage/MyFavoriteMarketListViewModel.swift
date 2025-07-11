@@ -10,6 +10,11 @@ import Foundation
 @MainActor
 final class MyFavoriteMarketListViewModel: ObservableObject {
     @Published var favoriteMarkets: [FavoriteMarketModel] = []
+    @Published var hasNextPage: Bool = true
+    @Published var isLoading: Bool = false
+    @Published var lastModified: String?
+    
+    var currentPage: Int = 1
     
     private var memberService: MemberServiceProtocol
 
@@ -18,14 +23,31 @@ final class MyFavoriteMarketListViewModel: ObservableObject {
     }
     
     // MARK: - 자신이 찜한 매장 조회
-    func fetchFavoriteMarket(lastModifiedAt: String?, pageSize: Int?) async {
+    func fetchFavoriteMarket(lastModifiedAt: String? = nil, pageSize: Int? = nil) async {
+        guard !isLoading, hasNextPage else { return }
+
+        isLoading = true
+
         let result = await memberService.fetchFavoriteMarket(lastModifiedAt: lastModifiedAt, pageSize: pageSize)
         
         switch result {
         case .success(let data, _):
-            self.favoriteMarkets = data.response.marketResDtos
+            if currentPage == 1 {
+                self.favoriteMarkets = data.response.marketResDtos
+            } else {
+                self.favoriteMarkets.append(contentsOf: data.response.marketResDtos)
+            }
+            
+            if let last = data.response.marketResDtos.last {
+                self.lastModified = last.favoriteModifiedAt
+            }
+            
+            self.hasNextPage = data.response.hasNext
+            currentPage += 1
         case .failure(let statusCode, let message):
             print("[fetchFavoriteMarket] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }
+        
+        isLoading = false
     }
 }

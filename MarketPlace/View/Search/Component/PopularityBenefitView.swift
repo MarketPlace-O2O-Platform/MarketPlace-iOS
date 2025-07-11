@@ -1,6 +1,5 @@
 import SwiftUI
 
-// 상수 관리
 struct BenefitViewConstants {
     struct Layout {
         static let cardWidth: CGFloat = 172
@@ -16,26 +15,6 @@ struct BenefitViewConstants {
     }
 }
 
-// 북마크 버튼 컴포넌트
-struct BookmarkButton: View {
-    @Binding var isBookmarked: Bool
-    
-    var body: some View {
-        Button(action: {
-            // 북마크 상태를 토글
-            isBookmarked.toggle()
-        }) {
-            // 북마크 아이콘을 클릭 상태에 따라 변경
-            Image(systemName: isBookmarked ? "bookmark.fill" : "bookmark")
-                .resizable()
-                .frame(width: 15, height: 21)
-                .foregroundColor(Color.white)
-        }
-        .padding(BenefitViewConstants.Layout.bookmarkPadding)
-    }
-}
-
-// 혜택 카드 컴포넌트
 struct BenefitCard: View {
     let benefit: CouponTopModel
     

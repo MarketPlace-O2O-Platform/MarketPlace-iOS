@@ -14,7 +14,7 @@ struct MainBannerView: View {
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             TabView(selection: $currentIndex) {
-                ForEach(closingCouponList) { coupon in
+                ForEach(Array(closingCouponList.enumerated()), id: \.offset) { index, coupon in
                     NavigationLink {
                         MarketDetailView(viewModel: MarketDetailViewModel(marketId: coupon.marketId),
                                          marketId: coupon.marketId)
@@ -28,8 +28,7 @@ struct MainBannerView: View {
                             ]
                         )
                         .padding(.horizontal, 20)
-                        .tag(closingCouponList.firstIndex(where: { $0.id == coupon.id }) ?? 0)
-                    
+                        .tag(index)
                     }
                 }
             }

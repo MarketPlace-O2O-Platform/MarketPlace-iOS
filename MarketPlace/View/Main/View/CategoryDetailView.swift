@@ -2,7 +2,7 @@ import SwiftUI
 
 struct CategoryDetailView: View {
     @Binding var selectedTab: Int
-    @StateObject var marketVM = MarketCategoryDetailViewModel()
+    @StateObject var viewModel = MarketCategoryDetailViewModel()
 
     var body: some View {
         VStack {
@@ -10,39 +10,53 @@ struct CategoryDetailView: View {
             CategoryTabView(selectedTab: $selectedTab)
             
             ScrollView {
-                VStack(spacing: 16) {
-                    ForEach(marketVM.markets) { shop in
+                LazyVStack(spacing: 16) {
+                    ForEach(Array(viewModel.markets.enumerated()), id: \.offset) { index, shop in
                         NavigationLink(
                             destination: MarketDetailView(
                                 viewModel: MarketDetailViewModel(
                                     marketId: shop.marketId),
-                                marketId: shop.marketId)) {
-                                    MarketInfoCell(
-                                        isBookmarked: shop.isFavorite,
-                                        viewModel: MarketInfoCellViewModel(marketId: shop.marketId, marketData: shop)
-                                    )
-
+                                marketId: shop.marketId)
+                        ) {
+                            VStack {
+                                MarketInfoCell(
+                                    isBookmarked: shop.isFavorite,
+                                    viewModel: MarketInfoCellViewModel(marketId: shop.marketId, marketData: shop)
+                                )
+                                
+                                Divider()
+                                    .background(Color.gray.opacity(0.5))
+                                    .padding(.horizontal, -20)
+                            }
                         }
-                        .buttonStyle(PlainButtonStyle())
+                        .onAppear {
+                            guard index == viewModel.markets.count - 1,
+                                  let lastId = viewModel.lastMarketId
+                            else { return }
+                                                        
+                            viewModel.currentCategory = Category(index: selectedTab)?.toString()
+                            
+                            Task {
+                                await viewModel.fetchMarkets(lastPageIndex: lastId, category: Category(index: selectedTab)?.toString() ?? nil)
+                            }
+                        }
                     }
                 }
             }
-            .background(Color.white)
-            
         }
-        .background(Color.white)
         .navigationTitle(Category(index: selectedTab)?.toUIName() ?? "")
         
         /// - NOTE: 이전화면에서 넘어왔을 시 해당 탭의 데이터 불러오기
         .onAppear {
             Task {
-                await marketVM.fetchMarkets(category: Category(index: selectedTab)?.toString() ?? nil)
+                await viewModel.fetchMarkets(category: Category(index: selectedTab)?.toString() ?? nil)
             }
         }
         /// - NOTE: 탭 눌렀을 시 해당 탭의 데이터 불러오기
         .onChange(of: selectedTab) {
             Task {
-                await marketVM.fetchMarkets(category: Category(index: selectedTab)?.toString() ?? nil)
+                await viewModel.fetchMarkets(category: Category(index: selectedTab)?.toString() ?? nil)
+                viewModel.currentCategory = Category(index: selectedTab)?.toString()
             }
         }
         .toolbar {

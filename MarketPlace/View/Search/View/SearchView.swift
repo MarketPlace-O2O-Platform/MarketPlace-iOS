@@ -30,9 +30,10 @@ struct SearchView: View {
     @StateObject private var viewModel = SearchMarketViewModel()
     
     @State private var hasData: Bool = true
+    @State var lastIndex: Int = 0
         
     var body: some View {
-        VStack(spacing: SearchViewConstants.Layout.spacing) {
+        VStack(spacing: 10) {
             SearchHeader(
                 searchText: $viewModel.searchText,
                 recentSearches: $viewModel.recentSearches,
@@ -43,23 +44,22 @@ struct SearchView: View {
             )
             
             if viewModel.searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                    ScrollView {
-                        RecentSearchView(
-                            recentSearches: $viewModel.recentSearches,
-                            onRecentSearchTap: { selectedSearch in
-                                viewModel.searchText = selectedSearch
-                                viewModel.addRecentSearch(selectedSearch)
-                            }
-                        )
-                    
-                        PopularBenefitView(popularCoupon: $viewModel.popularCoupon)
-                            .padding(.top, 48)
-                    }
-                } else {
-                if hasData {
-                    SearchSecondView(
-                        viewModel: viewModel
+                ScrollView {
+                    RecentSearchView(
+                        recentSearches: $viewModel.recentSearches,
+                        onRecentSearchTap: { selectedSearch in
+                            viewModel.searchText = selectedSearch
+                            viewModel.addRecentSearch(selectedSearch)
+                        }
                     )
+                
+                    PopularBenefitView(popularCoupon: $viewModel.popularCoupon)
+                        .padding(.top, 48)
+                }
+            } else {
+                if hasData {
+                    SearchSecondView(viewModel: viewModel, lastIndex: $lastIndex)
+                        
                 } else{
                     SearchFailedView()
                 }
@@ -78,9 +78,15 @@ struct SearchView: View {
                 await viewModel.fetchPopularCoupon(pageSize: nil)
             }
         }
-        .onChange(of: viewModel.searchText){ _, newValue in
+        .onChange(of: lastIndex, { _, newValue in
             Task {
-                hasData = await viewModel.fetchMarkets(name: newValue)
+                hasData = await viewModel.fetchMarkets(lastPageIndex: lastIndex, keyword: viewModel.currentKeyword)
+            }
+        })
+        .onChange(of: viewModel.searchText) { _, newValue in
+            Task {
+                hasData = await viewModel.fetchMarkets(keyword: newValue)
+                viewModel.currentKeyword = newValue
             }
 
             if newValue.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {

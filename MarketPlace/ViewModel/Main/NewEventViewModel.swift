@@ -10,6 +10,12 @@ import Foundation
 final class NewEventViewModel: ObservableObject {
     @Published var newCoupons: [CouponNewModel] = []
     @Published var errorMessage: String?
+    @Published var lastCouponId: Int?
+    @Published var lastCreatedAt: String?
+    
+    var currentPage: Int = 1
+    var hasNextPage: Bool = true
+    var isLoading: Bool = false
 
     private var couponService: CouponServiceProtocol
     
@@ -24,6 +30,10 @@ final class NewEventViewModel: ObservableObject {
         lastCouponId: Int? = nil,
         pageSize: Int? = nil
     ) async {
+        guard !isLoading, hasNextPage else { return }
+
+        isLoading = true
+        
         let result = await couponService.fetchLatestCoupons(
             lastCreatedAt: lastCreatedAt,
             lastCouponId: lastCouponId,
@@ -32,9 +42,24 @@ final class NewEventViewModel: ObservableObject {
         
         switch result {
         case .success(let data, _):
-            self.newCoupons = data.response.couponResDtos
+            if currentPage == 1 {
+                self.newCoupons = data.response.couponResDtos
+            } else {
+                self.newCoupons.append(contentsOf: data.response.couponResDtos)
+            }
+            
+            if let last = data.response.couponResDtos.last {
+                self.lastCouponId = last.couponId
+                self.lastCreatedAt = last.couponCreatedAt
+            }
+            
+            self.hasNextPage = data.response.hasNext
+            currentPage += 1
+            
         case .failure(let statusCode, let message):
             print("[fetchLatestCoupons] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }
+        
+        isLoading = false
     }
 }

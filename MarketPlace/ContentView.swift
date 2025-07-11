@@ -3,12 +3,8 @@ import SwiftUI
 struct ContentView: View {
     
     init() {
-        let appearance = UITabBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = UIColor.white
-        UITabBar.appearance().standardAppearance = appearance
-        UITabBar.appearance().scrollEdgeAppearance = appearance
-        UITabBar.appearance().tintColor = UIColor(red: 48/255, green: 48/255, blue: 48/255, alpha: 1)
+        setupTabBarAppearance()
+        setupNavigationBarAppearance()
     }
     
     var body: some View {
@@ -68,12 +64,36 @@ struct ContentView: View {
         }
     }
     
-    // 이미지 크기 조정 함수
+    /// 이미지 크기 조정 함수
     func resizeImage(named: String, width: CGFloat, height: CGFloat) -> UIImage {
         let image = UIImage(named: named)!
         let renderer = UIGraphicsImageRenderer(size: CGSize(width: width, height: height))
         return renderer.image { _ in
             image.draw(in: CGRect(origin: .zero, size: CGSize(width: width, height: height)))
         }
+    }
+    
+    private func setupTabBarAppearance() {
+        let appearance = UITabBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor.white
+        UITabBar.appearance().standardAppearance = appearance
+        UITabBar.appearance().scrollEdgeAppearance = appearance
+        UITabBar.appearance().tintColor = UIColor(red: 48/255, green: 48/255, blue: 48/255, alpha: 1)
+    }
+    
+    private func setupNavigationBarAppearance() {
+        /// UINavigationBar의 기본 설정을 수정합니다.
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor.white
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
+        
+        /// 기본 back indicator를 숨깁니다.
+        appearance.setBackIndicatorImage(UIImage(), transitionMaskImage: UIImage())
+        
+        /// 설정된 appearance 적용
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
 }
