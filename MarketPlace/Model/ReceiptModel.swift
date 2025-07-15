@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ReciptModel: Codable {
+struct ReceiptModel: Codable {
     let couponId: Int
     var isUsed: Bool
 }
