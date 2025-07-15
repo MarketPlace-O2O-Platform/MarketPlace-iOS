@@ -111,6 +111,7 @@
 		B21F3D092D2D57BE00B83B34 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21F3D082D2D57BE00B83B34 /* Color.swift */; };
 		B22AB94C2D9B08FD006E13B4 /* CouponInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AB94B2D9B08FD006E13B4 /* CouponInfoCell.swift */; };
 		B24272612E26537F00E3B0ED /* ReceiptModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24272602E26537F00E3B0ED /* ReceiptModel.swift */; };
+		B24272632E2657C700E3B0ED /* SubmitReceiptViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24272622E2657C700E3B0ED /* SubmitReceiptViewModel.swift */; };
 		B255A5CE2D6218A000954837 /* MarketModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B255A5CD2D6218A000954837 /* MarketModel.swift */; };
 		B27E56CD2D7037AF000D2881 /* CheerMarketModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27E56CC2D7037AF000D2881 /* CheerMarketModel.swift */; };
 		B27E56D32D703FBB000D2881 /* CheerCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27E56D22D703FBB000D2881 /* CheerCardCell.swift */; };
@@ -276,6 +277,7 @@
 		B21F3D082D2D57BE00B83B34 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		B22AB94B2D9B08FD006E13B4 /* CouponInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponInfoCell.swift; sourceTree = "<group>"; };
 		B24272602E26537F00E3B0ED /* ReceiptModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptModel.swift; sourceTree = "<group>"; };
+		B24272622E2657C700E3B0ED /* SubmitReceiptViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitReceiptViewModel.swift; sourceTree = "<group>"; };
 		B255A5CD2D6218A000954837 /* MarketModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketModel.swift; sourceTree = "<group>"; };
 		B27E56CC2D7037AF000D2881 /* CheerMarketModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerMarketModel.swift; sourceTree = "<group>"; };
 		B27E56D22D703FBB000D2881 /* CheerCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerCardCell.swift; sourceTree = "<group>"; };
@@ -494,6 +496,7 @@
 				295DCBB52DED78C0009B5D82 /* MyCouponViewModel.swift */,
 				29E749312DEEA91100E765E0 /* MyCouponCellViewModel.swift */,
 				29B523722E152E0400120AE3 /* MyFavoriteMarketListViewModel.swift */,
+				B24272622E2657C700E3B0ED /* SubmitReceiptViewModel.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -1138,6 +1141,7 @@
 				290A71AF2E027909009AEAF8 /* ShimmeringAsyncImage.swift in Sources */,
 				B27E56CD2D7037AF000D2881 /* CheerMarketModel.swift in Sources */,
 				B28A22C02D668B0600E86EF6 /* MyFavoriteShopListView.swift in Sources */,
+				B24272632E2657C700E3B0ED /* SubmitReceiptViewModel.swift in Sources */,
 				29B5236B2E1503DF00120AE3 /* RegisterReceiptView.swift in Sources */,
 				29D87F462DE85AC500CE9011 /* CheerCardCellViewModel.swift in Sources */,
 				29E749322DEEA91100E765E0 /* MyCouponCellViewModel.swift in Sources */,
