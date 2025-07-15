@@ -416,12 +416,12 @@
 		2941F7742DE5A0350063CEFE /* Endpoint */ = {
 			isa = PBXGroup;
 			children = (
-				2941F76F2DE5A0350063CEFE /* CouponEndpoint.swift */,
 				2941F7702DE5A0350063CEFE /* Endpoint.swift */,
 				2941F7712DE5A0350063CEFE /* MarketEndpoint.swift */,
 				2941F7722DE5A0350063CEFE /* MemberCouponEndpoint.swift */,
 				2941F7732DE5A0350063CEFE /* MemberEndPoint.swift */,
 				29D53BF62DE8412E008E4F2E /* CheerMarketEndpoint.swift */,
+				2941F76F2DE5A0350063CEFE /* CouponEndpoint.swift */,
 			);
 			path = Endpoint;
 			sourceTree = "<group>";

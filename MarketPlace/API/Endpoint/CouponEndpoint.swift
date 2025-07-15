@@ -14,9 +14,10 @@ enum CouponEndpoint: Endpoint {
     case fetchTopClosingCoupon(pageSize: Int?)
     case fetchPopularCoupon(lastIssuedCount: Int?, lastCouponId: Int?, pageSize: Int?)
     case fetchLatestCoupon(lastCreatedAt: String?, lastCouponId: Int?, pageSize: Int?)
+    case putSubmitReceipt(memberCouponId: Int)
     
     var baseURL: URL { URLManager.shared.baseURL }
-
+    
     var path: String {
         switch self {
         case .fetchValidCoupon: return "api/coupons"
@@ -25,15 +26,22 @@ enum CouponEndpoint: Endpoint {
         case .fetchTopClosingCoupon: return "api/coupons/top/closing"
         case .fetchPopularCoupon: return "api/coupons/popular"
         case .fetchLatestCoupon: return "api/coupons/latest"
+        case .putSubmitReceipt: return "api/members/payback-coupons?memberCouponId=3"
         }
     }
-
+    
     var method: HTTPMethod {
-        .get
+        switch self {
+        case .putSubmitReceipt:
+            return .put
+            
+        default:
+            return .get
+        }
     }
-
+    
     var headers: [String : String]? { ["Content-Type": "application/json"] }
-
+    
     var body: Data? { nil }
     
     var queryItems: [URLQueryItem]? {
@@ -45,7 +53,7 @@ enum CouponEndpoint: Endpoint {
             
         case .fetchPopularCoupon(let lastIssuedCount, let lastCouponId, let pageSize):
             var items: [URLQueryItem] = []
-
+            
             items.append(contentsOf: [
                 lastIssuedCount.map { URLQueryItem(name: "lastIssuedCount", value: String($0)) },
                 lastCouponId.map { URLQueryItem(name: "lastCouponId", value: String($0)) },
@@ -75,6 +83,9 @@ enum CouponEndpoint: Endpoint {
             ].compactMap { $0 })
             
             return items
+            
+        case .putSubmitReceipt(let memberCouponId):
+            return [URLQueryItem(name: "memberCouponId", value: String(memberCouponId))]
         }
     }
 }
