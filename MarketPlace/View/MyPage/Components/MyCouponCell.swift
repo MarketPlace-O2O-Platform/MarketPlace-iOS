@@ -22,7 +22,7 @@ struct MyCouponCell: View {
                         )
                         
                         VStack(alignment: .leading, spacing: 7) {
-                            Text("하노이키친 인천대점")
+                            Text(viewModel.coupon.marketName)
                                 .pretendardFont(size: 14, weight: .regular)
                                 .lineLimit(1)
                                 .foregroundStyle(Color(hex: "#727272"))

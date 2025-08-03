@@ -59,13 +59,20 @@ struct MyCouponView: View {
         .onAppear {
             Task {
                 // TODO: 환급형 쿠폰 발급
-                await viewModel.fetchMemberCoupon(type: CouponStatus(index: selectedCategoryIndex)?.toString() ?? "", memberCouponId: nil, size: nil)
+                await viewModel.fetchMemberPaybackCoupon(type: CouponStatus(index: 0)?.toString() ?? "", memberCouponId: nil, size: nil)
             }
         }
         .onChange(of: selectedCategoryIndex) {
             // TODO: switch로 카테고리 별로 다르게 API 해야할듯
-            Task {
-                await viewModel.fetchMemberCoupon(type: CouponStatus(index: selectedCategoryIndex)?.toString() ?? "", memberCouponId: nil, size: nil)
+            /// - QUESTION: 끝난 쿠폰은 환급형, 증정형 둘다 따로 API 불러와야하는지 알아보기
+            Task{
+                switch selectedCategoryIndex {
+                case 0: await viewModel.fetchMemberPaybackCoupon(type: CouponStatus(index: 0)?.toString() ?? "", memberCouponId: nil, size: nil)
+                case 1: await viewModel.fetchMemberCoupon(type: CouponStatus(index: 0)?.toString() ?? "", memberCouponId: nil, size: nil)
+                case 2: await viewModel.fetchMemberCoupon(type: CouponStatus(index: 1)?.toString() ?? "", memberCouponId: nil, size: nil)
+                default:
+                    break
+                }
             }
         }
     }

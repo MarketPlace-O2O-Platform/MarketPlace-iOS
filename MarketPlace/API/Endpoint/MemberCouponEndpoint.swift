@@ -11,6 +11,7 @@ enum MemberCouponEndpoint: Endpoint {
     case downloadCoupon(couponId: Int)
     case fetchMemberCoupon(type: String, memberCouponId: Int?, size: Int?)
     case useMemberCoupon(memberCouponId: Int)
+    case fetchMemeberPaybackCoupon(type: String, memberCouponId: Int?, size: Int?)
 
     var baseURL: URL { URLManager.shared.baseURL }
 
@@ -19,13 +20,16 @@ enum MemberCouponEndpoint: Endpoint {
         case .downloadCoupon(let couponId): return "api/members/coupons/\(couponId)"
         case .fetchMemberCoupon: return "api/members/coupons"
         case .useMemberCoupon: return "api/members/coupons"
+        case .fetchMemeberPaybackCoupon: return "api/members/payback-coupons"
         }
     }
 
     var method: HTTPMethod {
         switch self {
         case .downloadCoupon: .post
-        case .fetchMemberCoupon: .get
+        case .fetchMemberCoupon,
+            .fetchMemeberPaybackCoupon:
+                .get
         case .useMemberCoupon:.put
         }
     }
@@ -36,7 +40,8 @@ enum MemberCouponEndpoint: Endpoint {
     
     var queryItems: [URLQueryItem]? {
         switch self {
-        case .fetchMemberCoupon(let type, let memberCouponId, let size):
+        case .fetchMemberCoupon(let type, let memberCouponId, let size),
+            .fetchMemeberPaybackCoupon(let type, let memberCouponId, let size):
             var items: [URLQueryItem] = []
             
             items.append(contentsOf: [

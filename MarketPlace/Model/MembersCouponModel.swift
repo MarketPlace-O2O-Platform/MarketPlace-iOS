@@ -4,11 +4,14 @@ import SwiftUI
 struct MembersCouponModel: Codable {
     let memberCouponId: Int
     let couponId: Int
-    let couponName: String
+    let marketName: String
     let thumbnail: String
+    let couponName: String
+    let couponType: String
     let description: String
     let deadLine: String
     var used: Bool
+    let expired: Bool
     
     // `deadLine`을 Date 타입으로 변환하기 위한 커스텀 프로퍼티
     var deadLineDate: Date? {

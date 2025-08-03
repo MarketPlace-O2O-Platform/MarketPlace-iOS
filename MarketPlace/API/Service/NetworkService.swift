@@ -57,6 +57,7 @@ final class NetworkService: NetworkServiceProtocol {
     // MARK: - 기본 API request 메서드
     func request<T: Decodable>(_ endpoint: Endpoint) async -> NetworkResult<T>  {
         var request = endpoint.urlRequest
+        print(request.url)
 
         if let token = KeychainManager.getToken() {
             request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
