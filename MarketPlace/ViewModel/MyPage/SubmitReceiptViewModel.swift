@@ -9,26 +9,32 @@ import Foundation
 
 @MainActor
 final class SubmitReceiptViewModel: ObservableObject {
-    @Published var Receipt: [ReceiptModel] = []
+    @Published var Receipt: ReceiptModel = ReceiptModel(couponId: 0, isUsed: false)
     @Published var isUsed: Bool = false
-
-    var message : String = ""
+    private var memberCouponId: Int
     
     private var couponService: CouponServiceProtocol
 
-    init(couponService: CouponServiceProtocol = CouponService()) {
+    init(
+        memberCouponId: Int,
+        couponService: CouponServiceProtocol = CouponService()
+    ) {
+        self.memberCouponId = memberCouponId
         self.couponService = couponService
     }
     
-    // MARK: - 자신이 찜한 매장 조회
-    func putSubmitRecipt(memberCouponId: Int) async {
-        let result = await couponService.putSubmitReceipt(memberCouponId: memberCouponId)
+    var couponId: Int {
+        return memberCouponId
+    }
+    
+    // MARK: - 환급 쿠폰 영수증 제출 API
+    func putSubmitRecipt(memberCouponId: Int, image: Data) async {
+        let result = await couponService.putSubmitReceipt(memberCouponId: memberCouponId, image: image)
         
         switch result {
         case .success(let data, _):
-            self.message = data.message
             self.isUsed = data.response.isUsed
-            print(message)
+            print(data.message)
         case .failure(let statusCode, let message):
             print("[SubmitReceipt] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }

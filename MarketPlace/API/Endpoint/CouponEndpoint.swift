@@ -14,7 +14,7 @@ enum CouponEndpoint: Endpoint {
     case fetchTopClosingCoupon(pageSize: Int?)
     case fetchPopularCoupon(lastIssuedCount: Int?, lastCouponId: Int?, pageSize: Int?)
     case fetchLatestCoupon(lastCreatedAt: String?, lastCouponId: Int?, pageSize: Int?)
-    case putSubmitReceipt(memberCouponId: Int)
+    case putSubmitReceipt(memberCouponId: Int, image: Data)
     
     var baseURL: URL { URLManager.shared.baseURL }
     
@@ -49,7 +49,16 @@ enum CouponEndpoint: Endpoint {
         }
     }
     
-    var body: Data? { nil }
+    var body: Data? {
+        switch self {
+        case .putSubmitReceipt(_, let image):
+            return image
+        default:
+            break
+        }
+        
+        return nil
+    }
     
     var queryItems: [URLQueryItem]? {
         switch self {
@@ -91,7 +100,7 @@ enum CouponEndpoint: Endpoint {
             
             return items
             
-        case .putSubmitReceipt(let memberCouponId):
+        case .putSubmitReceipt(let memberCouponId, _):
             return [URLQueryItem(name: "memberCouponId", value: String(memberCouponId))]
         }
     }

@@ -81,8 +81,14 @@ struct MyCouponView: View {
         
         return MyCouponCell(viewModel: viewModel) {
             // TODO: 쿠폰 타입에 따른 영수증 등록 or 팝업 올라가도록 구현하면될듯
-            selectedCoupon = coupon
-            showingPopup = true
+            switch selectedCategoryIndex {
+            case 0: print("환급쿠폰 사용하자!")
+                
+            case 1:
+                selectedCoupon = coupon
+                showingPopup = true
+            default: break
+            }
         }
     }
 }
