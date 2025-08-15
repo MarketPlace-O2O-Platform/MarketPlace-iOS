@@ -26,7 +26,7 @@ enum CouponEndpoint: Endpoint {
         case .fetchTopClosingCoupon: return "api/coupons/top/closing"
         case .fetchPopularCoupon: return "api/coupons/popular"
         case .fetchLatestCoupon: return "api/coupons/latest"
-        case .putSubmitReceipt: return "api/members/payback-coupons?memberCouponId=3"
+        case .putSubmitReceipt: return "api/members/payback-coupons"
         }
     }
     
@@ -40,7 +40,14 @@ enum CouponEndpoint: Endpoint {
         }
     }
     
-    var headers: [String : String]? { ["Content-Type": "application/json"] }
+    var headers: [String : String]? {
+        switch self {
+        case .putSubmitReceipt:
+            ["accept": "*/*", "Content-Type": "multipart/form-data"]
+        default:
+            ["Content-Type": "application/json"]
+        }
+    }
     
     var body: Data? { nil }
     

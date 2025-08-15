@@ -13,7 +13,8 @@ enum CouponStatus: String, CaseIterable {
     init?(index: Int) {
         switch index {
         case 0: self = .issued
-        case 1: self = .ended
+        case 1: self = .issued
+        case 2: self = .ended
         default: return nil
         }
     }

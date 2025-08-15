@@ -54,15 +54,11 @@ struct MyCouponCell: View {
                     .padding(.horizontal ,20)
                     .disabled(!viewModel.canUse)
                     
-                    Button(action: {
-                        
-                    }, label: {
-                        Text("쿠러미 카카오채널로 영수증 전송")
-                            .pretendardFont(size: 14, weight: .regular)
-                            .foregroundStyle(Color(hex: "#727272"))
-                    })
-                    .padding(.leading, 20)
-                    .padding(.top, 20)
+                    Text(viewModel.coupon.description)
+                        .pretendardFont(size: 14, weight: .regular)
+                        .foregroundStyle(Color(hex: "#727272"))
+                        .padding(.leading, 20)
+                        .padding(.top, 20)
                 }
             }
     }
