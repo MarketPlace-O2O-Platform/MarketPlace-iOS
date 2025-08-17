@@ -15,7 +15,8 @@ struct MyCouponView: View {
     @StateObject private var viewModel = MyCouponViewModel()
     
     @State private var showingPopup = false
-    @State private var selectedCoupon: MembersCouponModel?
+    @State private var selectedPaybackCoupon: MembersCouponModel? = nil
+    @State private var selectedCoupon: MembersCouponModel? = nil
     @State private var selectedCategoryIndex = 0
     
     var body: some View {
@@ -31,7 +32,7 @@ struct MyCouponView: View {
                                 .foregroundColor(.gray)
                                 .padding()
                         } else {
-                            ForEach(viewModel.memberCoupons, id: \.memberCouponId) { coupon in
+                            ForEach(viewModel.memberCoupons) { coupon in
                                 makeCouponCell(for: coupon)
                             }
                         }
@@ -72,6 +73,9 @@ struct MyCouponView: View {
                 }
             }
         }
+        .sheet(item: $selectedPaybackCoupon) { item in
+            RegisterReceiptView(viewModel: SubmitReceiptViewModel(memberCouponId: item.memberCouponId))
+        }
     }
     
     // MARK: - coupon Cell 생성
@@ -80,10 +84,9 @@ struct MyCouponView: View {
         let viewModel = MyCouponCellViewModel(coupon: coupon, couponStatus: status)
         
         return MyCouponCell(viewModel: viewModel) {
-            // TODO: 쿠폰 타입에 따른 영수증 등록 or 팝업 올라가도록 구현하면될듯
             switch selectedCategoryIndex {
-            case 0: print("환급쿠폰 사용하자!")
-                
+            case 0:
+                selectedPaybackCoupon = coupon
             case 1:
                 selectedCoupon = coupon
                 showingPopup = true

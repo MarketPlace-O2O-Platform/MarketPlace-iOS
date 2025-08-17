@@ -95,6 +95,7 @@ struct RegisterReceiptView: View {
                 // - TODO: 영수증 보내는 API
                 if let image = image,
                    let jpgImageData = image.jpegData(compressionQuality: 0.2) {
+                    
                     Task {
                         await viewModel.putSubmitRecipt(memberCouponId: viewModel.couponId, image: jpgImageData)
                         presentationMode.wrappedValue.dismiss()
