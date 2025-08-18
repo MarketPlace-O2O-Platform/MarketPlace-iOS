@@ -28,37 +28,54 @@ struct MainHeaderView: View {
                     ZStack(alignment: .leading) {
                         Image(systemName: "magnifyingglass")
                             .foregroundColor(Color(hex: "#121212"))
-                            .padding(.leading, 11)
+                            .padding(.leading, 14)
                         
                         Text("|")
                             .foregroundColor(Color(hex: "#C6C6C6"))
-                            .padding(.leading, 35)
+                            .padding(.leading, 38)
                         
                         /// - NOTE: placeholder
+                        ///
+                        /// 
                         if searchText.isEmpty {
                             Text("가고 싶은 매장을 찾아보세요")
-                                .pretendardFont(size: 8, weight: .regular)
-                                .foregroundColor(Color(hex: "#C6C6C6"))
+                                .pretendardFont(size: SearchViewConstants.FontSize.searchText, weight: .regular)
+                                .foregroundColor(SearchViewConstants.Colors.placeholderColor)
                                 .padding(.leading, 6)
-                                .padding(.leading, 45)
-                            
+                                .padding(.leading, 43)
                         }
                         
                         TextField("", text: $searchText)
-                            .pretendardFont(size: 8, weight: .regular)
-                            .foregroundColor(Color(hex: "#333333"))
+                            .pretendardFont(size: SearchViewConstants.FontSize.searchText, weight: .regular)
+                            .foregroundColor(SearchViewConstants.Colors.textColor)
                             .padding(.vertical, 8)
                             .padding(.leading, 6)
-                            .padding(.leading, 45)
+                            .padding(.leading, 35)
+                        
+                        
+//                            Text("가고 싶은 매장을 찾아보세요")
+//                                .pretendardFont(size: 14, weight: .regular)
+//                                .foregroundColor(Color(hex: "#C6C6C6"))
+//                                .padding(.leading, 6)
+//                                .padding(.leading, 43)
+//                            
+//                        }
+                        
+//                        TextField("", text: $searchText)
+//                            .pretendardFont(size: 14, weight: .regular)
+//                            .foregroundColor(Color(hex: "#333333"))
+//                            .padding(.vertical, 8)
+//                            .padding(.leading, 6)
+//                            .padding(.leading, 35)
                         
                     }
+                    .frame(height: 35)
                     .background(Color(hex: "#FAFAFA"))
                     .cornerRadius(34.614)
                     .overlay(
                         RoundedRectangle(cornerRadius: 34.614)
                             .stroke(Color.clear, lineWidth: 0)
                     )
-                    .frame(height: 40)
                     .navigationDestination(isPresented: $isSearchViewActive) {
                         SearchView()
                     }
