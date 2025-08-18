@@ -39,6 +39,7 @@ struct CouponValidModel: Codable, Identifiable {
     let deadLine: String
     var isAvailable: Bool
     var isMemberIssued: Bool
+    var couponType: String
 
     var id: Int { couponId }
 }

@@ -22,7 +22,7 @@ enum CouponEndpoint: Endpoint {
     var path: String {
         switch self {
         case .fetchValidCoupon: return "api/coupons"
-        case .fetchValidPaybackCoupon: return "api/coupons/payback-coupons"
+        case .fetchValidPaybackCoupon: return "api/payback-coupons"
         case .fetchTopPoplarCoupon: return "api/coupons/top/popular"
         case .fetchTopLatestCoupon: return "api/coupons/top/latest"
         case .fetchTopClosingCoupon: return "api/coupons/top/closing"
