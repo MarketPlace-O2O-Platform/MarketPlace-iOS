@@ -11,6 +11,9 @@ protocol MemberCouponServiceProtocol {
     // MARK: - 회원 쿠폰 발급 API
     func downloadCoupon(couponId: Int) async -> NetworkResult<CommonMsgResDTO>
     
+    // MARK: - 회원 환급쿠폰 발급 API
+    func downloadPaybackCoupon(couponId: Int) async -> NetworkResult<CommonMsgResDTO>
+    
     // MARK: - 회원 쿠폰 리스트 API
     func fetchMemberCoupon(type: String, memberCouponId: Int?, size: Int?) async -> NetworkResult<APIResDto<MembersCouponResponse>>
     
@@ -34,6 +37,13 @@ final class MemberCouponService: MemberCouponServiceProtocol {
     func downloadCoupon(couponId: Int) async -> NetworkResult<CommonMsgResDTO> {
         return await networkService.request(
             MemberCouponEndpoint.downloadCoupon(couponId: couponId)
+        )
+    }
+    
+    // MARK: - 회원 환급쿠폰 발급 API
+    func downloadPaybackCoupon(couponId: Int) async -> NetworkResult<CommonMsgResDTO> {
+        return await networkService.request(
+            MemberCouponEndpoint.downloadPaybackCoupon(couponId: couponId)
         )
     }
     
