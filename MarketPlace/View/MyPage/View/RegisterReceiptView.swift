@@ -95,9 +95,10 @@ struct RegisterReceiptView: View {
                 // - TODO: 영수증 보내는 API
                 if let image = image,
                    let jpgImageData = image.jpegData(compressionQuality: 0.2) {
+                    let boundary = "Boundary-\(UUID().uuidString)"
                     
                     Task {
-                        await viewModel.putSubmitRecipt(memberCouponId: viewModel.couponId, image: jpgImageData)
+                        await viewModel.putSubmitRecipt(memberCouponId: viewModel.couponId, image: jpgImageData, bodyBoundary: boundary)
                         presentationMode.wrappedValue.dismiss()
                     }
                 }

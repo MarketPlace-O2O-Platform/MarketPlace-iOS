@@ -27,7 +27,7 @@ protocol CouponServiceProtocol {
     func fetchLatestCoupons(lastCreatedAt: String?, lastCouponId: Int?, pageSize: Int?) async -> NetworkResult<APIResDto<CouponNewResponse>>
     
     // MARK: - 영수증 쿠폰 제출하기
-    func putSubmitReceipt(memberCouponId: Int, image: Data) async -> NetworkResult<APIResDto<ReceiptModel>>
+    func putSubmitReceipt(memberCouponId: Int, image: Data, bodyBoundary: String) async -> NetworkResult<APIResDto<ReceiptModel>>
 }
 
 
@@ -102,10 +102,11 @@ final class CouponService: CouponServiceProtocol {
     // MARK: - 쿠폰 영수증 제출
     func putSubmitReceipt(
         memberCouponId: Int,
-        image: Data
+        image: Data,
+        bodyBoundary: String
     ) async -> NetworkResult<APIResDto<ReceiptModel>> {
         return await networkService.request(
-            CouponEndpoint.putSubmitReceipt(memberCouponId: memberCouponId, image: image)
+            CouponEndpoint.putSubmitReceipt(memberCouponId: memberCouponId, image: image, bodyBoundary: bodyBoundary)
         )
     }
 }
