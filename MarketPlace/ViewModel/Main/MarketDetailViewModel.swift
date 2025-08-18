@@ -1,6 +1,5 @@
 import Foundation
 
-@MainActor
 final class MarketDetailViewModel: ObservableObject {
     @Published var marketDetail: MarketDetailModel?
     @Published var errorMessage: String?

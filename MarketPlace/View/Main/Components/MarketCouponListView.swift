@@ -95,8 +95,6 @@ struct MarketCouponListView: View {
     }
 }
 
-
-
 struct ToastView: View {
     let message: String
     @Binding var isShowing: Bool

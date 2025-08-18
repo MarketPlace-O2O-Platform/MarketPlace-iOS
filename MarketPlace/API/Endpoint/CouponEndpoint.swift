@@ -9,6 +9,7 @@ import Foundation
 
 enum CouponEndpoint: Endpoint {
     case fetchValidCoupon(marketId: Int, couponId: Int?, size: Int?)
+    case fetchValidPaybackCoupon(marketId: Int, couponId: Int?, size: Int?)
     case fetchTopPoplarCoupon(pageSize: Int?)
     case fetchTopLatestCoupon(pageSize: Int?)
     case fetchTopClosingCoupon(pageSize: Int?)
@@ -21,6 +22,7 @@ enum CouponEndpoint: Endpoint {
     var path: String {
         switch self {
         case .fetchValidCoupon: return "api/coupons"
+        case .fetchValidPaybackCoupon: return "api/coupons/payback-coupons"
         case .fetchTopPoplarCoupon: return "api/coupons/top/popular"
         case .fetchTopLatestCoupon: return "api/coupons/top/latest"
         case .fetchTopClosingCoupon: return "api/coupons/top/closing"
@@ -90,7 +92,8 @@ enum CouponEndpoint: Endpoint {
             
             return items
             
-        case .fetchValidCoupon(let marketId, let couponId, let size):
+        case .fetchValidCoupon(let marketId, let couponId, let size),
+            .fetchValidPaybackCoupon(let marketId, let couponId, let size):
             var items: [URLQueryItem] = []
             
             items.append(contentsOf: [
