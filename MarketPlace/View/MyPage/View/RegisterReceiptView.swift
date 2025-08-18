@@ -15,7 +15,10 @@ struct RegisterReceiptView: View {
     @State private var isSaveAccount: Bool = false
     @State var image: UIImage?
     
-    init() {
+    @ObservedObject var viewModel: SubmitReceiptViewModel
+    
+    init(viewModel: SubmitReceiptViewModel) {
+        self.viewModel = viewModel
         setupNavigationBarAppearance()
     }
     
@@ -90,7 +93,15 @@ struct RegisterReceiptView: View {
             
             Button(action: {
                 // - TODO: 영수증 보내는 API
-                presentationMode.wrappedValue.dismiss()
+                if let image = image,
+                   let jpgImageData = image.jpegData(compressionQuality: 0.2) {
+                    let boundary = "Boundary-\(UUID().uuidString)"
+                    
+                    Task {
+                        await viewModel.putSubmitRecipt(memberCouponId: viewModel.couponId, image: jpgImageData, bodyBoundary: boundary)
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                }
             }) {
                 Text("저장하기")
                     .pretendardFont(size: 14, weight: .bold)
@@ -138,8 +149,4 @@ struct RegisterReceiptView: View {
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
-}
-
-#Preview {
-    RegisterReceiptView()
 }

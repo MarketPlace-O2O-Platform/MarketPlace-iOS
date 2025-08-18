@@ -22,7 +22,7 @@ struct MyCouponCell: View {
                         )
                         
                         VStack(alignment: .leading, spacing: 7) {
-                            Text("하노이키친 인천대점")
+                            Text(viewModel.coupon.marketName)
                                 .pretendardFont(size: 14, weight: .regular)
                                 .lineLimit(1)
                                 .foregroundStyle(Color(hex: "#727272"))
@@ -54,15 +54,11 @@ struct MyCouponCell: View {
                     .padding(.horizontal ,20)
                     .disabled(!viewModel.canUse)
                     
-                    Button(action: {
-                        
-                    }, label: {
-                        Text("쿠러미 카카오채널로 영수증 전송")
-                            .pretendardFont(size: 14, weight: .regular)
-                            .foregroundStyle(Color(hex: "#727272"))
-                    })
-                    .padding(.leading, 20)
-                    .padding(.top, 20)
+                    Text(viewModel.coupon.description)
+                        .pretendardFont(size: 14, weight: .regular)
+                        .foregroundStyle(Color(hex: "#727272"))
+                        .padding(.leading, 20)
+                        .padding(.top, 20)
                 }
             }
     }

@@ -28,17 +28,17 @@ final class MyCouponCellViewModel: ObservableObject {
         switch couponStatus {
         case .issued:
             return "사용하러 가기"
-        case .used:
+        case .ended:
             return "사용 완료"
-        case .expired:
-            return "기간 만료"
+//        case .expired:
+//            return "기간 만료"
         }
     }
 
     var formattedDeadline: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
-        guard let date = formatter.date(from: coupon.deadLine) else { return coupon.deadLine }
+        guard let date = formatter.date(from: coupon.deadLine ?? "") else { return coupon.deadLine ?? "" }
         formatter.dateFormat = "yyyy년 MM월 dd일까지"
         return formatter.string(from: date)
     }

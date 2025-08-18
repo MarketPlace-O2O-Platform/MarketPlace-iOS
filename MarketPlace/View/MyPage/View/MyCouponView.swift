@@ -15,7 +15,8 @@ struct MyCouponView: View {
     @StateObject private var viewModel = MyCouponViewModel()
     
     @State private var showingPopup = false
-    @State private var selectedCoupon: MembersCouponModel?
+    @State private var selectedPaybackCoupon: MembersCouponModel? = nil
+    @State private var selectedCoupon: MembersCouponModel? = nil
     @State private var selectedCategoryIndex = 0
     
     var body: some View {
@@ -31,7 +32,7 @@ struct MyCouponView: View {
                                 .foregroundColor(.gray)
                                 .padding()
                         } else {
-                            ForEach(viewModel.memberCoupons, id: \.memberCouponId) { coupon in
+                            ForEach(viewModel.memberCoupons) { coupon in
                                 makeCouponCell(for: coupon)
                             }
                         }
@@ -58,15 +59,22 @@ struct MyCouponView: View {
         .navigationBarBackButtonHidden(true)
         .onAppear {
             Task {
-                // TODO: 환급형 쿠폰 발급
-                await viewModel.fetchMemberCoupon(type: CouponStatus(index: selectedCategoryIndex)?.toString() ?? "", memberCouponId: nil, size: nil)
+                await viewModel.fetchMemberPaybackCoupon(type: CouponStatus(index: 0)?.toString() ?? "", memberCouponId: nil, size: nil)
             }
         }
         .onChange(of: selectedCategoryIndex) {
-            // TODO: switch로 카테고리 별로 다르게 API 해야할듯
             Task {
-                await viewModel.fetchMemberCoupon(type: CouponStatus(index: selectedCategoryIndex)?.toString() ?? "", memberCouponId: nil, size: nil)
+                switch selectedCategoryIndex {
+                case 0: await viewModel.fetchMemberPaybackCoupon(type: CouponStatus(index: 0)?.toString() ?? "", memberCouponId: nil, size: nil)
+                case 1: await viewModel.fetchMemberCoupon(type: CouponStatus(index: 0)?.toString() ?? "", memberCouponId: nil, size: nil)
+                case 2: await viewModel.fetchEndedCoupon()
+                default:
+                    break
+                }
             }
+        }
+        .sheet(item: $selectedPaybackCoupon) { item in
+            RegisterReceiptView(viewModel: SubmitReceiptViewModel(memberCouponId: item.memberCouponId))
         }
     }
     
@@ -76,9 +84,14 @@ struct MyCouponView: View {
         let viewModel = MyCouponCellViewModel(coupon: coupon, couponStatus: status)
         
         return MyCouponCell(viewModel: viewModel) {
-            // TODO: 쿠폰 타입에 따른 영수증 등록 or 팝업 올라가도록 구현하면될듯
-            selectedCoupon = coupon
-            showingPopup = true
+            switch selectedCategoryIndex {
+            case 0:
+                selectedPaybackCoupon = coupon
+            case 1:
+                selectedCoupon = coupon
+                showingPopup = true
+            default: break
+            }
         }
     }
 }

@@ -64,6 +64,14 @@ final class NetworkService: NetworkServiceProtocol {
             print("[KeyChainError] = 토큰을 찾을 수 없습니다.")
         }
         
+        if let body = endpoint.body {
+            request.httpBody?.append(body)
+        }
+        
+        print(request.url)
+        print(request.allHTTPHeaderFields)
+        print(request.httpBody)
+        
         do {
             
             let (data, response) = try await URLSession.shared.data(for: request)

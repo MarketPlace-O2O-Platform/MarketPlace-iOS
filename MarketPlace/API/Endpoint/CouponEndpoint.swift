@@ -14,10 +14,10 @@ enum CouponEndpoint: Endpoint {
     case fetchTopClosingCoupon(pageSize: Int?)
     case fetchPopularCoupon(lastIssuedCount: Int?, lastCouponId: Int?, pageSize: Int?)
     case fetchLatestCoupon(lastCreatedAt: String?, lastCouponId: Int?, pageSize: Int?)
-    case putSubmitReceipt(memberCouponId: Int)
+    case putSubmitReceipt(memberCouponId: Int, image: Data, bodyBoundary: String)
     
     var baseURL: URL { URLManager.shared.baseURL }
-    
+        
     var path: String {
         switch self {
         case .fetchValidCoupon: return "api/coupons"
@@ -26,7 +26,7 @@ enum CouponEndpoint: Endpoint {
         case .fetchTopClosingCoupon: return "api/coupons/top/closing"
         case .fetchPopularCoupon: return "api/coupons/popular"
         case .fetchLatestCoupon: return "api/coupons/latest"
-        case .putSubmitReceipt: return "api/members/payback-coupons?memberCouponId=3"
+        case .putSubmitReceipt: return "api/members/payback-coupons"
         }
     }
     
@@ -40,9 +40,26 @@ enum CouponEndpoint: Endpoint {
         }
     }
     
-    var headers: [String : String]? { ["Content-Type": "application/json"] }
+    var headers: [String : String]? {
+        switch self {
+        case .putSubmitReceipt(_ , _  ,let bodyBoundary):
+            let contentType = "multipart/form-data; boundary=\(bodyBoundary)"
+            return ["accept": "*/*", "Content-Type": contentType]
+        default:
+            return ["Content-Type": "application/json"]
+        }
+    }
     
-    var body: Data? { nil }
+    var body: Data? {
+        switch self {
+        case .putSubmitReceipt(_, let image, let bodyBoundary):
+            return setMultipartFormData(image: image, boundary: bodyBoundary)
+        default:
+            break
+        }
+        
+        return nil
+    }
     
     var queryItems: [URLQueryItem]? {
         switch self {
@@ -84,8 +101,23 @@ enum CouponEndpoint: Endpoint {
             
             return items
             
-        case .putSubmitReceipt(let memberCouponId):
+        case .putSubmitReceipt(let memberCouponId, _, _):
             return [URLQueryItem(name: "memberCouponId", value: String(memberCouponId))]
         }
+    }
+}
+
+private extension CouponEndpoint {
+    /// - NOTE: Multipart FormData를 body에 추가하기 위한 로직 
+    func setMultipartFormData(image: Data, boundary: String) -> Data {
+        var body = Data()
+        body.append("--\(boundary)\r\n".data(using: .utf8)!)
+        body.append("Content-Disposition: form-data; name=\"image\"; filename=\"image.png\"\r\n".data(using: .utf8)!)
+        body.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
+        body.append(image)
+        body.append("\r\n".data(using: .utf8)!)
+        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
+        
+        return body
     }
 }
