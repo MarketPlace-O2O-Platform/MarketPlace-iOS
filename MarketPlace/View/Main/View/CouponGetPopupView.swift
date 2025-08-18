@@ -70,8 +70,18 @@ struct CouponGetPopupView: View {
         coupon.isMemberIssued = true
         isPopupVisible = false
         
-        Task {
-            await viewModel.downloadCoupons(couponId: coupon.couponId)
+        switch coupon.couponType {
+        case "PAYBACK":
+            Task {
+                await viewModel.downloadPaybackCoupons(couponId: coupon.couponId)
+            }
+        case "GIFT":
+            Task {
+                await viewModel.downloadCoupons(couponId: coupon.couponId)
+            }
+            
+        default:
+            break
         }
     }
 }
