@@ -9,6 +9,7 @@ import Foundation
 
 enum MemberCouponEndpoint: Endpoint {
     case downloadCoupon(couponId: Int)
+    case downloadPaybackCoupon(couponId: Int)
     case fetchMemberCoupon(type: String, memberCouponId: Int?, size: Int?)
     case useMemberCoupon(memberCouponId: Int)
     case fetchMemeberPaybackCoupon(type: String, memberCouponId: Int?, size: Int?)
@@ -18,6 +19,7 @@ enum MemberCouponEndpoint: Endpoint {
     var path: String {
         switch self {
         case .downloadCoupon(let couponId): return "api/members/coupons/\(couponId)"
+        case .downloadPaybackCoupon(let couponId): return "api/members/payback-coupons/\(couponId)"
         case .fetchMemberCoupon: return "api/members/coupons"
         case .useMemberCoupon: return "api/members/coupons"
         case .fetchMemeberPaybackCoupon: return "api/members/payback-coupons"
@@ -26,7 +28,9 @@ enum MemberCouponEndpoint: Endpoint {
 
     var method: HTTPMethod {
         switch self {
-        case .downloadCoupon: .post
+        case .downloadCoupon,
+            .downloadPaybackCoupon:
+                .post
         case .fetchMemberCoupon,
             .fetchMemeberPaybackCoupon:
                 .get

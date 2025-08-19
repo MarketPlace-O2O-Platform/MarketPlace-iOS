@@ -29,4 +29,16 @@ final class CouponPopupViewModel: ObservableObject {
             print("[downloadCoupons] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }
     }
+    
+    func downloadPaybackCoupons(couponId: Int) async {
+        let result = await memberCouponSerivce.downloadPaybackCoupon(couponId: couponId)
+        
+        switch result {
+        case .success(let data, _):
+            self.message = data.message
+            print(message)
+        case .failure(let statusCode, let message):
+            print("[downloadPaybackCoupons] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+        }
+    }
 }

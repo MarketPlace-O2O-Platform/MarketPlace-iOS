@@ -1,6 +1,5 @@
 import Foundation
 
-@MainActor
 final class MarketDetailViewModel: ObservableObject {
     @Published var marketDetail: MarketDetailModel?
     @Published var errorMessage: String?
@@ -44,17 +43,30 @@ final class MarketDetailViewModel: ObservableObject {
         size: Int?
     ) async {
         
-        let result = await couponService.fetchValidCoupon(
+        let validCoupon = await couponService.fetchValidCoupon(
             marketId: marketId,
             couponId: couponId,
             size: size
         )
         
-        switch result {
-        case .success(let data, _):
+        let validPaybackCoupon = await couponService.fetchValidPaybackCoupon(
+            marketId: marketId,
+            couponId: couponId,
+            size: size
+        )
+        
+        switch (validPaybackCoupon, validCoupon) {
+        case (.success(let data1, _), .success(let data2, _)):
+            self.validCoupons = data1.response.couponResDtos
+            self.validCoupons.append(contentsOf: data2.response.couponResDtos)
+        case (.success(let data, _), .failure(let statusCode, let message)):
             self.validCoupons = data.response.couponResDtos
-        case .failure(let statusCode, let message):
-            print("[fetchValidCoupons] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+            print("[fetchValidPaybackCoupon] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+        case (.failure(let statusCode, let message), .success(let data, _)):
+            self.validCoupons = data.response.couponResDtos
+            print("[fetchValidCoupon] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+        default:
+            print("[fetchValidCoupons] - 데이터가 없습니다.")
         }
     }
 }

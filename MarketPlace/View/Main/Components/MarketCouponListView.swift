@@ -45,27 +45,44 @@ struct MarketCouponListView: View {
                                 .lineLimit(2)
                                 .multilineTextAlignment(.leading)
                                 .frame(maxWidth: 200, alignment: .leading)
-
-                            Text(coupon.deadLine.toKoreanDateFormat())
-                                .pretendardFont(size: 14, weight: .regular)
-                                .foregroundColor(.white)
+                            if let deadline = coupon.deadLine {
+                                Text(deadline.toKoreanDateFormat())
+                                    .pretendardFont(size: 14, weight: .regular)
+                                    .foregroundColor(.white)
+                            } else {
+                                Text("행사 종료시 까지")
+                                    .pretendardFont(size: 14, weight: .regular)
+                                    .foregroundColor(.white)
+                            }
                         }
                         .padding(.leading, 25)
                         .padding(.vertical, 5)
-                        .opacity(coupon.isAvailable ? 1.0 : 0.5)
                     }
                     .padding(.horizontal, 16)
                     .tag(index)
                     .onTapGesture {
-                        if coupon.isAvailable && !coupon.isMemberIssued {
-                            selectedCouponId = coupon.id
-                            isPopupVisible = true
-                        } else if coupon.isMemberIssued {
-                            toastMessage = "이미 발급 완료된 쿠폰입니다"
-                            showToast = true
-                        } else if !coupon.isAvailable {
-                            toastMessage = "기한이 만료되었습니다"
-                            showToast = true
+                        // - CASE: 증정 쿠폰
+                        if let isAvailable = coupon.isAvailable {
+                            if isAvailable && !coupon.isMemberIssued {
+                                selectedCouponId = coupon.id
+                                isPopupVisible = true
+                            } else if coupon.isMemberIssued {
+                                toastMessage = "이미 발급 완료된 쿠폰입니다."
+                                showToast = true
+                            } else if !isAvailable {
+                                toastMessage = "기한이 만료되었습니다."
+                                showToast = true
+                            }
+                        }
+                        // - CASE: 환급 쿠폰
+                        else {
+                            if !coupon.isMemberIssued {
+                                selectedCouponId = coupon.id
+                                isPopupVisible = true
+                            } else {
+                                toastMessage = "이미 발급 완료된 쿠폰입니다."
+                                showToast = true
+                            }
                         }
                     }
                 }
@@ -94,8 +111,6 @@ struct MarketCouponListView: View {
         }
     }
 }
-
-
 
 struct ToastView: View {
     let message: String

@@ -69,8 +69,6 @@ final class NetworkService: NetworkServiceProtocol {
         }
         
         print(request.url)
-        print(request.allHTTPHeaderFields)
-        print(request.httpBody)
         
         do {
             
