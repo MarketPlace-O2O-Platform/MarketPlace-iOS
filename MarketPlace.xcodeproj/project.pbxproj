@@ -114,6 +114,7 @@
 		B24272632E2657C700E3B0ED /* SubmitReceiptViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24272622E2657C700E3B0ED /* SubmitReceiptViewModel.swift */; };
 		B255A5CE2D6218A000954837 /* MarketModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B255A5CD2D6218A000954837 /* MarketModel.swift */; };
 		B26F4E872E54400F00C39C37 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26F4E862E54400F00C39C37 /* NotificationModel.swift */; };
+		B26F4E892E54650C00C39C37 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26F4E882E54650C00C39C37 /* NotificationService.swift */; };
 		B27E56CD2D7037AF000D2881 /* CheerMarketModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27E56CC2D7037AF000D2881 /* CheerMarketModel.swift */; };
 		B27E56D32D703FBB000D2881 /* CheerCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27E56D22D703FBB000D2881 /* CheerCardCell.swift */; };
 		B27E56D52D704438000D2881 /* HotCheerCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27E56D42D704438000D2881 /* HotCheerCardCell.swift */; };
@@ -281,6 +282,7 @@
 		B24272622E2657C700E3B0ED /* SubmitReceiptViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitReceiptViewModel.swift; sourceTree = "<group>"; };
 		B255A5CD2D6218A000954837 /* MarketModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketModel.swift; sourceTree = "<group>"; };
 		B26F4E862E54400F00C39C37 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
+		B26F4E882E54650C00C39C37 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		B27E56CC2D7037AF000D2881 /* CheerMarketModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerMarketModel.swift; sourceTree = "<group>"; };
 		B27E56D22D703FBB000D2881 /* CheerCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerCardCell.swift; sourceTree = "<group>"; };
 		B27E56D42D704438000D2881 /* HotCheerCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotCheerCardCell.swift; sourceTree = "<group>"; };
@@ -459,6 +461,7 @@
 				2941F7902DE5A2E00063CEFE /* MemberService.swift */,
 				2941F7922DE5A2FD0063CEFE /* MemberCouponService.swift */,
 				29D53BF82DE84728008E4F2E /* CheerMarketService.swift */,
+				B26F4E882E54650C00C39C37 /* NotificationService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1146,6 +1149,7 @@
 				B27E56CD2D7037AF000D2881 /* CheerMarketModel.swift in Sources */,
 				B28A22C02D668B0600E86EF6 /* MyFavoriteShopListView.swift in Sources */,
 				B24272632E2657C700E3B0ED /* SubmitReceiptViewModel.swift in Sources */,
+				B26F4E892E54650C00C39C37 /* NotificationService.swift in Sources */,
 				29B5236B2E1503DF00120AE3 /* RegisterReceiptView.swift in Sources */,
 				29D87F462DE85AC500CE9011 /* CheerCardCellViewModel.swift in Sources */,
 				29E749322DEEA91100E765E0 /* MyCouponCellViewModel.swift in Sources */,
