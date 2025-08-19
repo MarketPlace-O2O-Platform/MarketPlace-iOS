@@ -12,7 +12,7 @@ struct SearchViewConstants {
     }
     
     struct FontSize {
-        static let searchText: CGFloat = 12
+        static let searchText: CGFloat = 14
     }
     
     struct Colors {

@@ -54,16 +54,12 @@ struct MyHeaderView: View {
                             .pretendardFont(size: MyHeaderViewConstants.FontSize.buttonText, weight: .medium)
                             .foregroundColor(Colors.borderColor)
                         
-                        Button(action: {
-                            /// - note: 고객 센터로가기
-                        }, label: {
-                            Text("고객센터")
-                                .pretendardFont(size: MyHeaderViewConstants.FontSize.buttonText, weight: .medium)
-                                .foregroundColor(Colors.textColor)
-                                .padding(.vertical, 6)
-                                .padding(.trailing, 10)
-                        })
-                    }
+                        Link("고객센터", destination: URL(string: "http://pf.kakao.com/_XkZnn")!)
+                            .pretendardFont(size: MyHeaderViewConstants.FontSize.buttonText, weight: .medium)
+                            .foregroundColor(Colors.textColor)
+                            .padding(.vertical, 6)
+                            .padding(.trailing, 10)
+                        }
                     .overlay(
                         RoundedRectangle(cornerRadius: MyHeaderViewConstants.cornerRadius)
                             .stroke(Colors.borderColor, lineWidth: 1)
