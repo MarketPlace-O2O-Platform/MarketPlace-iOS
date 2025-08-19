@@ -55,7 +55,7 @@ final class MarketDetailViewModel: ObservableObject {
             size: size
         )
         
-        switch (validCoupon, validPaybackCoupon) {
+        switch (validPaybackCoupon, validCoupon) {
         case (.success(let data1, _), .success(let data2, _)):
             self.validCoupons = data1.response.couponResDtos
             self.validCoupons.append(contentsOf: data2.response.couponResDtos)
