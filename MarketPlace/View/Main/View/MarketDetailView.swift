@@ -2,6 +2,7 @@ import SwiftUI
 
 struct MarketDetailView: View {
     @ObservedObject var viewModel: MarketDetailViewModel
+    @EnvironmentObject var loginViewModel: LoginViewModel
     @Environment(\.presentationMode) var presentationMode
     @State private var isBookmarked = false
     
@@ -9,6 +10,8 @@ struct MarketDetailView: View {
     @State private var selectedCouponId: Int = 0
     @State private var toastMessage: String = ""
     @State private var showToast: Bool = false
+    
+    @State private var isLoginRequiredPopupVisible: Bool = false
     
     private let marketId: Int
     
@@ -67,7 +70,7 @@ struct MarketDetailView: View {
                                 } else if !viewModel.validCoupons.isEmpty {
                                     MarketCouponListView(
                                         coupons: $viewModel.validCoupons,
-                                        isPopupVisible: $isPopupVisible,
+                                        isPopupVisible: (loginViewModel.isLoggedIn ? $isPopupVisible : $isLoginRequiredPopupVisible),
                                         selectedCouponId: $selectedCouponId,
                                         showToast: $showToast,
                                         toastMessage: $toastMessage,
@@ -126,11 +129,14 @@ struct MarketDetailView: View {
                 }
             }
             
+            if isLoginRequiredPopupVisible {
+                LoginRequriedPopup(isPopupVisible: $isLoginRequiredPopupVisible)
+                    .transition(.scale)
+            }
+            
             if isPopupVisible,
                let couponBinding = $viewModel.validCoupons.first(
-                where: {
-                    $0.wrappedValue.id == selectedCouponId
-                    }
+                where: { $0.wrappedValue.id == selectedCouponId }
                ) {
                 CouponGetPopupView(
                     isPopupVisible: $isPopupVisible,
@@ -143,7 +149,7 @@ struct MarketDetailView: View {
                 ToastView(message: toastMessage, isShowing: $showToast)
                     .transition(.move(edge: .bottom))
             }
-        }
+        }.environmentObject(loginViewModel)
     }
     
     func openKakaoMap(latitude: Double, longitude: Double) {

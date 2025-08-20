@@ -24,6 +24,7 @@ struct LoginRequiredView: View {
                     .cornerRadius(8)
             }
         }
-        .padding()
+        .padding(.horizontal, 16)
+        .padding(.vertical, 32)
     }
 }
