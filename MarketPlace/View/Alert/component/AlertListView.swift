@@ -7,46 +7,28 @@
 
 import SwiftUI
 
-class AlertCardModel: Identifiable, ObservableObject {
-    let id = UUID()
-    let chipTitle: String
-    let boldText: String
-    let subText: String
-    let timeText: String
-    
-    @Published var isRead: Bool
-    
-    init(chipTitle: String, boldText: String, subText: String, timeText: String, isRead: Bool = false) {
-        self.chipTitle = chipTitle
-        self.boldText = boldText
-        self.subText = subText
-        self.timeText = timeText
-        self.isRead = isRead
-    }
-}
-
 struct AlertCardListView: View {
-    var selectedCategory: String
-    var alerts: [AlertCardModel]
+    var selectedCategory: TargetType
+    var notifications: [NotificationRes]
+    var onTap: ((NotificationRes) -> Void)
     
-    var filteredAlerts: [AlertCardModel] {
-        if selectedCategory == "전체" {
-            return alerts
+    var filteredNotifications: [NotificationRes] {
+        if selectedCategory == .unknown {
+            return notifications
         } else {
-            return alerts.filter { $0.chipTitle == selectedCategory }
+            return notifications.filter { TargetType(rawValue: $0.targetType) == selectedCategory }
         }
     }
 
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 0) {
-                ForEach(filteredAlerts) { alert in
-                    AlertCardView(alert: alert) {
-                        alert.isRead = true
+                ForEach(filteredNotifications) { notification in
+                    AlertCardView(notification: notification) {
+                        onTap(notification)
                     }
                     
-                    // 카드 사이 구분선
-                    if alert.id != filteredAlerts.last?.id {
+                    if notification.id != filteredNotifications.last?.id {
                         Divider()
                             .background(Color.gray.opacity(0.2))
                     }
@@ -54,6 +36,45 @@ struct AlertCardListView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
+    }
+}
+
+struct AlertCardView: View {
+    @State var notification: NotificationRes
+    var onTap: () -> Void
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            AlertChipView(title: notification.targetType)
+                .padding(.bottom, 12)
+            
+            Text(notification.title)
+                .pretendardFont(size: 16, weight: .semibold)
+                .foregroundColor(.black)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            Text(notification.body)
+                .pretendardFont(size: 14, weight: .medium)
+                .foregroundColor(Color.gray)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            Text(timeAgo(from: notification))
+                .pretendardFont(size: 12, weight: .medium)
+                .foregroundColor(Color.gray)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .padding(.horizontal, 20)
+        .frame(maxWidth: .infinity, minHeight: 152, maxHeight: 152, alignment: .leading)
+        .background(notification.isRead ? Color.gray.opacity(0.1) : Color.white)
+        .onTapGesture {
+            onTap()
+            notification.isRead = true
+        }
+    }
+    
+    func timeAgo(from notification: NotificationRes) -> String {
+        /// NOTE: 서버에서 넘겨줘야하는건지?
+        return "1일 전"
     }
 }
 
@@ -71,38 +92,5 @@ struct AlertChipView: View {
                     .fill(Color.white)
                     .stroke(Color.gray.opacity(0.3))
             )
-    }
-}
-
-struct AlertCardView: View {
-    @ObservedObject var alert: AlertCardModel
-    var onTap: () -> Void
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            AlertChipView(title: alert.chipTitle)
-                .padding(.bottom, 12)
-            
-            Text(alert.boldText)
-                .pretendardFont(size: 16, weight: .semibold)
-                .foregroundColor(.black)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
-            Text(alert.subText)
-                .pretendardFont(size: 14, weight: .medium)
-                .foregroundColor(Color.gray)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
-            Text(alert.timeText)
-                .pretendardFont(size: 12, weight: .medium)
-                .foregroundColor(Color.gray)
-                .frame(maxWidth: .infinity, alignment: .leading)
-        }
-        .padding(.horizontal, 20)
-        .frame(maxWidth: .infinity, minHeight: 152, maxHeight: 152, alignment: .leading)
-        .background(alert.isRead ? Color.gray.opacity(0.1) : Color.white)
-        .onTapGesture {
-            onTap()
-        }
     }
 }
