@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var loginVM: LoginViewModel
     
     init() {
         setupTabBarAppearance()
@@ -31,29 +32,39 @@ struct ContentView: View {
                             .multilineTextAlignment(.center)
                     }
                 }
-
-            CheerView()
-                .tabItem {
-                    VStack {
-                        Image(systemName: "heart.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 18, height: 16)
-                        Text("공감")
-                            .pretendardFont(size: 12, weight: .medium)
-                            .multilineTextAlignment(.center)
-                    }
-                }
             
-            MyPageView()
-                .tabItem {
-                    VStack {
-                        Image(uiImage: resizeImage(named: "userIcon", width: 24, height: 24))
-                        Text("마이페이지")
-                            .pretendardFont(size: 12, weight: .medium)
-                            .multilineTextAlignment(.center)
-                    }
+            Group {
+                if loginVM.isLoggedIn {
+                    CheerView()
+                } else {
+                    LoginRequiredView()
                 }
+            }.tabItem {
+                VStack {
+                    Image(systemName: "heart.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 18, height: 16)
+                    Text("공감")
+                        .pretendardFont(size: 12, weight: .medium)
+                        .multilineTextAlignment(.center)
+                }
+            }
+            
+            Group {
+                if loginVM.isLoggedIn {
+                    MyPageView()
+                } else {
+                    LoginRequiredView()
+                }
+            }.tabItem {
+                VStack {
+                    Image(uiImage: resizeImage(named: "userIcon", width: 24, height: 24))
+                    Text("마이페이지")
+                        .pretendardFont(size: 12, weight: .medium)
+                        .multilineTextAlignment(.center)
+                }
+            }
         }
         .background(Color.white)
         .accentColor(Color(hex: "#303030"))

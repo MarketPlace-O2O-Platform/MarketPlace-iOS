@@ -38,6 +38,11 @@ struct MyPageView: View {
                     .zIndex(1)
                 }
             }
-        }.environmentObject(loginVM)
+        }
+        .environmentObject(loginVM)
+        .onDisappear {
+            isDropdownVisible = false
+            showLogoutAlert = false
+        }
     }
 }

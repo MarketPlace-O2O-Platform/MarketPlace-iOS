@@ -4,17 +4,26 @@ final class LoginViewModel: ObservableObject {
     @Published var isLoggedIn: Bool = false
     @Published var userErrorMessage: String?
     
-    var token: String? {
-        KeychainManager.getToken()
-    }
-    
     private var memberService: MemberServiceProtocol
     
     init(memberService: MemberServiceProtocol = MemberService()) {
         self.memberService = memberService
+        
+        if let id = KeychainManager.load(KeyChainKeys.studentId),
+           let password = KeychainManager.load(KeyChainKeys.password),
+           UserDefaults.standard.bool(forKey: UserDefaultsKeys.saveId) {
+            isLoggedIn = true
+        } else {
+            isLoggedIn = false
+            KeychainManager.delete(KeyChainKeys.token)
+        }
     }
     
-    func signIn(studentId: String, password: String, saveAccount: Bool) async {
+    var token: String? {
+        KeychainManager.getToken()
+    }
+    
+    func signIn(studentId: String, password: String, saveAccount: Bool) async -> Bool {
         let result = await memberService.signIn(studentId: studentId, password: password)
         
         switch result {
@@ -31,17 +40,24 @@ final class LoginViewModel: ObservableObject {
             } else {
                 KeychainManager.delete(KeyChainKeys.studentId)
                 KeychainManager.delete(KeyChainKeys.password)
-
             }
+            
+            return true
             
         case .failure(let statusCode, let message):
             print("[signIn] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
             userErrorMessage = message
+            
+            return false
         }
     }
     
     func logout() {
         KeychainManager.delete(KeyChainKeys.token)
+        KeychainManager.delete(KeyChainKeys.studentId)
+        KeychainManager.delete(KeyChainKeys.password)
+        UserDefaults.standard.set(false, forKey: UserDefaultsKeys.saveId)
+        
         DispatchQueue.main.async {
             self.isLoggedIn = false
         }

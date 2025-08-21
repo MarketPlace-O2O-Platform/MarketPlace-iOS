@@ -9,20 +9,30 @@ import Foundation
 
 final class MarketInfoCellViewModel: ObservableObject {
     private var marketService: MarketServiceProtocol
-    /// - NOTE: 처리 방법 생각해보기
-    @Published var market: MarketDetailModel = MarketDetailModel(marketId: 0, name: "", description: "", operationHours: "", closedDays: "", phoneNumber: "", address: "", imageResList: [])
+    @Published var market: MarketDetailModel = MarketDetailModel(
+        marketId: 0, name: "",
+        description: "",
+        operationHours: "",
+        closedDays: "",
+        phoneNumber: "",
+        address: "",
+        imageResList: []
+    )
     
     private var marketId: Int
+    @Published var marketData: MarketModel
     
     init(
         marketService: MarketServiceProtocol = MarketService(),
-        marketId: Int
+        marketId: Int,
+        marketData: MarketModel
     ) {
         self.marketService = marketService
         self.marketId = marketId
+        self.marketData = marketData
         
         Task {
-            await fetchMarket(marketId: marketId)
+//            await fetchMarket(marketId: marketId)
         }
     }
     
@@ -33,6 +43,7 @@ final class MarketInfoCellViewModel: ObservableObject {
         switch result {
         case .success(let data, _):
             self.market = data.response
+            print("매장 상세조회",data.response)
         case .failure(let statusCode, let message):
             print("[fetchMarket] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }

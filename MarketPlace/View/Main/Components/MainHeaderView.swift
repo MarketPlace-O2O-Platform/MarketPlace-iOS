@@ -11,6 +11,9 @@ struct MainHeaderView: View {
     @State private var searchText: String = ""
     @State private var isSearchViewActive: Bool = false
     @State private var isAlertViewActive: Bool = false
+    @State private var showLoginView: Bool = false
+
+    @EnvironmentObject var loginVM: LoginViewModel
 
     var body: some View {
         HStack {
@@ -35,8 +38,6 @@ struct MainHeaderView: View {
                             .padding(.leading, 38)
                         
                         /// - NOTE: placeholder
-                        ///
-                        /// 
                         if searchText.isEmpty {
                             Text("가고 싶은 매장을 찾아보세요")
                                 .pretendardFont(size: SearchViewConstants.FontSize.searchText, weight: .regular)
@@ -51,23 +52,6 @@ struct MainHeaderView: View {
                             .padding(.vertical, 8)
                             .padding(.leading, 6)
                             .padding(.leading, 35)
-                        
-                        
-//                            Text("가고 싶은 매장을 찾아보세요")
-//                                .pretendardFont(size: 14, weight: .regular)
-//                                .foregroundColor(Color(hex: "#C6C6C6"))
-//                                .padding(.leading, 6)
-//                                .padding(.leading, 43)
-//                            
-//                        }
-                        
-//                        TextField("", text: $searchText)
-//                            .pretendardFont(size: 14, weight: .regular)
-//                            .foregroundColor(Color(hex: "#333333"))
-//                            .padding(.vertical, 8)
-//                            .padding(.leading, 6)
-//                            .padding(.leading, 35)
-                        
                     }
                     .frame(height: 35)
                     .background(Color(hex: "#FAFAFA"))
@@ -85,18 +69,23 @@ struct MainHeaderView: View {
             Spacer()
             
             Button(action: {
-                isAlertViewActive = true
+                if loginVM.isLoggedIn { isAlertViewActive = true }
+                else { showLoginView = true }
             }) {
-                Image(systemName: "bell")
+                Image(systemName: loginVM.isLoggedIn ? "bell" : "person")
                     .font(.system(size: 20))
                     .foregroundColor(Color(hex: "#545454"))
-            }
-            .navigationDestination(isPresented: $isAlertViewActive) {
-                AlertView()
             }
         }
         .frame(height: 44)
         .padding(.horizontal, 20)
         .background(Color.white)
+        .environmentObject(loginVM)
+        .navigationDestination(isPresented: $isAlertViewActive) {
+            AlertView()
+        }
+        .fullScreenCover(isPresented: $showLoginView) {
+            LoginView()
+        } 
     }
 }

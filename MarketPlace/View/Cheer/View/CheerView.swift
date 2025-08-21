@@ -5,11 +5,12 @@ struct CheerView: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject private var viewModel = CheerViewModel()
     @State var upcomingLastIndex: Int = 0
+    @EnvironmentObject var loginVM: LoginViewModel
     
     @State private var hasData: Bool = true
     
     var body: some View {
-        NavigationStack {
+        NavigationView {
             ScrollView {
                 CheerSearchView(searchText: $viewModel.searchText)
                 
@@ -32,7 +33,8 @@ struct CheerView: View {
                                             CheerSearchCardCell(market: $market)
                                                 .padding(.vertical, 10)
                                             Divider()
-                                        }.onAppear {
+                                        }
+                                        .onAppear {
                                             guard index == viewModel.cheerMarket.count - 1,
                                                   let lastId = viewModel.searchLastMarketId
                                             else { return }
@@ -70,6 +72,6 @@ struct CheerView: View {
                     viewModel.currentKeyword = newValue
                 }
             }
-        }
+        }.environmentObject(loginVM)
     }
 }
