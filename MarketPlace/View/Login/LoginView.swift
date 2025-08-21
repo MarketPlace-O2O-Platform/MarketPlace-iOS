@@ -128,8 +128,8 @@ struct LoginView: View {
                 Button(action: {
                     Task {
                         isEditing = false
-                        await viewModel.signIn(studentId: studentID, password: password, saveAccount: saveAccount)
-                        dismiss()
+                        let result = await viewModel.signIn(studentId: studentID, password: password, saveAccount: saveAccount)
+                        if result { dismiss() }
                     }
                 }) {
                     Text("로그인")

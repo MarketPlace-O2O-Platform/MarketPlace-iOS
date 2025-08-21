@@ -23,7 +23,7 @@ final class LoginViewModel: ObservableObject {
         KeychainManager.getToken()
     }
     
-    func signIn(studentId: String, password: String, saveAccount: Bool) async {
+    func signIn(studentId: String, password: String, saveAccount: Bool) async -> Bool {
         let result = await memberService.signIn(studentId: studentId, password: password)
         
         switch result {
@@ -42,9 +42,13 @@ final class LoginViewModel: ObservableObject {
                 KeychainManager.delete(KeyChainKeys.password)
             }
             
+            return true
+            
         case .failure(let statusCode, let message):
             print("[signIn] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
             userErrorMessage = message
+            
+            return false
         }
     }
     
