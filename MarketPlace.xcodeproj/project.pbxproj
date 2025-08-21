@@ -115,6 +115,8 @@
 		B255A5CE2D6218A000954837 /* MarketModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B255A5CD2D6218A000954837 /* MarketModel.swift */; };
 		B26F4E872E54400F00C39C37 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26F4E862E54400F00C39C37 /* NotificationModel.swift */; };
 		B26F4E892E54650C00C39C37 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26F4E882E54650C00C39C37 /* NotificationService.swift */; };
+		B26F4E8B2E57308F00C39C37 /* NotificationEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26F4E8A2E57308F00C39C37 /* NotificationEndpoint.swift */; };
+		B26F4E8E2E57504C00C39C37 /* AlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26F4E8D2E57504C00C39C37 /* AlertViewModel.swift */; };
 		B27E56CD2D7037AF000D2881 /* CheerMarketModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27E56CC2D7037AF000D2881 /* CheerMarketModel.swift */; };
 		B27E56D32D703FBB000D2881 /* CheerCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27E56D22D703FBB000D2881 /* CheerCardCell.swift */; };
 		B27E56D52D704438000D2881 /* HotCheerCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27E56D42D704438000D2881 /* HotCheerCardCell.swift */; };
@@ -283,6 +285,8 @@
 		B255A5CD2D6218A000954837 /* MarketModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketModel.swift; sourceTree = "<group>"; };
 		B26F4E862E54400F00C39C37 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		B26F4E882E54650C00C39C37 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		B26F4E8A2E57308F00C39C37 /* NotificationEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationEndpoint.swift; sourceTree = "<group>"; };
+		B26F4E8D2E57504C00C39C37 /* AlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewModel.swift; sourceTree = "<group>"; };
 		B27E56CC2D7037AF000D2881 /* CheerMarketModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerMarketModel.swift; sourceTree = "<group>"; };
 		B27E56D22D703FBB000D2881 /* CheerCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerCardCell.swift; sourceTree = "<group>"; };
 		B27E56D42D704438000D2881 /* HotCheerCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotCheerCardCell.swift; sourceTree = "<group>"; };
@@ -428,6 +432,7 @@
 				2941F7732DE5A0350063CEFE /* MemberEndPoint.swift */,
 				29D53BF62DE8412E008E4F2E /* CheerMarketEndpoint.swift */,
 				2941F76F2DE5A0350063CEFE /* CouponEndpoint.swift */,
+				B26F4E8A2E57308F00C39C37 /* NotificationEndpoint.swift */,
 			);
 			path = Endpoint;
 			sourceTree = "<group>";
@@ -663,6 +668,14 @@
 			path = MarketPlace/View;
 			sourceTree = SOURCE_ROOT;
 		};
+		B26F4E8C2E57503D00C39C37 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				B26F4E8D2E57504C00C39C37 /* AlertViewModel.swift */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
 		B27E56CE2D703B0B000D2881 /* Cheer */ = {
 			isa = PBXGroup;
 			children = (
@@ -826,6 +839,7 @@
 		B2C399262CA14D85004800DD /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				B26F4E8C2E57503D00C39C37 /* Alert */,
 				B2DC8CC52E03F14100035476 /* Request */,
 				2976FA262DFC3457009782D1 /* Search */,
 				295DCBAE2DED6DB0009B5D82 /* MyPage */,
@@ -1031,6 +1045,7 @@
 				B28349132D2E5CA800EEDB02 /* CategoryTabView.swift in Sources */,
 				B21F3CFC2D267AF900B83B34 /* MarketDetailView.swift in Sources */,
 				2976FA2B2DFC4D2F009782D1 /* CouponTopModel.swift in Sources */,
+				B26F4E8E2E57504C00C39C37 /* AlertViewModel.swift in Sources */,
 				B2DC8D162E0903FC00035476 /* CheerSearchCardCell.swift in Sources */,
 				B2DCB0682DF031EC00F9D4AB /* SearchFailedView.swift in Sources */,
 				B21F3CFC2D267AF900B83B34 /* MarketDetailView.swift in Sources */,
@@ -1059,6 +1074,7 @@
 				29BF18C12DE4950700836D7E /* APIResDto.swift in Sources */,
 				B215F2912DE61C8400F53C51 /* AlertView.swift in Sources */,
 				B28A22AF2D64F1ED00E86EF6 /* StoreImageSlider.swift in Sources */,
+				B26F4E8B2E57308F00C39C37 /* NotificationEndpoint.swift in Sources */,
 				B210EC242D3D686500B1551E /* MyHeaderView.swift in Sources */,
 				290A71B12E02792A009AEAF8 /* ShimmerView.swift in Sources */,
 				B210EC282D3D797F00B1551E /* SearchHeader.swift in Sources */,

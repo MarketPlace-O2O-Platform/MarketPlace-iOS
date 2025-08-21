@@ -39,20 +39,20 @@ struct AlertCardListView: View {
 
     var body: some View {
         ScrollView {
-            LazyVStack(alignment: .leading, spacing: 0) {  // alignment: .leading 추가
+            LazyVStack(alignment: .leading, spacing: 0) {
                 ForEach(filteredAlerts) { alert in
                     AlertCardView(alert: alert) {
                         alert.isRead = true
                     }
                     
-                    // 카드 사이 구분선 추가 (선택사항)
+                    // 카드 사이 구분선
                     if alert.id != filteredAlerts.last?.id {
                         Divider()
                             .background(Color.gray.opacity(0.2))
                     }
                 }
             }
-            .frame(maxWidth: .infinity, alignment: .leading)  // 전체 프레임도 leading 정렬
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
 }
@@ -91,15 +91,15 @@ struct AlertCardView: View {
             Text(alert.subText)
                 .pretendardFont(size: 14, weight: .medium)
                 .foregroundColor(Color.gray)
-                .frame(maxWidth: .infinity, alignment: .leading)  // 텍스트 왼쪽 정렬 보장
+                .frame(maxWidth: .infinity, alignment: .leading)
             
             Text(alert.timeText)
                 .pretendardFont(size: 12, weight: .medium)
                 .foregroundColor(Color.gray)
-                .frame(maxWidth: .infinity, alignment: .leading)  // 텍스트 왼쪽 정렬 보장
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
         .padding(.horizontal, 20)
-        .frame(maxWidth: .infinity, minHeight: 152, maxHeight: 152, alignment: .leading)  // 전체 카드 왼쪽 정렬
+        .frame(maxWidth: .infinity, minHeight: 152, maxHeight: 152, alignment: .leading)
         .background(alert.isRead ? Color.gray.opacity(0.1) : Color.white)
         .onTapGesture {
             onTap()
