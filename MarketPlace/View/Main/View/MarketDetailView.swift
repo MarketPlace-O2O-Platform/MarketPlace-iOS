@@ -12,6 +12,7 @@ struct MarketDetailView: View {
     @State private var showToast: Bool = false
     
     @State private var isLoginRequiredPopupVisible: Bool = false
+    @State private var showLoginView: Bool = false
     
     private let marketId: Int
     
@@ -70,7 +71,9 @@ struct MarketDetailView: View {
                                 } else if !viewModel.validCoupons.isEmpty {
                                     MarketCouponListView(
                                         coupons: $viewModel.validCoupons,
-                                        isPopupVisible: (loginViewModel.isLoggedIn ? $isPopupVisible : $isLoginRequiredPopupVisible),
+                                        isPopupVisible: (loginViewModel.isLoggedIn
+                                                         ? $isPopupVisible
+                                                         : $isLoginRequiredPopupVisible),
                                         selectedCouponId: $selectedCouponId,
                                         showToast: $showToast,
                                         toastMessage: $toastMessage,
@@ -129,9 +132,11 @@ struct MarketDetailView: View {
                 }
             }
             
-            if isLoginRequiredPopupVisible {
-                LoginRequriedPopup(isPopupVisible: $isLoginRequiredPopupVisible)
-                    .transition(.scale)
+            if !loginViewModel.isLoggedIn && isLoginRequiredPopupVisible {
+                LoginRequriedPopup(
+                    isPopupVisible: $isLoginRequiredPopupVisible,
+                    showLogin: $showLoginView
+                ).transition(.scale)
             }
             
             if isPopupVisible,
@@ -141,15 +146,20 @@ struct MarketDetailView: View {
                 CouponGetPopupView(
                     isPopupVisible: $isPopupVisible,
                     coupon: couponBinding
-                )
-                .transition(.scale)
+                ).transition(.scale)
             }
 
             if showToast {
-                ToastView(message: toastMessage, isShowing: $showToast)
-                    .transition(.move(edge: .bottom))
+                ToastView(
+                    message: toastMessage,
+                    isShowing: $showToast
+                ).transition(.move(edge: .bottom))
             }
-        }.environmentObject(loginViewModel)
+        }
+        .environmentObject(loginViewModel)
+        .fullScreenCover(isPresented: $showLoginView) {
+            LoginView()
+        }
     }
     
     func openKakaoMap(latitude: Double, longitude: Double) {

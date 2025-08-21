@@ -10,38 +10,39 @@ struct MyPageView: View {
 
     var body: some View {
         NavigationView {
-            if !loginVM.isLoggedIn {
-                LoginRequiredView()
-            } else {
-                ZStack(alignment: .top) {
-                    VStack(spacing: 0) {
-                        MyHeaderView(isDropdownVisible: $isDropdownVisible, userId: $viewModel.userId)
-                            .padding(.top, 5)
-                        
-                        MyCouponView()
-                    }
-                    .background(Color.white)
-                    .onAppear {
-                        Task {
-                            await viewModel.fetchMemberInfo()
-                        }
-                    }
-                    .overlay {
-                        CustomAlertView(isPresented: $showLogoutAlert, title: "로그아웃 하시겠습니까?", buttonTitle: "로그아웃") {
-                            loginVM.logout()
-                        }
-                    }
+            ZStack(alignment: .top) {
+                VStack(spacing: 0) {
+                    MyHeaderView(isDropdownVisible: $isDropdownVisible, userId: $viewModel.userId)
+                        .padding(.top, 5)
                     
-                    if isDropdownVisible {
-                        DropdownMenuView {
-                            showLogoutAlert = true
-                        }
-                        .offset(x: 0, y: 35)
-                        .transition(.scale.combined(with: .opacity))
-                        .zIndex(1)
+                    MyCouponView()
+                }
+                .background(Color.white)
+                .onAppear {
+                    Task {
+                        await viewModel.fetchMemberInfo()
                     }
                 }
+                .overlay {
+                    CustomAlertView(isPresented: $showLogoutAlert, title: "로그아웃 하시겠습니까?", buttonTitle: "로그아웃") {
+                        loginVM.logout()
+                    }
+                }
+                
+                if isDropdownVisible {
+                    DropdownMenuView {
+                        showLogoutAlert = true
+                    }
+                    .offset(x: 0, y: 35)
+                    .transition(.scale.combined(with: .opacity))
+                    .zIndex(1)
+                }
             }
-        }.environmentObject(loginVM)
+        }
+        .environmentObject(loginVM)
+        .onDisappear {
+            isDropdownVisible = false
+            showLogoutAlert = false
+        }
     }
 }

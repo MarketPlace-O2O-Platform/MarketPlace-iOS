@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LoginRequriedPopup: View {
     @Binding var isPopupVisible: Bool
+    @Binding var showLogin: Bool
             
     var body: some View {
         ZStack {
@@ -36,7 +37,9 @@ struct LoginRequriedPopup: View {
                     .pretendardFont(size: 20, weight: .semibold)
                     .foregroundStyle(Colors.gray_900)
                 
-                NavigationLink(destination: LoginView()) {
+                Button(action: {
+                    showLogin = true
+                }, label: {
                     Text("로그인")
                         .pretendardFont(size: 14, weight: .bold)
                         .foregroundColor(.white)
@@ -44,7 +47,7 @@ struct LoginRequriedPopup: View {
                         .frame(height: 50)
                         .background(.black)
                         .cornerRadius(8)
-                }
+                })
                 
                 Spacer()
             }

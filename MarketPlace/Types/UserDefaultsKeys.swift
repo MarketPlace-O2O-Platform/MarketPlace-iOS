@@ -9,5 +9,4 @@ import Foundation
 
 enum UserDefaultsKeys {
     static let saveId = "saveId"
-    static let savePassword = "savePassword"
 }

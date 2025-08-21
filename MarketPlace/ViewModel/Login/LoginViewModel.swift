@@ -4,14 +4,23 @@ final class LoginViewModel: ObservableObject {
     @Published var isLoggedIn: Bool = false
     @Published var userErrorMessage: String?
     
-    var token: String? {
-        KeychainManager.getToken()
-    }
-    
     private var memberService: MemberServiceProtocol
     
     init(memberService: MemberServiceProtocol = MemberService()) {
         self.memberService = memberService
+        
+        if let id = KeychainManager.load(KeyChainKeys.studentId),
+           let password = KeychainManager.load(KeyChainKeys.password),
+           UserDefaults.standard.bool(forKey: UserDefaultsKeys.saveId) {
+            isLoggedIn = true
+        } else {
+            isLoggedIn = false
+            KeychainManager.delete(KeyChainKeys.token)
+        }
+    }
+    
+    var token: String? {
+        KeychainManager.getToken()
     }
     
     func signIn(studentId: String, password: String, saveAccount: Bool) async {
@@ -31,7 +40,6 @@ final class LoginViewModel: ObservableObject {
             } else {
                 KeychainManager.delete(KeyChainKeys.studentId)
                 KeychainManager.delete(KeyChainKeys.password)
-
             }
             
         case .failure(let statusCode, let message):
@@ -42,6 +50,10 @@ final class LoginViewModel: ObservableObject {
     
     func logout() {
         KeychainManager.delete(KeyChainKeys.token)
+        KeychainManager.delete(KeyChainKeys.studentId)
+        KeychainManager.delete(KeyChainKeys.password)
+        UserDefaults.standard.set(false, forKey: UserDefaultsKeys.saveId)
+        
         DispatchQueue.main.async {
             self.isLoggedIn = false
         }
