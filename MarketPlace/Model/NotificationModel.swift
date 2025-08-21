@@ -18,7 +18,7 @@ struct NotificationRes: Codable, Identifiable {
     let body: String
     let targetId: Int
     let targetType: String
-    let isRead: Bool
+    var isRead: Bool
 }
 
 enum TargetType: String, Codable {
