@@ -9,10 +9,7 @@ struct MyFavoriteShopListView: View {
             LazyVStack(spacing: 16) {
                 ForEach(Array(viewModel.favoriteMarkets.enumerated()),id: \.offset) { index, shop in
                     NavigationLink(
-                        destination: MarketDetailView(
-                            viewModel: MarketDetailViewModel(
-                                marketId: shop.marketId),
-                            marketId: shop.marketId)
+                        destination: MarketDetailView(viewModel: MarketDetailViewModel(marketId: shop.marketId))
                     ) {
                         let market = MarketModel(
                             marketId: shop.marketId,

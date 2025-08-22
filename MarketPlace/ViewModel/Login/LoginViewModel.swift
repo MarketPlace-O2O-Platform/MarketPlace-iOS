@@ -9,8 +9,8 @@ final class LoginViewModel: ObservableObject {
     init(memberService: MemberServiceProtocol = MemberService()) {
         self.memberService = memberService
         
-        if let id = KeychainManager.load(KeyChainKeys.studentId),
-           let password = KeychainManager.load(KeyChainKeys.password),
+        if let _ = KeychainManager.load(KeyChainKeys.studentId),
+           let _ = KeychainManager.load(KeyChainKeys.password),
            UserDefaults.standard.bool(forKey: UserDefaultsKeys.saveId) {
             isLoggedIn = true
         } else {

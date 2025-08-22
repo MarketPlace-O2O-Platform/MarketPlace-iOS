@@ -17,8 +17,7 @@ struct SearchSecondView: View {
                 ForEach(Array(viewModel.market.enumerated()), id: \.offset) { index, market in
                     NavigationLink(
                         destination: MarketDetailView(
-                            viewModel: MarketDetailViewModel(marketId: market.id),
-                            marketId: market.id)
+                            viewModel: MarketDetailViewModel(marketId: market.id))
                     ) {
                         VStack {
                             SearchComponentView(market: market)

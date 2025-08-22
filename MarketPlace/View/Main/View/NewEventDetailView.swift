@@ -13,11 +13,7 @@ struct NewEventDetailView: View {
                 LazyVStack(spacing: 16) {
                     ForEach(Array(viewModel.newCoupons.enumerated()), id: \.offset) { index, coupon in
                         NavigationLink(
-                            destination: MarketDetailView(
-                                viewModel: MarketDetailViewModel(
-                                    marketId: coupon.marketId
-                                ),
-                                marketId: coupon.marketId)
+                            destination: MarketDetailView(viewModel: MarketDetailViewModel(marketId: coupon.marketId))
                         ) {
                             let coupon = CouponBasicModel(
                                 couponId: coupon.couponId,
