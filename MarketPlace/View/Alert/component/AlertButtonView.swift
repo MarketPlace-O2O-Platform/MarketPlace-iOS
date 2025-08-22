@@ -3,7 +3,6 @@
 //  MarketPlace
 //
 //  Created by 이예나 on 5/28/25.
-//
 
 import SwiftUI
 
@@ -13,9 +12,7 @@ struct AlertButtonView: View {
     var onTap: () -> Void
     
     var body: some View {
-        Button(action: {
-            onTap()
-        }) {
+        Button(action: { onTap() }) {
             Text(title)
                 .pretendardFont(size: 12, weight: .semibold)
                 .foregroundColor(isSelected ? .white : Color.gray)
@@ -33,18 +30,30 @@ struct AlertButtonView: View {
     }
 }
 
-// 선택된 카테고리를 외부로 전달하도록 수정
 struct AlertButtonGroup: View {
-    @Binding var selectedCategory: String
-    let titles = ["전체", "쿠폰 발급", "쿠폰 만료", "공지"]
+    @Binding var selectedCategory: TargetType
+    
+    private let categories: [TargetType] = [.unknown, .coupon, .notice, .market]
     
     var body: some View {
         HStack(spacing: 8) {
-            ForEach(titles, id: \.self) { title in
-                AlertButtonView(title: title, isSelected: selectedCategory == title) {
-                    selectedCategory = title
+            ForEach(categories, id: \.self) { category in
+                AlertButtonView(
+                    title: displayName(for: category),
+                    isSelected: selectedCategory == category
+                ) {
+                    selectedCategory = category
                 }
             }
+        }
+    }
+    
+    private func displayName(for type: TargetType) -> String {
+        switch type {
+        case .unknown: return "전체"
+        case .market: return "쿠폰 발급"
+        case .notice: return "공지"
+        case .coupon: return "쿠폰 만료"
         }
     }
 }
