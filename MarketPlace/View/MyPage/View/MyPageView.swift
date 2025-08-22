@@ -39,7 +39,6 @@ struct MyPageView: View {
                 }
             }
         }
-        .environmentObject(loginVM)
         .onDisappear {
             isDropdownVisible = false
             showLogoutAlert = false

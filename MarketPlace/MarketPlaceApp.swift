@@ -16,8 +16,8 @@ struct MarketPlaceApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(loginVM)
         }
-        .environmentObject(loginVM)
     }
 }
 

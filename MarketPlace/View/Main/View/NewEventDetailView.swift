@@ -12,8 +12,8 @@ struct NewEventDetailView: View {
             ScrollView {
                 LazyVStack(spacing: 16) {
                     ForEach(Array(viewModel.newCoupons.enumerated()), id: \.offset) { index, coupon in
-                        NavigationLink(
-                            destination: MarketDetailView(viewModel: MarketDetailViewModel(marketId: coupon.marketId))
+                        NavigationLink(destination:
+                           MarketDetailView(marketId: coupon.marketId)
                         ) {
                             let coupon = CouponBasicModel(
                                 couponId: coupon.couponId,

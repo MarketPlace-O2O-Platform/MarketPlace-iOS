@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct MarketDetailView: View {
-    @ObservedObject var viewModel: MarketDetailViewModel
+    @StateObject var viewModel: MarketDetailViewModel
     @EnvironmentObject var loginViewModel: LoginViewModel
     @Environment(\.presentationMode) var presentationMode
     @State private var isBookmarked = false
@@ -13,9 +13,9 @@ struct MarketDetailView: View {
     
     @State private var isLoginRequiredPopupVisible: Bool = false
     @State private var showLoginView: Bool = false
-        
-    init(viewModel: MarketDetailViewModel) {
-        self.viewModel = viewModel
+    
+    init(marketId: Int) {
+        _viewModel = StateObject(wrappedValue: MarketDetailViewModel(marketId: marketId))
     }
 
     var body: some View {
@@ -27,7 +27,6 @@ struct MarketDetailView: View {
                 }
                 
                 else if let shop = viewModel.marketDetail {
-                    let _ = print(shop)
                     VStack(alignment: .leading, spacing: 0) {
                         MarketImageSliderView(imageResList: shop.imageResList)
                         

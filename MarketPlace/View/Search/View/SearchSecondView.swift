@@ -15,9 +15,8 @@ struct SearchSecondView: View {
         ScrollView {
             LazyVStack(spacing: 10) {
                 ForEach(Array(viewModel.market.enumerated()), id: \.offset) { index, market in
-                    NavigationLink(
-                        destination: MarketDetailView(
-                            viewModel: MarketDetailViewModel(marketId: market.id))
+                    NavigationLink(destination:
+                       MarketDetailView(marketId: market.id)
                     ) {
                         VStack {
                             SearchComponentView(market: market)

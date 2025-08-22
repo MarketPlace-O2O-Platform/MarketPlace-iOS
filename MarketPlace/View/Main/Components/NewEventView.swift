@@ -24,8 +24,8 @@ struct NewEventView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
                     ForEach(latestCoupons, id: \.id) { coupon in
-                        NavigationLink(
-                            destination: MarketDetailView(viewModel: MarketDetailViewModel(marketId: coupon.marketId))
+                        NavigationLink(destination:
+                           MarketDetailView(marketId: coupon.marketId)
                         ) {
                             ZStack {
                                 ShimmeringAsyncImage(
