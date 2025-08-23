@@ -13,7 +13,8 @@ struct AlertCardListView: View {
     var onTap: ((NotificationRes) -> Void)
     
     var filteredNotifications: [NotificationRes] {
-        if selectedCategory == .unknown {
+        /// NOTE : 기본값을 "전체"로 바꿔야함"
+        if selectedCategory == .market {
             return notifications
         } else {
             return notifications.filter { TargetType(rawValue: $0.targetType) == selectedCategory }
@@ -30,7 +31,7 @@ struct AlertCardListView: View {
                     
                     if notification.id != filteredNotifications.last?.id {
                         Divider()
-                            .background(Color.gray.opacity(0.2))
+                            .background(Colors.gray_100)
                     }
                 }
             }
@@ -45,7 +46,7 @@ struct AlertCardView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            AlertChipView(title: notification.targetType)
+            AlertChipView(targetType: notification.targetType)
                 .padding(.bottom, 12)
             
             Text(notification.title)
@@ -79,10 +80,10 @@ struct AlertCardView: View {
 }
 
 struct AlertChipView: View {
-    var title: String
+    var targetType: String
     
     var body: some View {
-        Text(title)
+        Text(displayName(for: targetType))
             .pretendardFont(size: 10, weight: .regular)
             .foregroundColor(Color.gray)
             .padding(.vertical, 6)
@@ -92,5 +93,14 @@ struct AlertChipView: View {
                     .fill(Color.white)
                     .stroke(Color.gray.opacity(0.3))
             )
+    }
+    
+    private func displayName(for type: String) -> String {
+        switch type {
+        case "MARKET": return "쿠폰 발급"
+        case "NOTICE": return "공지"
+        case "COUPON": return "쿠폰 만료"
+        default: return type // 알 수 없는 값은 그대로 표시
+        }
     }
 }
