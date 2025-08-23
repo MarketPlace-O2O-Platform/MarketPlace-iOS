@@ -23,7 +23,7 @@ final class AlertViewModel: ObservableObject {
     }
     
     // MARK: - 알림 조회
-    func fetchNotifications(type: String = "UNKNOWN", size: Int? = nil) async {
+    func fetchNotifications(type: String = "MARKET", size: Int? = nil) async {
         guard !isLoading, hasNextPage else { return }
         isLoading = true
         
@@ -75,4 +75,20 @@ final class AlertViewModel: ObservableObject {
             print("[NotificationPatch] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }
     }
+    
+    // MARK: - 알림 전체 읽음 처리
+    func patchAllNotifications() async {
+        await withTaskGroup(of: Void.self) { group in
+            for notification in notifications {
+                group.addTask {
+                    await self.patchNotification(notificationId: notification.id)
+                }
+            }
+        }
+        
+        for i in notifications.indices {
+            notifications[i].isRead = true
+        }
+    }
+
 }

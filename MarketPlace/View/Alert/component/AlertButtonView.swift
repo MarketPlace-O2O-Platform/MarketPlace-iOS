@@ -33,7 +33,7 @@ struct AlertButtonView: View {
 struct AlertButtonGroup: View {
     @Binding var selectedCategory: TargetType
     
-    private let categories: [TargetType] = [.unknown, .coupon, .notice, .market]
+    private let categories: [TargetType] = [ .market, .coupon, .notice]
     
     var body: some View {
         HStack(spacing: 8) {
@@ -50,10 +50,11 @@ struct AlertButtonGroup: View {
     
     private func displayName(for type: TargetType) -> String {
         switch type {
-        case .unknown: return "전체"
+//        case .all: return "전체"
         case .market: return "쿠폰 발급"
         case .notice: return "공지"
         case .coupon: return "쿠폰 만료"
+        default: return "기타"
         }
     }
 }

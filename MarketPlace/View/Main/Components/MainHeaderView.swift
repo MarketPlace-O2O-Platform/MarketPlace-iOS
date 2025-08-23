@@ -82,7 +82,7 @@ struct MainHeaderView: View {
         .background(Color.white)
         .environmentObject(loginVM)
         .navigationDestination(isPresented: $isAlertViewActive) {
-            AlertView()
+            AlertView(showAlertView: $isAlertViewActive)
         }
         .fullScreenCover(isPresented: $showLoginView) {
             LoginView()
