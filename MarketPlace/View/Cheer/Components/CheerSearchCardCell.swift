@@ -14,7 +14,7 @@ struct CheerSearchCardCell: View {
         HStack(alignment: .top, spacing: 16) {
             ShimmeringAsyncImage(
                 url: URL(
-                    string: URLManager.shared.baseStringURL + "image/tempMarket/" + market.thumbnail
+                    string: URLManager.shared.baseStringURL + "image/tempMarket/" + (market.thumbnail ?? "f432333d-904d-46c4-b65b-87b84c468b7d_쿠러미 로고.png")
                 ),
                 cornerRadius: 4, width: 110, height: 110)
             
