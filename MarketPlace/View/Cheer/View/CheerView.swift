@@ -72,6 +72,6 @@ struct CheerView: View {
                     viewModel.currentKeyword = newValue
                 }
             }
-        }.environmentObject(loginVM)
+        }
     }
 }

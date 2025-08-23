@@ -16,8 +16,7 @@ struct MainBannerView: View {
             TabView(selection: $currentIndex) {
                 ForEach(Array(closingCouponList.enumerated()), id: \.offset) { index, coupon in
                     NavigationLink {
-                        MarketDetailView(viewModel: MarketDetailViewModel(marketId: coupon.marketId),
-                                         marketId: coupon.marketId)
+                        MarketDetailView(marketId: coupon.marketId)
                     } label: {
                         ImageTextOverlay(
                             imageName: coupon.thumbnail,

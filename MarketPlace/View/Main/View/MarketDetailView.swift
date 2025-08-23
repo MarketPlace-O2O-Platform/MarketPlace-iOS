@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct MarketDetailView: View {
-    @ObservedObject var viewModel: MarketDetailViewModel
+    @StateObject var viewModel: MarketDetailViewModel
     @EnvironmentObject var loginViewModel: LoginViewModel
     @Environment(\.presentationMode) var presentationMode
     @State private var isBookmarked = false
@@ -14,17 +14,19 @@ struct MarketDetailView: View {
     @State private var isLoginRequiredPopupVisible: Bool = false
     @State private var showLoginView: Bool = false
     
-    private let marketId: Int
-    
-    init(viewModel: MarketDetailViewModel, marketId: Int) {
-        self.viewModel = viewModel
-        self.marketId = marketId
+    init(marketId: Int) {
+        _viewModel = StateObject(wrappedValue: MarketDetailViewModel(marketId: marketId))
     }
 
     var body: some View {
         ZStack {
             ScrollView {
-                if let shop = viewModel.marketDetail {
+                
+                if viewModel.isLoading {
+                    ProgressView("로딩 중...")
+                }
+                
+                else if let shop = viewModel.marketDetail {
                     VStack(alignment: .leading, spacing: 0) {
                         MarketImageSliderView(imageResList: shop.imageResList)
                         
@@ -77,7 +79,7 @@ struct MarketDetailView: View {
                                         selectedCouponId: $selectedCouponId,
                                         showToast: $showToast,
                                         toastMessage: $toastMessage,
-                                        marketId: marketId
+                                        marketId: viewModel.id
                                     )
                                 } else {
                                     Text("사용 가능한 쿠폰이 없습니다.")
@@ -113,24 +115,23 @@ struct MarketDetailView: View {
                                 openKakaoMap(latitude: latitude, longitude: longitude)
                             }
                         })
-                            .padding(.horizontal, 24)
-                            .padding(.vertical, 34)
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 34)
                     }
-                } else if viewModel.isLoading {
-                    ProgressView("로딩 중...")
-                } else if let errorMessage = viewModel.errorMessage {
+                }
+                
+                else if let errorMessage = viewModel.errorMessage {
                     Text(errorMessage)
                         .foregroundColor(.red)
+                }
+                
+                else {
+                    let _ = print("nothing")
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
             .background(Color.white)
-            .onAppear {
-                Task {
-                    await viewModel.fetchMarketDetail(marketId: marketId)
-                    await viewModel.fetchValidCoupons(marketId: marketId, couponId: nil, size: nil)
-                }
-            }
+            
             
             if !loginViewModel.isLoggedIn && isLoginRequiredPopupVisible {
                 LoginRequriedPopup(
@@ -156,7 +157,10 @@ struct MarketDetailView: View {
                 ).transition(.move(edge: .bottom))
             }
         }
-        .environmentObject(loginViewModel)
+        .task {
+            await viewModel.fetchMarketDetail(marketId: viewModel.id)
+            await viewModel.fetchValidCoupons(marketId: viewModel.id, couponId: nil, size: nil)
+        }
         .fullScreenCover(isPresented: $showLoginView) {
             LoginView()
         }
