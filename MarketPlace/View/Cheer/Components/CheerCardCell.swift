@@ -8,7 +8,7 @@ struct CheerCardCell: View {
         VStack(alignment: .leading, spacing: 8) {
             ShimmeringAsyncImage(
                 url: URL(
-                    string: URLManager.shared.baseStringURL + "image/tempMarket/" + (viewModel.cheerMarket.thumbnail ?? "f432333d-904d-46c4-b65b-87b84c468b7d_쿠러미 로고.png")
+                    string: URLManager.shared.baseStringURL + "image/tempMarket/" + viewModel.cheerMarket.thumbnail
                 ),
                 cornerRadius: 0, width: 162, height: 162)
 
