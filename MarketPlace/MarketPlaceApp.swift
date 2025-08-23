@@ -15,7 +15,11 @@ struct MarketPlaceApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if loginVM.isLoggedIn {
+                AlertView()
+            } else {
+                LoginView()
+            }
         }
         .environmentObject(loginVM)
     }

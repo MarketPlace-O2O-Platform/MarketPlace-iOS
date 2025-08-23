@@ -23,7 +23,7 @@ final class AlertViewModel: ObservableObject {
     }
     
     // MARK: - 알림 조회
-    func fetchNotifications(type: String = "UNKNOWN", size: Int? = nil) async {
+    func fetchNotifications(type: String = "MARKET", size: Int? = nil) async {
         guard !isLoading, hasNextPage else { return }
         isLoading = true
         
