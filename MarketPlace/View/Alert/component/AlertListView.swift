@@ -31,7 +31,7 @@ struct AlertCardListView: View {
                     
                     if notification.id != filteredNotifications.last?.id {
                         Divider()
-                            .background(Color.gray.opacity(0.2))
+                            .background(Colors.gray_100)
                     }
                 }
             }
