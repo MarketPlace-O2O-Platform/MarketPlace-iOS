@@ -12,14 +12,23 @@ import KakaoMapsSDK
 struct MarketPlaceApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var loginVM = LoginViewModel()
+//    @State private var showAlertView: Bool = false
 
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(loginVM)
+            /// NOTE: 푸시알림 설정 시 알림 화면을 fullscreen으로 띄워서 뒤로가기 버튼을 누르면 contentview로 이동할 수 있게 함
+//                .fullScreenCover(isPresented: $showAlertView) {
+//                    AlertView(showAlertView: $showAlertView)
+//                }
+//                .onAppear {
+//                    // showAlertView = true
+//                }
         }
-        .environmentObject(loginVM)
     }
 }
+
 
 /// - NOTE: 카카오맵을 위한 코드
 class AppDelegate: NSObject, UIApplicationDelegate {

@@ -1,5 +1,6 @@
 import Foundation
 
+@MainActor
 final class MarketDetailViewModel: ObservableObject {
     @Published var marketDetail: MarketDetailModel?
     @Published var errorMessage: String?
@@ -19,6 +20,10 @@ final class MarketDetailViewModel: ObservableObject {
         self.marketId = marketId
         self.marketService = marketService
         self.couponService = couponService
+    }
+    
+    var id: Int {
+        return marketId
     }
     
     // MARK: - 매장 상세 내역 조회 
