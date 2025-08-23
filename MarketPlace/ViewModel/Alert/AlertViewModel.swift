@@ -75,4 +75,22 @@ final class AlertViewModel: ObservableObject {
             print("[NotificationPatch] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }
     }
+    
+    // MARK: - 알림 전체 읽음 처리
+    func patchAllNotifications() async {
+        // 서버 patch 요청을 비동기로 동시에 실행
+        await withTaskGroup(of: Void.self) { group in
+            for notification in notifications {
+                group.addTask {
+                    await self.patchNotification(notificationId: notification.id)
+                }
+            }
+        }
+        
+        // patch 끝난 후 로컬 상태 갱신
+        for i in notifications.indices {
+            notifications[i].isRead = true
+        }
+    }
+
 }

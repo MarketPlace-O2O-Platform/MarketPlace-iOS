@@ -19,7 +19,7 @@ struct AlertView: View {
                 Spacer()
                 
                 Button(action: {
-                    markAllAsRead()
+                    AlertAllAsRead()
                 }) {
                     Text("전체 읽음")
                         .pretendardFont(size: 12, weight: .regular)
@@ -44,11 +44,9 @@ struct AlertView: View {
         }
     }
     
-    func markAllAsRead() {
+    func AlertAllAsRead() {
         Task {
-            for notification in viewModel.notifications where !notification.isRead {
-                await viewModel.patchNotification(notificationId: notification.id)
-            }
+            await viewModel.patchAllNotifications()
         }
     }
 }

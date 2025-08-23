@@ -60,7 +60,7 @@ enum NotificationEndpoint: Endpoint {
             }
             return items
         case .patchNotification(let notificationId):
-            var items: [URLQueryItem] = [URLQueryItem(name: "notificationId", value: String(notificationId))]
+            let items: [URLQueryItem] = [URLQueryItem(name: "notificationId", value: String(notificationId))]
             return items
         default:
             return nil
