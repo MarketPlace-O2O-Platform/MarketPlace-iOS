@@ -12,10 +12,15 @@ struct RegisterReceiptView: View {
     @State private var isShowImagePicker: Bool = false
     @State private var bank: String = ""
     @State private var accountNumber: String = ""
-    @State private var isSaveAccount: Bool = false
+//    @State private var isSaveAccount: Bool = false
     @State var image: UIImage?
     
     @ObservedObject var viewModel: SubmitReceiptViewModel
+    
+    @AppStorage("savedBank") private var savedBank: String = ""
+    @AppStorage("savedAccountNumber") private var savedAccountNumber: String = ""
+    @AppStorage("isAccountSaved") private var isAccountSaved: Bool = false
+
     
     init(viewModel: SubmitReceiptViewModel) {
         self.viewModel = viewModel
@@ -89,9 +94,18 @@ struct RegisterReceiptView: View {
                     )
             }.padding(.bottom, 10)
             
-            CheckboxView(title: "계좌번호 저장", isChecked: $isSaveAccount)
+            CheckboxView(title: "계좌번호 저장", isChecked: $isAccountSaved)
             
             Button(action: {
+                // - 계좌번호 임시저장
+                if isAccountSaved {
+                    savedBank = bank
+                    savedAccountNumber = accountNumber
+                } else {
+                    savedBank = ""
+                    savedAccountNumber = ""
+                }
+                
                 // - TODO: 영수증 보내는 API
                 if let image = image,
                    let jpgImageData = image.jpegData(compressionQuality: 0.2) {
@@ -117,6 +131,12 @@ struct RegisterReceiptView: View {
         .sheet(isPresented: $isShowImagePicker) {
             UImagePicker(sourceType: .photoLibrary) { image in
                 self.image = image
+            }
+        }
+        .onAppear {
+            if isAccountSaved {
+                bank = savedBank
+                accountNumber = savedAccountNumber
             }
         }
         .padding(.horizontal, 30)
