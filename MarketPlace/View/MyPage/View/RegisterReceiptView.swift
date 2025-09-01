@@ -29,39 +29,35 @@ struct RegisterReceiptView: View {
                 .lineLimit(2)
                 .multilineTextAlignment(.leading)
                 .padding(.top, 20)
-            
-            Text("결제 금액이 보이게 영수증 사진을\n첨부해주세요")
-                .pretendardFont(size: 16, weight: .regular)
-                .lineLimit(2)
-                .multilineTextAlignment(.center)
-                .foregroundStyle(Color(hex: "9B9B9B"))
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .overlay {
-                    RoundedRectangle(cornerRadius: 2)
-                        .stroke(
-                            Color(Colors.gray_100),
-                            lineWidth: 1
-                        )
-                }
-                .overlay(alignment: .topTrailing) {
-                    Image(systemName: "plus")
+                            
+            ZStack {
+                RoundedRectangle(cornerRadius: 2)
+                    .stroke(Color(Colors.gray_100), lineWidth: 1)
+
+                if image == nil {
+                    Text("결제 금액이 보이게 영수증 사진을\n첨부해주세요")
+                        .pretendardFont(size: 16, weight: .regular)
+                        .foregroundStyle(Color(hex: "9B9B9B"))
+                        .multilineTextAlignment(.center)
+                        .overlay(alignment: .topTrailing) {
+                            Image(systemName: "plus")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 40)
+                                .foregroundStyle(Colors.gray_100)
+                                .offset(x: 60, y: -180)
+                        }
+                } else {
+                    Image(uiImage: image!)
                         .resizable()
                         .scaledToFit()
-                        .frame(height: 40)
-                        .foregroundStyle(Colors.gray_100)
-                        .offset(x: -20, y: 20)
+                        .padding(.horizontal, 40)
+                        .padding(.vertical, 20)
                 }
-                .overlay {
-                    if let image = image {
-                        Image(uiImage: image)
-                            .resizable()
-                            .scaledToFit()
-                            .padding(.horizontal, 40)
-                    }
-                }
-                .onTapGesture {
-                    self.isShowImagePicker.toggle()
-                }
+            }
+            .onTapGesture {
+                self.isShowImagePicker.toggle()
+            }
             
             Text("환급받을 계좌를\n알려주세요")
                 .pretendardFont(size: 26, weight: .bold)
