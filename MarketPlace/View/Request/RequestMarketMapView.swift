@@ -11,11 +11,13 @@ struct RequestMarketMapView: View {
     @Environment(\.presentationMode) var presentationMode
     
     @StateObject private var viewModel = RequestMarketMapViewModel()
-
+    @State var pois: [KakaoMapPoi] = []
+    
     let market: KakaoMarketData
     
     init(market: KakaoMarketData) {
         self.market = market
+        pois.append(KakaoMapPoi(latitude: Double(market.x) ?? 0.0, longitude: Double(market.y) ?? 0.0, title: market.place_name))
     }
     
     @State var draw: Bool = false
@@ -37,12 +39,17 @@ struct RequestMarketMapView: View {
             HStack {
                 Spacer()
                 
-                KakaoMapView(draw: $draw, longitude: Double(market.x) ?? 0.0, latitude: Double(market.y) ?? 0.0).onAppear(perform: {
-                    self.draw = true
-                }).onDisappear(perform: {
-                    self.draw = false
-                }).frame(maxWidth: 340, maxHeight: 340)
-                
+                KakaoMapView(
+                    draw: $draw,
+                    locationManager: LocationManager.shared,
+                    pois: $pois
+                )
+                    .onAppear(perform: {
+                        self.draw = true
+                    }).onDisappear(perform: {
+                        self.draw = false
+                    }).frame(maxWidth: 340, maxHeight: 340)
+                    
                 Spacer()
             }
             

@@ -68,9 +68,7 @@ final class NetworkService: NetworkServiceProtocol {
         if let body = endpoint.body {
             request.httpBody?.append(body)
         }
-        
-        print(request.url)
-        
+                
         do {
             
             let (data, response) = try await URLSession.shared.data(for: request)

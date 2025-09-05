@@ -1,14 +1,13 @@
 import Foundation
 import CoreLocation
-import MapKit
 
 final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     static let shared = LocationManager()
     private var manager: CLLocationManager = CLLocationManager()
     
-    @Published var region: MKCoordinateRegion = MKCoordinateRegion()
+    @Published var region: CLLocation = CLLocation(latitude: 37.3862417, longitude: 126.6394079)
 
-    override init() {
+    private override init() {
         super.init()
         self.manager.delegate = self
         self.manager.desiredAccuracy = kCLLocationAccuracyBest
@@ -23,10 +22,7 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
         DispatchQueue.main.async {
-            self.region = MKCoordinateRegion(
-                center: location.coordinate,
-                span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-            )
+            self.region = location
         }
     }
 
@@ -46,7 +42,6 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
 
     // MARK: - Handling location manager failure
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        // Handle errors when the location manager fails to get the user's location
         print("Location manager failed with error: \(error.localizedDescription)")
     }
 }
