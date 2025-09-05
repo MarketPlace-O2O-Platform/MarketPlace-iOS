@@ -32,7 +32,7 @@ struct RegisterReceiptView: View {
                             
             ZStack {
                 RoundedRectangle(cornerRadius: 2)
-                    .stroke(Color(Colors.gray_100), lineWidth: 1)
+                    .stroke(Color(Colors.gray_600), lineWidth: 1)
 
                 if image == nil {
                     Text("결제 금액이 보이게 영수증 사진을\n첨부해주세요")
@@ -72,7 +72,7 @@ struct RegisterReceiptView: View {
                     .frame(width: 90, height: 48)
                     .background(
                         RoundedRectangle(cornerRadius: 2)
-                            .stroke(Colors.gray_100, lineWidth: 1)
+                            .stroke(Colors.gray_600, lineWidth: 1)
                     )
                 
                 TextField("계좌번호 입력", text: $accountNumber)
@@ -81,7 +81,7 @@ struct RegisterReceiptView: View {
                     .frame(height: 48)
                     .background(
                         RoundedRectangle(cornerRadius: 2)
-                            .stroke(Colors.gray_100, lineWidth: 1)
+                            .stroke(Colors.gray_600, lineWidth: 1)
                     )
             }.padding(.bottom, 10)
             
