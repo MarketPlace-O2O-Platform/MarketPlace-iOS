@@ -33,5 +33,6 @@ struct SearchFailedView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Colors.gray_100)
+        .ignoresSafeArea(.keyboard)
     }
 }
