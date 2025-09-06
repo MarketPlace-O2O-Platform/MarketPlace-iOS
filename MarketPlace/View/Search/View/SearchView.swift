@@ -42,6 +42,8 @@ struct SearchView: View {
                     viewModel.addRecentSearch(searchQuery)
                 }
             )
+            Divider()
+                .stroke(Color.black, lineWidth: 1)
             
             if viewModel.searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                 ScrollView {

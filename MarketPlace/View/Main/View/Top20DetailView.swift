@@ -55,7 +55,7 @@ struct Top20DetailView: View {
                 await viewModel.fetchCouponPopular()
             }
         }
-        .navigationTitle("Top 20 인기 이벤트")
+        .navigationTitle("Top 20 인기 | 멤버십 혜택")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
