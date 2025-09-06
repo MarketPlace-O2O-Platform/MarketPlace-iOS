@@ -10,7 +10,7 @@ struct MapView: View {
 
     @State var draw: Bool = false
     
-    @State private var region = CLLocation(latitude: 37.3862417, longitude: 126.6394079)
+    @State private var location = CLLocation(latitude: 37.3862417, longitude: 126.6394079)
     
     @State private var isUserTrackingEnabled = false
     @State private var isListVisible = false
@@ -21,19 +21,19 @@ struct MapView: View {
     var body: some View {
         NavigationView {
             ZStack(alignment: .bottom) {
-                KakaoMapView(draw: $draw, locationManager: locationManager, pois: $viewModel.marketsForMap)
+                KakaoMapView(draw: $draw, pois: $viewModel.marketsForMap, location: $location)
                     .onAppear(perform: {
                         self.draw = true
-                    })
-                    .onDisappear(perform: {
-                        self.draw = false
-                    })
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .onAppear {
+                        self.location = locationManager.region
                         Task {
                             await viewModel.fetchMarketsWithAddress(lastPageIndex: nil, category: Category(index: selectedCategory)?.toString() ?? nil, pageSize: nil)
                         }
-                    }
+                    })
+                    .onDisappear(perform: {
+                        self.draw = false
+                        isSelectedPin = -1
+                    })
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
 //                Map(
 //                    coordinateRegion: $region,
 //                    showsUserLocation: true,
@@ -78,11 +78,8 @@ struct MapView: View {
 //                        }
 //                    }
 //                }
-                .onDisappear {
-                    isSelectedPin = -1
-                }
-                .ignoresSafeArea()
-                
+                    .ignoresSafeArea()
+                    
                 VStack {
                     CategoryTabView(selectedTab: $selectedCategory)
                         .background(Color.white)
@@ -94,7 +91,7 @@ struct MapView: View {
                     HStack {
                         Spacer()
                         Button(action: {
-                            region = locationManager.region
+                            location = locationManager.region
                             isUserTrackingEnabled = true
                         }) {
                             Image("mapLocation")
