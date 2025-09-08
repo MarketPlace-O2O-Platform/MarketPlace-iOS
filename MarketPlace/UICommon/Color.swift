@@ -7,7 +7,7 @@ struct Colors {
     static let fontColor = Color(hex: "#303030")
     static let backgroundColor = Color.white
     static let gray_50 = Color(hex: "#FAFAFA")
-    static let gray_100 = Color(hex: "#EEEEEE")
+    static let gray_100 = Color(hex: "#EEE")
     static let gray_150 = Color(hex: "#EEEEEE")
     static let gray_300 = Color(hex: "#B0B0B0")
     static let gray_700 = Color(hex: "#5E5E5E")
