@@ -10,7 +10,6 @@ struct Colors {
     static let gray_100 = Color(hex: "#EEE")
     static let gray_150 = Color(hex: "#EEEEEE")
     static let gray_300 = Color(hex: "#B0B0B0")
-    static let gray_600 = Color(hex: "#9B9B9B")
     static let gray_700 = Color(hex: "#5E5E5E")
     static let gray_800 = Color(hex: "#4B4B4B")
     static let gray_900 = Color(hex: "#333333")
