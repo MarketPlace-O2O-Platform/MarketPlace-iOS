@@ -54,7 +54,7 @@ struct NewEventDetailView: View {
                 await viewModel.fetchLatestCoupons()
             }
         }
-        .navigationTitle("이번달 신규 이벤트")
+        .navigationTitle("1월 신규 | 멤버십 혜택")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {

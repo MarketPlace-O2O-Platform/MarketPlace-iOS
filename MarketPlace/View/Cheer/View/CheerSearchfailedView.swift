@@ -39,5 +39,6 @@ struct CheerSearchfailedView: View {
             
             Spacer()
         }
+        .ignoresSafeArea(.keyboard)
     }
 }
