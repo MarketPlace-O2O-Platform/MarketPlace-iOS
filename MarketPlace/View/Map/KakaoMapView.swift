@@ -94,33 +94,47 @@ struct KakaoMapView: UIViewRepresentable {
         func createLodLabelLayer() {
             let view = controller?.getView("mapview") as! KakaoMap
             let manager = view.getLabelManager()
-            let korea = LodLabelLayerOptions(layerID: "INCHEON", competitionType: .none, competitionUnit: .symbolFirst, orderType: .rank, zOrder: 0, radius: 10.0)
+            let poiLayer = LodLabelLayerOptions(layerID: _layerName, competitionType: .none, competitionUnit: .symbolFirst, orderType: .rank, zOrder: 1000, radius: 10.0)
 
-            let _ = manager.addLodLabelLayer(option: korea)
+            let _ = manager.addLodLabelLayer(option: poiLayer)
         }
             
+        // MARK: - poi style을 지정합니다.
         func createPoiStyle() {
-            let view = controller?.getView("mapview") as! KakaoMap
+            guard let view = controller?.getView("mapview") as? KakaoMap else {
+                print("mapview를 찾을 수 없습니다.")
+                return
+            }
+            
             let manager = view.getLabelManager()
             
-            let resizedImage = UIImage(named: "mapCouponMarker")?.resized(to: CGSize(width: 15, height: 15))
-            
-            let symbols = [
-                resizedImage,
-            ]
-            
-            let anchorPoint = CGPoint(x: 0.5, y: 1.0)
-            
-            let textLineStyles = [
+            /// - NOTE: 선택되지않은, 기본적인 poi style
+            let defaultIcon = UIImage(named: "mapCouponMarker")?.resized(to: CGSize(width: 15, height: 15))
+            let defaultIconStyle = PoiIconStyle(symbol: defaultIcon, anchorPoint: CGPoint(x: 0.5, y: 1.0))
+            let defaultTextLineStyles = [
                 PoiTextLineStyle(textStyle: TextStyle(fontSize: 17, fontColor: UIColor.black, strokeThickness: 0, strokeColor: .black)),
             ]
             
-            let iconStyle = PoiIconStyle(symbol: symbols[0], anchorPoint: anchorPoint)
-            let textStyle = PoiTextStyle(textLineStyles: textLineStyles)
-            let poiStyle = PoiStyle(styleID: "customStyle", styles: [
-                PerLevelPoiStyle(iconStyle: iconStyle, textStyle: textStyle, level: 0)
+            let defaultTextStyle = PoiTextStyle(textLineStyles: defaultTextLineStyles)
+            let defaultPoiStyle = PoiStyle(styleID: "defaultStyle", styles: [
+                PerLevelPoiStyle(iconStyle: defaultIconStyle, textStyle: defaultTextStyle, level: 0)
             ])
-            manager.addPoiStyle(poiStyle)
+            
+            manager.addPoiStyle(defaultPoiStyle)
+            
+            /// - NOTE: 선택된 poi style
+            let selectedIcon = UIImage(named: "mapMarker2")?.resized(to: CGSize(width: 35, height: 35))
+            let selectedIconStyle = PoiIconStyle(symbol: selectedIcon, anchorPoint: CGPoint(x: 0.5, y: 1.0))
+            let selectedTextLineStyles = [
+                PoiTextLineStyle(textStyle: TextStyle(fontSize: 17, fontColor: UIColor.black, strokeThickness: 0, strokeColor: .black)),
+            ]
+            
+            let selectedTextStyle = PoiTextStyle(textLineStyles: selectedTextLineStyles)
+            let selectedPoiStyle = PoiStyle(styleID: "selectedStyle", styles: [
+                PerLevelPoiStyle(iconStyle: selectedIconStyle, textStyle: selectedTextStyle, level: 0)
+            ])
+            
+            manager.addPoiStyle(selectedPoiStyle)
         }
             
         func createPois(pois: [KakaoMapPoi]) {
@@ -139,8 +153,7 @@ struct KakaoMapView: UIViewRepresentable {
             var positions = [MapPoint]()
 
             for poi in pois {
-                let option = PoiOptions(styleID: "customStyle")
-                option.rank = 0
+                let option = PoiOptions(styleID: "defaultStyle")
                 option.addText(PoiText(text: poi.title, styleIndex: 0))
                 option.clickable = true
 
@@ -148,8 +161,33 @@ struct KakaoMapView: UIViewRepresentable {
                 positions.append(MapPoint(longitude: poi.longitude, latitude: poi.latitude))
             }
 
-            let _ = layer.addLodPois(options: poiOptions, at: positions)
+            guard let lodPois = layer.addLodPois(options: poiOptions, at: positions) else {
+                print("lodPois를 찾을 수 없습니다.")
+                return
+            }
+            
+            for lodPoi in lodPois {
+                let _ = lodPoi.addPoiTappedEventHandler(target: self, handler: KakaoMapCoordinator.poiTappedHandler)
+            }
+            
             layer.showAllLodPois()
+        }
+        
+        func poiTappedHandler(_ param: PoiInteractionEventParam) {
+            guard let view = controller?.getView("mapview") as? KakaoMap else { return }
+            let manager = view.getLabelManager()
+            guard let layer = manager.getLodLabelLayer(layerID: _layerName) else { return }
+
+            guard let lodPois = layer.getAllLodPois() else {
+                print("lodPois를 찾을 수 없습니다.")
+                return
+            }
+            
+            for lodPoi in lodPois {
+                lodPoi.changeStyle(styleID: "defaultStyle")
+            }
+            
+            param.poiItem.changeStyle(styleID: "selectedStyle", enableTransition: true)
         }
             
         func containerDidResized(_ size: CGSize) {
