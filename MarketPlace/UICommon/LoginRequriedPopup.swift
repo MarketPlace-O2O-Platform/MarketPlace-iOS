@@ -33,9 +33,16 @@ struct LoginRequriedPopup: View {
                 
                 Spacer()
                 
-                Text("로그인하고 쿠폰 받아보기")
+                Text("로그인하고\n쿠폰 받아가세요!")
                     .pretendardFont(size: 20, weight: .semibold)
                     .foregroundStyle(Colors.gray_900)
+                    .multilineTextAlignment(.center)
+                
+                Image("requestCouponImage")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 140)
+                    .padding(.bottom, 20)
                 
                 Button(action: {
                     showLogin = true
@@ -51,7 +58,7 @@ struct LoginRequriedPopup: View {
                 
                 Spacer()
             }
-            .frame(width: 320, height: 270)
+            .frame(width: 320, height: 340)
             .padding(.horizontal, 16)
             .padding(.vertical, 32)
             .background(Color.white)
