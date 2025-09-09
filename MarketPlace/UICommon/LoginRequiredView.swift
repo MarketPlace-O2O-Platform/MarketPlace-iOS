@@ -12,14 +12,22 @@ struct LoginRequiredView: View {
     
     var body: some View {
         VStack {
-            Text("로그인하고 쿠폰 받아보기")
+            Text("로그인하고\n쿠폰 받아가세요!")
                 .pretendardFont(size: 20, weight: .semibold)
+                .multilineTextAlignment(.center)
                 .foregroundStyle(Colors.gray_900)
+                .padding(.bottom, 20)
+            
+            Image("requestCouponImage")
+                .resizable()
+                .scaledToFit()
+                .frame(height: 140)
+                .padding(.bottom, 20)
             
             Button(action: {
                 showLogin = true
             }, label: {
-                Text("로그인")
+                Text("로그인하기")
                     .pretendardFont(size: 14, weight: .bold)
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
