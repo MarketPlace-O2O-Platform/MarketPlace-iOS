@@ -40,7 +40,7 @@ struct MyCouponCell: View {
                         .pretendardFont(size: 14, weight: .regular)
                         .foregroundStyle(Color(hex: "#727272"))
                         .padding(.leading, 20)
-                        .padding(.top, 3)
+                        .padding(.top, 1)
                     
                     Spacer()
 

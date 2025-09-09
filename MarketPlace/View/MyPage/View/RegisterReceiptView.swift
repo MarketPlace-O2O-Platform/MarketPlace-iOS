@@ -40,18 +40,17 @@ struct RegisterReceiptView: View {
                     .stroke(Color(Colors.gray_600), lineWidth: 1)
 
                 if image == nil {
-                    Text("결제 금액이 보이게 영수증 사진을\n첨부해주세요")
-                        .pretendardFont(size: 16, weight: .regular)
-                        .foregroundStyle(Color(hex: "9B9B9B"))
-                        .multilineTextAlignment(.center)
-                        .overlay(alignment: .topTrailing) {
-                            Image(systemName: "plus")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 40)
-                                .foregroundStyle(Colors.gray_100)
-                                .offset(x: 60, y: -180)
-                        }
+                    VStack(spacing: 20){
+                        Image("ReceiptIcon")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 64)
+
+                        Text("24시간 내로 환급이 이루어지지 않을 시\n고객센터(쿠러미 카카오채널)로 문의해주세요!")
+                            .pretendardFont(size: 14, weight: .medium)
+                            .foregroundStyle(Colors.gray_600)
+                            .multilineTextAlignment(.center)
+                    }
                 } else {
                     Image(uiImage: image!)
                         .resizable()
