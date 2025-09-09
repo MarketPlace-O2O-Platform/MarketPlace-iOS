@@ -21,7 +21,8 @@ struct AlertView: View {
                 HStack {
                     AlertButtonGroup(selectedCategory: $selectedCategory)
                     
-                    Spacer()
+                    Divider()
+                        .frame(height: 20)
                     
                     Button(action: {
                         AlertAllAsRead()

@@ -33,9 +33,17 @@ struct MyCouponCell: View {
                                 .foregroundStyle(Color(hex: "#303030"))
                         }.padding(.top, 5)
                     }
-                    .padding(.top, 10)
+                    .padding(.top, 20)
                     .padding(.horizontal, 20)
                     
+                    Text(viewModel.coupon.description)
+                        .pretendardFont(size: 14, weight: .regular)
+                        .foregroundStyle(Color(hex: "#727272"))
+                        .padding(.leading, 20)
+                        .padding(.top, 1)
+                    
+                    Spacer()
+
                     Button(action: {
                         if viewModel.canUse {
                             onTap()
@@ -52,13 +60,8 @@ struct MyCouponCell: View {
                             )
                     })
                     .padding(.horizontal ,20)
+                    .padding(.bottom, 20)
                     .disabled(!viewModel.canUse)
-                    
-                    Text(viewModel.coupon.description)
-                        .pretendardFont(size: 14, weight: .regular)
-                        .foregroundStyle(Color(hex: "#727272"))
-                        .padding(.leading, 20)
-                        .padding(.top, 20)
                 }
             }
     }
