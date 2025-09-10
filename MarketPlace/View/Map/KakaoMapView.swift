@@ -188,8 +188,9 @@ struct KakaoMapView: UIViewRepresentable {
             }
             
             let cameraUpdate = CameraUpdate.make(target: poi.position, zoomLevel: 16, mapView: view)
-            view.moveCamera(cameraUpdate)
-            poi.changeStyle(styleID: "selectedStyle")
+            let cameraAnimation = CameraAnimationOptions(autoElevation: true, consecutive: true, durationInMillis: 4)
+            view.animateCamera(cameraUpdate: cameraUpdate, options: cameraAnimation)
+            poi.changeStyle(styleID: "selectedStyle", enableTransition: true)
             
             selectedPoiID = poi.itemID
         }
