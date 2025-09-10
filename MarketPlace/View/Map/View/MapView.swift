@@ -1,9 +1,7 @@
 import Foundation
 import SwiftUI
-import MapKit
-import SwiftUICore
 import Combine
-
+import CoreLocation
 
 struct MapView: View {
     @Namespace var mapScope
@@ -12,10 +10,7 @@ struct MapView: View {
 
     @State var draw: Bool = false
     
-    @State private var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 37.5665, longitude: 126.978),
-        span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-    )
+    @State private var location = CLLocation(latitude: 37.3862417, longitude: 126.6394079)
     
     @State private var isUserTrackingEnabled = false
     @State private var isListVisible = false
@@ -26,81 +21,65 @@ struct MapView: View {
     var body: some View {
         NavigationView {
             ZStack(alignment: .bottom) {
-//                KakaoMapView(draw: $draw, longitude: 126.978, latitude: 37.5665).onAppear(perform: {
-//                    self.draw = true
-//                }).onDisappear(perform: {
-//                    self.draw = false
-//                }).frame(maxWidth: .infinity, maxHeight: .infinity)
-                Map(
-                    coordinateRegion: $region,
-                    showsUserLocation: true,
-                    annotationItems: viewModel.marketsForMap
-                ) { market in
+                KakaoMapView(draw: $draw, pois: $viewModel.marketsForMap, location: $location)
+                    .onAppear(perform: {
+                        self.draw = true
+                        self.location = locationManager.region
+                        Task {
+                            await viewModel.fetchMarketsWithAddress(lastPageIndex: nil, category: Category(index: selectedCategory)?.toString() ?? nil, pageSize: nil)
+                        }
+                    })
+                    .onDisappear(perform: {
+                        self.draw = false
+                        isSelectedPin = -1
+                    })
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+//                Map(
+//                    coordinateRegion: $region,
+//                    showsUserLocation: true,
+//                    annotationItems: viewModel.marketsForMap
+//                ) { market in
+//                    
+//                    /// - NOTE: - 안정적이지 않은듯, 사라졌다 다시 나타났다가 함
+//                    MapAnnotation(coordinate: market.position ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)) {
+//                        VStack {
+//                            Button(action: {
+//                                withAnimation(.smooth()) {
+//                                    isSelectedPin = market.marketId
+//                                    region = MKCoordinateRegion(
+//                                        center: market.position ?? CLLocationCoordinate2D(latitude: 0, longitude: 0),
+//                                        span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005))
+//                                    isUserTrackingEnabled = true
+//                                    
+//                                    viewModel.moveMarketToFront(withId: market.marketId)
+//                                }
+//                            }, label: {
+//                                if isSelectedPin == market.marketId {
+//                                    VStack{
+//                                        Image("mapMarker2")
+//                                            .resizable()
+//                                            .frame(width: 55, height: 55)
+//                                        
+//                                        Text(market.marketName)
+//                                            .pretendardFont(size: 11, weight: .semibold)
+//                                    }
+//                                }
+//                                else {
+//                                    VStack{
+//                                        Image("mapCouponMarker")
+//                                            .resizable()
+//                                            .frame(width: 30, height: 30)
+//                                        
+//                                        Text(market.marketName)
+//                                            .pretendardFont(size: 11, weight: .semibold)
+//                                    }
+//                                }
+//                            })
+//                        }
+//                    }
+//                }
+                    .ignoresSafeArea()
                     
-                    /// - NOTE: - 안정적이지 않은듯, 사라졌다 다시 나타났다가 함
-                    MapAnnotation(coordinate: market.position ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)) {
-                        VStack {
-                            Button(action: {
-                                withAnimation(.smooth()) {
-                                    isSelectedPin = market.marketId
-                                    region = MKCoordinateRegion(
-                                        center: market.position ?? CLLocationCoordinate2D(latitude: 0, longitude: 0),
-                                        span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005))
-                                    isUserTrackingEnabled = true
-                                    
-                                    viewModel.moveMarketToFront(withId: market.marketId)
-                                }
-                            }, label: {
-                                if isSelectedPin == market.marketId {
-                                    VStack{
-                                        Image("mapMarker2")
-                                            .resizable()
-                                            .frame(width: 55, height: 55)
-                                        
-                                        Text(market.marketName)
-                                            .pretendardFont(size: 11, weight: .semibold)
-                                    }
-                                }
-                                else {
-                                    VStack{
-                                        Image("mapCouponMarker")
-                                            .resizable()
-                                            .frame(width: 30, height: 30)
-                                        
-                                        Text(market.marketName)
-                                            .pretendardFont(size: 11, weight: .semibold)
-                                    }
-                                }
-                            })
-                        }
-                    }
-                }
-                .onAppear {
-                    Task {
-                        region = locationManager.region
-                    }
-                }
-                .onDisappear {
-                    isSelectedPin = -1
-                }
-                .ignoresSafeArea()
-                .gesture(DragGesture()
-                    .onChanged { value in
-                        if !isListVisible {
-                            dragOffset = value.translation
-                        }
-                    }
-
-                    .onEnded { value in
-                        if dragOffset.height < -50 && !isListVisible {
-                            withAnimation(.smooth()) {
-                                isListVisible = true
-                            }
-                        }
-                        dragOffset = .zero
-                    }
-                )
-                
                 VStack {
                     CategoryTabView(selectedTab: $selectedCategory)
                         .background(Color.white)
@@ -112,7 +91,7 @@ struct MapView: View {
                     HStack {
                         Spacer()
                         Button(action: {
-                            region = locationManager.region
+                            location = locationManager.region
                             isUserTrackingEnabled = true
                         }) {
                             Image("mapLocation")
@@ -256,7 +235,6 @@ struct MapView: View {
                     await viewModel.fetchMarketsWithAddress(lastPageIndex: nil, category: Category(index: selectedCategory)?.toString() ?? nil, pageSize: nil)
                 }
             }
-            .mapScope(mapScope)
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }

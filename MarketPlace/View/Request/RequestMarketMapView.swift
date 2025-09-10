@@ -6,16 +6,24 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct RequestMarketMapView: View {
     @Environment(\.presentationMode) var presentationMode
     
     @StateObject private var viewModel = RequestMarketMapViewModel()
-
+    @State var pois: [KakaoMapPoi]
+    @State var location: CLLocation
+    
     let market: KakaoMarketData
     
     init(market: KakaoMarketData) {
         self.market = market
+        let latitude = Double(market.y) ?? 0.0
+        let longitude = Double(market.x) ?? 0.0
+        
+        _pois = State(initialValue: [KakaoMapPoi(latitude: latitude, longitude: longitude, title: market.place_name)])
+        _location = State(initialValue: CLLocation(latitude: latitude, longitude: longitude))
     }
     
     @State var draw: Bool = false
@@ -37,12 +45,14 @@ struct RequestMarketMapView: View {
             HStack {
                 Spacer()
                 
-                KakaoMapView(draw: $draw, longitude: Double(market.x) ?? 0.0, latitude: Double(market.y) ?? 0.0).onAppear(perform: {
-                    self.draw = true
-                }).onDisappear(perform: {
-                    self.draw = false
-                }).frame(maxWidth: 340, maxHeight: 340)
-                
+                KakaoMapView(draw: $draw, pois: $pois, location: $location)
+                    .onAppear(perform: {
+                        self.draw = true
+                    })
+                    .onDisappear(perform: {
+                        self.draw = false
+                    }).frame(maxWidth: 340, maxHeight: 340)
+                    
                 Spacer()
             }
             

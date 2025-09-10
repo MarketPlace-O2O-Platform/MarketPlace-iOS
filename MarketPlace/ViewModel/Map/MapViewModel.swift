@@ -9,7 +9,7 @@ import Foundation
 
 final class MapViewModel: ObservableObject {
     @Published var markets: [MarketModel] = []
-    @Published var marketsForMap: [MarketModel] = []
+    @Published var marketsForMap: [KakaoMapPoi] = []
     @Published var lastMarketId: Int?
     @Published var currentCategory: String?
     
@@ -77,9 +77,11 @@ final class MapViewModel: ObservableObject {
         case .success(let data, _):
             /// - NOTE: 서버에서 받아오는 주소를 위도, 경도 값으로 변경
             self.marketsForMap = await data.response.marketResDtos.asyncMap { market in
-                var updatedMarket = market
-                updatedMarket.position = try? await ConvertAddress().getCoordinateFromRoadAddress(from: market.address)
-                return updatedMarket
+                var poi = KakaoMapPoi(latitude: 0.0, longitude: 0.0, title: market.marketName)
+                let position = try? await ConvertAddress().getCoordinateFromRoadAddress(from: market.address)
+                poi.latitude = position?.latitude ?? 0.0
+                poi.longitude = position?.longitude ?? 0.0
+                return poi
             }
         case .failure(let statusCode, let message):
             print("[fetchMarketsWithAddress] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
