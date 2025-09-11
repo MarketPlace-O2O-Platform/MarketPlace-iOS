@@ -59,14 +59,14 @@ struct MyCouponView: View {
         .navigationBarBackButtonHidden(true)
         .onAppear {
             Task {
-                await viewModel.fetchMemberPaybackCoupon(type: CouponStatus(index: 0)?.toString() ?? "", memberCouponId: nil, size: nil)
+                await viewModel.fetchMemberPaybackCoupon(type: CouponCategory(index: selectedCategoryIndex)?.toString() ?? "", memberCouponId: nil, size: nil)
             }
         }
         .onChange(of: selectedCategoryIndex) {
             Task {
                 switch selectedCategoryIndex {
-                case 0: await viewModel.fetchMemberPaybackCoupon(type: CouponStatus(index: 0)?.toString() ?? "", memberCouponId: nil, size: nil)
-                case 1: await viewModel.fetchMemberCoupon(type: CouponStatus(index: 0)?.toString() ?? "", memberCouponId: nil, size: nil)
+                case 0: await viewModel.fetchMemberPaybackCoupon(type: CouponCategory(index: selectedCategoryIndex)?.toString() ?? "", memberCouponId: nil, size: nil)
+                case 1: await viewModel.fetchMemberCoupon(type: CouponCategory(index: selectedCategoryIndex)?.toString() ?? "", memberCouponId: nil, size: nil)
                 case 2: await viewModel.fetchEndedCoupon()
                 default:
                     break
@@ -80,7 +80,16 @@ struct MyCouponView: View {
     
     // MARK: - coupon Cell 생성
     private func makeCouponCell(for coupon: MembersCouponModel) -> some View {
-        let status = CouponStatus(index: selectedCategoryIndex) ?? .issued
+        var status: CouponStatus = .used
+        
+        if coupon.used { status = .used }
+        else if coupon.expired { status = .ended }
+        else {
+            if coupon.couponType == "GIFT" { status = .beforeUsedCoupon }
+            else if coupon.isSubmit { status = .beforePayback }
+            else { status = .beforeSubmitReceipt }
+        }
+        
         let viewModel = MyCouponCellViewModel(coupon: coupon, couponStatus: status)
         
         return MyCouponCell(viewModel: viewModel) {

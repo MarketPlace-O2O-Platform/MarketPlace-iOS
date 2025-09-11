@@ -50,13 +50,13 @@ struct MyCouponCell: View {
                         }
                     }, label: {
                         Text(viewModel.couponStatusText)
-                            .foregroundStyle(viewModel.couponStatus==CouponStatus.issued ? .white : Color(hex: "#727272"))
+                            .foregroundStyle(viewModel.couponStatus==CouponStatus.beforeSubmitReceipt || viewModel.couponStatus==CouponStatus.beforeUsedCoupon ? .white : Color(hex: "#727272"))
                             .pretendardFont(size: 14, weight: .semibold)
                             .padding(.vertical, 15)
                             .frame(maxWidth: .infinity)
                             .background(
                                 RoundedRectangle(cornerRadius: 4)
-                                    .fill(viewModel.couponStatus==CouponStatus.issued ? Color(hex: "#303030") : Color(hex: "#E0E0E0"))
+                                    .fill(viewModel.couponStatus==CouponStatus.beforeSubmitReceipt || viewModel.couponStatus==CouponStatus.beforeUsedCoupon ? Color(hex: "#303030") : Color(hex: "#E0E0E0"))
                             )
                     })
                     .padding(.horizontal ,20)

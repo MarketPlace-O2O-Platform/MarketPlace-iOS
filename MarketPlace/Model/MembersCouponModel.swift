@@ -10,6 +10,7 @@ struct MembersCouponModel: Codable, Identifiable {
     let description: String
     var used: Bool
     let couponType: String
+    let isSubmit: Bool
     let deadLine: String?
     let expired: Bool
     

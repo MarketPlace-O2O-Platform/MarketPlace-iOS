@@ -25,14 +25,7 @@ final class MyCouponCellViewModel: ObservableObject {
     }
     
     var couponStatusText: String {
-        switch couponStatus {
-        case .issued:
-            return "사용하러 가기"
-        case .ended:
-            return "사용 완료"
-//        case .expired:
-//            return "기간 만료"
-        }
+        return couponStatus.toUIName()
     }
 
     var formattedDeadline: String {
@@ -44,7 +37,7 @@ final class MyCouponCellViewModel: ObservableObject {
     }
 
     var canUse: Bool {
-        return couponStatus == .issued
+        return couponStatus == .beforeSubmitReceipt || couponStatus == .beforeUsedCoupon
     }
     
     func useMemberCoupon(memberCouponId: Int) async {
