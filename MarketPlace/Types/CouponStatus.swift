@@ -8,29 +8,15 @@
 import Foundation
 
 enum CouponStatus: String, CaseIterable {
-    case issued, ended
-    
-    init?(index: Int) {
-        switch index {
-        case 0: self = .issued
-        case 1: self = .issued
-        case 2: self = .ended
-        default: return nil
-        }
-    }
-    
-    func toString() -> String {
-        switch self {
-        case .issued: return "ISSUED"
-        case .ended: return "ENDED"
-        }
-    }
+    case beforeSubmitReceipt, beforePayback, beforeUsedCoupon, used, ended
     
     func toUIName() -> String {
         switch self {
-        case .issued: return "사용하러 가기"
-        case .ended: return "사용완료"
+        case .beforeSubmitReceipt: "환급하러 가기"
+        case .beforePayback: "환급 진행 중"
+        case .beforeUsedCoupon: "사용하러 가기"
+        case .used: "사용 완료"
+        case .ended: "기간 만료"
         }
     }
 }
-
