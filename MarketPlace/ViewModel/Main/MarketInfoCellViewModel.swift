@@ -21,16 +21,12 @@ final class MarketInfoCellViewModel: ObservableObject {
     )
     
     @Published var marketData: MarketModel
-
-//    private var marketId: Int
     
     init(
         marketService: MarketServiceProtocol = MarketService(),
-//        marketId: Int,
         marketData: MarketModel
     ) {
         self.marketService = marketService
-//        self.marketId = marketId
         self.marketData = marketData
     }
     

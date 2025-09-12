@@ -4,7 +4,7 @@ struct MarketDetailView: View {
     @StateObject var viewModel: MarketDetailViewModel
     @EnvironmentObject var loginViewModel: LoginViewModel
     @Environment(\.presentationMode) var presentationMode
-    @State private var isBookmarked = false
+    @State private var isBookmarked: Bool
     
     @State private var isPopupVisible: Bool = false
     @State private var selectedCouponId: Int = 0
@@ -14,8 +14,9 @@ struct MarketDetailView: View {
     @State private var isLoginRequiredPopupVisible: Bool = false
     @State private var showLoginView: Bool = false
     
-    init(marketId: Int) {
+    init(marketId: Int, isBookmarked: Bool = false) {
         _viewModel = StateObject(wrappedValue: MarketDetailViewModel(marketId: marketId))
+        _isBookmarked = State(initialValue: isBookmarked)
     }
 
     var body: some View {
@@ -38,7 +39,13 @@ struct MarketDetailView: View {
                                         .foregroundColor(.black)
                                         .frame(maxWidth: .infinity, alignment: .topLeading)
                                     Spacer()
-                                    Button(action: { isBookmarked.toggle() }) {
+                                    Button(action: {
+                                        isBookmarked.toggle()
+                                        
+                                        Task {
+                                            await viewModel.postFavoriteMarket(marketId: viewModel.id)
+                                        }
+                                    }) {
                                         Image(systemName: isBookmarked ? "bookmark.fill" : "bookmark")
                                             .resizable()
                                             .scaledToFit()
@@ -123,10 +130,6 @@ struct MarketDetailView: View {
                 else if let errorMessage = viewModel.errorMessage {
                     Text(errorMessage)
                         .foregroundColor(.red)
-                }
-                
-                else {
-                    let _ = print("nothing")
                 }
             }
             .navigationBarTitleDisplayMode(.inline)

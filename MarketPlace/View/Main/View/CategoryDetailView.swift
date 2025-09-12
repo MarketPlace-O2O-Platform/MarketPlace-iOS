@@ -13,7 +13,7 @@ struct CategoryDetailView: View {
                 LazyVStack(spacing: 16) {
                     ForEach(Array(viewModel.markets.enumerated()), id: \.offset) { index, shop in
                         NavigationLink(destination:
-                           MarketDetailView(marketId: shop.marketId)
+                           MarketDetailView(marketId: shop.marketId, isBookmarked: shop.isFavorite)
                         ) {
                             VStack {
                                 MarketInfoCell(
