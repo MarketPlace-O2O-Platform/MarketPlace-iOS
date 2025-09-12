@@ -13,7 +13,7 @@ enum CouponStatus: String, CaseIterable {
     func toUIName() -> String {
         switch self {
         case .beforeSubmitReceipt: "환급하러 가기"
-        case .beforePayback: "환급이 진행중입니다!"
+        case .beforePayback: "환급 진행 중"
         case .beforeUsedCoupon: "사용하러 가기"
         case .used: "사용 완료"
         case .ended: "기간 만료"
