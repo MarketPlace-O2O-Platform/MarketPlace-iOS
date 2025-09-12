@@ -47,7 +47,7 @@ struct CouponValidModel: Codable, Identifiable {
 extension String {
     func toKoreanDateFormat() -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         
         if let date = dateFormatter.date(from: self) {
             dateFormatter.dateFormat = "yyyy년 MM월 dd일"
