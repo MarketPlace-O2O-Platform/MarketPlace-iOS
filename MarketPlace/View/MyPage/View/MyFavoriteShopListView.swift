@@ -24,7 +24,7 @@ struct MyFavoriteShopListView: View {
                         VStack {
                             MarketInfoCell(
                                 isBookmarked: shop.isFavorite,
-                                viewModel: MarketInfoCellViewModel(marketId: shop.marketId, marketData: market)
+                                viewModel: MarketInfoCellViewModel(marketData: market)
                             )
                             
                             Divider()

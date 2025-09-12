@@ -34,50 +34,6 @@ struct MapView: View {
                         isSelectedPin = -1
                     })
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-//                Map(
-//                    coordinateRegion: $region,
-//                    showsUserLocation: true,
-//                    annotationItems: viewModel.marketsForMap
-//                ) { market in
-//                    
-//                    /// - NOTE: - 안정적이지 않은듯, 사라졌다 다시 나타났다가 함
-//                    MapAnnotation(coordinate: market.position ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)) {
-//                        VStack {
-//                            Button(action: {
-//                                withAnimation(.smooth()) {
-//                                    isSelectedPin = market.marketId
-//                                    region = MKCoordinateRegion(
-//                                        center: market.position ?? CLLocationCoordinate2D(latitude: 0, longitude: 0),
-//                                        span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005))
-//                                    isUserTrackingEnabled = true
-//                                    
-//                                    viewModel.moveMarketToFront(withId: market.marketId)
-//                                }
-//                            }, label: {
-//                                if isSelectedPin == market.marketId {
-//                                    VStack{
-//                                        Image("mapMarker2")
-//                                            .resizable()
-//                                            .frame(width: 55, height: 55)
-//                                        
-//                                        Text(market.marketName)
-//                                            .pretendardFont(size: 11, weight: .semibold)
-//                                    }
-//                                }
-//                                else {
-//                                    VStack{
-//                                        Image("mapCouponMarker")
-//                                            .resizable()
-//                                            .frame(width: 30, height: 30)
-//                                        
-//                                        Text(market.marketName)
-//                                            .pretendardFont(size: 11, weight: .semibold)
-//                                    }
-//                                }
-//                            })
-//                        }
-//                    }
-//                }
                     .ignoresSafeArea()
                     
                 VStack {

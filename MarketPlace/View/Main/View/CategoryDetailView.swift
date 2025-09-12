@@ -18,7 +18,7 @@ struct CategoryDetailView: View {
                             VStack {
                                 MarketInfoCell(
                                     isBookmarked: shop.isFavorite,
-                                    viewModel: MarketInfoCellViewModel(marketId: shop.marketId, marketData: shop)
+                                    viewModel: MarketInfoCellViewModel(marketData: shop)
                                 )
                                 
                                 Divider()

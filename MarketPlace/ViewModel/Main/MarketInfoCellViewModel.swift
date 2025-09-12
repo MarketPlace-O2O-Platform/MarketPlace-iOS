@@ -9,6 +9,7 @@ import Foundation
 
 final class MarketInfoCellViewModel: ObservableObject {
     private var marketService: MarketServiceProtocol
+    
     @Published var market: MarketDetailModel = MarketDetailModel(
         marketId: 0, name: "",
         description: "",
@@ -19,21 +20,18 @@ final class MarketInfoCellViewModel: ObservableObject {
         imageResList: []
     )
     
-    private var marketId: Int
     @Published var marketData: MarketModel
+
+//    private var marketId: Int
     
     init(
         marketService: MarketServiceProtocol = MarketService(),
-        marketId: Int,
+//        marketId: Int,
         marketData: MarketModel
     ) {
         self.marketService = marketService
-        self.marketId = marketId
+//        self.marketId = marketId
         self.marketData = marketData
-        
-        Task {
-//            await fetchMarket(marketId: marketId)
-        }
     }
     
     // MARK: - 매장 상세 조회

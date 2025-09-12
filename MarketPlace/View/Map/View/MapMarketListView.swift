@@ -20,7 +20,7 @@ struct MapMarketListView: View {
                             VStack(spacing: 0) {
                                 MarketInfoCell(
                                     isBookmarked: shop.isFavorite,
-                                    viewModel: MarketInfoCellViewModel(marketId: shop.marketId, marketData: shop)
+                                    viewModel: MarketInfoCellViewModel(marketData: shop)
                                 ).padding(.bottom, 10)
                                 
                                 Divider()

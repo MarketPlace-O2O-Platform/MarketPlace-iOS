@@ -49,7 +49,7 @@ struct MarketInfoCell: View {
                         isBookmarked.toggle()
 
                         Task {
-                            await viewModel.postFavoriteMarket(marketId: viewModel.market.marketId)
+                            await viewModel.postFavoriteMarket(marketId: viewModel.marketData.id)
                         }
                     }) {
                         Image(systemName: isBookmarked ? "bookmark.fill" : "bookmark")
