@@ -48,8 +48,8 @@ final class MarketInfoCellViewModel: ObservableObject {
         let result = await marketService.postFavoriteMarket(marketId: marketId)
         
         switch result {
-        case .success(let data, _):
-            print(data)
+        case .success(_, _):
+            marketData.isFavorite.toggle()
         case .failure(let statusCode, let message):
             print("[postFavoriteMarket] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }

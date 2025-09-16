@@ -13,7 +13,7 @@ struct Top20DetailView: View {
                 LazyVStack(spacing: 16) {
                     ForEach(viewModel.topCoupons) { coupon in
                         NavigationLink(destination:
-                           MarketDetailView(marketId: coupon.marketId)
+                            MarketDetailView(marketId: coupon.marketId)
                         ) {
                             let basic = CouponBasicModel(
                                 couponId: coupon.couponId,
