@@ -23,7 +23,7 @@ struct MainBannerView: View {
                             texts: [
                                 coupon.marketName,
                                 coupon.couponName,
-                                coupon.deadline.toKoreanDateFormat()
+                                coupon.deadlineKoreanFormat
                             ]
                         )
                         .padding(.horizontal, 20)
