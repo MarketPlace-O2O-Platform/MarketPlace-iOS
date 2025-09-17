@@ -46,11 +46,19 @@ struct MarketDetailView: View {
                                             await viewModel.postFavoriteMarket(marketId: viewModel.id)
                                         }
                                     }) {
-                                        Image(systemName: isBookmarked ? "bookmark.fill" : "bookmark")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .foregroundColor(.black)
-                                            .frame(width: 16)
+                                        if let isFavorite = shop.isFavorite {
+                                            Image(systemName: isFavorite ? "bookmark.fill" : "bookmark")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .foregroundColor(.black)
+                                                .frame(width: 16)
+                                        } else {
+                                            Image(systemName: "bookmark")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .foregroundColor(.black)
+                                                .frame(width: 16)
+                                        }
                                     }
                                 }
                                 .padding(.top, 20)

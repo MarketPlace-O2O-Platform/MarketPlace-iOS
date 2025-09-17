@@ -11,11 +11,12 @@ struct MarketDetailModel: Codable {
     let phoneNumber: String
     let address: String
     let imageResList: [ImageResource]
+    let isFavorite: Bool?
     
     var position: CLLocationCoordinate2D?
     
     enum CodingKeys: String, CodingKey {
-        case marketId, name, description, operationHours, closedDays, phoneNumber, address, imageResList
+        case marketId, name, description, operationHours, closedDays, phoneNumber, address, imageResList, isFavorite
     }
 }
 

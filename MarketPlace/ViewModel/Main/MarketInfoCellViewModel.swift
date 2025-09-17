@@ -17,7 +17,8 @@ final class MarketInfoCellViewModel: ObservableObject {
         closedDays: "",
         phoneNumber: "",
         address: "",
-        imageResList: []
+        imageResList: [],
+        isFavorite: false
     )
     
     @Published var marketData: MarketModel
