@@ -26,6 +26,18 @@ final class MarketDetailViewModel: ObservableObject {
         return marketId
     }
     
+    // MARK: - 매장 찜하기
+    func postFavoriteMarket(marketId: Int) async {
+        let result = await marketService.postFavoriteMarket(marketId: marketId)
+        
+        switch result {
+        case .success(let data, _):
+            print(data)
+        case .failure(let statusCode, let message):
+            print("[postFavoriteMarket] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+        }
+    }
+    
     // MARK: - 매장 상세 내역 조회 
     func fetchMarketDetail(marketId: Int) async {
         isLoading = true

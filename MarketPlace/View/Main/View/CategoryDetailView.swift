@@ -12,13 +12,11 @@ struct CategoryDetailView: View {
             ScrollView {
                 LazyVStack(spacing: 16) {
                     ForEach(Array(viewModel.markets.enumerated()), id: \.offset) { index, shop in
-                        NavigationLink(destination:
-                           MarketDetailView(marketId: shop.marketId)
-                        ) {
+                        NavigationLink(destination: MarketDetailView(marketId: shop.marketId, isBookmarked: shop.isFavorite)) {
                             VStack {
                                 MarketInfoCell(
                                     isBookmarked: shop.isFavorite,
-                                    viewModel: MarketInfoCellViewModel(marketId: shop.marketId, marketData: shop)
+                                    viewModel: MarketInfoCellViewModel(marketData: shop)
                                 )
                                 
                                 Divider()

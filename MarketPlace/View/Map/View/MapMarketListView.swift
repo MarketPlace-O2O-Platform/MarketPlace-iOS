@@ -15,12 +15,12 @@ struct MapMarketListView: View {
                 } else {
                     ForEach(Array(viewModel.markets.enumerated()), id: \.offset) { index, shop in
                         NavigationLink(destination:
-                           MarketDetailView(marketId: shop.marketId)
+                            MarketDetailView(marketId: shop.marketId, isBookmarked: shop.isFavorite)
                         ) {
                             VStack(spacing: 0) {
                                 MarketInfoCell(
                                     isBookmarked: shop.isFavorite,
-                                    viewModel: MarketInfoCellViewModel(marketId: shop.marketId, marketData: shop)
+                                    viewModel: MarketInfoCellViewModel(marketData: shop)
                                 ).padding(.bottom, 10)
                                 
                                 Divider()
