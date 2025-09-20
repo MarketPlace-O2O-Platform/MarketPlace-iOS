@@ -3,6 +3,8 @@ import SwiftUI
 
 struct CheerCardCell: View {
     @ObservedObject var viewModel: CheerCardCellViewModel
+    @EnvironmentObject var parentViewModel: CheerViewModel   // ✅ 환경 객체로 받음
+
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -36,8 +38,10 @@ struct CheerCardCell: View {
             
             Button(action: {
                 Task{
-                    await viewModel.postCheerMarket(tempMarketId: viewModel.cheerMarket.marketId)
-                }
+                    let success = await viewModel.postCheerMarket(tempMarketId: viewModel.cheerMarket.marketId)
+                    if success {
+                        await parentViewModel.fetchMemberInfo()
+                    }                }
             }) {
                 /// - NOTE: 아직 공감하지 않은 매장
                 if !viewModel.isCheer {
