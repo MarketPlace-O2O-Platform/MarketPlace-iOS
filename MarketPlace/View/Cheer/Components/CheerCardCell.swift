@@ -27,7 +27,7 @@ struct CheerCardCell: View {
                 
                 Spacer()
                 
-                Text("\(viewModel.cheerMarket.cheerCountFormatter)")
+                Text("\(viewModel.cheerMarket.cheerCount)")
                     .pretendardFont(size: 12, weight: .regular)
                     .foregroundColor(.gray)
                 Image(systemName: viewModel.isCheer ? "heart.fill" : "heart")
