@@ -47,7 +47,6 @@ final class MainViewModel: ObservableObject {
         let result = await couponService.fetchCouponTopClosing(pageSize: pageSize)
         print(result)
 
-        
         switch result {
         case .success(let data, _):
             self.couponClosing = data.response

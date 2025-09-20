@@ -3,7 +3,7 @@ import SwiftUI
 
 struct CheerCardCell: View {
     @ObservedObject var viewModel: CheerCardCellViewModel
-    @EnvironmentObject var parentViewModel: CheerViewModel   // ✅ 환경 객체로 받음
+    @EnvironmentObject var parentViewModel: CheerViewModel 
 
     
     var body: some View {
