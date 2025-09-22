@@ -23,7 +23,7 @@ final class CheerCardCellViewModel: ObservableObject {
     }
         
     // MARK: - 공감탭 매장 공감 API
-    func postCheerMarket(tempMarketId: Int) async {
+    func postCheerMarket(tempMarketId: Int) async -> Bool {
         let result = await cheerMarketService.postCheerMarket(tempMarketId: tempMarketId)
         
         switch result {
@@ -31,10 +31,12 @@ final class CheerCardCellViewModel: ObservableObject {
             if case 200..<300 = statusCode {
                 self.isCheer = true
             }
+            return true
             
-            print(data.message)
         case .failure(let statusCode, let message):
             print("[postCheerMarket] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }
+        return false
+        
     }
 }

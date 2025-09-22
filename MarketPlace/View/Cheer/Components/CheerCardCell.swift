@@ -3,6 +3,8 @@ import SwiftUI
 
 struct CheerCardCell: View {
     @ObservedObject var viewModel: CheerCardCellViewModel
+    @EnvironmentObject var parentViewModel: CheerViewModel 
+
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -27,7 +29,7 @@ struct CheerCardCell: View {
                 
                 Spacer()
                 
-                Text("\(viewModel.cheerMarket.cheerCountFormatter)")
+                Text("\(viewModel.cheerMarket.cheerCount)")
                     .pretendardFont(size: 12, weight: .regular)
                     .foregroundColor(.gray)
                 Image(systemName: viewModel.isCheer ? "heart.fill" : "heart")
@@ -36,8 +38,10 @@ struct CheerCardCell: View {
             
             Button(action: {
                 Task{
-                    await viewModel.postCheerMarket(tempMarketId: viewModel.cheerMarket.marketId)
-                }
+                    let success = await viewModel.postCheerMarket(tempMarketId: viewModel.cheerMarket.marketId)
+                    if success {
+                        await parentViewModel.fetchMemberInfo()
+                    }                }
             }) {
                 /// - NOTE: 아직 공감하지 않은 매장
                 if !viewModel.isCheer {
