@@ -11,12 +11,13 @@ enum NotificationEndpoint: Endpoint {
     case fetchNotifications(type: String, size: Int?)
     case postNotification(title: String, body: String, targetId: Int, targetType: String)
     case patchNotification(notificationId: Int)
+    case patchNotificationALL
     
     var baseURL: URL { URLManager.shared.baseURL }
     
     var path: String {
         switch self {
-        case .fetchNotifications, .postNotification ,.patchNotification:
+        case .fetchNotifications, .postNotification ,.patchNotification, .patchNotificationALL:
             return "api/notifications"
         }
     }
@@ -27,7 +28,7 @@ enum NotificationEndpoint: Endpoint {
             return .get
         case .postNotification:
             return .post
-        case .patchNotification:
+        case .patchNotification, .patchNotificationALL:
             return .patch
         }
     }
