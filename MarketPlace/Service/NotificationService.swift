@@ -17,6 +17,9 @@ protocol NotificationServiceProtocol {
     
     // MARK: - 알림기록 읽음처리 API
     func patchNotification(notificationId: Int) async -> NetworkResult<CommonMsgResDTO>
+    
+    // MARK: - 알림기록 전체읽음 처리 API
+    func patchNotificationAll() async -> NetworkResult<CommonMsgResDTO>
 }
 
 final class NotificationService: NotificationServiceProtocol {
@@ -47,6 +50,13 @@ final class NotificationService: NotificationServiceProtocol {
     func patchNotification(notificationId: Int) async -> NetworkResult<CommonMsgResDTO> {
         return await networkService.request(
             NotificationEndpoint.patchNotification(notificationId: notificationId)
+        )
+    }
+    
+    // MARK: - 알림기록 전체읽음 API
+    func patchNotificationAll() async -> NetworkResult<CommonMsgResDTO> {
+        return await networkService.request(
+            NotificationEndpoint.patchNotificationALL
         )
     }
 }
