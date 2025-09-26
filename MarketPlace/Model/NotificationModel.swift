@@ -22,6 +22,7 @@ struct NotificationRes: Codable, Identifiable {
 }
 
 enum TargetType: String, Codable {
+    case all = ""
     case market = "MARKET"
     case coupon = "COUPON"
     case notice = "NOTICE"

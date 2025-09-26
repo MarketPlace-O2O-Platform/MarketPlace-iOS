@@ -59,6 +59,7 @@ enum NotificationEndpoint: Endpoint {
             if let size = size {
                 items.append(URLQueryItem(name: "size", value: String(size)))
             }
+            print("알림조회", items)
             return items
         case .patchNotification(let notificationId):
             let items: [URLQueryItem] = [URLQueryItem(name: "notificationId", value: String(notificationId))]

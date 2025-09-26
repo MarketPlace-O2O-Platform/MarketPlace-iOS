@@ -10,7 +10,7 @@ import Foundation
 
 protocol NotificationServiceProtocol {
     // MARK: - 알림기록 조회 API
-    func fetchNotifications(type: String, size: Int?) async -> NetworkResult<APIResDto<NotificationResponse>>
+    func fetchNotifications(type: String?, size: Int?) async -> NetworkResult<APIResDto<NotificationResponse>>
     
     // MARK: - 알림기록 생성 API
     func postNotification(title: String, body: String, targetId: Int, targetType: String) async -> NetworkResult<APIResDto<NotificationRes>>
@@ -33,12 +33,12 @@ final class NotificationService: NotificationServiceProtocol {
     }
     
     // MARK: - 알림기록 조회 API
-    func fetchNotifications(type: String, size: Int?) async -> NetworkResult<APIResDto<NotificationResponse>> {
+    func fetchNotifications(type: String?, size: Int?) async -> NetworkResult<APIResDto<NotificationResponse>> {
         return await networkService.request(
-            NotificationEndpoint.fetchNotifications(type: type, size: size)
+            NotificationEndpoint.fetchNotifications(type: type ?? "", size: size)
         )
     }
-    
+
     // MARK: - 알림기록 생성 API
     func postNotification(title: String, body: String, targetId: Int, targetType: String) async -> NetworkResult<APIResDto<NotificationRes>> {
             return await networkService.request(

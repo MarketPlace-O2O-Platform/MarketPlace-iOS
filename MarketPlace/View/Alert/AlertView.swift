@@ -10,7 +10,7 @@ import SwiftUI
 struct AlertView: View {
     @Binding var showAlertView: Bool
     @StateObject private var viewModel = AlertViewModel()
-    @State private var selectedCategory: TargetType = .market
+    @State private var selectedCategory: TargetType = .all
 
     var body: some View {
         VStack(spacing: 0) {
@@ -59,13 +59,13 @@ struct AlertView: View {
         }
         
         .task {
-            await viewModel.fetchNotifications()
+            await viewModel.fetchNotifications(type: selectedCategory.rawValue)
         }
     }
 
     func AlertAllAsRead() {
         Task {
-            await viewModel.patchAllNotifications()
+            await viewModel.patchNotificationALL()
         }
     }
     
