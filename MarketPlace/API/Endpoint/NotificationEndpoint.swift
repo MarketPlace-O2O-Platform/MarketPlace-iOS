@@ -8,20 +8,20 @@
 import Foundation
 
 enum NotificationEndpoint: Endpoint {
-    case fetchNotifications(type: String, size: Int?)
+    case fetchNotifications(type: String?, size: Int?)
     case postNotification(title: String, body: String, targetId: Int, targetType: String)
     case patchNotification(notificationId: Int)
     case patchNotificationALL
-    
+
     var baseURL: URL { URLManager.shared.baseURL }
-    
+
     var path: String {
         switch self {
         case .fetchNotifications, .postNotification ,.patchNotification, .patchNotificationALL:
             return "api/notifications"
         }
     }
-    
+
     var method: HTTPMethod {
         switch self {
         case .fetchNotifications:
@@ -32,11 +32,11 @@ enum NotificationEndpoint: Endpoint {
             return .patch
         }
     }
-    
+
     var headers: [String : String]? {
         return ["Content-Type": "application/json", "accept": "application/json"]
     }
-    
+
     var body: Data? {
         switch self {
         case .postNotification(let title, let body, let targetId, let targetType):
@@ -51,16 +51,18 @@ enum NotificationEndpoint: Endpoint {
             return nil
         }
     }
-    
+
     var queryItems: [URLQueryItem]? {
         switch self {
         case .fetchNotifications(let type, let size):
-            var items: [URLQueryItem] = [URLQueryItem(name: "type", value: type)]
-            if let size = size {
-                items.append(URLQueryItem(name: "size", value: String(size)))
-            }
+            let items = [
+                type.map { URLQueryItem(name: "type", value: $0) },
+                size.map { URLQueryItem(name: "size", value: String($0)) }
+            ].compactMap { $0 }
+            
             print("알림조회", items)
-            return items
+            return items.isEmpty ? nil : items
+            
         case .patchNotification(let notificationId):
             let items: [URLQueryItem] = [URLQueryItem(name: "notificationId", value: String(notificationId))]
             return items

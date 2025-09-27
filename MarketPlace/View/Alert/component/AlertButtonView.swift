@@ -30,31 +30,22 @@ struct AlertButtonView: View {
     }
 }
 
+
 struct AlertButtonGroup: View {
-    @Binding var selectedCategory: TargetType
+    @Binding var selectedCategory: NotificationFilterCategory
     
-    private let categories: [TargetType] = [ .all, .market, .coupon, .notice]
+    private let categories: [NotificationFilterCategory] = NotificationFilterCategory.orderedCases
     
     var body: some View {
         HStack(spacing: 8) {
             ForEach(categories, id: \.self) { category in
                 AlertButtonView(
-                    title: displayName(for: category),
+                    title: category.toUIName(),
                     isSelected: selectedCategory == category
                 ) {
                     selectedCategory = category
                 }
             }
-        }
-    }
-    
-    private func displayName(for type: TargetType) -> String {
-        switch type {
-        case .all: return "전체"
-        case .market: return "쿠폰 발급"
-        case .notice: return "공지"
-        case .coupon: return "쿠폰 만료"
-//        default: return "기타"
         }
     }
 }

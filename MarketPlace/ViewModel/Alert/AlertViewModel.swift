@@ -45,6 +45,15 @@ final class AlertViewModel: ObservableObject {
         isLoading = false
     }
     
+    // MARK: - 카테고리 변경시 알림 목록 새로고침
+    func refreshNotifications(for category: NotificationFilterCategory) async {
+        notifications.removeAll()
+        hasNextPage = true
+        lastNotificationId = nil
+        
+        await fetchNotifications(type: category.toString())
+    }
+    
     // MARK: - 알림 생성
     func postNotification(title: String, body: String, targetId: Int, targetType: String) async {
         let result = await notificationService.postNotification(
@@ -77,16 +86,17 @@ final class AlertViewModel: ObservableObject {
     }
     
     // MARK: - 알림 전체 읽음 처리
-    func patchNotificationALL() async {
-        let result = await notificationService.patchNotificationAll()
-        
-        switch result {
-        case .success(_, _):
-            for i in notifications.indices {
-                notifications[i].isRead = true
+    func patchNotificationsALL() async {
+        await withTaskGroup(of: Void.self) { group in
+            for notification in notifications {
+                group.addTask {
+                    await self.patchNotification(notificationId: notification.id)
+                }
             }
-        case .failure(let statusCode, let message):
-            print("[NotificationPatchAll] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+        }
+        
+        for i in notifications.indices {
+            notifications[i].isRead = true
         }
     }
 }

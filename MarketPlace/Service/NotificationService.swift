@@ -35,7 +35,7 @@ final class NotificationService: NotificationServiceProtocol {
     // MARK: - 알림기록 조회 API
     func fetchNotifications(type: String?, size: Int?) async -> NetworkResult<APIResDto<NotificationResponse>> {
         return await networkService.request(
-            NotificationEndpoint.fetchNotifications(type: type ?? "", size: size)
+            NotificationEndpoint.fetchNotifications(type: type, size: size)
         )
     }
 
