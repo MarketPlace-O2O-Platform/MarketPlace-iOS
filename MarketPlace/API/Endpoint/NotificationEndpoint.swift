@@ -17,8 +17,10 @@ enum NotificationEndpoint: Endpoint {
 
     var path: String {
         switch self {
-        case .fetchNotifications, .postNotification ,.patchNotification, .patchNotificationALL:
+        case .fetchNotifications, .postNotification ,.patchNotification:
             return "api/notifications"
+        case .patchNotificationALL:
+            return "api/notifications/all"
         }
     }
 
@@ -59,8 +61,6 @@ enum NotificationEndpoint: Endpoint {
                 type.map { URLQueryItem(name: "type", value: $0) },
                 size.map { URLQueryItem(name: "size", value: String($0)) }
             ].compactMap { $0 }
-            
-            print("알림조회", items)
             return items.isEmpty ? nil : items
             
         case .patchNotification(let notificationId):

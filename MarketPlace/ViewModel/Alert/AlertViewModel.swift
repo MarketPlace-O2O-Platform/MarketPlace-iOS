@@ -86,17 +86,16 @@ final class AlertViewModel: ObservableObject {
     }
     
     // MARK: - 알림 전체 읽음 처리
-    func patchNotificationsALL() async {
-        await withTaskGroup(of: Void.self) { group in
-            for notification in notifications {
-                group.addTask {
-                    await self.patchNotification(notificationId: notification.id)
-                }
-            }
-        }
-        
-        for i in notifications.indices {
-            notifications[i].isRead = true
-        }
-    }
-}
+      func patchNotificationsALL() async {
+          let result = await notificationService.patchNotificationAll()
+          
+          switch result {
+          case .success:
+              for i in notifications.indices {
+                  notifications[i].isRead = true
+              }
+          case .failure(let statusCode, let message):
+              print("[NotificationPatchAll] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+          }
+      }
+  }
