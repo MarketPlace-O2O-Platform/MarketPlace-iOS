@@ -17,7 +17,6 @@
 		290D93542DE58418008AC190 /* CouponBasicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290D93532DE58418008AC190 /* CouponBasicModel.swift */; };
 		293DCF142DE6CD2E000122C5 /* KakaoMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293DCF132DE6CD2E000122C5 /* KakaoMapView.swift */; };
 		293DCF172DE6CD89000122C5 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		293DCF192DE6CDE2000122C5 /* KakaoMapKey.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 293DCF182DE6CDE2000122C5 /* KakaoMapKey.xcconfig */; };
 		293DCF442DE6FE43000122C5 /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293DCF432DE6FE43000122C5 /* Array+.swift */; };
 		293DCF472DE72B9E000122C5 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		293DCF4D2DE7449F000122C5 /* KakaoMapsSDK-SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 293DCF4C2DE7449F000122C5 /* KakaoMapsSDK-SPM */; };
@@ -150,6 +149,7 @@
 		B293A15A2D6FE0B4003E8505 /* CheerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B293A1592D6FE0B4003E8505 /* CheerView.swift */; };
 		B293A15C2D6FE2A8003E8505 /* CheerSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B293A15B2D6FE2A8003E8505 /* CheerSearchView.swift */; };
 		B2A42DCF2D8B3716005FAF15 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A42DCE2D8B3716005FAF15 /* LoginViewModel.swift */; };
+		B2B40B102E880009006816CD /* NotificationFilterCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B40B0F2E880008006816CD /* NotificationFilterCategory.swift */; };
 		B2C398FD2CA145CB004800DD /* MarketPlaceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C398FC2CA145CB004800DD /* MarketPlaceApp.swift */; };
 		B2C398FF2CA145CB004800DD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C398FE2CA145CB004800DD /* ContentView.swift */; };
 		B2C399012CA145CC004800DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2C399002CA145CC004800DD /* Assets.xcassets */; };
@@ -196,7 +196,6 @@
 		290D93512DE57CDE008AC190 /* CouponInfoCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponInfoCellViewModel.swift; sourceTree = "<group>"; };
 		290D93532DE58418008AC190 /* CouponBasicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponBasicModel.swift; sourceTree = "<group>"; };
 		293DCF132DE6CD2E000122C5 /* KakaoMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMapView.swift; sourceTree = "<group>"; };
-		293DCF182DE6CDE2000122C5 /* KakaoMapKey.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = KakaoMapKey.xcconfig; sourceTree = "<group>"; };
 		293DCF432DE6FE43000122C5 /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		2941F76B2DE596590063CEFE /* SearchMarketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMarketViewModel.swift; sourceTree = "<group>"; };
 		2941F76D2DE597280063CEFE /* MarketSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketSearchModel.swift; sourceTree = "<group>"; };
@@ -325,6 +324,7 @@
 		B293A1592D6FE0B4003E8505 /* CheerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerView.swift; sourceTree = "<group>"; };
 		B293A15B2D6FE2A8003E8505 /* CheerSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerSearchView.swift; sourceTree = "<group>"; };
 		B2A42DCE2D8B3716005FAF15 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		B2B40B0F2E880008006816CD /* NotificationFilterCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationFilterCategory.swift; sourceTree = "<group>"; };
 		B2C398F92CA145CB004800DD /* MarketPlace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarketPlace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2C398FC2CA145CB004800DD /* MarketPlaceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketPlaceApp.swift; sourceTree = "<group>"; };
 		B2C398FE2CA145CB004800DD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -610,6 +610,7 @@
 			isa = PBXGroup;
 			children = (
 				B215F2932DE61D9600F53C51 /* AlertButtonView.swift */,
+				B2B40B0F2E880008006816CD /* NotificationFilterCategory.swift */,
 				B215F2952DE6D77B00F53C51 /* AlertListView.swift */,
 			);
 			path = component;
@@ -820,7 +821,6 @@
 				B2C399022CA145CC004800DD /* Preview Content */,
 				29BF18AF2DE4492C00836D7E /* API_URL.plist */,
 				B2F85BE62D6FAB210011DDF3 /* LocationManager.swift */,
-				293DCF182DE6CDE2000122C5 /* KakaoMapKey.xcconfig */,
 			);
 			path = MarketPlace;
 			sourceTree = "<group>";
@@ -1030,7 +1030,6 @@
 				29B3EBBA2E03D94E0095A310 /* Pretendard-Medium.otf in Resources */,
 				29B3EBBB2E03D94E0095A310 /* Pretendard-ExtraBold.otf in Resources */,
 				29B3EBBC2E03D94E0095A310 /* Pretendard-Light.otf in Resources */,
-				293DCF192DE6CDE2000122C5 /* KakaoMapKey.xcconfig in Resources */,
 				B2C399012CA145CC004800DD /* Assets.xcassets in Resources */,
 				29BF18B02DE4492C00836D7E /* API_URL.plist in Resources */,
 			);
@@ -1163,6 +1162,7 @@
 				2941F7892DE5A0350063CEFE /* NetworkResult.swift in Sources */,
 				2976FA2F2DFC5D90009782D1 /* MainBannerView.swift in Sources */,
 				B28889AE2D4BDC4D0040EC3F /* MembersCouponModel.swift in Sources */,
+				B2B40B102E880009006816CD /* NotificationFilterCategory.swift in Sources */,
 				B293A15A2D6FE0B4003E8505 /* CheerView.swift in Sources */,
 				29E749342DEEABFA00E765E0 /* MyCouponResDto.swift in Sources */,
 				290A71B52E02C8AE009AEAF8 /* CouponPopupViewModel.swift in Sources */,
@@ -1235,7 +1235,6 @@
 /* Begin XCBuildConfiguration section */
 		B2C3991B2CA145CC004800DD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 293DCF182DE6CDE2000122C5 /* KakaoMapKey.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1299,7 +1298,6 @@
 		};
 		B2C3991C2CA145CC004800DD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 293DCF182DE6CDE2000122C5 /* KakaoMapKey.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1364,7 +1362,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"MarketPlace/Preview Content\"";
-				DEVELOPMENT_TEAM = F7GYZYWC6V;
+				DEVELOPMENT_TEAM = 7RR74CRWQW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MarketPlace/Info.plist;
@@ -1403,7 +1401,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MarketPlace/Preview Content\"";
-				DEVELOPMENT_TEAM = F7GYZYWC6V;
+				DEVELOPMENT_TEAM = 7RR74CRWQW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MarketPlace/Info.plist;

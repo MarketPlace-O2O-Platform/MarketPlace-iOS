@@ -8,16 +8,21 @@
 import SwiftUI
 
 struct AlertCardListView: View {
-    var selectedCategory: TargetType
+    var selectedCategory: NotificationFilterCategory
     var notifications: [NotificationRes]
     var onTap: ((NotificationRes) -> Void)
     
     var filteredNotifications: [NotificationRes] {
-        /// NOTE : 기본값을 "전체"로 바꿔야함"
-        if selectedCategory == .market {
-            return notifications
+        if selectedCategory == .ALL {
+            return notifications  // 전체 표시
         } else {
-            return notifications.filter { TargetType(rawValue: $0.targetType) == selectedCategory }
+            return notifications.filter { notification in
+                // NotificationFilterCategory의 toString()과 비교
+                if let categoryString = selectedCategory.toString() {
+                    return notification.targetType == categoryString
+                }
+                return false
+            }
         }
     }
 

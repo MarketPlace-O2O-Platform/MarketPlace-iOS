@@ -10,7 +10,7 @@ import SwiftUI
 struct AlertView: View {
     @Binding var showAlertView: Bool
     @StateObject private var viewModel = AlertViewModel()
-    @State private var selectedCategory: TargetType = .market
+    @State private var selectedCategory: NotificationFilterCategory = .ALL
 
     var body: some View {
         VStack(spacing: 0) {
@@ -57,15 +57,19 @@ struct AlertView: View {
                 }
             }
         }
-        
         .task {
-            await viewModel.fetchNotifications()
+            await viewModel.fetchNotifications(type: selectedCategory.toString())
+        }
+        .onChange(of: selectedCategory) { newCategory in
+            Task {
+                await viewModel.refreshNotifications(for: newCategory)
+            }
         }
     }
 
     func AlertAllAsRead() {
         Task {
-            await viewModel.patchAllNotifications()
+            await viewModel.patchNotificationsALL()
         }
     }
     
@@ -82,5 +86,4 @@ struct AlertView: View {
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
-
 }
