@@ -3,24 +3,42 @@
 import Foundation
 
 @MainActor
-class MarketCategoryDetailViewModel: ObservableObject {
+class MarketCategoryDetailViewModel: ViewModelable {
+    // MARK: - Types
+    enum Action {
+        case fetchMarkets
+    }
+    
+    struct State {
+        var markets: [MarketModel] = []
+    }
+    
+    // MARK: - Properties
+    @Published var state: State
+    
+    
     @Published var markets: [MarketModel] = []
     @Published var isLoading: Bool = false
     @Published var hasNextPage: Bool = true
     @Published var lastMarketId: Int?
     @Published var currentCategory: String?
     
-    var currentPage: Int = 1
-    
+    private var currentPage: Int = 1
     private var marketService: MarketServiceProtocol
     
+
     init(
         marketService: MarketServiceProtocol = MarketService()
     ) {
         self.marketService = marketService
+        state = State()
     }
     
-    func fetchMarkets(
+    func action(_ action: Action) {
+        
+    }
+    
+    private func fetchMarkets(
         lastPageIndex: Int? = nil,
         category: String? = nil,
         pageSize: Int? = nil

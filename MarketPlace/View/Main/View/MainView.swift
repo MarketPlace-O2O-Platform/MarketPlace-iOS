@@ -42,9 +42,9 @@ struct MainView: View {
                 }
             }
             .onAppear {
-                viewModel.action(.fetchCouponTopClosing(pageSize: nil))
-                viewModel.action(.fetchCouponTopLatest(pageSize: nil))
-                viewModel.action(.fetchCouponTopPopular(pageSize: nil))
+                viewModel.action(.fetchClosing(pageSize: nil))
+                viewModel.action(.fetchLatest(pageSize: nil))
+                viewModel.action(.fetchPopular(pageSize: nil))
             }
             .navigationDestination(item: $selectedCategoryIndex) { index in
                 CategoryDetailView(selectedTab: $selectedTab)

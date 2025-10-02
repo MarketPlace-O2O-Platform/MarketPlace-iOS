@@ -8,11 +8,11 @@
 import Foundation
 
 final class MainViewModel: ViewModelable {
-    // MARK: Types
+    // MARK: - Types
     enum Action {
-        case fetchCouponTopPopular(pageSize: Int?)
-        case fetchCouponTopLatest(pageSize: Int?)
-        case fetchCouponTopClosing(pageSize: Int?)
+        case fetchPopular(pageSize: Int?)
+        case fetchLatest(pageSize: Int?)
+        case fetchClosing(pageSize: Int?)
     }
     
     struct State {
@@ -21,7 +21,7 @@ final class MainViewModel: ViewModelable {
         var couponClosing: [TopClosingCouponResDto] = []
     }
       
-    // MARK: Properties
+    // MARK: - Properties
     @Published var state: State
     
     private var couponService: CouponServiceProtocol
@@ -32,14 +32,14 @@ final class MainViewModel: ViewModelable {
         state = State()
     }
     
-    // MARK: Action
+    // MARK: - Action
     func action(_ action: Action) {
         switch action {
-        case .fetchCouponTopPopular(let pageSize):
+        case .fetchPopular(let pageSize):
             Task { await fetchCouponTopPopular(pageSize: pageSize) }
-        case .fetchCouponTopLatest(let pageSize):
+        case .fetchLatest(let pageSize):
             Task { await fetchCouponTopLatest(pageSize: pageSize) }
-        case .fetchCouponTopClosing(let pageSize):
+        case .fetchClosing(let pageSize):
             Task { await fetchCouponTopClosing(pageSize: pageSize) }
         }
     }
