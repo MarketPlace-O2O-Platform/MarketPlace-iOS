@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 final class MainViewModel: ViewModelable {
     // MARK: - Types
     enum Action {
@@ -26,7 +27,7 @@ final class MainViewModel: ViewModelable {
     
     private var couponService: CouponServiceProtocol
     
-    // MARK: Initailizer
+    // MARK: Initializer
     init(couponService: CouponServiceProtocol = CouponService()) {
         self.couponService = couponService
         state = State()
