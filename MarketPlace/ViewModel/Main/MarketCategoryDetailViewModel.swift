@@ -3,6 +3,7 @@
 import Foundation
 
 final class MarketCategoryDetailViewModel: ViewModelable {
+    
     // MARK: - Types
     enum Action {
         case fetchMarkets(category: String?)
@@ -17,21 +18,28 @@ final class MarketCategoryDetailViewModel: ViewModelable {
         case error(String)
     }
     
+    
     // MARK: - Properties
     @Published private(set) var state: State = .idle
     
-    private var lastMarketId: Int?
-    private var currentPage: Int = 1
-    private var hasNextPage: Bool = true
-    private var currentCategory: String?
     private var marketService: MarketServiceProtocol
 
+    /// - NOTE: 페이징 구현을 위한 변수
+    private var lastMarketId: Int?                      // 마지막 매장 정보
+    private var currentPage: Int = 1                    // 현재 페이지
+    private var hasNextPage: Bool = true                // 다음 페이지 존재 여부
+    private var currentCategory: String?                // 현재 카테고리
+    
+    
+    // MARK: - Initializer
     init(
         marketService: MarketServiceProtocol = MarketService()
     ) {
         self.marketService = marketService
     }
     
+    
+    // MARK: - Action
     func action(_ action: Action) {
         switch action {
         case .fetchMarkets(let category):
@@ -41,6 +49,8 @@ final class MarketCategoryDetailViewModel: ViewModelable {
         }
     }
     
+    
+    // MARK: - 매장 데이터 API
     private func fetchMarkets(
         category: String? = nil,
         reset: Bool
