@@ -2,63 +2,86 @@
 
 import Foundation
 
-@MainActor
-class MarketCategoryDetailViewModel: ObservableObject {
-    @Published var markets: [MarketModel] = []
-    @Published var isLoading: Bool = false
-    @Published var hasNextPage: Bool = true
-    @Published var lastMarketId: Int?
-    @Published var currentCategory: String?
+final class MarketCategoryDetailViewModel: ViewModelable {
+    // MARK: - Types
+    enum Action {
+        case fetchMarkets(category: String?)
+        case loadNextPage
+    }
     
-    var currentPage: Int = 1
+    enum State {
+        case idle
+        case empty
+        case loading                     /// 현재 안쓰이고 있음
+        case loaded([MarketModel], hasNext: Bool)
+        case error(String)
+    }
     
+    // MARK: - Properties
+    @Published private(set) var state: State = .idle
+    
+    private var lastMarketId: Int?
+    private var currentPage: Int = 1
+    private var hasNextPage: Bool = true
+    private var currentCategory: String?
     private var marketService: MarketServiceProtocol
-    
+
     init(
         marketService: MarketServiceProtocol = MarketService()
     ) {
         self.marketService = marketService
     }
     
-    func fetchMarkets(
-        lastPageIndex: Int? = nil,
+    func action(_ action: Action) {
+        switch action {
+        case .fetchMarkets(let category):
+            Task { await fetchMarkets(category: category, reset: true) }
+        case .loadNextPage:
+            Task { await fetchMarkets(reset: false) }
+        }
+    }
+    
+    private func fetchMarkets(
         category: String? = nil,
-        pageSize: Int? = nil
+        reset: Bool
     ) async {
-        if currentCategory != category {
+        
+        if reset || currentCategory != category {
             currentPage = 1
-            hasNextPage = true
+            lastMarketId = nil
         }
         
-        guard !isLoading, hasNextPage else { return }
-        
-        isLoading = true
+        currentCategory = category
         
         let result = await marketService.fetchMarketAll(
-                lastPageIndex: lastPageIndex,
+                lastPageIndex: lastMarketId,
                 category: category,
-                pageSize: pageSize
+                pageSize: 10
         )
-        
+                
         switch result {
         case .success(let data, _):
-            if currentPage == 1 {
-                self.markets = data.response.marketResDtos
+            let markets = data.response.marketResDtos
+            
+            if markets.isEmpty && currentPage == 1 {
+                self.state = .empty
+                return
+            }
+            
+            if currentPage > 1  {
+                if case .loaded(let existing, _) = state {
+                    let combined = existing + markets
+                    self.state = .loaded(combined, hasNext: data.response.hasNext)
+                }
             } else {
-                self.markets.append(contentsOf: data.response.marketResDtos)
+                self.state = .loaded(markets, hasNext: data.response.hasNext)
             }
-            
-            if let last = data.response.marketResDtos.last {
-                self.lastMarketId = last.marketId
-            }
-            
-            self.hasNextPage = data.response.hasNext
+                        
+            lastMarketId = markets.last?.id
             currentPage += 1
             
         case .failure(let code, let message):
-            print("[fetchMarkets] - [\(code)]: \(message ?? "알 수 없는 오류")")
+            self.state = .error("[\(code)] \(message ?? "알 수 없는 오류")")
         }
-            
-        isLoading = false
     }
 }
