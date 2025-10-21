@@ -50,6 +50,8 @@
 		2976FA292DFC4B56009782D1 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2976FA282DFC4B56009782D1 /* MainViewModel.swift */; };
 		2976FA2B2DFC4D2F009782D1 /* CouponTopModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2976FA2A2DFC4D2F009782D1 /* CouponTopModel.swift */; };
 		2976FA2F2DFC5D90009782D1 /* MainBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2976FA2E2DFC5D90009782D1 /* MainBannerView.swift */; };
+		298AD1BB2EA7415500580547 /* KakaoMapKey.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 298AD1BA2EA7415500580547 /* KakaoMapKey.xcconfig */; };
+		298AD1BD2EA748F400580547 /* Top20DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298AD1BC2EA748F400580547 /* Top20DetailView.swift */; };
 		29B3EBA72E03CE0D0095A310 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B3EBA62E03CE0D0095A310 /* UserDefaultsKeys.swift */; };
 		29B3EBA92E03CF800095A310 /* KeyChainKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B3EBA82E03CF800095A310 /* KeyChainKeys.swift */; };
 		29B3EBB42E03D94E0095A310 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 29B3EBB22E03D94E0095A310 /* Pretendard-SemiBold.otf */; };
@@ -111,7 +113,6 @@
 		B21F3CFA2D267AF900B83B34 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21F3CE92D267AF900B83B34 /* MyPageView.swift */; };
 		B21F3CFC2D267AF900B83B34 /* MarketDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21F3CED2D267AF900B83B34 /* MarketDetailView.swift */; };
 		B21F3D012D2685F500B83B34 /* ImageTextOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21F3D002D2685F500B83B34 /* ImageTextOverlay.swift */; };
-		B21F3D052D2B057000B83B34 /* Top20DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21F3D042D2B057000B83B34 /* Top20DetailView.swift */; };
 		B21F3D072D2B066F00B83B34 /* NewEventDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21F3D062D2B066F00B83B34 /* NewEventDetailView.swift */; };
 		B21F3D092D2D57BE00B83B34 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21F3D082D2D57BE00B83B34 /* Color.swift */; };
 		B22AB94C2D9B08FD006E13B4 /* CouponInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AB94B2D9B08FD006E13B4 /* CouponInfoCell.swift */; };
@@ -226,6 +227,8 @@
 		2976FA282DFC4B56009782D1 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		2976FA2A2DFC4D2F009782D1 /* CouponTopModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponTopModel.swift; sourceTree = "<group>"; };
 		2976FA2E2DFC5D90009782D1 /* MainBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBannerView.swift; sourceTree = "<group>"; };
+		298AD1BA2EA7415500580547 /* KakaoMapKey.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = KakaoMapKey.xcconfig; sourceTree = "<group>"; };
+		298AD1BC2EA748F400580547 /* Top20DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top20DetailView.swift; sourceTree = "<group>"; };
 		29B3EBA62E03CE0D0095A310 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		29B3EBA82E03CF800095A310 /* KeyChainKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainKeys.swift; sourceTree = "<group>"; };
 		29B3EBAB2E03D94E0095A310 /* Pretendard-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.otf"; sourceTree = "<group>"; };
@@ -287,7 +290,6 @@
 		B21F3CE92D267AF900B83B34 /* MyPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		B21F3CED2D267AF900B83B34 /* MarketDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarketDetailView.swift; sourceTree = "<group>"; };
 		B21F3D002D2685F500B83B34 /* ImageTextOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTextOverlay.swift; sourceTree = "<group>"; };
-		B21F3D042D2B057000B83B34 /* Top20DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top20DetailView.swift; sourceTree = "<group>"; };
 		B21F3D062D2B066F00B83B34 /* NewEventDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEventDetailView.swift; sourceTree = "<group>"; };
 		B21F3D082D2D57BE00B83B34 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		B22AB94B2D9B08FD006E13B4 /* CouponInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponInfoCell.swift; sourceTree = "<group>"; };
@@ -417,8 +419,8 @@
 		2941F7672DE592770063CEFE /* View */ = {
 			isa = PBXGroup;
 			children = (
+				298AD1BC2EA748F400580547 /* Top20DetailView.swift */,
 				B21F3CE02D267AF900B83B34 /* CategoryDetailView.swift */,
-				B21F3D042D2B057000B83B34 /* Top20DetailView.swift */,
 				B21F3D062D2B066F00B83B34 /* NewEventDetailView.swift */,
 				B21F3CED2D267AF900B83B34 /* MarketDetailView.swift */,
 				B28A22BD2D666E7500E86EF6 /* CouponGetPopupView.swift */,
@@ -823,7 +825,7 @@
 				B2C399022CA145CC004800DD /* Preview Content */,
 				29BF18AF2DE4492C00836D7E /* API_URL.plist */,
 				B2F85BE62D6FAB210011DDF3 /* LocationManager.swift */,
-				293DCF182DE6CDE2000122C5 /* KakaoMapKey.xcconfig */,
+				298AD1BA2EA7415500580547 /* KakaoMapKey.xcconfig */,
 				295948BA2E8E198100F641DC /* ViewModelable.swift */,
 			);
 			path = MarketPlace;
@@ -1031,6 +1033,7 @@
 				29B3EBB72E03D94E0095A310 /* Pretendard-ExtraLight.otf in Resources */,
 				29B3EBB82E03D94E0095A310 /* Pretendard-Regular.otf in Resources */,
 				29B3EBB92E03D94E0095A310 /* Pretendard-Black.otf in Resources */,
+				298AD1BB2EA7415500580547 /* KakaoMapKey.xcconfig in Resources */,
 				29B3EBBA2E03D94E0095A310 /* Pretendard-Medium.otf in Resources */,
 				29B3EBBB2E03D94E0095A310 /* Pretendard-ExtraBold.otf in Resources */,
 				29B3EBBC2E03D94E0095A310 /* Pretendard-Light.otf in Resources */,
@@ -1138,7 +1141,6 @@
 				B28889A12D4BBCB80040EC3F /* Logger.swift in Sources */,
 				B21F3D092D2D57BE00B83B34 /* Color.swift in Sources */,
 				B27E56D32D703FBB000D2881 /* CheerCardCell.swift in Sources */,
-				B21F3D052D2B057000B83B34 /* Top20DetailView.swift in Sources */,
 				2941F76E2DE597280063CEFE /* MarketSearchModel.swift in Sources */,
 				B24272612E26537F00E3B0ED /* ReceiptModel.swift in Sources */,
 				B2A42DCF2D8B3716005FAF15 /* LoginViewModel.swift in Sources */,
@@ -1182,6 +1184,7 @@
 				B21F3D012D2685F500B83B34 /* ImageTextOverlay.swift in Sources */,
 				B21F3CF92D267AF900B83B34 /* MyCouponView.swift in Sources */,
 				B28349532D2FBBD800EEDB02 /* RecentSearchView.swift in Sources */,
+				298AD1BD2EA748F400580547 /* Top20DetailView.swift in Sources */,
 				2941F79B2DE5DFDB0063CEFE /* MapViewModel.swift in Sources */,
 				290A71AF2E027909009AEAF8 /* ShimmeringAsyncImage.swift in Sources */,
 				B27E56CD2D7037AF000D2881 /* CheerMarketModel.swift in Sources */,
