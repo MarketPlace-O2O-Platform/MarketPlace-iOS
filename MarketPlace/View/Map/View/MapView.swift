@@ -21,12 +21,17 @@ struct MapView: View {
     var body: some View {
         NavigationView {
             ZStack(alignment: .bottom) {
+                // MARK: - 지도탭 ZStack 가장 하단 (KakaoMapView)
                 KakaoMapView(draw: $draw, pois: $viewModel.marketsForMap, location: $location)
                     .onAppear(perform: {
                         self.draw = true
                         self.location = locationManager.region
                         Task {
-                            await viewModel.fetchMarketsWithAddress(lastPageIndex: nil, category: Category(index: selectedCategory)?.toString() ?? nil, pageSize: nil)
+                            await viewModel.fetchMarketsWithAddress(
+                                lastPageIndex: nil,
+                                category: Category(index: selectedCategory)?.toString() ?? nil,
+                                pageSize: nil
+                            )
                         }
                     })
                     .onDisappear(perform: {
@@ -36,6 +41,7 @@ struct MapView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .ignoresSafeArea()
                     
+                // MARK: - 지도탭 VStack 기준 상단 카테고리 탭뷰
                 VStack {
                     CategoryTabView(selectedTab: $selectedCategory)
                         .background(Color.white)
@@ -43,6 +49,7 @@ struct MapView: View {
                     Spacer()
                 }
                 
+                // MARK: - 지도뷰의 우상단 현재 위치로 이동하는 버튼 뷰
                 VStack {
                     HStack {
                         Spacer()
@@ -193,21 +200,5 @@ struct MapView: View {
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())
-    }
-}
-
-extension View {
-    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
-        clipShape(RoundedCorner(radius: radius, corners: corners))
-    }
-}
-
-struct RoundedCorner: Shape {
-    var radius: CGFloat = .infinity
-    var corners: UIRectCorner = .allCorners
-
-    func path(in rect: CGRect) -> Path {
-        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-        return Path(path.cgPath)
     }
 }
