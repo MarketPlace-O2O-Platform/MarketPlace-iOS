@@ -7,59 +7,93 @@
 
 import Foundation
 
-final class NewEventViewModel: ObservableObject {
-    @Published var newCoupons: [CouponNewModel] = []
-    @Published var errorMessage: String?
-    @Published var lastCouponId: Int?
-    @Published var lastCreatedAt: String?
+final class NewEventViewModel: ViewModelable {
     
-    var currentPage: Int = 1
-    var hasNextPage: Bool = true
-    var isLoading: Bool = false
-
+    // MARK: - Types
+    enum Action {
+        case fetchLatestCoupon
+        case loadNextPage
+    }
+    
+    enum State {
+        case idle
+        case empty
+        case loading                                    // 현재 안쓰임
+        case loaded([CouponNewModel], hasNext: Bool)
+        case error(String)
+    }
+    
+    
+    // MARK: - Properties
+    @Published private(set) var state: State = .idle
+    
     private var couponService: CouponServiceProtocol
     
+    /// - NOTE: 페이징 구현을 위한 변수
+    private var lastCouponId: Int?
+    private var lastCreatedAt: String?
+    private var currentPage: Int = 1
+    private var hasNextPage: Bool = true
+    
+    
+    // MARK: - Initializer
     init(
         couponService: CouponServiceProtocol = CouponService()
     ) {
         self.couponService = couponService
     }
     
-    func fetchLatestCoupons(
-        lastCreatedAt: String? = nil,
-        lastCouponId: Int? = nil,
-        pageSize: Int? = nil
-    ) async {
-        guard !isLoading, hasNextPage else { return }
-
-        isLoading = true
-        
+    
+    // MARK: - Action
+    func action(_ action: Action) {
+        switch action {
+        case .fetchLatestCoupon:
+            Task { await fetchLatestCoupons(reset: true) }
+        case .loadNextPage:
+            Task { await fetchLatestCoupons(reset: false) }
+        }
+    }
+    
+    
+    // MARK: - 최신 쿠폰 API
+    private func fetchLatestCoupons(reset: Bool) async {
+        if reset {
+            currentPage = 1
+            lastCouponId = nil
+            lastCreatedAt = nil
+        }
+                
         let result = await couponService.fetchLatestCoupons(
             lastCreatedAt: lastCreatedAt,
             lastCouponId: lastCouponId,
-            pageSize: pageSize
+            pageSize: 10
         )
         
         switch result {
         case .success(let data, _):
-            if currentPage == 1 {
-                self.newCoupons = data.response.couponResDtos
+            let coupons = data.response.couponResDtos
+            
+            if coupons.isEmpty && currentPage == 1 {
+                self.state = .empty
+                return
+            }
+            
+            if currentPage > 1 {
+                if case .loaded(let existing, _) = state {
+                    let combined = existing + coupons
+                    self.state = .loaded(combined, hasNext: data.response.hasNext)
+                }
             } else {
-                self.newCoupons.append(contentsOf: data.response.couponResDtos)
+                self.state = .loaded(coupons, hasNext: data.response.hasNext)
             }
-            
-            if let last = data.response.couponResDtos.last {
-                self.lastCouponId = last.couponId
-                self.lastCreatedAt = last.couponCreatedAt
-            }
-            
-            self.hasNextPage = data.response.hasNext
+
+            let lastItem = coupons.last
+            lastCouponId = lastItem?.couponId
+            lastCreatedAt = lastItem?.couponCreatedAt
             currentPage += 1
             
         case .failure(let statusCode, let message):
-            print("[fetchLatestCoupons] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+            self.state = .error("[\(statusCode)] \(message ?? "알 수 없는 오류")")
         }
-        
-        isLoading = false
     }
 }

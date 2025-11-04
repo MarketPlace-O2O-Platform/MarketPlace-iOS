@@ -9,6 +9,7 @@ import Foundation
 
 @MainActor
 final class MainViewModel: ViewModelable {
+    
     // MARK: - Types
     enum Action {
         case fetchPopular(pageSize: Int?)
@@ -21,17 +22,20 @@ final class MainViewModel: ViewModelable {
         var couponLatest: [CouponTopModel] = []
         var couponClosing: [TopClosingCouponResDto] = []
     }
+    
       
     // MARK: - Properties
     @Published var state: State
     
     private var couponService: CouponServiceProtocol
     
-    // MARK: Initializer
+    
+    // MARK: - Initializer
     init(couponService: CouponServiceProtocol = CouponService()) {
         self.couponService = couponService
         state = State()
     }
+    
     
     // MARK: - Action
     func action(_ action: Action) {
@@ -45,6 +49,7 @@ final class MainViewModel: ViewModelable {
         }
     }
     
+    
     // MARK: - 인기 쿠폰 조회
     private func fetchCouponTopPopular(pageSize: Int?) async {
         let result = await couponService.fetchCouponTopPopular(pageSize: pageSize)
@@ -57,6 +62,7 @@ final class MainViewModel: ViewModelable {
         }
     }
     
+    
     // MARK: - 최신 쿠폰 조회
     private func fetchCouponTopLatest(pageSize: Int?) async {
         let result = await couponService.fetchCouponTopLatest(pageSize: pageSize)
@@ -68,6 +74,7 @@ final class MainViewModel: ViewModelable {
             print("[fetchCouponTopLatest] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }
     }
+    
     
     // MARK: - 마감임박 쿠폰 조회
     private func fetchCouponTopClosing(pageSize: Int?) async {
