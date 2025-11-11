@@ -22,9 +22,8 @@ struct MainBannerView: View {
                             imageName: coupon.thumbnail,
                             texts: [
                                 coupon.marketName,
-                                coupon.couponName,
-                                coupon.deadlineKoreanFormat
-                            ]
+                                coupon.couponName
+                            ] + (coupon.deadlineKoreanFormat != nil ? [coupon.deadlineKoreanFormat!] : [])
                         )
                         .padding(.horizontal, 20)
                         .tag(index)

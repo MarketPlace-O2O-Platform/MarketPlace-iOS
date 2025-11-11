@@ -19,7 +19,7 @@ struct ImageTextOverlay: View {
                 ForEach(texts.indices, id: \.self) { index in
                     Text(texts[index])
                         .foregroundColor(Color.white)
-                        .pretendardFont(size: index == 0 || index == 2 ? 18 : 26, weight: .semibold)
+                        .pretendardFont(size: index == 0 || index == 2 ? 18 : 26, weight: index == 0 || index == 2 ? .semibold : .heavy)
                         .lineLimit(index == 1 ? 2 : 1)
                         .lineSpacing(index == 0 || index == 1 ? 33.8 : 3.12)
                         .padding(.leading, 5)
