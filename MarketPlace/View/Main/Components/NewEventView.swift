@@ -3,11 +3,12 @@ import SwiftUI
 
 struct NewEventView: View {
     @Binding var latestCoupons: [CouponTopModel]
+    var currentMonth: String
 
     var body: some View {
         VStack {
             HStack {
-                Text("1월 신규 | 멤버십 혜택")
+                Text("\(currentMonth) 신규 | 멤버십 혜택")
                     .pretendardFont(size: 19, weight: .bold)
                     .foregroundColor(.black)
                 Spacer()

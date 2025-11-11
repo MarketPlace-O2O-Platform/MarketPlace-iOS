@@ -18,6 +18,13 @@ final class MainViewModel: ObservableObject {
         self.couponService = couponService
     }
     
+    var currentMonth: String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "M월"
+        return formatter.string(from: Date())
+    }
+    
     // MARK: - 인기 쿠폰 조회
     func fetchCouponTopPopular(pageSize: Int?) async {
         let result = await couponService.fetchCouponTopPopular(pageSize: pageSize)
