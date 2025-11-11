@@ -50,6 +50,13 @@ final class MainViewModel: ViewModelable {
     }
     
     
+    var currentMonth: String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "M월"
+        return formatter.string(from: Date())
+    }
+    
     // MARK: - 인기 쿠폰 조회
     private func fetchCouponTopPopular(pageSize: Int?) async {
         let result = await couponService.fetchCouponTopPopular(pageSize: pageSize)
@@ -79,7 +86,11 @@ final class MainViewModel: ViewModelable {
     // MARK: - 마감임박 쿠폰 조회
     private func fetchCouponTopClosing(pageSize: Int?) async {
         let result = await couponService.fetchCouponTopClosing(pageSize: pageSize)
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> origin/main
         switch result {
         case .success(let data, _):
             state.couponClosing = data.response
