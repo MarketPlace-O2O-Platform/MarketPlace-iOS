@@ -823,7 +823,6 @@
 				B2C399022CA145CC004800DD /* Preview Content */,
 				29BF18AF2DE4492C00836D7E /* API_URL.plist */,
 				B2F85BE62D6FAB210011DDF3 /* LocationManager.swift */,
-				293DCF182DE6CDE2000122C5 /* KakaoMapKey.xcconfig */,
 				295948BA2E8E198100F641DC /* ViewModelable.swift */,
 			);
 			path = MarketPlace;
@@ -1367,7 +1366,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"MarketPlace/Preview Content\"";
-				DEVELOPMENT_TEAM = 7RR74CRWQW;
+				DEVELOPMENT_TEAM = F7GYZYWC6V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MarketPlace/Info.plist;
@@ -1406,7 +1405,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MarketPlace/Preview Content\"";
-				DEVELOPMENT_TEAM = 7RR74CRWQW;
+				DEVELOPMENT_TEAM = F7GYZYWC6V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MarketPlace/Info.plist;
