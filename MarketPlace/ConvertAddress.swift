@@ -34,16 +34,20 @@ final class ConvertAddress {
     }
     
     /// - NOTE: 도로명 주소 -> 좌표(string)
-    func getPositionFromRoadAddress(from address: String) async throws -> (latitude: Double, longitude: Double) {
+    func getPositionFromRoadAddress(from address: String) async throws -> (latitude: Double?, longitude: Double?) {
         let geoCoder = CLGeocoder()
-        let places = try await geoCoder.geocodeAddressString(address)
         
-        guard let place = places.last,
-              let coordinate = place.location?.coordinate else {
-            throw AddressError.failedToConvertAddress
+        do {
+            let places = try await geoCoder.geocodeAddressString(address)
+            
+            if let place = places.last, let coordinate = place.location?.coordinate {
+                return (coordinate.latitude, coordinate.longitude)
+            } else {
+                return (nil, nil)
+            }
+        } catch {
+            return (nil, nil)
         }
-
-        return (coordinate.latitude, coordinate.longitude)
     }
 }
 
