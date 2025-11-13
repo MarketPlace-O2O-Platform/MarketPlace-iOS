@@ -75,6 +75,8 @@
 		29CA0F232E5484B100EB4890 /* MarketInfoCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CA0F222E5484B100EB4890 /* MarketInfoCellViewModel.swift */; };
 		29CC3F292E6819E5008F79F6 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CC3F282E6819E5008F79F6 /* UIImage+.swift */; };
 		29CC3F2B2E681ECD008F79F6 /* KakaoMapPoi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CC3F2A2E681ECD008F79F6 /* KakaoMapPoi.swift */; };
+		29CF81A22EBC60920065AE9A /* KakaoMapPoiWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CF81A12EBC60920065AE9A /* KakaoMapPoiWrapper.swift */; };
+		29D11E362EC3390D001CEA92 /* KakaoAPIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D11E352EC3390D001CEA92 /* KakaoAPIEndpoint.swift */; };
 		29D19D1C2E13CC2000DEEADD /* KakaoMarketDataResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D19D1B2E13CC2000DEEADD /* KakaoMarketDataResDto.swift */; };
 		29D19D202E13E63B00DEEADD /* RequestMarketMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D19D1F2E13E63B00DEEADD /* RequestMarketMapView.swift */; };
 		29D19D2D2E14234900DEEADD /* RequestMarketMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D19D2C2E14234900DEEADD /* RequestMarketMapViewModel.swift */; };
@@ -252,6 +254,8 @@
 		29CA0F222E5484B100EB4890 /* MarketInfoCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketInfoCellViewModel.swift; sourceTree = "<group>"; };
 		29CC3F282E6819E5008F79F6 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		29CC3F2A2E681ECD008F79F6 /* KakaoMapPoi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMapPoi.swift; sourceTree = "<group>"; };
+		29CF81A12EBC60920065AE9A /* KakaoMapPoiWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMapPoiWrapper.swift; sourceTree = "<group>"; };
+		29D11E352EC3390D001CEA92 /* KakaoAPIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAPIEndpoint.swift; sourceTree = "<group>"; };
 		29D19D1B2E13CC2000DEEADD /* KakaoMarketDataResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMarketDataResDto.swift; sourceTree = "<group>"; };
 		29D19D1F2E13E63B00DEEADD /* RequestMarketMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMarketMapView.swift; sourceTree = "<group>"; };
 		29D19D2C2E14234900DEEADD /* RequestMarketMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMarketMapViewModel.swift; sourceTree = "<group>"; };
@@ -445,6 +449,7 @@
 				29D53BF62DE8412E008E4F2E /* CheerMarketEndpoint.swift */,
 				2941F76F2DE5A0350063CEFE /* CouponEndpoint.swift */,
 				B26F4E8A2E57308F00C39C37 /* NotificationEndpoint.swift */,
+				29D11E352EC3390D001CEA92 /* KakaoAPIEndpoint.swift */,
 			);
 			path = Endpoint;
 			sourceTree = "<group>";
@@ -725,6 +730,7 @@
 				2976FA2A2DFC4D2F009782D1 /* CouponTopModel.swift */,
 				B24272602E26537F00E3B0ED /* ReceiptModel.swift */,
 				29CC3F2A2E681ECD008F79F6 /* KakaoMapPoi.swift */,
+				29CF81A12EBC60920065AE9A /* KakaoMapPoiWrapper.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1109,6 +1115,7 @@
 				B27E56D52D704438000D2881 /* HotCheerCardCell.swift in Sources */,
 				2941F7932DE5A2FD0063CEFE /* MemberCouponService.swift in Sources */,
 				B215F2942DE61D9600F53C51 /* AlertButtonView.swift in Sources */,
+				29CF81A22EBC60920065AE9A /* KakaoMapPoiWrapper.swift in Sources */,
 				B2122E3D2D6F7C0000BD37F8 /* MarketResDtos.swift in Sources */,
 				29D19D202E13E63B00DEEADD /* RequestMarketMapView.swift in Sources */,
 				29D19D2D2E14234900DEEADD /* RequestMarketMapViewModel.swift in Sources */,
@@ -1125,6 +1132,7 @@
 				B28A22AD2D64F1C000E86EF6 /* StoreSearchButton.swift in Sources */,
 				2941F78D2DE5A28A0063CEFE /* CouponService.swift in Sources */,
 				B21F3CF82D267AF900B83B34 /* MainView.swift in Sources */,
+				29D11E362EC3390D001CEA92 /* KakaoAPIEndpoint.swift in Sources */,
 				2941F7972DE5AAB50063CEFE /* NewEventViewModel.swift in Sources */,
 				B21F3CF62D267AF900B83B34 /* Top20View.swift in Sources */,
 				29B3EBBE2E03DABD0095A310 /* Font+.swift in Sources */,

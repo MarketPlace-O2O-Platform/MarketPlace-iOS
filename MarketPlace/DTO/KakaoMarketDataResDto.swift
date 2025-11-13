@@ -7,14 +7,19 @@
 
 import Foundation
 
-struct KakaoMarketsDataResDto: Decodable {
-    let documents: [KakaoMarketData]
+struct KakaoMarketsDataResDto<T: Decodable>: Decodable {
+    let documents: [T]
 }
 
 struct KakaoMarketData: Decodable, Identifiable {
     let id: String
     let place_name: String
     let road_address_name: String
+    let x: String
+    let y: String
+}
+
+struct KakaoConvertPositionData: Decodable {
     let x: String
     let y: String
 }

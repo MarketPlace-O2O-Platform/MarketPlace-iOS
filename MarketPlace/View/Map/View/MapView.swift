@@ -18,20 +18,27 @@ struct MapView: View {
     @State private var selectedCategory = 0
     @State private var isSelectedPin: Int = -1
     
+    @State private var selectedPoi: KakaoMapPoi?
+    
     var body: some View {
         NavigationView {
             ZStack(alignment: .bottom) {
                 // MARK: - 지도탭 ZStack 가장 하단 (KakaoMapView)
-                KakaoMapView(draw: $draw, pois: $viewModel.marketsForMap, location: $location)
+                KakaoMapView(draw: $draw, pois: $viewModel.marketsForMap, location: $location, selectedPoi: $selectedPoi)
                     .onAppear(perform: {
-                        self.draw = true
-                        self.location = locationManager.region
                         Task {
+                            self.location = locationManager.region
+                            self.draw = false
+                            
                             await viewModel.fetchMarketsWithAddress(
                                 lastPageIndex: nil,
                                 category: Category(index: selectedCategory)?.toString() ?? nil,
                                 pageSize: nil
                             )
+                            
+                            DispatchQueue.main.async {
+                                self.draw = true
+                            }
                         }
                     })
                     .onDisappear(perform: {
@@ -191,6 +198,10 @@ struct MapView: View {
                     await viewModel.fetchMarkets(category: Category(index: selectedCategory)?.toString() ?? nil)
                     await viewModel.fetchMarketsWithAddress(lastPageIndex: nil, category: Category(index: selectedCategory)?.toString() ?? nil, pageSize: nil)
                 }
+            })
+            .onChange(of: selectedPoi, initial: true, {
+                guard let selectedPoi = selectedPoi else { return }                
+                viewModel.moveMarketToFront(withId: selectedPoi.id)
             })
             .onChange(of: selectedCategory) {
                 Task {

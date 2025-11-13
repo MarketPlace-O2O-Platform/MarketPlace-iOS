@@ -26,7 +26,9 @@ final class ConvertAddress {
     /// - NOTE: 도로명 주소 -> 좌표
     func getCoordinateFromRoadAddress(from address: String) async throws -> CLLocationCoordinate2D {
         let geoCoder = CLGeocoder()
-        let places = try await geoCoder.geocodeAddressString(address)
+        let preprocessAddress = extractBaseRoadAddress(address)
+        print("getCoordinateFromRoadAddress \(preprocessAddress)")
+        let places = try await geoCoder.geocodeAddressString(preprocessAddress)
         guard let place = places.last,
               let coordinate = place.location?.coordinate else { throw AddressError.failedToConvertAddress }
         return coordinate
@@ -42,9 +44,25 @@ final class ConvertAddress {
             throw AddressError.failedToConvertAddress
         }
 
-//        let latitude = Double(coordinate.latitude)
-//        let longitude = String(coordinate.longitude)
-
         return (coordinate.latitude, coordinate.longitude)
+    }
+}
+
+extension ConvertAddress {
+    private func extractBaseRoadAddress(_ address: String) -> String {
+        let pattern = #"([가-힣A-Za-z0-9\s]+(로|길)\s?\d+(-\d+)?)"#
+
+        /// 패턴에 맞게 도로명 주소만 반환
+        if let match = address.range(of: pattern, options: .regularExpression) {
+            return String(address[match]).trimmingCharacters(in: .whitespaces)
+        } else {
+            /// 도로명 주소 패턴이 아닐 경우
+            let fallbackPattern = #"([가-힣A-Za-z]+(시|도)\s?[가-힣A-Za-z]+(구|군))"#
+            if let match = address.range(of: fallbackPattern, options: .regularExpression) {
+                return String(address[match]).trimmingCharacters(in: .whitespaces)
+            } else {
+                return address.trimmingCharacters(in: .whitespaces)
+            }
+        }
     }
 }
