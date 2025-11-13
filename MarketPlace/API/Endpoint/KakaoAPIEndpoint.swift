@@ -8,8 +8,8 @@
 import Foundation
 
 enum KakaoAPIEndpoint: Endpoint {
-    case searchKakaoMarketKeyword(keyword: String)
-    case convertAddressToPositionWithKakaoAPI(address: String)
+    case searchKakaoMarketKeyword(keyword: String, x: String, y: String)
+    case convertAddressToPositionWithKakaoAPI(marketName: String)
     
     var baseURL: URL {
         return URL(string: "https://dapi.kakao.com/v2/local/search") ?? URLManager.shared.baseURL
@@ -17,8 +17,8 @@ enum KakaoAPIEndpoint: Endpoint {
 
     var path: String {
         switch self {
-        case .searchKakaoMarketKeyword: return "/keyword.json"
-        case .convertAddressToPositionWithKakaoAPI: return "/address.json"
+        case .searchKakaoMarketKeyword, 
+                .convertAddressToPositionWithKakaoAPI: return "/keyword.json"
         }
     }
 
@@ -32,14 +32,17 @@ enum KakaoAPIEndpoint: Endpoint {
     
     var queryItems: [URLQueryItem]? {
         switch self {
-        case .searchKakaoMarketKeyword(let keyword):
+        case .searchKakaoMarketKeyword(let keyword, let x, let y):
             var items: [URLQueryItem] = []
             items.append(URLQueryItem(name: "query", value: keyword))
-            items.append(URLQueryItem(name: "category_group_code", value: "FD6"))
+            items.append(URLQueryItem(name: "x", value: x))
+            items.append(URLQueryItem(name: "y", value: y))
+            items.append(URLQueryItem(name: "sorting", value: "distance"))
             return items
             
-        case.convertAddressToPositionWithKakaoAPI(let address):
-            return [URLQueryItem(name: "query", value: address)]
+        case.convertAddressToPositionWithKakaoAPI(let marketName):
+            return [URLQueryItem(name: "query", value: marketName)]
+
         }
     }
 }

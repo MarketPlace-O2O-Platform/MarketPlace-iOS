@@ -28,17 +28,13 @@ struct MapView: View {
                     .onAppear(perform: {
                         Task {
                             self.location = locationManager.region
-                            self.draw = false
+                            self.draw = true
                             
                             await viewModel.fetchMarketsWithAddress(
                                 lastPageIndex: nil,
                                 category: Category(index: selectedCategory)?.toString() ?? nil,
-                                pageSize: nil
+                                pageSize: 20
                             )
-                            
-                            DispatchQueue.main.async {
-                                self.draw = true
-                            }
                         }
                     })
                     .onDisappear(perform: {

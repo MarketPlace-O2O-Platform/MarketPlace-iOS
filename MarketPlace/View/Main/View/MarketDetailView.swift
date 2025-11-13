@@ -127,7 +127,7 @@ struct MarketDetailView: View {
                         StoreSearchButton(shopName: shop.name, onTap: {
                             Task {
                                 let (latitude, longitude) = try await ConvertAddress().getPositionFromRoadAddress(from: viewModel.marketDetail?.address ?? "")
-                                openKakaoMap(latitude: latitude, longitude: longitude)
+                                openKakaoMap(latitude: latitude, longitude: longitude, name: shop.name)
                             }
                         })
                         .padding(.horizontal, 24)
@@ -177,8 +177,9 @@ struct MarketDetailView: View {
         }
     }
     
-    func openKakaoMap(latitude: Double, longitude: Double) {
+    func openKakaoMap(latitude: Double, longitude: Double, name: String) {
         let urlString = "kakaomap://look?p=\(latitude),\(longitude)"
+//        let urlString = " kakaomap://search?q=\(name)&p=\(latitude),\(longitude)"
         guard let encodedStr = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: encodedStr),
               let appStoreURL = URL(string: "itms-apps://itunes.apple.com/app/id304608425")

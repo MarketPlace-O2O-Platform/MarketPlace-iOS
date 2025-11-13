@@ -30,10 +30,10 @@ protocol MarketServiceProtocol {
     func fetchMarketsWithAddress(lastPageIndex: Int?, category: String?, pageSize: Int?) async -> NetworkResult<APIResDto<MarketResDto<MarketModel>>>
     
     // MARK: - 키워드로 매장 정보 받아오기 API (KAKAO API)
-    func searchKakaoMarketKeyword(keyword: String) async -> NetworkResult<KakaoMarketsDataResDto<KakaoMarketData>>
+    func searchKakaoMarketKeyword(keyword: String, x: String, y: String) async -> NetworkResult<KakaoMarketsDataResDto<KakaoMarketData>>
     
     // MARK: - 매장 주소를 위도, 경도로 변환하기 API (KAKAO API)
-    func convertAddressToPosition(address: String) async -> NetworkResult<KakaoMarketsDataResDto<KakaoConvertPositionData>>
+    func convertAddressToPosition(marketName: String) async -> NetworkResult<KakaoMarketsDataResDto<KakaoConvertPositionData>>
 }
 
 
@@ -107,12 +107,12 @@ final class MarketService: MarketServiceProtocol {
     }
     
     // MARK: - 카카오 API를 통해 키워드로 매장 정보 받아오기 API
-    func searchKakaoMarketKeyword(keyword: String) async -> NetworkResult<KakaoMarketsDataResDto<KakaoMarketData>> {
-        return await networkService.requestKakaoAPI(KakaoAPIEndpoint.searchKakaoMarketKeyword(keyword: keyword))
+    func searchKakaoMarketKeyword(keyword: String, x: String, y: String) async -> NetworkResult<KakaoMarketsDataResDto<KakaoMarketData>> {
+        return await networkService.requestKakaoAPI(KakaoAPIEndpoint.searchKakaoMarketKeyword(keyword: keyword, x: x, y: y))
     }
     
     // MARK: - 매장 주소를 위도, 경도로 변환하기 API (KAKAO API)
-    func convertAddressToPosition(address: String) async -> NetworkResult<KakaoMarketsDataResDto<KakaoConvertPositionData>> {
-        return await networkService.requestKakaoAPI(KakaoAPIEndpoint.convertAddressToPositionWithKakaoAPI(address: address))
+    func convertAddressToPosition(marketName: String) async -> NetworkResult<KakaoMarketsDataResDto<KakaoConvertPositionData>> {
+        return await networkService.requestKakaoAPI(KakaoAPIEndpoint.convertAddressToPositionWithKakaoAPI(marketName: marketName))
     }
 }

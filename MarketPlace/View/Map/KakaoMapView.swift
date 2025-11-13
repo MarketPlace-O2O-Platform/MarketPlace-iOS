@@ -198,23 +198,18 @@ struct KakaoMapView: UIViewRepresentable {
             guard let view = controller?.getView("mapview") as? KakaoMap else { return }
             guard let layer = view.getLabelManager().getLabelLayer(layerID: _layerName) else { return }
             
-            /// - NOTE: 이전에 선택된 poi style 초기화
-            if let previousSelected = selectedPoiID {
-                layer.getPoi(poiID: previousSelected)?.changeStyle(styleID: "defaultStyle")
-            }
-            
             /// - NOTE: 선택된 poi 정보
             guard let poi = layer.getPoi(poiID: param.poiItem.itemID) else {
                 print("선택된 poi를 찾을 수 없습니다.")
                 return
             }
-                        
-            /// - NOTE: 선택된 poi를 기준으로 Map 이동 & style 변경
-            let cameraUpdate = CameraUpdate.make(target: poi.position, zoomLevel: 16, mapView: view)
-            let cameraAnimation = CameraAnimationOptions(autoElevation: true, consecutive: true, durationInMillis: 4)
-            view.animateCamera(cameraUpdate: cameraUpdate, options: cameraAnimation)
             
             poi.changeStyle(styleID: "selectedStyle", enableTransition: true)
+
+            /// - NOTE: 선택된 poi를 기준으로 Map 이동 & style 변경
+            let cameraUpdate = CameraUpdate.make(target: poi.position, zoomLevel: 20, mapView: view)
+            let cameraAnimation = CameraAnimationOptions(autoElevation: true, consecutive: true, durationInMillis: 200)
+            view.animateCamera(cameraUpdate: cameraUpdate, options: cameraAnimation)
             
             selectedPoiID = poi.itemID
             

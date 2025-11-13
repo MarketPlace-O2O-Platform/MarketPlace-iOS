@@ -27,7 +27,6 @@ final class ConvertAddress {
     func getCoordinateFromRoadAddress(from address: String) async throws -> CLLocationCoordinate2D {
         let geoCoder = CLGeocoder()
         let preprocessAddress = extractBaseRoadAddress(address)
-        print("getCoordinateFromRoadAddress \(preprocessAddress)")
         let places = try await geoCoder.geocodeAddressString(preprocessAddress)
         guard let place = places.last,
               let coordinate = place.location?.coordinate else { throw AddressError.failedToConvertAddress }
