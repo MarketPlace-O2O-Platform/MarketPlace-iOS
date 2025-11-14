@@ -77,12 +77,13 @@ final class MapViewModel: ObservableObject {
         case .success(let data, _):
             /// - NOTE: 서버에서 받아오는 주소를 위도, 경도 값으로 변경
             self.marketsForMap = await data.response.marketResDtos.asyncMap { market in
-                var poi = KakaoMapPoi(latitude: 0.0, longitude: 0.0, title: market.marketName)
-                let position = try? await ConvertAddress().getCoordinateFromRoadAddress(from: market.address)
-                poi.latitude = position?.latitude ?? 0.0
-                poi.longitude = position?.longitude ?? 0.0
+                var poi = KakaoMapPoi(latitude: 0.0, longitude: 0.0, title: market.marketName, id: market.id)
+                let position = try? await convertAddressToPosition(marketName: market.marketName)
+                poi.longitude = Double(position?.x ?? "0") ?? 0.0
+                poi.latitude = Double(position?.y ?? "0") ?? 0.0
                 return poi
             }
+            
         case .failure(let statusCode, let message):
             print("[fetchMarketsWithAddress] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }
@@ -96,5 +97,23 @@ final class MapViewModel: ObservableObject {
 
         let market = markets.remove(at: index)
         markets.insert(market, at: 0)
+    }
+    
+    // MARK: - 매장 주소를 위도, 경도로 변환하기 API (KAKAO API)
+    private func convertAddressToPosition(marketName: String) async throws -> KakaoConvertPositionData {
+        let result = await marketService.convertAddressToPosition(marketName: marketName)
+        
+        switch result {
+        case .success(let data, let statusCode):
+            guard let first = data.documents.first else {
+                print("[convertAddressToPosition] - [\(statusCode)]: 결과 없음")
+                return KakaoConvertPositionData(x: "0", y: "0")
+            }
+                        
+            return first
+        case .failure(let statusCode, let message):
+            print("[convertAddressToPosition] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+            return KakaoConvertPositionData(x: "0", y: "0")
+        }
     }
 }
