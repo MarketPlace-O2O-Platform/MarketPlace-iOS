@@ -1,6 +1,6 @@
 //
 //  MarketRequestViewModel.swift
-//  MarketPlaceㅌ
+//  MarketPlace
 //
 //  Created by 이예나 on 6/19/25.
 //
@@ -17,7 +17,9 @@ final class RequestMarketViewModel: ObservableObject {
     }
        
     func searchKakaoMarketKeyword(keyword: String) async {
-        let result = await marketService.searchKakaoMarketKeyword(keyword: keyword)
+        /// 현재 자신의 위치 넣기
+        /// 없으면 그냥 정확도로..?
+        let result = await marketService.searchKakaoMarketKeyword(keyword: keyword, x: "", y: "")
         
         switch result {
         case .success(let data, _):

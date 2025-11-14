@@ -9,20 +9,13 @@ import Foundation
 
 protocol MarketServiceProtocol {
     // MARK: - 검색 매장 조회 API
-    func fetchSearchMarketsList(
-        lastPageIndex: Int?,
-        pageSize: Int?,
-        name: String
-    ) async -> NetworkResult<APIResDto<MarketResDto<MarketSearchModel>>>
+    func fetchSearchMarketsList(lastPageIndex: Int?, pageSize: Int?, name: String) async -> NetworkResult<APIResDto<MarketResDto<MarketSearchModel>>>
     
     // MARK: - 매장 상세 조회 API
     func fetchMarketDetail(marketId: Int) async -> NetworkResult<APIResDto<MarketDetailModel>>
     
     // MARK: - 전체/카테고리 매장 조회 API
-    func fetchMarketAll(lastPageIndex: Int?,
-                        category: String?,
-                        pageSize: Int?
-    ) async ->  NetworkResult<APIResDto<MarketResDto<MarketModel>>>
+    func fetchMarketAll(lastPageIndex: Int?, category: String?, pageSize: Int?) async ->  NetworkResult<APIResDto<MarketResDto<MarketModel>>>
     
     // MARK: - 매장 찜하기 API
     func postFavoriteMarket(marketId: Int) async -> NetworkResult<CommonMsgResDTO>
@@ -36,8 +29,11 @@ protocol MarketServiceProtocol {
     // MARK: - 주소별 매장 조회 API
     func fetchMarketsWithAddress(lastPageIndex: Int?, category: String?, pageSize: Int?) async -> NetworkResult<APIResDto<MarketResDto<MarketModel>>>
     
-    // MARK: - 카카오 API를 통해 키워드로 매장 정보 받아오기 API
-    func searchKakaoMarketKeyword(keyword: String) async -> NetworkResult<KakaoMarketsDataResDto>
+    // MARK: - 키워드로 매장 정보 받아오기 API (KAKAO API)
+    func searchKakaoMarketKeyword(keyword: String, x: String, y: String) async -> NetworkResult<KakaoMarketsDataResDto<KakaoMarketData>>
+    
+    // MARK: - 매장 주소를 위도, 경도로 변환하기 API (KAKAO API)
+    func convertAddressToPosition(marketName: String) async -> NetworkResult<KakaoMarketsDataResDto<KakaoConvertPositionData>>
 }
 
 
@@ -111,7 +107,12 @@ final class MarketService: MarketServiceProtocol {
     }
     
     // MARK: - 카카오 API를 통해 키워드로 매장 정보 받아오기 API
-    func searchKakaoMarketKeyword(keyword: String) async -> NetworkResult<KakaoMarketsDataResDto> {
-        return await networkService.requestFindMarketAPI(MarketEndpoint.searchKakaoMarketKeyword(keyword: keyword))
+    func searchKakaoMarketKeyword(keyword: String, x: String, y: String) async -> NetworkResult<KakaoMarketsDataResDto<KakaoMarketData>> {
+        return await networkService.requestKakaoAPI(KakaoAPIEndpoint.searchKakaoMarketKeyword(keyword: keyword, x: x, y: y))
+    }
+    
+    // MARK: - 매장 주소를 위도, 경도로 변환하기 API (KAKAO API)
+    func convertAddressToPosition(marketName: String) async -> NetworkResult<KakaoMarketsDataResDto<KakaoConvertPositionData>> {
+        return await networkService.requestKakaoAPI(KakaoAPIEndpoint.convertAddressToPositionWithKakaoAPI(marketName: marketName))
     }
 }

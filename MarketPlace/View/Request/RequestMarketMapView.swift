@@ -14,6 +14,7 @@ struct RequestMarketMapView: View {
     @StateObject private var viewModel = RequestMarketMapViewModel()
     @State var pois: [KakaoMapPoi]
     @State var location: CLLocation
+    @State var selectedPoi: KakaoMapPoi? /// 역할없음
     
     let market: KakaoMarketData
     
@@ -22,7 +23,7 @@ struct RequestMarketMapView: View {
         let latitude = Double(market.y) ?? 0.0
         let longitude = Double(market.x) ?? 0.0
         
-        _pois = State(initialValue: [KakaoMapPoi(latitude: latitude, longitude: longitude, title: market.place_name)])
+        _pois = State(initialValue: [KakaoMapPoi(latitude: latitude, longitude: longitude, title: market.place_name, id: 0)])
         _location = State(initialValue: CLLocation(latitude: latitude, longitude: longitude))
     }
     
@@ -45,7 +46,7 @@ struct RequestMarketMapView: View {
             HStack {
                 Spacer()
                 
-                KakaoMapView(draw: $draw, pois: $pois, location: $location)
+                KakaoMapView(draw: $draw, pois: $pois, location: $location, selectedPoi: $selectedPoi)
                     .onAppear(perform: {
                         self.draw = true
                     })

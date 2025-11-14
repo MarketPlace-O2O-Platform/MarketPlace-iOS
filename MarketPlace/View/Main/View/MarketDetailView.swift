@@ -127,7 +127,7 @@ struct MarketDetailView: View {
                         StoreSearchButton(shopName: shop.name, onTap: {
                             Task {
                                 let (latitude, longitude) = try await ConvertAddress().getPositionFromRoadAddress(from: viewModel.marketDetail?.address ?? "")
-                                openKakaoMap(latitude: latitude, longitude: longitude)
+                                openKakaoMap(latitude: latitude, longitude: longitude, name: shop.name)
                             }
                         })
                         .padding(.horizontal, 24)
@@ -177,15 +177,24 @@ struct MarketDetailView: View {
         }
     }
     
-    func openKakaoMap(latitude: Double, longitude: Double) {
-        let urlString = "kakaomap://look?p=\(latitude),\(longitude)"
-        guard let encodedStr = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-              let url = URL(string: encodedStr),
+    func openKakaoMap(latitude: Double?, longitude: Double?, name: String) {
+        let encodedName = name.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        
+        var urlString: String
+        if let longitude = longitude, let latitude = latitude {
+            urlString = "kakaomap://search?q=\(encodedName)&p=\(latitude),\(longitude)"
+        } else {
+            urlString = "kakaomap://search?q=\(encodedName)"
+        }
+        
+        guard let url = URL(string: urlString),
               let appStoreURL = URL(string: "itms-apps://itunes.apple.com/app/id304608425")
         else { return }
         
         UIApplication.shared.open(url, options: [:]) { success in
-            if !success { UIApplication.shared.open(appStoreURL) }
+            if !success {
+                UIApplication.shared.open(appStoreURL)
+            }
         }
     }
 }

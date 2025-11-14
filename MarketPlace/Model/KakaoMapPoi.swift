@@ -7,8 +7,9 @@
 
 import Foundation
 
-struct KakaoMapPoi {
+struct KakaoMapPoi: Equatable {
     var latitude: Double
     var longitude: Double
     var title: String
+    var id: Int
 }
