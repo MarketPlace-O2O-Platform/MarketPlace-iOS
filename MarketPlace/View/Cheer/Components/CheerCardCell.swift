@@ -1,10 +1,10 @@
 
 import SwiftUI
 
+@MainActor
 struct CheerCardCell: View {
     @ObservedObject var viewModel: CheerCardCellViewModel
-    @EnvironmentObject var parentViewModel: CheerViewModel 
-
+    @EnvironmentObject var parentViewModel: CheerViewModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -41,7 +41,8 @@ struct CheerCardCell: View {
                     let success = await viewModel.postCheerMarket(tempMarketId: viewModel.cheerMarket.marketId)
                     if success {
                         await parentViewModel.fetchMemberInfo()
-                    }                }
+                    }
+                 }
             }) {
                 /// - NOTE: 아직 공감하지 않은 매장
                 if !viewModel.isCheer {

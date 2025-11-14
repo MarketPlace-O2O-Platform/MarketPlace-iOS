@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var loginVM: LoginViewModel
+    @StateObject var cheerViewModel = CheerViewModel()
     
     init() {
         setupTabBarAppearance()
@@ -36,6 +37,7 @@ struct ContentView: View {
             Group {
                 if loginVM.isLoggedIn {
                     CheerView()
+                        .environmentObject(cheerViewModel)
                 } else {
                     LoginRequiredView()
                 }
