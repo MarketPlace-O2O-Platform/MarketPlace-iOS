@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 final class CheerViewModel: ObservableObject {
     @Published var cheerMarket: [CheerMarketModel] = []
     @Published var searchMarkets: [CheerMarketModel] = []
