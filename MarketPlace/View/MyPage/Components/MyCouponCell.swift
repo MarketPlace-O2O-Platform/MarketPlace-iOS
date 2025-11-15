@@ -1,29 +1,5 @@
 import SwiftUI
 
-// MARK: - 쿠폰 프레임
-//
-//struct CouponFrameShape: Shape {
-//    var cornerRadius: CGFloat = 4
-//    var holeRadius: CGFloat = 10
-//    var holeHeightFromBottom: CGFloat = 80
-//    
-//    func path(in rect: CGRect) -> Path {
-//        var path = Path()
-//        
-//        let notchY = rect.maxY - holeHeightFromBottom
-//        let leftHole = CGRect(x: rect.minX - holeRadius, y: notchY - holeRadius, width: holeRadius * 2, height: holeRadius * 2)
-//        let rightHole = CGRect(x: rect.maxX - holeRadius, y: notchY - holeRadius, width: holeRadius * 2, height: holeRadius * 2)
-//        
-//        ///-NOTE: 큰카드
-//        path.addRoundedRect(in: rect, cornerSize: CGSize(width: cornerRadius, height: cornerRadius))
-//        ///-NOTE: 양쪽 구멍 경로
-//        path.addEllipse(in: leftHole)
-//        path.addEllipse(in: rightHole)
-//        
-//        return path
-//    }
-//}
-
 // MARK: - 쿠폰 테두리 설정
 
 struct CouponBorderShape: Shape {
