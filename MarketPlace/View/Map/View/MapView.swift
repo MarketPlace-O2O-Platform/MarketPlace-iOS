@@ -99,7 +99,7 @@ struct MapView: View {
                             Capsule()
                                 .fill(Color.gray.opacity(0.5))
                                 .frame(width: 40, height: 5)
-                                .padding(.top, 10)
+                                .padding(.vertical, 12)
                             
                             MapMarketListView(viewModel: viewModel, selectedIndex: $selectedCategory)
                                 .frame(height: UIScreen.main.bounds.height / 6)
@@ -136,7 +136,7 @@ struct MapView: View {
                         Capsule()
                             .fill(Color.gray.opacity(0.5))
                             .frame(width: 40, height: 5)
-                            .padding(.top, 10)
+                            .padding(.vertical, 12)
                         
                         MapMarketListView(viewModel: viewModel, selectedIndex: $selectedCategory)
                             .frame(height: UIScreen.main.bounds.height / 2)
