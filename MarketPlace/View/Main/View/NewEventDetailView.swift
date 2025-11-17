@@ -60,7 +60,7 @@ struct NewEventDetailView: View {
                 await viewModel.fetchLatestCoupons()
             }
         }
-        .navigationTitle("\(currentMonth)월 신규 | 멤버십 혜택")
+        .navigationTitle("\(currentMonth) 신규 | 멤버십 혜택")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {

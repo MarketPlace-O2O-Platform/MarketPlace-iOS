@@ -33,7 +33,7 @@ struct MapView: View {
                             await viewModel.fetchMarketsWithAddress(
                                 lastPageIndex: nil,
                                 category: Category(index: selectedCategory)?.toString() ?? nil,
-                                pageSize: 20
+                                pageSize: 40
                             )
                         }
                     })

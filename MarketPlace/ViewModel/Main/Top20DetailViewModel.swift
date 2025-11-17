@@ -12,6 +12,8 @@ final class Top20DetailViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var lastCouponId: Int?
     @Published var lastIssuedCount: Int?
+    @Published var lastOrderNo: Int?
+    @Published var couponType: String?
     
     var currentPage: Int = 1
     var isLoading: Bool = false
@@ -28,6 +30,7 @@ final class Top20DetailViewModel: ObservableObject {
     func fetchCouponPopular(
         lastIssuedCount: Int? = nil,
         lastCouponId: Int? = nil,
+        couponType: String? = nil,
         pageSize: Int? = nil
     ) async {
         guard !isLoading, hasNextPage else { return }
@@ -37,6 +40,7 @@ final class Top20DetailViewModel: ObservableObject {
         let result = await couponService.fetchCouponPopular(
             lastIssuedCount: lastIssuedCount,
             lastCouponId: lastCouponId,
+            couponType: couponType,
             pageSize: pageSize
         )
         
@@ -51,6 +55,8 @@ final class Top20DetailViewModel: ObservableObject {
             if let last = data.response.couponResDtos.last {
                 self.lastCouponId = last.couponId
                 self.lastIssuedCount = last.issuedCount
+                self.couponType = last.couponType
+                self.lastOrderNo = last.orderNo
             }
             
             self.hasNextPage = data.response.hasNext

@@ -13,7 +13,7 @@ enum CouponEndpoint: Endpoint {
     case fetchTopPoplarCoupon(pageSize: Int?)
     case fetchTopLatestCoupon(pageSize: Int?)
     case fetchTopClosingCoupon(pageSize: Int?)
-    case fetchPopularCoupon(lastIssuedCount: Int?, lastCouponId: Int?, pageSize: Int?)
+    case fetchPopularCoupon(lastIssuedCount: Int?, lastCouponId: Int?, couponType: String?, pageSize: Int?)
     case fetchLatestCoupon(lastCreatedAt: String?, lastCouponId: Int?, couponType: String?, pageSize: Int?)
     case putSubmitReceipt(memberCouponId: Int, image: Data, bodyBoundary: String)
     
@@ -70,12 +70,13 @@ enum CouponEndpoint: Endpoint {
                 .fetchTopClosingCoupon(let pageSize):
             return pageSize.map { [URLQueryItem(name: "pageSize", value: String($0))] } ?? nil
             
-        case .fetchPopularCoupon(let lastIssuedCount, let lastCouponId, let pageSize):
+        case .fetchPopularCoupon(let lastIssuedCount, let lastCouponId, let couponType, let pageSize):
             var items: [URLQueryItem] = []
             
             items.append(contentsOf: [
                 lastIssuedCount.map { URLQueryItem(name: "lastIssuedCount", value: String($0)) },
                 lastCouponId.map { URLQueryItem(name: "lastCouponId", value: String($0)) },
+                couponType.map { URLQueryItem(name: "couponType", value: $0) },
                 pageSize.map { URLQueryItem(name: "pageSize", value: String($0)) }
             ].compactMap { $0 })
             
