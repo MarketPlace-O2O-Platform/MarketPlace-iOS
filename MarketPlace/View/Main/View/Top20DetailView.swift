@@ -11,7 +11,7 @@ struct Top20DetailView: View {
                 .background(Color.gray.opacity(0.5))
             ScrollView {
                 LazyVStack(spacing: 16) {
-                    ForEach(viewModel.topCoupons) { coupon in
+                    ForEach(Array(viewModel.topCoupons.enumerated()), id: \.offset) { index, coupon in
                         NavigationLink(destination:
                             MarketDetailView(marketId: coupon.marketId)
                         ) {
@@ -37,13 +37,36 @@ struct Top20DetailView: View {
                             }
                         }
                         .onAppear {
-                            if let lastCoupon = viewModel.topCoupons.last,
-                               coupon.couponId == lastCoupon.couponId,
-                               let lastId = viewModel.lastCouponId,
-                               let lastIssued = viewModel.lastIssuedCount {
-                                Task {
-                                    await viewModel.fetchCouponPopular(lastIssuedCount: lastIssued, lastCouponId: lastId)
+                            guard index == viewModel.topCoupons.count - 1,
+                                  let lastCouponType = viewModel.couponType,
+                                  let lastId = viewModel.lastCouponId
+                            else { return }
+                                                        
+                            switch lastCouponType {
+                            case "PAYBACK":
+                                if let lastOrderNo = viewModel.lastOrderNo {
+                                    Task {
+                                        await viewModel.fetchCouponPopular(
+                                            lastIssuedCount: lastOrderNo,
+                                            lastCouponId: lastId,
+                                            couponType: lastCouponType
+                                        )
+                                    }
                                 }
+                                
+                            case "GIFT":
+                                if let lastIssued = viewModel.lastIssuedCount {
+                                    Task {
+                                        await viewModel.fetchCouponPopular(
+                                            lastIssuedCount: lastIssued,
+                                            lastCouponId: lastId,
+                                            couponType: lastCouponType
+                                        )
+                                    }
+                                }
+                                
+                            default: print("")
+                                
                             }
                         }
                     }

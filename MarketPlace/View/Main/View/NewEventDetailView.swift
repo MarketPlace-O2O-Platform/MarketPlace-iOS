@@ -4,6 +4,7 @@ import SwiftUI
 struct NewEventDetailView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel = NewEventViewModel()
+    var currentMonth: String
     
     var body: some View {
         VStack(spacing: 0) {
@@ -38,11 +39,16 @@ struct NewEventDetailView: View {
                         }.onAppear {
                             guard index == viewModel.newCoupons.count - 1,
                                   let lastId = viewModel.lastCouponId,
-                                  let lastCreated = viewModel.lastCreatedAt
+                                  let lastCreated = viewModel.lastCreatedAt,
+                                  let lastCouponType = viewModel.lastCouponType
                             else { return }
-                            
+                                                        
                             Task {
-                                await viewModel.fetchLatestCoupons(lastCreatedAt: lastCreated, lastCouponId: lastId)
+                                await viewModel.fetchLatestCoupons(
+                                    lastCreatedAt: lastCreated,
+                                    lastCouponId: lastId,
+                                    couponType: lastCouponType
+                                )
                             }
                         }
                     }
@@ -54,7 +60,7 @@ struct NewEventDetailView: View {
                 await viewModel.fetchLatestCoupons()
             }
         }
-        .navigationTitle("1월 신규 | 멤버십 혜택")
+        .navigationTitle("\(currentMonth) 신규 | 멤버십 혜택")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {

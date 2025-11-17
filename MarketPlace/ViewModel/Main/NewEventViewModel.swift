@@ -12,6 +12,7 @@ final class NewEventViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var lastCouponId: Int?
     @Published var lastCreatedAt: String?
+    @Published var lastCouponType: String?
     
     var currentPage: Int = 1
     var hasNextPage: Bool = true
@@ -28,6 +29,7 @@ final class NewEventViewModel: ObservableObject {
     func fetchLatestCoupons(
         lastCreatedAt: String? = nil,
         lastCouponId: Int? = nil,
+        couponType: String? = nil,
         pageSize: Int? = nil
     ) async {
         guard !isLoading, hasNextPage else { return }
@@ -37,6 +39,7 @@ final class NewEventViewModel: ObservableObject {
         let result = await couponService.fetchLatestCoupons(
             lastCreatedAt: lastCreatedAt,
             lastCouponId: lastCouponId,
+            couponType: couponType,
             pageSize: pageSize
         )
         
@@ -51,6 +54,7 @@ final class NewEventViewModel: ObservableObject {
             if let last = data.response.couponResDtos.last {
                 self.lastCouponId = last.couponId
                 self.lastCreatedAt = last.couponCreatedAt
+                self.lastCouponType = last.couponType
             }
             
             self.hasNextPage = data.response.hasNext

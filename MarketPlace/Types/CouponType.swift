@@ -12,8 +12,8 @@ enum CouponType: String, CaseIterable {
     
     func toString() -> String {
         switch self {
-        case .giftableCoupon: return ""
-        case .refundableCoupon: return ""
+        case .giftableCoupon: return "GIFT"
+        case .refundableCoupon: return "PAYBACK"
         }
     }
     

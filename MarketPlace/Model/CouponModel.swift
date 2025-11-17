@@ -10,6 +10,8 @@ struct CouponPopularModel: Codable, Identifiable {
     let isAvailable: Bool
     let isMemberIssued: Bool
     let issuedCount: Int
+    let couponType: String
+    let orderNo: Int
     
     var id: Int { couponId }
 }
@@ -19,6 +21,7 @@ struct CouponNewModel: Codable, Identifiable {
     let couponName: String
     let marketId: Int
     let marketName: String
+    let couponType: String
     let address: String
     let thumbnail: String
     let isAvailable: Bool

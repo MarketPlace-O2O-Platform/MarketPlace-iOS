@@ -9,10 +9,10 @@ struct NewEventView: View {
         VStack {
             HStack {
                 Text("\(currentMonth) 신규 | 멤버십 혜택")
-                    .pretendardFont(size: 19, weight: .bold)
+                    .pretendardFont(size: 19, weight: .semibold)
                     .foregroundColor(.black)
                 Spacer()
-                NavigationLink(destination: NewEventDetailView()) {
+                NavigationLink(destination: NewEventDetailView(currentMonth: self.currentMonth)) {
                     Text("더보기 >")
                         .pretendardFont(size: 14, weight: .medium)
                         .foregroundColor(Color(red: 0.29, green: 0.29, blue: 0.29))
