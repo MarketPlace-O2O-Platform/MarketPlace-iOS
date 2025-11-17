@@ -14,7 +14,7 @@ enum CouponEndpoint: Endpoint {
     case fetchTopLatestCoupon(pageSize: Int?)
     case fetchTopClosingCoupon(pageSize: Int?)
     case fetchPopularCoupon(lastIssuedCount: Int?, lastCouponId: Int?, pageSize: Int?)
-    case fetchLatestCoupon(lastCreatedAt: String?, lastCouponId: Int?, pageSize: Int?)
+    case fetchLatestCoupon(lastCreatedAt: String?, lastCouponId: Int?, couponType: String?, pageSize: Int?)
     case putSubmitReceipt(memberCouponId: Int, image: Data, bodyBoundary: String)
     
     var baseURL: URL { URLManager.shared.baseURL }
@@ -81,12 +81,13 @@ enum CouponEndpoint: Endpoint {
             
             return items
             
-        case .fetchLatestCoupon(let lastCreatedAt, let lastCouponId, let pageSize):
+        case .fetchLatestCoupon(let lastCreatedAt, let lastCouponId, let couponType, let pageSize):
             var items: [URLQueryItem] = []
             
             items.append(contentsOf: [
                 lastCreatedAt.map { URLQueryItem(name: "lastCreatedAt", value: String($0)) },
                 lastCouponId.map { URLQueryItem(name: "lastCouponId", value: String($0)) },
+                URLQueryItem(name: "couponType", value: couponType),
                 pageSize.map { URLQueryItem(name: "pageSize", value: String($0)) }
             ].compactMap { $0 })
             

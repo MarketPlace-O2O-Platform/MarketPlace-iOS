@@ -19,6 +19,7 @@ struct CouponNewModel: Codable, Identifiable {
     let couponName: String
     let marketId: Int
     let marketName: String
+    let couponType: String
     let address: String
     let thumbnail: String
     let isAvailable: Bool
