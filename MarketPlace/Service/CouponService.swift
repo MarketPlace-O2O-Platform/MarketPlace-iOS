@@ -24,10 +24,10 @@ protocol CouponServiceProtocol {
     func fetchCouponTopClosing(pageSize: Int?) async -> NetworkResult<APIResDto<[TopClosingCouponResDto]>>
     
     // MARK: - 인기 쿠폰 더보기 조회 API
-    func fetchCouponPopular(lastIssuedCount: Int?, lastCouponId: Int?, pageSize: Int?) async -> NetworkResult<APIResDto<CouponPopularResponse>>
+    func fetchCouponPopular(lastIssuedCount: Int?, lastCouponId: Int?, couponType: String?, pageSize: Int?) async -> NetworkResult<APIResDto<CouponPopularResponse>>
     
     // MARK: - 최신 등록 쿠폰 더보기 조회 API
-    func fetchLatestCoupons(lastCreatedAt: String?, lastCouponId: Int?, pageSize: Int?) async -> NetworkResult<APIResDto<CouponNewResponse>>
+    func fetchLatestCoupons(lastCreatedAt: String?, lastCouponId: Int?, couponType: String?, pageSize: Int?) async -> NetworkResult<APIResDto<CouponNewResponse>>
     
     // MARK: - 영수증 쿠폰 제출하기
     func putSubmitReceipt(memberCouponId: Int, image: Data, bodyBoundary: String) async -> NetworkResult<APIResDto<ReceiptModel>>
@@ -62,12 +62,14 @@ final class CouponService: CouponServiceProtocol {
     func fetchCouponPopular(
             lastIssuedCount: Int? = nil,
             lastCouponId: Int? = nil,
+            couponType: String? = nil,
             pageSize: Int? = nil
     ) async -> NetworkResult<APIResDto<CouponPopularResponse>> {
         return await networkService.request(
             CouponEndpoint.fetchPopularCoupon(
                 lastIssuedCount: lastIssuedCount,
                 lastCouponId: lastCouponId,
+                couponType: couponType,
                 pageSize: pageSize
             )
         )
@@ -77,12 +79,14 @@ final class CouponService: CouponServiceProtocol {
     func fetchLatestCoupons(
         lastCreatedAt: String? = nil,
         lastCouponId: Int? = nil,
+        couponType: String? = nil,
         pageSize: Int? = nil
     ) async -> NetworkResult<APIResDto<CouponNewResponse>> {
         return await networkService.request(
             CouponEndpoint.fetchLatestCoupon(
                 lastCreatedAt: lastCreatedAt,
                 lastCouponId: lastCouponId,
+                couponType: couponType,
                 pageSize: pageSize
             )
         )

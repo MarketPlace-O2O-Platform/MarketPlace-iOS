@@ -86,11 +86,7 @@ final class MainViewModel: ViewModelable {
     // MARK: - 마감임박 쿠폰 조회
     private func fetchCouponTopClosing(pageSize: Int?) async {
         let result = await couponService.fetchCouponTopClosing(pageSize: pageSize)
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> origin/main
         switch result {
         case .success(let data, _):
             state.couponClosing = data.response

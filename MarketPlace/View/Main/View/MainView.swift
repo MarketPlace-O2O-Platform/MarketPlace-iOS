@@ -34,7 +34,7 @@ struct MainView: View {
                             .padding(.top, 40)
                         
                         // MARK: - 신규 멤버십
-                        NewEventView(latestCoupons: $viewModel.couponLatest, currentMonth: viewModel.currentMonth)
+                        NewEventView(latestCoupons: $viewModel.state.couponLatest, currentMonth: viewModel.currentMonth)
                             .padding(.top, 40)
                             .padding(.bottom, 100)
                     }

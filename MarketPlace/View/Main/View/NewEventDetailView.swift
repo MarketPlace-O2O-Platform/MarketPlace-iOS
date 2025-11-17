@@ -4,6 +4,7 @@ import SwiftUI
 struct NewEventDetailView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel = NewEventViewModel()
+    var currentMonth: String
     
     var body: some View {
         VStack(spacing: 0) {
@@ -86,7 +87,7 @@ struct NewEventDetailView: View {
         .onAppear {
             viewModel.action(.fetchLatestCoupon)
         }
-        .navigationTitle("1월 신규 | 멤버십 혜택")
+        .navigationTitle("\(currentMonth) 신규 | 멤버십 혜택")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {

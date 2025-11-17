@@ -35,6 +35,8 @@ final class Top20DetailViewModel: ViewModelable {
     private var lastIssuedCount: Int?
     private var currentPage: Int = 1
     private var hasNextPage: Bool = true
+    private var couponType: String?
+    private var lastOrderNo: Int?
     
     
     // MARK: - Initializer
@@ -54,18 +56,22 @@ final class Top20DetailViewModel: ViewModelable {
         }
     }
     
-    
     // MARK: - 인기쿠폰 조회 API
     private func fetchCouponPopular(reset: Bool) async {
         if reset {
             currentPage = 1
             lastCouponId = nil
             lastIssuedCount = nil
+            couponType = nil
+            lastOrderNo = nil
         }
         
+        let lastIssuedCountParam = (couponType == "PAYBACK") ? lastOrderNo : lastIssuedCount
+                
         let result = await couponService.fetchCouponPopular(
-            lastIssuedCount: lastIssuedCount,
+            lastIssuedCount: lastIssuedCountParam,
             lastCouponId: lastCouponId,
+            couponType: couponType,
             pageSize: 10
         )
         
@@ -90,6 +96,9 @@ final class Top20DetailViewModel: ViewModelable {
             let lastItem = coupons.last
             lastCouponId = lastItem?.couponId
             lastIssuedCount = lastItem?.issuedCount
+            couponType = lastItem?.couponType
+            lastOrderNo = lastItem?.orderNo
+
             currentPage += 1
             
         case .failure(let statusCode, let message):

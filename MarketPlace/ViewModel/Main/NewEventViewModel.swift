@@ -34,6 +34,7 @@ final class NewEventViewModel: ViewModelable {
     private var lastCreatedAt: String?
     private var currentPage: Int = 1
     private var hasNextPage: Bool = true
+    private var couponType: String?
     
     
     // MARK: - Initializer
@@ -42,8 +43,7 @@ final class NewEventViewModel: ViewModelable {
     ) {
         self.couponService = couponService
     }
-    
-    
+        
     // MARK: - Action
     func action(_ action: Action) {
         switch action {
@@ -61,11 +61,13 @@ final class NewEventViewModel: ViewModelable {
             currentPage = 1
             lastCouponId = nil
             lastCreatedAt = nil
+            couponType = nil
         }
                 
         let result = await couponService.fetchLatestCoupons(
             lastCreatedAt: lastCreatedAt,
             lastCouponId: lastCouponId,
+            couponType: couponType,
             pageSize: 10
         )
         
@@ -90,6 +92,8 @@ final class NewEventViewModel: ViewModelable {
             let lastItem = coupons.last
             lastCouponId = lastItem?.couponId
             lastCreatedAt = lastItem?.couponCreatedAt
+            couponType = lastItem?.couponType
+
             currentPage += 1
             
         case .failure(let statusCode, let message):
