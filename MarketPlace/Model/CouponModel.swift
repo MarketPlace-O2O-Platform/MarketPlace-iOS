@@ -36,7 +36,7 @@ struct CouponNewModel: Codable, Identifiable {
 }
 
 struct CouponValidModel: Codable, Identifiable {
-    let couponId: Int
+    var couponId: Int
     let couponName: String
     let couponDescription: String
     let deadLine: String?

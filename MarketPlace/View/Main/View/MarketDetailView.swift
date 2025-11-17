@@ -161,7 +161,9 @@ struct MarketDetailView: View {
                ) {
                 CouponGetPopupView(
                     isPopupVisible: $isPopupVisible,
-                    coupon: couponBinding
+                    couponId: couponBinding.couponId,
+                    couponType: couponBinding.couponType,
+                    isMemberIssued: couponBinding.isMemberIssued
                 ).transition(.scale)
             }
 
