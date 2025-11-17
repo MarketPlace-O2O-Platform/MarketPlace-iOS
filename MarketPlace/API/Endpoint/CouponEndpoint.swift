@@ -79,7 +79,7 @@ enum CouponEndpoint: Endpoint {
                 pageSize.map { URLQueryItem(name: "pageSize", value: String($0)) }
             ].compactMap { $0 })
             
-            return items
+            return items.isEmpty ? nil : items
             
         case .fetchLatestCoupon(let lastCreatedAt, let lastCouponId, let couponType, let pageSize):
             var items: [URLQueryItem] = []
@@ -87,11 +87,11 @@ enum CouponEndpoint: Endpoint {
             items.append(contentsOf: [
                 lastCreatedAt.map { URLQueryItem(name: "lastCreatedAt", value: String($0)) },
                 lastCouponId.map { URLQueryItem(name: "lastCouponId", value: String($0)) },
-                URLQueryItem(name: "couponType", value: couponType),
+                couponType.map { URLQueryItem(name: "couponType", value: $0) },
                 pageSize.map { URLQueryItem(name: "pageSize", value: String($0)) }
             ].compactMap { $0 })
             
-            return items
+            return items.isEmpty ? nil : items
             
         case .fetchValidCoupon(let marketId, let couponId, let size),
             .fetchValidPaybackCoupon(let marketId, let couponId, let size):
@@ -103,7 +103,7 @@ enum CouponEndpoint: Endpoint {
                 size.map { URLQueryItem(name: "size", value: String($0)) }
             ].compactMap { $0 })
             
-            return items
+            return items.isEmpty ? nil : items
             
         case .putSubmitReceipt(let memberCouponId, _, _):
             return [URLQueryItem(name: "memberCouponId", value: String(memberCouponId))]
