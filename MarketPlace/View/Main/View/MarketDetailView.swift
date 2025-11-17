@@ -39,25 +39,29 @@ struct MarketDetailView: View {
                                         .foregroundColor(.black)
                                         .frame(maxWidth: .infinity, alignment: .topLeading)
                                     Spacer()
-                                    Button(action: {
-                                        isBookmarked.toggle()
-                                        
-                                        Task {
-                                            await viewModel.postFavoriteMarket(marketId: viewModel.id)
-                                        }
-                                    }) {
-                                        if let isFavorite = shop.isFavorite {
-                                            Image(systemName: isFavorite ? "bookmark.fill" : "bookmark")
-                                                .resizable()
-                                                .scaledToFit()
-                                                .foregroundColor(.black)
-                                                .frame(width: 16)
-                                        } else {
-                                            Image(systemName: "bookmark")
-                                                .resizable()
-                                                .scaledToFit()
-                                                .foregroundColor(.black)
-                                                .frame(width: 16)
+                                    
+                                    if loginViewModel.isLoggedIn {
+                                        Button(action: {
+                                            isBookmarked.toggle()
+                                            
+                                            Task {
+                                                await viewModel.postFavoriteMarket(marketId: viewModel.id)
+                                            }
+                                            
+                                        }) {
+                                            if let isFavorite = shop.isFavorite {
+                                                Image(systemName: isFavorite ? "bookmark.fill" : "bookmark")
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .foregroundColor(.black)
+                                                    .frame(width: 16)
+                                            } else {
+                                                Image(systemName: "bookmark")
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .foregroundColor(.black)
+                                                    .frame(width: 16)
+                                            }
                                         }
                                     }
                                 }
