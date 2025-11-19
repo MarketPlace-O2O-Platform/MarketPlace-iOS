@@ -19,6 +19,7 @@ struct CouponBasicModel: Codable, Identifiable {
     var thumbnail: String
     var isAvailable: Bool
     var isMemberIssued: Bool
+    var couponType: String
     
     var id: Int { couponId }
 }
