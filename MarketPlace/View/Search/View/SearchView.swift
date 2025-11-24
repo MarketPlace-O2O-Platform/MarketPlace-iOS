@@ -33,7 +33,7 @@ struct SearchView: View {
     @State var lastIndex: Int = 0
         
     var body: some View {
-        VStack(spacing: 10) {
+        VStack(spacing: 0) {
             SearchHeader(
                 searchText: $viewModel.searchText,
                 recentSearches: $viewModel.recentSearches,
@@ -42,9 +42,11 @@ struct SearchView: View {
                     viewModel.addRecentSearch(searchQuery)
                 }
             )
-//            Divider()
-//                .frame(height: 2)
-//                .background(Color.black)
+            
+            Divider()
+                .frame(height: 0.5)
+                .background(Color.black)
+                .padding(.top, 10)
             
             if viewModel.searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                 ScrollView {
@@ -58,10 +60,12 @@ struct SearchView: View {
                 
                     PopularBenefitView(popularCoupon: $viewModel.popularCoupon)
                         .padding(.top, 48)
-                }
+                }.padding(.top, 20)
+                
             } else {
                 if hasData {
                     SearchSecondView(viewModel: viewModel, lastIndex: $lastIndex)
+                        .padding(.top, 20)
                         
                 } else{
                     SearchFailedView()
@@ -71,7 +75,7 @@ struct SearchView: View {
         .onTapGesture {
             self.endTextEditing()
         }
-        .padding(.top, SearchViewConstants.Layout.spacing)
+        .padding(.top, 10)
         .background(SearchViewConstants.Colors.backgroundColor)
         .navigationBarBackButtonHidden(true)
         .onAppear{
