@@ -30,13 +30,15 @@ final class CheerCardCellViewModel: ObservableObject {
         case .success( _, let statusCode):
             if case 200..<300 = statusCode {
                 self.isCheer = true
+                self.cheerMarket.cheerCount = data.response.cheerCount
             }
+            
             return true
             
         case .failure(let statusCode, let message):
             print("[postCheerMarket] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }
-        return false
         
+        return false
     }
 }

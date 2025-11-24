@@ -18,7 +18,7 @@ protocol CheerMarketServiceProtocol {
     func fetchUpcomingMarket(lastPageIndex: Int?, lastCheerCount: Int?, count: Int?) async -> NetworkResult<APIResDto<MarketResDto<CheerMarketModel>>>
     
     // MARK: - 공감탭 매장 공감하기 API
-    func postCheerMarket(tempMarketId: Int) async -> NetworkResult<CommonMsgResDTO>
+    func postCheerMarket(tempMarketId: Int) async -> NetworkResult<APIResDto<CheerMarketResDto>>
 }
 
 final class CheerMarketService: CheerMarketServiceProtocol {
@@ -74,7 +74,7 @@ final class CheerMarketService: CheerMarketServiceProtocol {
     }
     
     // MARK: - 공감탭 매장 공감하기 API
-    func postCheerMarket(tempMarketId: Int) async -> NetworkResult<CommonMsgResDTO> {
+    func postCheerMarket(tempMarketId: Int) async -> NetworkResult<APIResDto<CheerMarketResDto>> {
         return await networkService.request(
             CheerMarketEndpoint.postCheerMarket(tempMarketId: tempMarketId)
         )
