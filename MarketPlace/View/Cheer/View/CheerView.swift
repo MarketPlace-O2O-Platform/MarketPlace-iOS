@@ -3,9 +3,10 @@ import SwiftUI
 
 struct CheerView: View {
     @Environment(\.presentationMode) var presentationMode
-    @StateObject private var viewModel = CheerViewModel()
-    @State var upcomingLastIndex: Int = 0
     @EnvironmentObject var loginVM: LoginViewModel
+    @EnvironmentObject var viewModel: CheerViewModel
+    
+    @State var upcomingLastIndex: Int = 0
     
     @State private var hasData: Bool = true
     
