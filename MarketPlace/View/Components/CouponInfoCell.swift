@@ -45,9 +45,16 @@ struct CouponInfoCell: View {
                     Spacer()
                     
                     Button(action: {
-                        if !isMemberIssued {
+                        if !isMemberIssued && viewModel.coupon.couponType == "GIFT" {
                             Task {
                                 let result = await viewModel.downloadCoupon(couponId: viewModel.coupon.couponId)
+                                await MainActor.run {
+                                    showDownloadSuccess = result
+                                }
+                            }
+                        } else if !isMemberIssued && viewModel.coupon.couponType == "PAYBACK" {
+                            Task {
+                                let result = await viewModel.downloadPaybackCoupon(couponId: viewModel.coupon.couponId)
                                 await MainActor.run {
                                     showDownloadSuccess = result
                                 }

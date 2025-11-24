@@ -27,7 +27,7 @@ final class CheerCardCellViewModel: ObservableObject {
         let result = await cheerMarketService.postCheerMarket(tempMarketId: tempMarketId)
         
         switch result {
-        case .success(let data, let statusCode):
+        case .success( _, let statusCode):
             if case 200..<300 = statusCode {
                 self.isCheer = true
             }

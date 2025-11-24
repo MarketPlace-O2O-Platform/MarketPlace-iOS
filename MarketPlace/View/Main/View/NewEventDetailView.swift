@@ -24,7 +24,8 @@ struct NewEventDetailView: View {
                                 address: coupon.address,
                                 thumbnail: coupon.thumbnail,
                                 isAvailable: coupon.isAvailable,
-                                isMemberIssued: coupon.isMemberIssued
+                                isMemberIssued: coupon.isMemberIssued,
+                                couponType: coupon.couponType
                             )
                             
                             VStack {
