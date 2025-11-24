@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct MainHeaderView: View {
-    @State private var searchText: String = ""
     @State private var isSearchViewActive: Bool = false
     @State private var isAlertViewActive: Bool = false
     @State private var showLoginView: Bool = false
@@ -16,13 +15,11 @@ struct MainHeaderView: View {
     @EnvironmentObject var loginVM: LoginViewModel
 
     var body: some View {
-        HStack {
+        HStack(spacing: 10) {
             Image("logo")
                 .resizable()
                 .frame(width: 56, height: 18)
-            
-            Spacer()
-            
+                        
             /// - NOTE: 검색창 뷰
             HStack {
                 Button(action: {
@@ -31,27 +28,19 @@ struct MainHeaderView: View {
                     ZStack(alignment: .leading) {
                         Image(systemName: "magnifyingglass")
                             .foregroundColor(Color(hex: "#121212"))
-                            .padding(.leading, 14)
+                            .padding(.leading, 10)
                         
                         Text("|")
                             .foregroundColor(Color(hex: "#C6C6C6"))
-                            .padding(.leading, 38)
+                            .padding(.leading, 35)
                         
                         /// - NOTE: placeholder
-                        if searchText.isEmpty {
-                            Text("가고 싶은 매장을 찾아보세요")
-                                .pretendardFont(size: SearchViewConstants.FontSize.searchText, weight: .regular)
-                                .foregroundColor(SearchViewConstants.Colors.placeholderColor)
-                                .padding(.leading, 6)
-                                .padding(.leading, 43)
-                        }
-                        
-                        TextField("", text: $searchText)
+                        Text("가고 싶은 매장을 찾아보세요")
                             .pretendardFont(size: SearchViewConstants.FontSize.searchText, weight: .regular)
-                            .foregroundColor(SearchViewConstants.Colors.textColor)
+                            .foregroundColor(SearchViewConstants.Colors.placeholderColor)
                             .padding(.vertical, 8)
-                            .padding(.leading, 6)
-                            .padding(.leading, 35)
+                            .padding(.leading, 45)
+                            .padding(.trailing, 30)
                     }
                     .frame(height: 35)
                     .background(Color(hex: "#FAFAFA"))
@@ -65,9 +54,7 @@ struct MainHeaderView: View {
                     }
                 }
             }
-            
-            Spacer()
-            
+                        
             Button(action: {
                 if loginVM.isLoggedIn { isAlertViewActive = true }
                 else { showLoginView = true }
@@ -78,7 +65,6 @@ struct MainHeaderView: View {
             }
         }
         .frame(height: 44)
-        .padding(.horizontal, 20)
         .background(Color.white)
         .environmentObject(loginVM)
         .navigationDestination(isPresented: $isAlertViewActive) {

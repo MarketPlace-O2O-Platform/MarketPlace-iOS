@@ -41,6 +41,7 @@
 		295DCBB02DED6DC0009B5D82 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295DCBAF2DED6DC0009B5D82 /* MyPageViewModel.swift */; };
 		295DCBB62DED78C0009B5D82 /* MyCouponViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295DCBB52DED78C0009B5D82 /* MyCouponViewModel.swift */; };
 		295DCBB82DED7C92009B5D82 /* CouponStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295DCBB72DED7C92009B5D82 /* CouponStatus.swift */; };
+		295DE7842ED4236400DB16E7 /* CheerMarketResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295DE7832ED4236400DB16E7 /* CheerMarketResDto.swift */; };
 		296085B72E1B88CD009CE38B /* ConvertAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296085B62E1B88C9009CE38B /* ConvertAddress.swift */; };
 		296085B92E1B8EE5009CE38B /* DropdownMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296085B82E1B8EE5009CE38B /* DropdownMenuView.swift */; };
 		296CF4162DE805EB0000F200 /* KakaoMapsSDK-SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 296CF4152DE805EB0000F200 /* KakaoMapsSDK-SPM */; };
@@ -223,6 +224,7 @@
 		295DCBAF2DED6DC0009B5D82 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		295DCBB52DED78C0009B5D82 /* MyCouponViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCouponViewModel.swift; sourceTree = "<group>"; };
 		295DCBB72DED7C92009B5D82 /* CouponStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponStatus.swift; sourceTree = "<group>"; };
+		295DE7832ED4236400DB16E7 /* CheerMarketResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerMarketResDto.swift; sourceTree = "<group>"; };
 		296085B62E1B88C9009CE38B /* ConvertAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertAddress.swift; sourceTree = "<group>"; };
 		296085B82E1B8EE5009CE38B /* DropdownMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownMenuView.swift; sourceTree = "<group>"; };
 		2976FA282DFC4B56009782D1 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
@@ -766,6 +768,7 @@
 				290D92D22DE55AD5008AC190 /* CommonMsgResDTO.swift */,
 				290A71AC2E026969009AEAF8 /* TopClosingCouponResDto.swift */,
 				29D19D1B2E13CC2000DEEADD /* KakaoMarketDataResDto.swift */,
+				295DE7832ED4236400DB16E7 /* CheerMarketResDto.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -987,7 +990,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1640;
+				LastUpgradeCheck = 2610;
 				TargetAttributes = {
 					B2C398F82CA145CB004800DD = {
 						CreatedOnToolsVersion = 15.4;
@@ -1100,6 +1103,7 @@
 				29BF18C12DE4950700836D7E /* APIResDto.swift in Sources */,
 				B215F2912DE61C8400F53C51 /* AlertView.swift in Sources */,
 				B28A22AF2D64F1ED00E86EF6 /* StoreImageSlider.swift in Sources */,
+				295DE7842ED4236400DB16E7 /* CheerMarketResDto.swift in Sources */,
 				B26F4E8B2E57308F00C39C37 /* NotificationEndpoint.swift in Sources */,
 				B210EC242D3D686500B1551E /* MyHeaderView.swift in Sources */,
 				290A71B12E02792A009AEAF8 /* ShimmerView.swift in Sources */,

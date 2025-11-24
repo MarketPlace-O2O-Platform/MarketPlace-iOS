@@ -29,7 +29,7 @@ final class MapViewModel: ObservableObject {
     func fetchMarkets(
         lastPageIndex: Int? = nil,
         category: String? = nil,
-        pageSize: Int? = nil
+        pageSize: Int? = 40
     ) async {
         if currentCategory != category {
             currentPage = 1

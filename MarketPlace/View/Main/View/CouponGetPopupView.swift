@@ -2,7 +2,9 @@ import SwiftUI
 
 struct CouponGetPopupView: View {
     @Binding var isPopupVisible: Bool
-    @Binding var coupon: CouponValidModel
+    @Binding var couponId: Int
+    @Binding var couponType: String
+    @Binding var isMemberIssued: Bool
     
     @ObservedObject var viewModel = CouponPopupViewModel()
         
@@ -62,22 +64,21 @@ struct CouponGetPopupView: View {
             .padding(.vertical, 32)
             .background(Color.white)
             .cornerRadius(8)
-//            .shadow(radius: 10)
         }
     }
 
     private func onConfirm() {
-        coupon.isMemberIssued = true
+        isMemberIssued = true
         isPopupVisible = false
         
-        switch coupon.couponType {
+        switch couponType {
         case "PAYBACK":
             Task {
-                await viewModel.downloadPaybackCoupons(couponId: coupon.couponId)
+                await viewModel.downloadPaybackCoupons(couponId: couponId)
             }
         case "GIFT":
             Task {
-                await viewModel.downloadCoupons(couponId: coupon.couponId)
+                await viewModel.downloadCoupons(couponId: couponId)
             }
             
         default:

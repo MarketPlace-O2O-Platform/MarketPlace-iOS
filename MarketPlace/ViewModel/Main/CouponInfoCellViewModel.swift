@@ -22,6 +22,7 @@ final class CouponInfoCellViewModel: ObservableObject {
         self.memberCouponService = memberCouponService
     }
     
+    // MARK: - 일반쿠폰 다운로드 API
     func downloadCoupon(couponId: Int) async -> Bool {
         isLoading = true
         defer { isLoading = false }
@@ -32,8 +33,26 @@ final class CouponInfoCellViewModel: ObservableObject {
         case .success:
             self.coupon.isMemberIssued = true
             return true
-        case .failure(_, let message):
+        case .failure(let statusCode, let message):
             errorMessage = message ?? "알 수 없는 오류"
+            print("[downloadCoupon] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+            return false
+        }
+    }
+    
+    // MARK: - 환급 쿠폰 다운로드 API
+    func downloadPaybackCoupon(couponId: Int) async -> Bool {
+        isLoading = true
+        defer { isLoading = false }
+        
+        let result = await memberCouponService.downloadPaybackCoupon(couponId: couponId)
+        
+        switch result {
+        case .success:
+            self.coupon.isMemberIssued = true
+            return true
+        case .failure(let statusCode, let message):
+            print("[downloadPaybackCoupon] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
             return false
         }
     }

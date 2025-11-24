@@ -28,7 +28,7 @@ struct CheerListView: View {
             if viewModel.cheerMarkets.isEmpty {
                 VStack(spacing: 10) {
                     Text("이 카테고리에 해당하는 제휴 매장이 존재하지 않습니다.")
-                    Text("원하는 매장을 요청해보세요 !")
+                    Text("원하는 매장을 요청해보세요!")
                 }
                 .pretendardFont(size: 12, weight: .semibold)
                 .foregroundColor(Colors.gray_300)

@@ -45,18 +45,31 @@ struct HotCheerView: View {
             }
             .padding(.horizontal)
             
-            ScrollView(.horizontal, showsIndicators: false) {
-                LazyHStack(spacing: 12) {
-                    ForEach(Array(hotCheerMarkets.enumerated()), id: \.offset) { index, market in
-                        HotCheerCardCell(viewModel: HotCheerCardCellViewModel(hotCheerMarket: market))
-                            .onAppear {
-                                guard index == hotCheerMarkets.count - 1 else { return }
-                                lastIndex = index
-                            }
-                    }
+            if hotCheerMarkets.isEmpty {
+                VStack(spacing: 10) {
+                    Text("달성 임박한 매장이 없습니다.")
+                    Text("등록된 매장의 공감하기를 통해 새로운 혜택을 받아보세요!")
                 }
-                .padding(.horizontal)
-                .padding(.bottom, 8)
+                .pretendardFont(size: 12, weight: .semibold)
+                .foregroundColor(Colors.gray_300)
+                .padding(.vertical, 60)
+                .frame(maxWidth: .infinity, alignment: .center)
+            }
+            
+            else {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack(spacing: 12) {
+                        ForEach(Array(hotCheerMarkets.enumerated()), id: \.offset) { index, market in
+                            HotCheerCardCell(viewModel: HotCheerCardCellViewModel(hotCheerMarket: market))
+                                .onAppear {
+                                    guard index == hotCheerMarkets.count - 1 else { return }
+                                    lastIndex = index
+                                }
+                        }
+                    }
+                    .padding(.horizontal)
+                    .padding(.bottom, 8)
+                }
             }
         }
     }

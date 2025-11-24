@@ -102,7 +102,7 @@ struct MapView: View {
                                 .padding(.vertical, 12)
                             
                             MapMarketListView(viewModel: viewModel, selectedIndex: $selectedCategory)
-                                .frame(height: UIScreen.main.bounds.height / 6)
+                                .frame(height: UIScreen.main.bounds.height / 4)
                         }
                         .frame(maxWidth: .infinity)
                         .background(Color.white)
@@ -139,7 +139,7 @@ struct MapView: View {
                             .padding(.vertical, 12)
                         
                         MapMarketListView(viewModel: viewModel, selectedIndex: $selectedCategory)
-                            .frame(height: UIScreen.main.bounds.height / 2)
+                            .frame(height: UIScreen.main.bounds.height / 1.8)
                     }
                     .frame(maxWidth: .infinity)
                     .background(Color.white.opacity(1))
@@ -185,9 +185,10 @@ struct MapView: View {
                     .background(Color(hex: "#121212"))
                     .cornerRadius(20)
                     .shadow(radius: 2)
-                    .padding(.bottom, 20)
+                    .padding(.bottom, 100)
                 }
             }
+            .ignoresSafeArea(.container, edges: [.bottom])
             .navigationBarHidden(true)
             .onAppear(perform: {
                 Task {
