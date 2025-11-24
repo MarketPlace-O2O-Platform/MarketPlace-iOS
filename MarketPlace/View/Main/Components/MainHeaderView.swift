@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct MainHeaderView: View {
-    @State private var searchText: String = ""
     @State private var isSearchViewActive: Bool = false
     @State private var isAlertViewActive: Bool = false
     @State private var showLoginView: Bool = false
