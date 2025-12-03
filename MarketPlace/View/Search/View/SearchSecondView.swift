@@ -10,6 +10,7 @@ import SwiftUI
 struct SearchSecondView: View {
     @ObservedObject var viewModel: SearchMarketViewModel
     @Binding var lastIndex: Int
+    @Binding var lastPageID: Int
     
     var body: some View {
         ScrollView {
@@ -24,8 +25,12 @@ struct SearchSecondView: View {
                         }
                     }
                     .onAppear {
-                        guard index == viewModel.market.count - 1 else { return }
+                        guard index == viewModel.market.count - 1,
+                              let lastPageIndex = viewModel.lastPageIndex
+                        else { return }
+                        
                         lastIndex = index
+                        lastPageID = lastPageIndex
                     }
                 }
             }.padding()

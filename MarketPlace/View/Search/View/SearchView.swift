@@ -31,6 +31,7 @@ struct SearchView: View {
     
     @State private var hasData: Bool = true
     @State var lastIndex: Int = 0
+    @State var lastPageID: Int = 0
         
     var body: some View {
         VStack(spacing: 0) {
@@ -64,7 +65,7 @@ struct SearchView: View {
                 
             } else {
                 if hasData {
-                    SearchSecondView(viewModel: viewModel, lastIndex: $lastIndex)
+                    SearchSecondView(viewModel: viewModel, lastIndex: $lastIndex, lastPageID: $lastPageID)
                         .padding(.top, 20)
                         
                 } else{
@@ -87,12 +88,12 @@ struct SearchView: View {
         }
         .onChange(of: lastIndex, { _, newValue in
             Task {
-                hasData = await viewModel.fetchMarkets(lastPageIndex: lastIndex, keyword: viewModel.currentKeyword)
+                hasData = await viewModel.fetchSearchingMarkets(lastPageIndex: lastPageID, keyword: viewModel.currentKeyword)
             }
         })
         .onChange(of: viewModel.searchText) { _, newValue in
             Task {
-                hasData = await viewModel.fetchMarkets(keyword: newValue)
+                hasData = await viewModel.fetchSearchingMarkets(keyword: newValue)
                 viewModel.currentKeyword = newValue
             }
 
