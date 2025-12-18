@@ -14,6 +14,9 @@ struct MarketSearchModel: Identifiable, Codable {
     var address: String
     var thumbnail: String
     var isNewCoupon: Bool
+    var isClosingCoupon: Bool
+    var major: String
+    var orderNo: Int?
     
     var id: Int { return marketId }
 }

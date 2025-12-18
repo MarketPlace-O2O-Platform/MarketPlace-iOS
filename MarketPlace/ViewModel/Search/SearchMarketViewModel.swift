@@ -58,7 +58,7 @@ final class SearchMarketViewModel: ObservableObject {
     
     // MARK: - 검색 결과 불러오는 메서드
     @MainActor
-    func fetchMarkets(
+    func fetchSearchingMarkets(
         lastPageIndex: Int? = nil,
         pageSize: Int? = nil,
         keyword: String
@@ -70,7 +70,7 @@ final class SearchMarketViewModel: ObservableObject {
             hasNextPage = true
         }
         
-        guard !isLoading, hasNextPage else { return false }
+        guard !isLoading, hasNextPage else { return hasData }
         
         isLoading = true
         
@@ -95,7 +95,6 @@ final class SearchMarketViewModel: ObservableObject {
             self.hasNextPage = data.response.hasNext
             currentPage += 1
             
-//            self.market = data.response.marketResDtos
             if market.isEmpty {
                 hasData = false
             }
