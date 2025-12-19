@@ -11,6 +11,7 @@ enum MemberEndPoint: Endpoint {
     case fetchMemberInfo
     case signIn(studentId: String, password: String)
     case fetchFavoriteMarket(lastModifiedAt: String?, pageSize: Int?)
+    case saveAccountNum(account: String, accountNumber: String)
 
     var baseURL: URL { URLManager.shared.baseURL }
 
@@ -19,6 +20,7 @@ enum MemberEndPoint: Endpoint {
         case .fetchMemberInfo: return "api/members"
         case .signIn: return "api/members"
         case .fetchFavoriteMarket: return "api/markets/my-favorite"
+        case .saveAccountNum: return "api/members/account/permit"
         }
     }
 
@@ -28,6 +30,8 @@ enum MemberEndPoint: Endpoint {
                 .get
         case .signIn:
                 .post
+        case .saveAccountNum:
+                .patch
         }
     }
 
@@ -37,6 +41,10 @@ enum MemberEndPoint: Endpoint {
         switch self {
         case .signIn(let studentId, let password):
             let request = ["studentId": studentId, "password": password]
+            return try? JSONEncoder().encode(request)
+            
+        case .saveAccountNum(let account, let accountNumber):
+            let request = ["account": account, "accountNumber": accountNumber]
             return try? JSONEncoder().encode(request)
         default:
             return nil

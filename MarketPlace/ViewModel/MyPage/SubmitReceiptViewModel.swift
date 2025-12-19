@@ -14,13 +14,16 @@ final class SubmitReceiptViewModel: ObservableObject {
     private var memberCouponId: Int
     
     private var couponService: CouponServiceProtocol
+    private var memberService: MemberServiceProtocol
 
     init(
         memberCouponId: Int,
-        couponService: CouponServiceProtocol = CouponService()
+        couponService: CouponServiceProtocol = CouponService(),
+        memberService: MemberServiceProtocol = MemberService()
     ) {
         self.memberCouponId = memberCouponId
         self.couponService = couponService
+        self.memberService = memberService
     }
     
     var couponId: Int {
@@ -36,6 +39,18 @@ final class SubmitReceiptViewModel: ObservableObject {
             self.isUsed = data.response.isUsed
         case .failure(let statusCode, let message):
             print("[SubmitReceipt] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+        }
+    }
+    
+    // MARK: - 계좌번호 저장 API
+    func saveAccountNum(account: String, accountNumber: String) async {
+        let result = await memberService.saveAccountNum(account: account, accountNumber: accountNumber)
+        
+        switch result {
+        case .success(let data, _):
+            print(data.message)
+        case .failure(let statusCode, let message):
+            print("[saveAccountNum] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }
     }
 }
