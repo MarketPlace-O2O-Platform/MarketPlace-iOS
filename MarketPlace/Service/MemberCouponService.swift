@@ -57,7 +57,7 @@ final class MemberCouponService: MemberCouponServiceProtocol {
     // MARK: - 회원의 환급 쿠폰 리스트 API
     func fetchMemberPaybackCoupon(type: String, memberCouponId: Int?, size: Int?) async -> NetworkResult<APIResDto<MembersCouponResponse>> {
         return await networkService.request(
-            MemberCouponEndpoint.fetchMemeberPaybackCoupon(type: type, memberCouponId: memberCouponId, size: size)
+            MemberCouponEndpoint.fetchMemberPaybackCoupon(type: type, memberCouponId: memberCouponId, size: size)
         )
     }
     

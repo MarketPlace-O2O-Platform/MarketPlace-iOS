@@ -21,7 +21,6 @@ struct RegisterReceiptView: View {
     @AppStorage("savedAccountNumber") private var savedAccountNumber: String = ""
     @AppStorage("isAccountSaved") private var isAccountSaved: Bool = false
 
-    
     init(viewModel: SubmitReceiptViewModel) {
         self.viewModel = viewModel
         setupNavigationBarAppearance()
@@ -108,6 +107,7 @@ struct RegisterReceiptView: View {
                     
                     Task {
                         await viewModel.putSubmitRecipt(memberCouponId: viewModel.couponId, image: jpgImageData, bodyBoundary: boundary)
+                        await viewModel.saveAccountNum(account: bank, accountNumber: accountNumber)
                         presentationMode.wrappedValue.dismiss()
                     }
                 }

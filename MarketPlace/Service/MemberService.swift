@@ -16,6 +16,9 @@ protocol MemberServiceProtocol {
 
     // MARK: - 학생 로그인 API
     func signIn(studentId: String, password: String) async -> NetworkResult<LoginResponse>
+    
+    // MARK: - 계좌번호 저장 API
+    func saveAccountNum(account: String, accountNumber: String) async -> NetworkResult<CommonMsgResDTO>
 }
 
 final class MemberService: MemberServiceProtocol {
@@ -41,5 +44,10 @@ final class MemberService: MemberServiceProtocol {
     // MARK: - 학생 로그인 API
     func signIn(studentId: String, password: String) async -> NetworkResult<LoginResponse> {
         return await networkService.request(MemberEndPoint.signIn(studentId: studentId, password: password))
+    }
+    
+    // MARK: - 계좌번호 저장 API
+    func saveAccountNum(account: String, accountNumber: String) async -> NetworkResult<CommonMsgResDTO> {
+        return await networkService.request(MemberEndPoint.saveAccountNum(account: account, accountNumber: accountNumber))
     }
 }
