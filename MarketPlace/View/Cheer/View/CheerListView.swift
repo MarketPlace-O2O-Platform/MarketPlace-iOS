@@ -23,9 +23,11 @@ struct CheerListView: View {
             // MARK: - 상단 카테고리 탭바
             CircleCategoryTabView(selectedTab: $selectedTab)
                 .padding(.vertical, 10)
-                        
-            // MARK: - 공감 매장이 없을 때 View
-            if viewModel.cheerMarkets.isEmpty {
+            
+            switch viewModel.state {
+                
+            case .idle:
+                
                 VStack(spacing: 10) {
                     Text("이 카테고리에 해당하는 제휴 매장이 존재하지 않습니다.")
                     Text("원하는 매장을 요청해보세요!")
@@ -33,45 +35,56 @@ struct CheerListView: View {
                 .pretendardFont(size: 12, weight: .semibold)
                 .foregroundColor(Colors.gray_300)
                 .padding(.vertical, 50)
-
-            }
-            
-            // MARK: - Event Grid 뷰
-            else {
+                
+            case .empty:
+                
+                VStack(spacing: 10) {
+                    Text("이 카테고리에 해당하는 제휴 매장이 존재하지 않습니다.")
+                    Text("원하는 매장을 요청해보세요!")
+                }
+                .pretendardFont(size: 12, weight: .semibold)
+                .foregroundColor(Colors.gray_300)
+                .padding(.vertical, 50)
+                
+            case .loaded(let markets, let hasNext):
+                
                 LazyVGrid(columns: [
                     GridItem(.flexible(), spacing: 16),
                     GridItem(.flexible(), spacing: 16)
                 ], spacing: 20) {
-                    ForEach(Array(viewModel.cheerMarkets.enumerated()), id: \.offset) { index, market in
+                    ForEach(Array(markets.enumerated()), id: \.offset) { index, market in
                         CheerCardCell(viewModel: CheerCardCellViewModel(cheerMarket: market))
                             .onAppear {
-                                guard index == viewModel.cheerMarkets.count - 1,
-                                      let lastId = viewModel.lastPageIndex
-                                else { return }
-                                
-                                viewModel.currentCategory = Category(index: selectedTab)?.toString()
-                                
-                                Task {
-                                    await viewModel.fetchCheerMarkets(lastPageIndex: lastId, category: Category(index: selectedTab)?.toString() ?? nil)
+                                if index == markets.count-1, hasNext {
+                                    viewModel.action(.loadNextPage)
                                 }
                             }
                     }
                 }
                 .padding()
+                
+            case .error(let message):
+                
+                VStack {
+                    Text("문제가 발생했습니다!")
+                        .foregroundColor(.gray)
+                        .padding(.top, 40)
+                    
+                    Text(message)
+                        .foregroundColor(.gray)
+                    
+                    Spacer()
+                }
+                
             }
         }
-        /// - NOTE: 처음 View가 초기화될 시 해당 탭의 데이터 불러오기
+        /// - NOTE: 이전화면에서 넘어왔을 시 + 초기 화면의 해당 탭의 데이터 불러오기
         .onAppear {
-            Task {
-                await viewModel.fetchCheerMarkets()
-            }
+            viewModel.action(.fetchCheerMarkets(category: Category(index: selectedTab)?.toString()))
         }
         /// - NOTE: 탭 눌렀을 시 해당 탭의 데이터 불러오기
         .onChange(of: selectedTab) {
-            Task {
-                await viewModel.fetchCheerMarkets(category: Category(index: selectedTab)?.toString() ?? nil)
-                viewModel.currentCategory = Category(index: selectedTab)?.toString()
-            }
+            viewModel.action(.fetchCheerMarkets(category: Category(index: selectedTab)?.toString()))
         }
     }
 }
