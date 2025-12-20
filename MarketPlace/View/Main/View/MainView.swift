@@ -4,7 +4,7 @@ struct MainView: View {
     @State private var selectedTab = 0
     @State private var selectedCategoryIndex: Int? = nil
     
-    @ObservedObject var viewModel = MainViewModel()
+    @StateObject var viewModel = MainViewModel()
     @EnvironmentObject var loginVM: LoginViewModel
     
     @State private var isFullNoticePopUpVisible: Bool = true
@@ -45,13 +45,6 @@ struct MainView: View {
                         .padding(.vertical, 20)
                     }
                 }
-                .onAppear {
-                    Task {
-                        await viewModel.fetchCouponTopLatest(pageSize: nil)
-                        await viewModel.fetchCouponTopPopular(pageSize: nil)
-                        await viewModel.fetchCouponTopClosing(pageSize: nil)
-                    }
-                }
                 .navigationDestination(item: $selectedCategoryIndex) { index in
                     CategoryDetailView(selectedTab: $selectedTab)
                 }
@@ -62,6 +55,11 @@ struct MainView: View {
                     FullNoticePopUp(isPopupVisible: $isFullNoticePopUpVisible)
                         .transition(.scale)
                 }
+            }
+            .task {
+                await viewModel.fetchCouponTopLatest(pageSize: nil)
+                await viewModel.fetchCouponTopPopular(pageSize: nil)
+                await viewModel.fetchCouponTopClosing(pageSize: nil)
             }
         }
     }

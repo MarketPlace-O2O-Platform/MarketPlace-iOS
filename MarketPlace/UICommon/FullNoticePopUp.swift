@@ -27,10 +27,10 @@ struct FullNoticePopUp: View {
                     .padding(.bottom, 5)
                 
                 Text("📢 환급 관련 안내 및 사과드립니다")
-                    .pretendardFont(size: 20, weight: .bold)
+                    .pretendardFont(size: 23, weight: .bold)
                 
-                Text("안녕하세요, 쿠러미 팀입니다.\n먼저, 오픈첫날부터 쿠러미를 이용해주신 점\n진심으로 감사드립니다.\n다만, 시스템 오류로 인해 아래 일부 사용자님의 환급 계좌 정보가 정상적으로 저장되지 않아\n환급 처리가 진행되지 못한 상황을 확인했습니다.")
-                    .pretendardFont(size: 15, weight: .medium)
+                Text("안녕하세요, 쿠러미 팀입니다.\n먼저, 오픈 첫날부터 쿠러미를 이용해주신 점\n진심으로 감사드립니다.\n다만, 시스템 오류로 인해\n아래 일부 사용자님의 환급 계좌 정보가\n정상적으로 저장되지 않아\n환급 처리가 진행되지 못한 상황을 확인했습니다.")
+                    .pretendardFont(size: 15, weight: .regular)
                     .multilineTextAlignment(.center)
                     .lineLimit(7)
                     .lineSpacing(3)
@@ -69,7 +69,7 @@ struct FullNoticePopUp: View {
                     .cornerRadius(4, corners: .allCorners)
                 
                 VStack(alignment: .leading) {
-                    Text("✅ 연락 주시는 즉시 환급처리를 우선 진행해드리며,\n🎁 스타벅스 1만원 기프티콘을 추가로 지급해드릴 예정\n입니다.")
+                    Text("✅ 연락 주시는 즉시 환급처리를 우선 진행해드리며,\n🎁 스타벅스 1만원 기프티콘을 추가로 지급해드릴 예정입니다.")
                         .pretendardFont(size: 13, weight: .semibold)
                         .lineLimit(4)
                         .lineSpacing(8)
@@ -81,7 +81,7 @@ struct FullNoticePopUp: View {
                         Spacer()
                         
                         Text("앞으로는 이런 일이 재발하지 않도록\n시스템을 즉시 개선하겠습니다.")
-                            .pretendardFont(size: 13, weight: .semibold)
+                            .pretendardFont(size: 16, weight: .semibold)
                             .multilineTextAlignment(.center)
                             .lineLimit(3)
                             .lineSpacing(8)
@@ -111,4 +111,10 @@ struct FullNoticePopUp: View {
             )
         }
     }
+}
+
+#Preview {
+    @Previewable @State var popup: Bool = true
+    
+    FullNoticePopUp(isPopupVisible: $popup)
 }
