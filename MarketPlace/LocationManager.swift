@@ -2,20 +2,31 @@ import Foundation
 import CoreLocation
 
 final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
-    static let shared = LocationManager()
     private var manager: CLLocationManager = CLLocationManager()
     
     @Published var region: CLLocation = CLLocation(latitude: 37.3862417, longitude: 126.6394079)
 
-    private override init() {
+    override init() {
         super.init()
         self.manager.delegate = self
         self.manager.desiredAccuracy = kCLLocationAccuracyBest
-
-        if self.manager.authorizationStatus == .notDetermined {
-            self.manager.requestWhenInUseAuthorization()
-            self.manager.requestLocation()
+    }
+    
+    // MARK: - 위치 가져오기
+    func start() {
+        if manager.authorizationStatus == .notDetermined {
+            manager.requestWhenInUseAuthorization()
         }
+        
+        else if manager.authorizationStatus == .authorizedWhenInUse ||
+                  manager.authorizationStatus == .authorizedAlways {
+            manager.startUpdatingLocation()
+        }
+    }
+
+    // MARK: - 위치 가져오는 것 멈춤
+    func stop() {
+        manager.stopUpdatingLocation()
     }
 
     // MARK: - Location manager updates

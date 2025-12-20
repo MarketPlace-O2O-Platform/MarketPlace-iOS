@@ -215,7 +215,9 @@ struct KakaoMapView: UIViewRepresentable {
             
             if let wrapper = poi.userObject as? KakaoMapPoiWrapper,
                let match = pois.first(where: { $0.id == wrapper.poi.id }) {
-                selectedPoi = match
+                DispatchQueue.main.async {
+                    self.selectedPoi = match
+                }
             }
         }
         
