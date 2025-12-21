@@ -36,10 +36,6 @@ final class CheerViewModel: ObservableObject {
     ) {
         self.cheerMarketService = cheerMarketService
         self.memberService = memberService
-        
-        Task {
-            await fetchMemberInfo()
-        }
     }
         
     // MARK: - 달성임박 조회
