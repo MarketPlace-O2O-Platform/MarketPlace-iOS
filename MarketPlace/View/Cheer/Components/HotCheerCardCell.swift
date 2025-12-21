@@ -19,13 +19,15 @@ struct HotCheerCardCell: View {
         }
     }
 
-    private var status: CheerStatus { viewModel.hotCheerMarket.cheerCount ?? 0>=14 ? .isFinished : .inProgress }
+    private var status: CheerStatus {
+        (viewModel.hotCheerMarket.cheerCount ?? 0) >= 14 ? .isFinished : .inProgress
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             ShimmeringAsyncImage(
                 url: URL(string:
-                            URLManager.shared.baseStringURL + "image/tempMarket/" + viewModel.hotCheerMarket.thumbnail
+                            URLManager.shared.baseStringURL + "image/tempMarket/" + viewModel.hotCheerMarket.thumbnailPath
                     ),
                 cornerRadius: 0,
                 width: 284,

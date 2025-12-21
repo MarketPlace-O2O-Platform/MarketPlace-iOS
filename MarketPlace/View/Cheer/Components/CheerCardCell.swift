@@ -10,7 +10,7 @@ struct CheerCardCell: View {
         VStack(alignment: .leading, spacing: 8) {
             ShimmeringAsyncImage(
                 url: URL(
-                    string: URLManager.shared.baseStringURL + "image/tempMarket/" + viewModel.cheerMarket.thumbnail
+                    string: URLManager.shared.baseStringURL + "image/tempMarket/" + viewModel.cheerMarket.thumbnailPath
                 ),
                 cornerRadius: 0, width: 162, height: 162)
 
@@ -28,10 +28,12 @@ struct CheerCardCell: View {
                 .pretendardFont(size: 12, weight: .medium)
                 
                 Spacer()
-                
-                Text("\(viewModel.cheerMarket.cheerCount)")
-                    .pretendardFont(size: 12, weight: .regular)
-                    .foregroundColor(.gray)
+
+                if let cheerCount = viewModel.cheerMarket.cheerCount {
+                    Text("\(cheerCount)")
+                        .pretendardFont(size: 12, weight: .regular)
+                        .foregroundColor(.gray)
+                }
                 Image(systemName: viewModel.isCheer ? "heart.fill" : "heart")
                     .foregroundColor(.gray)
             }
