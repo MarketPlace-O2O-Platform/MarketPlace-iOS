@@ -59,6 +59,7 @@ struct CheerView: View {
             }
             .onAppear{
                 Task {
+                    await viewModel.fetchMemberInfo()
                     await viewModel.fetchUpcomingMarket()
                 }
             }
