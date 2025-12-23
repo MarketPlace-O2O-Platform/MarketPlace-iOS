@@ -19,7 +19,9 @@ struct HotCheerCardCell: View {
         }
     }
 
-    private var status: CheerStatus { viewModel.hotCheerMarket.cheerCount ?? 0>=14 ? .isFinished : .inProgress }
+    private var status: CheerStatus {
+        (viewModel.hotCheerMarket.cheerCount ?? 0) >= 14 ? .isFinished : .inProgress
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {

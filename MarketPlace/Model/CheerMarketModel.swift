@@ -5,12 +5,12 @@ struct CheerMarketModel: Codable, Identifiable {
     let marketName: String
     let marketDescription: String?
     let thumbnail: String
-    var cheerCount: Int
+    var cheerCount: Int?
     var isCheer: Bool
     var dueDate: Int?
-    
+
     var id: Int { marketId }
-    
+
     var dueDateFormmater: Int {
         guard let dueDate = dueDate else { return 0 }
         return dueDate

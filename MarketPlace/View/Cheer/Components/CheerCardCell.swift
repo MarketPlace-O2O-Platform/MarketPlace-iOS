@@ -28,10 +28,12 @@ struct CheerCardCell: View {
                 .pretendardFont(size: 12, weight: .medium)
                 
                 Spacer()
-                
-                Text("\(viewModel.cheerMarket.cheerCount)")
-                    .pretendardFont(size: 12, weight: .regular)
-                    .foregroundColor(.gray)
+
+                if let cheerCount = viewModel.cheerMarket.cheerCount {
+                    Text("\(cheerCount)")
+                        .pretendardFont(size: 12, weight: .regular)
+                        .foregroundColor(.gray)
+                }
                 Image(systemName: viewModel.isCheer ? "heart.fill" : "heart")
                     .foregroundColor(.gray)
             }
