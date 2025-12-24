@@ -51,7 +51,7 @@ struct MainView: View {
                 .background(Color.white)
                 .edgesIgnoringSafeArea(.bottom)
                 
-                if isFullNoticePopUpVisible && loginVM.isLoggedIn {
+                if isFullNoticePopUpVisible {
                     FullNoticePopUp(isPopupVisible: $isFullNoticePopUpVisible)
                         .transition(.scale)
                 }
