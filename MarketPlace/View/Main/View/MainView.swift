@@ -48,11 +48,6 @@ struct MainView: View {
                 }
                 .background(Color.white)
                 .edgesIgnoringSafeArea(.bottom)
-                
-                if isFullNoticePopUpVisible {
-                    FullNoticePopUp(isPopupVisible: $isFullNoticePopUpVisible)
-                        .transition(.scale)
-                }
             }
             .onAppear {
                 viewModel.action(.fetchClosing(pageSize: nil))
