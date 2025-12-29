@@ -137,17 +137,6 @@ struct RegisterReceiptView: View {
         .padding(.horizontal, 30)
         .navigationTitle("환급하기")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: {
-                    presentationMode.wrappedValue.dismiss()
-                }) {
-                    Image(systemName: "chevron.backward")
-                        .foregroundColor(.black)
-                }
-            }
-        }
     }
     
     private func setupNavigationBarAppearance() {
