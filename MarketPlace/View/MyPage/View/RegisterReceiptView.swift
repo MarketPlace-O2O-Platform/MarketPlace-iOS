@@ -98,6 +98,9 @@ struct RegisterReceiptView: View {
                 } else {
                     savedBank = ""
                     savedAccountNumber = ""
+                    Task {
+                        
+                    }
                 }
                 
                 // - TODO: 영수증 보내는 API
