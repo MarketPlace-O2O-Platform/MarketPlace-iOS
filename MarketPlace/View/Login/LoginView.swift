@@ -142,7 +142,7 @@ struct LoginView: View {
                 }.disabled(studentID.isEmpty || password.isEmpty)
                 
                 HStack(spacing: 20) {
-                    CheckboxView(title: "계정 정보 저장", isChecked: $saveAccount)
+                    CheckboxView(title: "계정 정보 저장", isChecked: $saveAccount, action: { _ in })
                 }
             }
             .padding(.horizontal, 20)
@@ -171,10 +171,12 @@ struct LoginView: View {
 struct CheckboxView: View {
     let title: String
     @Binding var isChecked: Bool
+    let action: ((Bool) -> Void)?
     
     var body: some View {
         Button(action: {
             isChecked.toggle()
+            action?(isChecked)
         }) {
             HStack {
                 Image(systemName: isChecked ? "checkmark.square.fill" : "square")

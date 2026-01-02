@@ -7,8 +7,6 @@ struct MainView: View {
     @StateObject var viewModel = MainViewModel()
     @EnvironmentObject var loginVM: LoginViewModel
     
-    @State private var isFullNoticePopUpVisible: Bool = true
-
     var body: some View {
         NavigationStack {
             ZStack {
@@ -50,11 +48,6 @@ struct MainView: View {
                 }
                 .background(Color.white)
                 .edgesIgnoringSafeArea(.bottom)
-                
-                if isFullNoticePopUpVisible {
-                    FullNoticePopUp(isPopupVisible: $isFullNoticePopUpVisible)
-                        .transition(.scale)
-                }
             }
             .task {
                 await viewModel.fetchCouponTopLatest(pageSize: nil)
