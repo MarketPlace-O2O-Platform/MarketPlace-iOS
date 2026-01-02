@@ -7,8 +7,6 @@ struct MainView: View {
     @StateObject var viewModel = MainViewModel()
     @EnvironmentObject var loginVM: LoginViewModel
     
-    @State private var isFullNoticePopUpVisible: Bool = true
-
     var body: some View {
         NavigationStack {
             ZStack {

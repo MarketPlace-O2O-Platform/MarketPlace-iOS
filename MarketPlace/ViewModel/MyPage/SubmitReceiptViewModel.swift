@@ -53,4 +53,16 @@ final class SubmitReceiptViewModel: ObservableObject {
             print("[saveAccountNum] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }
     }
+    
+    // MARK: - 계좌번호 삭제 API
+    func deleteAccountNum() async {
+        let result = await memberService.deleteAccountNum()
+        
+        switch result {
+        case .success(let data, let statusCode):
+            print(data.message)
+        case .failure(let statusCode, let message):
+            print("[deleteAccountNum] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+        }
+    }
 }

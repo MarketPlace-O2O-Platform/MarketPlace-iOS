@@ -19,14 +19,15 @@ protocol MemberServiceProtocol {
     
     // MARK: - 계좌번호 저장 API
     func saveAccountNum(account: String, accountNumber: String) async -> NetworkResult<CommonMsgResDTO>
+    
+    // MARK: - 계좌번호 삭제 API
+    func deleteAccountNum() async -> NetworkResult<CommonMsgResDTO>
 }
 
 final class MemberService: MemberServiceProtocol {
     private let networkService: NetworkServiceProtocol
 
-    init(
-        networkService: NetworkServiceProtocol = NetworkService()
-    ) {
+    init(networkService: NetworkServiceProtocol = NetworkService()) {
         self.networkService = networkService
     }
     
@@ -49,5 +50,10 @@ final class MemberService: MemberServiceProtocol {
     // MARK: - 계좌번호 저장 API
     func saveAccountNum(account: String, accountNumber: String) async -> NetworkResult<CommonMsgResDTO> {
         return await networkService.request(MemberEndPoint.saveAccountNum(account: account, accountNumber: accountNumber))
+    }
+    
+    // MARK: - 계좌번호 저장 API
+    func deleteAccountNum() async -> NetworkResult<CommonMsgResDTO> {
+        return await networkService.request(MemberEndPoint.deleteAccountNum)
     }
 }
