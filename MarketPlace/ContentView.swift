@@ -3,12 +3,12 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject var loginVM: LoginViewModel
     @StateObject var cheerViewModel = CheerViewModel()
-    
+
     init() {
         setupTabBarAppearance()
         setupNavigationBarAppearance()
     }
-    
+
     var body: some View {
         TabView {
             MainView()
@@ -20,7 +20,7 @@ struct ContentView: View {
                             .multilineTextAlignment(.center)
                     }
                 }
-            
+
             MapView()
                 .tabItem {
                     VStack {
@@ -33,7 +33,7 @@ struct ContentView: View {
                             .multilineTextAlignment(.center)
                     }
                 }
-            
+
             Group {
                 if loginVM.isLoggedIn {
                     CheerView()
@@ -41,7 +41,8 @@ struct ContentView: View {
                 } else {
                     LoginRequiredView()
                 }
-            }.tabItem {
+            }
+            .tabItem {
                 VStack {
                     Image(systemName: "heart.fill")
                         .resizable()
@@ -52,14 +53,15 @@ struct ContentView: View {
                         .multilineTextAlignment(.center)
                 }
             }
-            
+
             Group {
                 if loginVM.isLoggedIn {
                     MyPageView()
                 } else {
                     LoginRequiredView()
                 }
-            }.tabItem {
+            }
+            .tabItem {
                 VStack {
                     Image(uiImage: resizeImage(named: "userIcon", width: 24, height: 24))
                     Text("마이페이지")
