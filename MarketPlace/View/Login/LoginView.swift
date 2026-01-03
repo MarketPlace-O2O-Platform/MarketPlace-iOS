@@ -89,6 +89,7 @@ struct LoginView: View {
                     
                     TextField("학번을 입력해 주세요.", text: $studentID)
                         .pretendardFont(size: 13, weight: .regular)
+                        .keyboardType(.numberPad)
                         .padding()
                         .frame(height: 48)
                         .background(
