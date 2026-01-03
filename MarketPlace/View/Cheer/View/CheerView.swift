@@ -58,13 +58,7 @@ struct CheerView: View {
                 self.endTextEditing()
             }
             .onAppear{
-                print("🔥 CheerView onAppear 호출됨")
-                print("🔥 현재 searchText: '\(viewModel.searchText)'")
-
-                // searchText 초기화
                 viewModel.searchText = ""
-
-                print("🔥 초기화 후 searchText: '\(viewModel.searchText)'")
 
                 // 네비게이션 스택 리셋
                 DispatchQueue.main.async {
@@ -87,7 +81,6 @@ struct CheerView: View {
                            let selectedVC = tabBarController.selectedViewController,
                            let navController = findNavigationController(in: selectedVC) {
                             navController.popToRootViewController(animated: false)
-                            print("✅ 네비게이션 스택 리셋 완료")
                         }
                     }
                 }
