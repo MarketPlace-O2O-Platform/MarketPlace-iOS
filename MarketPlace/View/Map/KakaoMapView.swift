@@ -15,12 +15,20 @@ struct KakaoMapView: UIViewRepresentable {
     @Binding var location: CLLocation
     
     @Binding var selectedPoi: KakaoMapPoi?
+    @Binding var isTappedCurrentPositionButton: Bool
     
-    init(draw: Binding<Bool>, pois: Binding<[KakaoMapPoi]>, location: Binding<CLLocation>, selectedPoi: Binding<KakaoMapPoi?>) {
+    init(
+        draw: Binding<Bool>,
+        pois: Binding<[KakaoMapPoi]>,
+        location: Binding<CLLocation>,
+        selectedPoi: Binding<KakaoMapPoi?>,
+        isTappedCurrentPositionButton: Binding<Bool>
+    ) {
         self._draw = draw
         self._pois = pois
         self._location = location
         self._selectedPoi = selectedPoi
+        self._isTappedCurrentPositionButton = isTappedCurrentPositionButton
     }
     
     func makeUIView(context: Self.Context) -> KMViewContainer {
@@ -32,6 +40,28 @@ struct KakaoMapView: UIViewRepresentable {
 
     func updateUIView(_ uiView: KMViewContainer, context: Self.Context) {
         if draw {
+            if isTappedCurrentPositionButton {                
+                if let mapView = context.coordinator.controller?.getView("mapview") as? KakaoMap {
+                    let cameraUpdate = CameraUpdate.make(
+                        target: MapPoint(
+                            longitude: location.coordinate.longitude,
+                            latitude: location.coordinate.latitude
+                        ),
+                        zoomLevel: 15,
+                        mapView: mapView
+                    )
+
+                    mapView.animateCamera(
+                        cameraUpdate: cameraUpdate,
+                        options: CameraAnimationOptions(autoElevation: false, consecutive: false, durationInMillis: 200)
+                    )
+                }
+                
+                DispatchQueue.main.async {
+                    isTappedCurrentPositionButton = false
+                }
+            }
+            
             DispatchQueue.main.async {
                 if context.coordinator.controller?.isEnginePrepared == false {
                     context.coordinator.controller?.prepareEngine()
