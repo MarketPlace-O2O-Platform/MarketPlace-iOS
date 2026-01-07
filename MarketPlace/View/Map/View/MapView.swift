@@ -126,7 +126,7 @@ struct MapView: View {
                                     }
                                 }
                         )
-                        .offset(y: max(dragOffset.height, 0))
+                        .offset(y: min(dragOffset.height, 0))
                     }
                 }
                 
