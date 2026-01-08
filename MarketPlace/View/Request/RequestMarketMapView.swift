@@ -15,6 +15,7 @@ struct RequestMarketMapView: View {
     @State var pois: [KakaoMapPoi]
     @State var location: CLLocation
     @State var selectedPoi: KakaoMapPoi? /// 역할없음
+    @State var click: Bool = false /// 역할없음
     
     let market: KakaoMarketData
     
@@ -46,7 +47,13 @@ struct RequestMarketMapView: View {
             HStack {
                 Spacer()
                 
-                KakaoMapView(draw: $draw, pois: $pois, location: $location, selectedPoi: $selectedPoi)
+                KakaoMapView(
+                    draw: $draw,
+                    pois: $pois,
+                    location: $location,
+                    selectedPoi: $selectedPoi,
+                    isTappedCurrentPositionButton: $click
+                )
                     .onAppear(perform: {
                         self.draw = true
                     })
@@ -77,16 +84,5 @@ struct RequestMarketMapView: View {
         }
         .navigationTitle("요청하기")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: {
-                    presentationMode.wrappedValue.dismiss()
-                }) {
-                    Image(systemName: "chevron.backward")
-                        .foregroundColor(.black)
-                }
-            }
-        }
     }
 }

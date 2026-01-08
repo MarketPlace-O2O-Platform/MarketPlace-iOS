@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 final class MapViewModel: ObservableObject {
     @Published var markets: [MarketModel] = []
     @Published var marketsForMap: [KakaoMapPoi] = []

@@ -75,17 +75,6 @@ struct NewEventDetailView: View {
             }
             .navigationTitle("\(currentMonth) 신규 | 멤버십 혜택")
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarBackButtonHidden(true)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                        presentationMode.wrappedValue.dismiss()
-                    }) {
-                        Image(systemName: "chevron.backward")
-                            .foregroundColor(.black)
-                    }
-                }
-            }
             
             if !loginViewModel.isLoggedIn && isLoginRequiredPopupVisible {
                 LoginRequriedPopup(

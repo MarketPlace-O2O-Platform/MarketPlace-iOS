@@ -102,17 +102,6 @@ struct Top20DetailView: View {
             }
             .navigationTitle("Top 20 인기 | 멤버십 혜택")
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarBackButtonHidden(true)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                        presentationMode.wrappedValue.dismiss()
-                    }) {
-                        Image(systemName: "chevron.backward")
-                            .foregroundColor(.black)
-                    }
-                }
-            }
             
             if !loginViewModel.isLoggedIn && isLoginRequiredPopupVisible {
                 LoginRequriedPopup(
