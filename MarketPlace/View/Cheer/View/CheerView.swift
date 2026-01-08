@@ -11,7 +11,7 @@ struct CheerView: View {
     @State private var hasData: Bool = true
     
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $viewModel.navigationPath) {
             ScrollView {
                 CheerSearchView(searchText: $viewModel.searchText)
 
@@ -59,31 +59,7 @@ struct CheerView: View {
             }
             .onAppear{
                 viewModel.searchText = ""
-
-                // 네비게이션 스택 리셋
-                DispatchQueue.main.async {
-                    if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                       let window = windowScene.windows.first {
-
-                        func findNavigationController(in viewController: UIViewController?) -> UINavigationController? {
-                            if let navController = viewController as? UINavigationController {
-                                return navController
-                            }
-                            for child in viewController?.children ?? [] {
-                                if let navController = findNavigationController(in: child) {
-                                    return navController
-                                }
-                            }
-                            return nil
-                        }
-
-                        if let tabBarController = window.rootViewController as? UITabBarController,
-                           let selectedVC = tabBarController.selectedViewController,
-                           let navController = findNavigationController(in: selectedVC) {
-                            navController.popToRootViewController(animated: false)
-                        }
-                    }
-                }
+                viewModel.navigationPath = NavigationPath()
 
                 Task {
                     await viewModel.fetchMemberInfo()

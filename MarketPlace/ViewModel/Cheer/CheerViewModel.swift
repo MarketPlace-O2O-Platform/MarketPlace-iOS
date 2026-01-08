@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 @MainActor
 final class CheerViewModel: ObservableObject {
@@ -13,7 +14,8 @@ final class CheerViewModel: ObservableObject {
     @Published var searchMarkets: [CheerMarketModel] = []
     @Published var memberCheerTicket: Int = 0
     @Published var searchText: String = ""
-    
+    @Published var navigationPath = NavigationPath()
+
     @Published var upcomingMarketLastMarketId: Int?
     
     var upcomingMarketCurrentPage: Int = 1

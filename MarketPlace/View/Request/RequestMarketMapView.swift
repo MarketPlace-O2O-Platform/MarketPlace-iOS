@@ -97,23 +97,8 @@ struct RequestMarketMapView: View {
                         isPresented: $showCompletionPopup,
                         onConfirm: {
                             showCompletionPopup = false
-
                             cheerViewModel.searchText = ""
-
-                            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                               let window = windowScene.windows.first {
-                                var currentVC = window.rootViewController
-
-                                if let tabBarController = currentVC as? UITabBarController {
-                                    currentVC = tabBarController.selectedViewController
-                                }
-
-                                if let navigationController = currentVC as? UINavigationController {
-                                    navigationController.popToRootViewController(animated: true)
-                                } else if let navigationController = currentVC?.children.first as? UINavigationController {
-                                    navigationController.popToRootViewController(animated: true)
-                                }
-                            }
+                            cheerViewModel.navigationPath = NavigationPath()
                         }
                     )
                 }
