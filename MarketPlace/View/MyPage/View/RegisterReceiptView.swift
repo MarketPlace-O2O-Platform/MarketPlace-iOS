@@ -88,7 +88,13 @@ struct RegisterReceiptView: View {
                     )
             }.padding(.bottom, 10)
             
-            CheckboxView(title: "계좌번호 저장", isChecked: $isAccountSaved)
+            CheckboxView(title: "계좌번호 저장", isChecked: $isAccountSaved) { saveAccount in
+                if !saveAccount {
+                    Task {
+                        await viewModel.deleteAccountNum()
+                    }
+                }
+            }
             
             Button(action: {
                 // - 계좌번호 임시저장
@@ -137,17 +143,6 @@ struct RegisterReceiptView: View {
         .padding(.horizontal, 30)
         .navigationTitle("환급하기")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: {
-                    presentationMode.wrappedValue.dismiss()
-                }) {
-                    Image(systemName: "chevron.backward")
-                        .foregroundColor(.black)
-                }
-            }
-        }
     }
     
     private func setupNavigationBarAppearance() {

@@ -12,6 +12,7 @@ enum MemberEndPoint: Endpoint {
     case signIn(studentId: String, password: String)
     case fetchFavoriteMarket(lastModifiedAt: String?, pageSize: Int?)
     case saveAccountNum(account: String, accountNumber: String)
+    case deleteAccountNum
 
     var baseURL: URL { URLManager.shared.baseURL }
 
@@ -21,6 +22,7 @@ enum MemberEndPoint: Endpoint {
         case .signIn: return "api/members"
         case .fetchFavoriteMarket: return "api/markets/my-favorite"
         case .saveAccountNum: return "api/members/account/permit"
+        case .deleteAccountNum: return "api/members/account/deny"
         }
     }
 
@@ -30,7 +32,7 @@ enum MemberEndPoint: Endpoint {
                 .get
         case .signIn:
                 .post
-        case .saveAccountNum:
+        case .saveAccountNum, .deleteAccountNum:
                 .patch
         }
     }

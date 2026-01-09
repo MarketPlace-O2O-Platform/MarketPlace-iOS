@@ -8,31 +8,48 @@ struct CategoryDetailView: View {
         VStack {
             // MARK: - Category 목록 상단 TabView
             CategoryTabView(selectedTab: $selectedTab)
-            
-            ScrollView {
-                LazyVStack(spacing: 16) {
-                    ForEach(Array(viewModel.markets.enumerated()), id: \.offset) { index, shop in
-                        NavigationLink(destination: MarketDetailView(marketId: shop.marketId, isBookmarked: shop.isFavorite)) {
-                            VStack {
-                                MarketInfoCell(
-                                    isBookmarked: shop.isFavorite,
-                                    viewModel: MarketInfoCellViewModel(marketData: shop)
-                                )
-                                
-                                Divider()
-                                    .background(Color.gray.opacity(0.5))
-                                    .padding(.horizontal, -20)
+
+            if viewModel.markets.isEmpty {
+                /// - NOTE: 매장이 없을 때
+                VStack(spacing: 20) {
+                    Spacer()
+
+                    Text("아직 입점된 매장이 없습니다.\n공감화면에서 원하는 매장을 요청해보세요!")
+                        .pretendardFont(size: 16, weight: .regular)
+                        .foregroundColor(Colors.gray_600)
+                        .multilineTextAlignment(.center)
+                        .lineSpacing(8)
+
+                    Spacer()
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else {
+                // MARK: - 매장 목록
+                ScrollView {
+                    LazyVStack(spacing: 16) {
+                        ForEach(Array(viewModel.markets.enumerated()), id: \.offset) { index, shop in
+                            NavigationLink(destination: MarketDetailView(marketId: shop.marketId, isBookmarked: shop.isFavorite)) {
+                                VStack {
+                                    MarketInfoCell(
+                                        isBookmarked: shop.isFavorite,
+                                        viewModel: MarketInfoCellViewModel(marketData: shop)
+                                    )
+
+                                    Divider()
+                                        .background(Color.gray.opacity(0.5))
+                                        .padding(.horizontal, -20)
+                                }
                             }
-                        }
-                        .onAppear {
-                            guard index == viewModel.markets.count - 1,
-                                  let lastId = viewModel.lastMarketId
-                            else { return }
-                                                        
-                            viewModel.currentCategory = Category(index: selectedTab)?.toString()
-                            
-                            Task {
-                                await viewModel.fetchMarkets(lastPageIndex: lastId, category: Category(index: selectedTab)?.toString() ?? nil)
+                            .onAppear {
+                                guard index == viewModel.markets.count - 1,
+                                      let lastId = viewModel.lastMarketId
+                                else { return }
+
+                                viewModel.currentCategory = Category(index: selectedTab)?.toString()
+
+                                Task {
+                                    await viewModel.fetchMarkets(lastPageIndex: lastId, category: Category(index: selectedTab)?.toString() ?? nil)
+                                }
                             }
                         }
                     }

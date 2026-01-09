@@ -4,42 +4,59 @@ import Combine
 import CoreLocation
 
 struct MapView: View {
-    @Namespace var mapScope
     @StateObject private var viewModel = MapViewModel()
-    @ObservedObject private var locationManager = LocationManager.shared
-
-    @State var draw: Bool = false
+    @EnvironmentObject var locationManager: LocationManager
     
-    @State private var location = CLLocation(latitude: 37.3862417, longitude: 126.6394079)
-    
-    @State private var isUserTrackingEnabled = false
+    // 지도 리스트뷰를 조정하기 위한 변수
     @State private var isListVisible = false
     @State private var dragOffset = CGSize.zero
-    @State private var selectedCategory = 0
-    @State private var isSelectedPin: Int = -1
     
+    // 카카오맵뷰에 binding할 상태변수
+    @State var draw: Bool = false
+    @State private var location = CLLocation(latitude: 37.3862417, longitude: 126.6394079)
+    @State private var isSelectedPin: Int = -1
     @State private var selectedPoi: KakaoMapPoi?
+    
+    /// 현재 위치 버튼 클릭 여부를 확인할 변수
+    @State private var isTappedCurrentPositionButton: Bool = false
+
+    @State private var selectedCategory = 0
+    
+    @State private var isActive = false
+    
     
     var body: some View {
         NavigationView {
             ZStack(alignment: .bottom) {
                 // MARK: - 지도탭 ZStack 가장 하단 (KakaoMapView)
-                KakaoMapView(draw: $draw, pois: $viewModel.marketsForMap, location: $location, selectedPoi: $selectedPoi)
+                KakaoMapView(
+                    draw: $draw,
+                    pois: $viewModel.marketsForMap,
+                    location: $location,
+                    selectedPoi: $selectedPoi,
+                    isTappedCurrentPositionButton: $isTappedCurrentPositionButton
+                )
                     .onAppear(perform: {
-                        Task {
-                            self.location = locationManager.region
-                            self.draw = true
-                            
-                            await viewModel.fetchMarketsWithAddress(
-                                lastPageIndex: nil,
-                                category: Category(index: selectedCategory)?.toString() ?? nil,
-                                pageSize: 40
-                            )
-                        }
+                        self.isActive = true
+                        self.draw = true
+                        locationManager.start()
                     })
+                    .task(id: selectedCategory) {
+                        await viewModel.fetchMarketsWithAddress(
+                            lastPageIndex: nil,
+                            category: Category(index: selectedCategory)?.toString() ?? nil,
+                            pageSize: 40
+                        )
+                    }
+                    .onReceive(locationManager.$region) { region in
+                        guard isActive else { return }
+                        location = region
+                    }
                     .onDisappear(perform: {
+                        self.isActive = false
                         self.draw = false
                         isSelectedPin = -1
+                        locationManager.stop()
                     })
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .ignoresSafeArea()
@@ -57,8 +74,8 @@ struct MapView: View {
                     HStack {
                         Spacer()
                         Button(action: {
-                            location = locationManager.region
-                            isUserTrackingEnabled = true
+                            locationManager.start()
+                            isTappedCurrentPositionButton = true
                         }) {
                             Image("mapLocation")
                                 .foregroundColor(.init(hex: "#333"))
@@ -126,7 +143,7 @@ struct MapView: View {
                                     }
                                 }
                         )
-                        .offset(y: max(dragOffset.height, 0))
+                        .offset(y: min(dragOffset.height, 0))
                     }
                 }
                 
@@ -190,22 +207,14 @@ struct MapView: View {
             }
             .ignoresSafeArea(.container, edges: [.bottom])
             .navigationBarHidden(true)
-            .onAppear(perform: {
-                Task {
-                    await viewModel.fetchMarkets(category: Category(index: selectedCategory)?.toString() ?? nil)
-                    await viewModel.fetchMarketsWithAddress(lastPageIndex: nil, category: Category(index: selectedCategory)?.toString() ?? nil, pageSize: nil)
-                }
+            .task(id: selectedCategory, {
+                await viewModel.fetchMarkets(category: Category(index: selectedCategory)?.toString() ?? nil)
+                await viewModel.fetchMarketsWithAddress(lastPageIndex: nil, category: Category(index: selectedCategory)?.toString() ?? nil, pageSize: nil)
             })
             .onChange(of: selectedPoi, initial: true, {
                 guard let selectedPoi = selectedPoi else { return }                
                 viewModel.moveMarketToFront(withId: selectedPoi.id)
             })
-            .onChange(of: selectedCategory) {
-                Task {
-                    await viewModel.fetchMarkets(category: Category(index: selectedCategory)?.toString() ?? nil)
-                    await viewModel.fetchMarketsWithAddress(lastPageIndex: nil, category: Category(index: selectedCategory)?.toString() ?? nil, pageSize: nil)
-                }
-            }
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
