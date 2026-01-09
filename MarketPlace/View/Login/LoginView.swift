@@ -87,7 +87,7 @@ struct LoginView: View {
                         .pretendardFont(size: 14, weight: .regular)
                         .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
                     
-                    TextField("학번을 입력해 주세요.", text: $studentID)
+                    TextField("학교 포털 아이디를 입력해 주세요", text: $studentID)
                         .pretendardFont(size: 13, weight: .regular)
                         .keyboardType(.numberPad)
                         .padding()
@@ -104,7 +104,7 @@ struct LoginView: View {
                         .pretendardFont(size: 14, weight: .regular)
                         .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
                     
-                    SecureField("비밀번호는 꼭꼭 지켜줄게요", text: $password)
+                    SecureField("학교 포털 비밀번호를 입력해주세요", text: $password)
                         .pretendardFont(size: 13, weight: .regular)
                         .padding()
                         .frame(height: 48)
@@ -114,17 +114,20 @@ struct LoginView: View {
                         .focused($isEditing)
                 }
                 
-                Text("학교 포털 아이디 / 비밀번호를 적어주세요!")
-                    .pretendardFont(size: 12, weight: .medium)
-                    .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
-                
-                if !isEditing, let errorMessage = viewModel.userErrorMessage {
-                    Text(errorMessage)
-                        .pretendardFont(size: 14, weight: .regular)
-                        .foregroundColor(.red)
-                        .padding(.top, 10)
+                HStack(spacing: 20) {
+                    CheckboxView(title: "계정 정보 저장", isChecked: $saveAccount, action: { _ in })
                 }
-                
+//                Text("학교 포털 아이디 / 비밀번호를 적어주세요!")
+//                    .pretendardFont(size: 12, weight: .medium)
+//                    .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
+//                
+//                if !isEditing, let errorMessage = viewModel.userErrorMessage {
+//                    Text(errorMessage)
+//                        .pretendardFont(size: 14, weight: .regular)
+//                        .foregroundColor(.red)
+//                        .padding(.top, 10)
+//                }
+//                
                 // MARK: - 로그인 버튼
                 Button(action: {
                     Task {
@@ -142,9 +145,6 @@ struct LoginView: View {
                         .cornerRadius(8)
                 }.disabled(studentID.isEmpty || password.isEmpty)
                 
-                HStack(spacing: 20) {
-                    CheckboxView(title: "계정 정보 저장", isChecked: $saveAccount, action: { _ in })
-                }
             }
             .padding(.horizontal, 20)
             
