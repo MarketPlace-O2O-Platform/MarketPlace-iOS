@@ -38,12 +38,8 @@ struct LoginView: View {
                 .padding(.leading, 20)
             
             VStack(alignment: .leading, spacing: 10) {
-                Text("매번 마라탕 한 그릇, 이천 원 더 내고 있어요.")
+                Text("이제, 인천대 제휴 할인을 받으러 가볼까요?")
                     .pretendardFont(size: 12, weight: .semibold)
-                    .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
-                
-                Text("이제, 다니는 대학 제휴 멤버십으로 \n쿠폰 꾸러미 받아볼까요?")
-                    .pretendardFont(size: 16, weight: .medium)
                     .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
             }
             .padding(.horizontal, 20)
