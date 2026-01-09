@@ -91,18 +91,14 @@ struct RequestMarketMapView: View {
             }
         }
         .overlay(
-            ZStack {
-                if showCompletionPopup {
-                    RequestCompletionPopup(
-                        isPresented: $showCompletionPopup,
-                        onConfirm: {
-                            showCompletionPopup = false
-                            cheerViewModel.searchText = ""
-                            cheerViewModel.navigationPath = NavigationPath()
-                        }
-                    )
+            RequestCompletionPopup(
+                isPresented: $showCompletionPopup,
+                onConfirm: {
+                    showCompletionPopup = false
+                    cheerViewModel.searchText = ""
+                    cheerViewModel.navigationPath = NavigationPath()
                 }
-            }
+            )
         )
     }
 }
