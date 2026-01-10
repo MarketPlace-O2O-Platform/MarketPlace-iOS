@@ -11,19 +11,19 @@ struct CheerView: View {
     @State private var hasData: Bool = true
     
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $viewModel.navigationPath) {
             ScrollView {
                 CheerSearchView(searchText: $viewModel.searchText)
-                
+
                 VStack(spacing:20) {
                     if viewModel.searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                         HotCheerView(hotCheerMarkets: $viewModel.cheerMarket, cheerTicket: $viewModel.memberCheerTicket, lastIndex: $upcomingLastIndex)
                             .padding(.top, 10)
-                        
+
                         Rectangle()
                             .foregroundStyle(Color(hex: "#EEEEEE"))
                             .frame(height: 4)
-                        
+
                         CheerListView()
                     } else {
                         if hasData {
@@ -39,7 +39,7 @@ struct CheerView: View {
                                             guard index == viewModel.cheerMarket.count - 1,
                                                   let lastId = viewModel.searchLastMarketId
                                             else { return }
-                                            
+
                                             Task {
                                                 await viewModel.fetchSearchCheerMarket(lastPageIndex: lastId, name: viewModel.currentKeyword)
                                             }
@@ -58,6 +58,9 @@ struct CheerView: View {
                 self.endTextEditing()
             }
             .onAppear{
+                viewModel.searchText = ""
+                viewModel.navigationPath = NavigationPath()
+
                 Task {
                     await viewModel.fetchMemberInfo()
                     await viewModel.fetchUpcomingMarket()

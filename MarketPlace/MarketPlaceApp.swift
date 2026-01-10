@@ -41,7 +41,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         } else {
             fatalError("Kakao App Key is missing ")
         }
-        
+
         return true
     }
 }
