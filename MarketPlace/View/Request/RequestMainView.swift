@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RequestMainView: View {
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var cheerViewModel: CheerViewModel
 
     @State var marketName: String = ""
     @StateObject private var viewModel = RequestMarketViewModel()
@@ -59,30 +60,16 @@ struct RequestMainView: View {
         }
         .navigationTitle("요청하기")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: {
-                    presentationMode.wrappedValue.dismiss()
-                }) {
-                    Image(systemName: "chevron.backward")
-                        .foregroundColor(.black)
-                }
-            }
-        }
     }
     
     private func setupNavigationBarAppearance() {
-        /// UINavigationBar의 기본 설정을 수정합니다.
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = UIColor.white
         appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
         
-        /// 기본 back indicator를 숨깁니다.
         appearance.setBackIndicatorImage(UIImage(), transitionMaskImage: UIImage())
         
-        /// 설정된 appearance 적용
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }

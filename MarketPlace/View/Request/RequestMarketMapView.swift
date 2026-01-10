@@ -10,12 +10,16 @@ import CoreLocation
 
 struct RequestMarketMapView: View {
     @Environment(\.presentationMode) var presentationMode
-    
+    @EnvironmentObject var cheerViewModel: CheerViewModel
+
     @StateObject private var viewModel = RequestMarketMapViewModel()
     @State var pois: [KakaoMapPoi]
     @State var location: CLLocation
     @State var selectedPoi: KakaoMapPoi? /// 역할없음
-    
+  
+    @State private var showCompletionPopup: Bool = false
+    @State var click: Bool = false /// 역할없음
+
     let market: KakaoMarketData
     
     init(market: KakaoMarketData) {
@@ -46,7 +50,13 @@ struct RequestMarketMapView: View {
             HStack {
                 Spacer()
                 
-                KakaoMapView(draw: $draw, pois: $pois, location: $location, selectedPoi: $selectedPoi)
+                KakaoMapView(
+                    draw: $draw,
+                    pois: $pois,
+                    location: $location,
+                    selectedPoi: $selectedPoi,
+                    isTappedCurrentPositionButton: $click
+                )
                     .onAppear(perform: {
                         self.draw = true
                     })
@@ -62,7 +72,7 @@ struct RequestMarketMapView: View {
             Button(action: {
                 Task {
                     await viewModel.postMarketRequest(name: market.place_name, address: market.road_address_name)
-                    presentationMode.wrappedValue.dismiss()
+                    showCompletionPopup = true
                 }
             }, label: {
                 Text("입점 요청하기")
@@ -86,6 +96,52 @@ struct RequestMarketMapView: View {
                     Image(systemName: "chevron.backward")
                         .foregroundColor(.black)
                 }
+            }
+        }
+        .overlay(
+            RequestCompletionPopup(
+                isPresented: $showCompletionPopup,
+                onConfirm: {
+                    showCompletionPopup = false
+                    cheerViewModel.searchText = ""
+                    cheerViewModel.navigationPath = NavigationPath()
+                }
+            )
+        )
+    }
+}
+
+struct RequestCompletionPopup: View {
+    @Binding var isPresented: Bool
+    let onConfirm: () -> Void
+
+    var body: some View {
+        if isPresented {
+            ZStack {
+                Color.black.opacity(0.3)
+                    .ignoresSafeArea()
+
+                VStack(spacing: 30) {
+                    Text("입점 요청이 완료되었습니다.")
+                        .pretendardFont(size: 18, weight: .semibold)
+                        .multilineTextAlignment(.center)
+
+                    Button(action: {
+                        onConfirm()
+                    }) {
+                        Text("OK")
+                            .pretendardFont(size: 15, weight: .bold)
+                            .frame(maxWidth: .infinity, minHeight: 48)
+                            .background(Color.black)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                    }
+                    .padding(.horizontal, 20)
+                }
+                .frame(width: 300, height: 180)
+                .background(Color.white)
+                .cornerRadius(12)
+                .shadow(radius: 10)
             }
         }
     }

@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct SearchFailedView: View {
+    @EnvironmentObject var cheerViewModel: CheerViewModel
+
     var body: some View {
         VStack {
             VStack {

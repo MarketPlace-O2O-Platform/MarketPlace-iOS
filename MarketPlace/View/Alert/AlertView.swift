@@ -48,15 +48,6 @@ struct AlertView: View {
         }
         .navigationTitle("알림")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: { showAlertView = false }) {
-                    Image(systemName: "chevron.left")
-                        .foregroundColor(Colors.gray_800)
-                }
-            }
-        }
         .task {
             await viewModel.fetchNotifications(type: selectedCategory.toString())
         }

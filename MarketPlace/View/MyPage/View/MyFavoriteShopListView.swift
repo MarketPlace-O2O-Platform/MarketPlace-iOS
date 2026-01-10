@@ -5,40 +5,58 @@ struct MyFavoriteShopListView: View {
     @StateObject var viewModel = MyFavoriteMarketListViewModel()
     
     var body: some View {
-        ScrollView {
-            LazyVStack(spacing: 16) {
-                ForEach(Array(viewModel.favoriteMarkets.enumerated()),id: \.offset) { index, shop in
-                    NavigationLink(destination:
-                        MarketDetailView(marketId: shop.marketId, isBookmarked: shop.isFavorite)
-                    ) {
-                        let market = MarketModel(
-                            marketId: shop.marketId,
-                            marketName: shop.marketName,
-                            marketDescription: shop.marketDescription,
-                            address: shop.address,
-                            thumbnail: shop.thumbnail,
-                            isFavorite: shop.isFavorite,
-                            isNewCoupon: shop.isNewCoupon
-                        )
-                        
-                        VStack {
-                            MarketInfoCell(
-                                isBookmarked: shop.isFavorite,
-                                viewModel: MarketInfoCellViewModel(marketData: market)
-                            )
-                            
-                            Divider()
-                                .background(Color.gray.opacity(0.5))
-                                .padding(.horizontal, -20)
-                        }
-                    }
-                    .onAppear {
-                        guard index == viewModel.favoriteMarkets.count - 1,
-                              let lastModified = viewModel.lastModified
-                        else { return }
-                        
-                        Task {
-                            await viewModel.fetchFavoriteMarket(lastModifiedAt: lastModified)
+        Group {
+            if viewModel.favoriteMarkets.isEmpty {
+                /// - NOTE: 저장한 매장이 없을 때
+                VStack(spacing: 20) {
+                    Spacer()
+
+                    Text("내가 저장한 매장이 없습니다.\n카테고리 페이지에서 관심있는 매장을 저장해보세요.")
+                        .pretendardFont(size: 16, weight: .regular)
+                        .foregroundColor(Colors.gray_600)
+                        .multilineTextAlignment(.center)
+                        .lineSpacing(8)
+
+                    Spacer()
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else {
+                ScrollView {
+                    LazyVStack(spacing: 16) {
+                        ForEach(Array(viewModel.favoriteMarkets.enumerated()),id: \.offset) { index, shop in
+                            NavigationLink(destination:
+                                MarketDetailView(marketId: shop.marketId, isBookmarked: shop.isFavorite)
+                            ) {
+                                let market = MarketModel(
+                                    marketId: shop.marketId,
+                                    marketName: shop.marketName,
+                                    marketDescription: shop.marketDescription,
+                                    address: shop.address,
+                                    thumbnail: shop.thumbnail,
+                                    isFavorite: shop.isFavorite,
+                                    isNewCoupon: shop.isNewCoupon
+                                )
+
+                                VStack {
+                                    MarketInfoCell(
+                                        isBookmarked: shop.isFavorite,
+                                        viewModel: MarketInfoCellViewModel(marketData: market)
+                                    )
+
+                                    Divider()
+                                        .background(Color.gray.opacity(0.5))
+                                        .padding(.horizontal, -20)
+                                }
+                            }
+                            .onAppear {
+                                guard index == viewModel.favoriteMarkets.count - 1,
+                                      let lastModified = viewModel.lastModified
+                                else { return }
+
+                                Task {
+                                    await viewModel.fetchFavoriteMarket(lastModifiedAt: lastModified)
+                                }
+                            }
                         }
                     }
                 }
@@ -51,15 +69,6 @@ struct MyFavoriteShopListView: View {
         }
         .navigationTitle("나만의 큐레이션")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: { presentationMode.wrappedValue.dismiss() }) {
-                    Image(systemName: "chevron.backward")
-                        .foregroundColor(.black)
-                }
-            }
-        }
     }
 }
 
