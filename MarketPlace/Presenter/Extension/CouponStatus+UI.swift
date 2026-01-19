@@ -1,15 +1,13 @@
 //
-//  CouponStatus.swift
+//  CouponStatus+UI.swift
 //  MarketPlace
 //
-//  Created by Bowon Han on 6/2/25.
+//  Created by Bowon Han on 1/19/26.
 //
 
 import Foundation
 
-enum CouponStatus: String, CaseIterable {
-    case beforeSubmitReceipt, beforePayback, beforeUsedCoupon, used, ended
-    
+extension CouponStatus {
     func toUIName() -> String {
         switch self {
         case .beforeSubmitReceipt: "환급하러 가기"

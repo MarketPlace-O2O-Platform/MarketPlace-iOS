@@ -8,7 +8,10 @@
 import Foundation
 
 enum NotificationFilterCategory: String, CaseIterable {
-    case ALL, MARKET, COUPON, NOTICE
+    case ALL
+    case MARKET
+    case COUPON
+    case NOTICE
     
     static let orderedCases: [NotificationFilterCategory] = [
         .ALL, .MARKET, .COUPON, .NOTICE
@@ -30,15 +33,6 @@ enum NotificationFilterCategory: String, CaseIterable {
         case .COUPON: return "COUPON"
         case .NOTICE: return "NOTICE"
         default: return nil 
-        }
-    }
-    
-    func toUIName() -> String {
-        switch self {
-        case .ALL: return "전체"
-        case .MARKET: return "쿠폰 발급"
-        case .COUPON: return "쿠폰 만료"
-        case .NOTICE: return "공지"
         }
     }
 }

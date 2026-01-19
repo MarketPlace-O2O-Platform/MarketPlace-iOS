@@ -1,28 +1,13 @@
 //
-//  CouponCategory.swift
+//  CouponCategory+UI.swift
 //  MarketPlace
 //
-//  Created by Bowon Han on 9/11/25.
+//  Created by Bowon Han on 1/19/26.
 //
 
 import Foundation
 
-enum CouponCategory: CaseIterable {
-    case payback, gift, ended
-    
-    static let orderedCases: [CouponCategory] = [
-        .payback, .gift, .ended
-    ]
-
-    init?(index: Int) {
-        switch index {
-        case 0: self = .payback
-        case 1: self = .gift
-        case 2: self = .ended
-        default: return nil
-        }
-    }
-
+extension CouponCategory {
     func toString() -> String {
         switch self {
         case .payback, .gift: return "ISSUED"
