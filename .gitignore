@@ -73,7 +73,7 @@ xcuserdata
 !*.xcworkspace/contents.xcworkspacedata
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
-MarketPlace/API_URL.plist
 
+MarketPlace/Resources/API_URL.plist
 MarketPlace/Resources/KakaoMapKey.xcconfig
 MarektPlace/Resources/Font/

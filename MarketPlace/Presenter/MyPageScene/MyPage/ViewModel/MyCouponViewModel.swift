@@ -8,7 +8,7 @@
 import Foundation
 
 final class MyCouponViewModel: ObservableObject {
-    @Published var memberCoupons: [MembersCouponModel] = []
+    @Published var memberCoupons: [IssuedCouponResDto] = []
 
     private var memberCouponService: MemberCouponServiceProtocol
     

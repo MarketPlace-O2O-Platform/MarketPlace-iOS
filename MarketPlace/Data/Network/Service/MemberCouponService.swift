@@ -15,13 +15,13 @@ protocol MemberCouponServiceProtocol {
     func downloadPaybackCoupon(couponId: Int) async -> NetworkResult<CommonMsgResDTO>
     
     // MARK: - 회원 쿠폰 리스트 API
-    func fetchMemberCoupon(type: String, memberCouponId: Int?, size: Int?) async -> NetworkResult<APIResDto<MembersCouponResponse>>
+    func fetchMemberCoupon(type: String, memberCouponId: Int?, size: Int?) async -> NetworkResult<APIResDto<CouponPageResIssuedCouponResDto<IssuedCouponResDto>>>
     
     // MARK: - 회원 쿠폰 사용처리 API
     func useMemberCoupon(memberCouponId: Int) async -> NetworkResult<APIResDto<MyCouponResDto>>
     
     // MARK: - 회원의 환급 쿠폰 리스트 API
-    func fetchMemberPaybackCoupon(type: String, memberCouponId: Int?, size: Int?) async -> NetworkResult<APIResDto<MembersCouponResponse>>
+    func fetchMemberPaybackCoupon(type: String, memberCouponId: Int?, size: Int?) async -> NetworkResult<APIResDto<CouponPageResIssuedCouponResDto<IssuedCouponResDto>>>
 }
 
 final class MemberCouponService: MemberCouponServiceProtocol {
@@ -48,14 +48,14 @@ final class MemberCouponService: MemberCouponServiceProtocol {
     }
     
     // MARK: - 회원 쿠폰 리스트 API
-    func fetchMemberCoupon(type: String, memberCouponId: Int?, size: Int?) async -> NetworkResult<APIResDto<MembersCouponResponse>> {
+    func fetchMemberCoupon(type: String, memberCouponId: Int?, size: Int?) async -> NetworkResult<APIResDto<CouponPageResIssuedCouponResDto<IssuedCouponResDto>>> {
         return await networkService.request(
             MemberCouponEndpoint.fetchMemberCoupon(type: type, memberCouponId: memberCouponId, size: size)
         )
     }
     
     // MARK: - 회원의 환급 쿠폰 리스트 API
-    func fetchMemberPaybackCoupon(type: String, memberCouponId: Int?, size: Int?) async -> NetworkResult<APIResDto<MembersCouponResponse>> {
+    func fetchMemberPaybackCoupon(type: String, memberCouponId: Int?, size: Int?) async -> NetworkResult<APIResDto<CouponPageResIssuedCouponResDto<IssuedCouponResDto>>> {
         return await networkService.request(
             MemberCouponEndpoint.fetchMemberPaybackCoupon(type: type, memberCouponId: memberCouponId, size: size)
         )

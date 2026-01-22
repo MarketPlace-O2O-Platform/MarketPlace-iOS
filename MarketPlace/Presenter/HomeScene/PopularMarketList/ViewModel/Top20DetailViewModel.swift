@@ -8,7 +8,7 @@
 import Foundation
 
 final class Top20DetailViewModel: ObservableObject {
-    @Published var topCoupons: [CouponPopularModel] = []
+    @Published var topCoupons: [PopularCouponResDto] = []
     @Published var errorMessage: String?
     @Published var lastCouponId: Int?
     @Published var lastIssuedCount: Int?

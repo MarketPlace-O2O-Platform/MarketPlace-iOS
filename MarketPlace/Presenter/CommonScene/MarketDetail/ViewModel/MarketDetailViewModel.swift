@@ -6,7 +6,7 @@ final class MarketDetailViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var isLoading = false
     
-    @Published var validCoupons: [CouponValidModel] = []
+    @Published var validCoupons: [ValidCouponResDto] = []
     private let marketId: Int
     
     private var marketService: MarketServiceProtocol

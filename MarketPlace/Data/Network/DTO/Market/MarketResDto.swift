@@ -13,7 +13,7 @@ struct MarketResDto: Decodable, Identifiable {
     let marketDescription: String
     let address: String
     let thumbnail: String
-    var isFavorite: Bool
+    var isFavorite: Bool?
     let isNewCoupon: Bool
     let isClosingCoupon: Bool?
     let favoriteModifiedAt: String?

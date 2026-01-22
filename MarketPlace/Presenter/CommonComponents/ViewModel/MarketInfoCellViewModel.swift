@@ -50,7 +50,7 @@ final class MarketInfoCellViewModel: ObservableObject {
         
         switch result {
         case .success(_, _):
-            marketData.isFavorite.toggle()
+            marketData.isFavorite?.toggle()
         case .failure(let statusCode, let message):
             print("[postFavoriteMarket] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }

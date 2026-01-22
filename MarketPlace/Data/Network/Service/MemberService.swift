@@ -15,7 +15,7 @@ protocol MemberServiceProtocol {
     func fetchFavoriteMarket(lastModifiedAt: String?, pageSize: Int?) async -> NetworkResult<APIResDto<MarketResDtos<MarketResDto>>>
 
     // MARK: - 학생 로그인 API
-    func signIn(studentId: String, password: String) async -> NetworkResult<LoginResponse>
+    func signIn(studentId: String, password: String) async -> NetworkResult<APIResDto<String>>
     
     // MARK: - 계좌번호 저장 API
     func saveAccountNum(account: String, accountNumber: String) async -> NetworkResult<CommonMsgResDTO>
@@ -43,7 +43,7 @@ final class MemberService: MemberServiceProtocol {
     }
     
     // MARK: - 학생 로그인 API
-    func signIn(studentId: String, password: String) async -> NetworkResult<LoginResponse> {
+    func signIn(studentId: String, password: String) async -> NetworkResult<APIResDto<String>> {
         return await networkService.request(MemberEndPoint.signIn(studentId: studentId, password: password))
     }
     

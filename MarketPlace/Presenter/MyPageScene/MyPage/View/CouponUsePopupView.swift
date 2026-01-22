@@ -2,7 +2,7 @@ import SwiftUI
 
 struct CouponUsePopupView: View {
     @Binding var isPopupVisible: Bool
-    @Binding var coupon: MembersCouponModel?
+    @Binding var coupon: IssuedCouponResDto?
     var onConfirm: () -> Void
 
     var body: some View {

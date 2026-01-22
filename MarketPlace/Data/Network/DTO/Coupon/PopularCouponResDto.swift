@@ -1,5 +1,5 @@
 //
-//  CouponPopularModel.swift
+//  PopularCouponResDto.swift
 //  MarketPlace
 //
 //  Created by Bowon Han on 1/21/26.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CouponPopularModel: Codable, Identifiable {
+struct PopularCouponResDto: Codable, Identifiable {
     let couponId: Int
     let couponName: String
     let marketId: Int

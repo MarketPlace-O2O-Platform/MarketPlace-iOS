@@ -9,7 +9,7 @@ import Foundation
 
 final class MyCouponCellViewModel: ObservableObject {
     private var memberCouponService: MemberCouponServiceProtocol
-    @Published var coupon: MembersCouponModel
+    @Published var coupon: IssuedCouponResDto
     @Published var couponStatus: MyCouponStatus
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?

@@ -8,7 +8,7 @@
 import Foundation
 
 final class NewEventViewModel: ObservableObject {
-    @Published var newCoupons: [CouponNewModel] = []
+    @Published var newCoupons: [LatestCouponResDto] = []
     @Published var errorMessage: String?
     @Published var lastCouponId: Int?
     @Published var lastCreatedAt: String?

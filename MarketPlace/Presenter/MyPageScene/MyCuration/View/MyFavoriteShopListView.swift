@@ -25,11 +25,11 @@ struct MyFavoriteShopListView: View {
                     LazyVStack(spacing: 16) {
                         ForEach(Array(viewModel.favoriteMarkets.enumerated()),id: \.offset) { index, market in
                             NavigationLink(destination:
-                                MarketDetailView(marketId: market.marketId, isBookmarked: market.isFavorite)
+                                MarketDetailView(marketId: market.marketId, isBookmarked: market.isFavorite ?? false)
                             ) {
                                 VStack {
                                     MarketInfoCell(
-                                        isBookmarked: market.isFavorite,
+                                        isBookmarked: market.isFavorite ?? false,
                                         viewModel: MarketInfoCellViewModel(marketData: market)
                                     )
 

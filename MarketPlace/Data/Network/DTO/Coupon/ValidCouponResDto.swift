@@ -1,6 +1,13 @@
+//
+//  ValidCouponResDto.swift
+//  MarketPlace
+//
+//  Created by Bowon Han on 1/21/26.
+//
+
 import Foundation
 
-struct CouponValidModel: Codable, Identifiable {
+struct ValidCouponResDto: Codable, Identifiable {
     var couponId: Int
     let couponName: String
     let couponDescription: String

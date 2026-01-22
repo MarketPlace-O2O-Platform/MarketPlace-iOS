@@ -15,8 +15,8 @@ struct MyCouponView: View {
     @StateObject private var viewModel = MyCouponViewModel()
     
     @State private var showingPopup = false
-    @State private var selectedPaybackCoupon: MembersCouponModel? = nil
-    @State private var selectedCoupon: MembersCouponModel? = nil
+    @State private var selectedPaybackCoupon: IssuedCouponResDto? = nil
+    @State private var selectedCoupon: IssuedCouponResDto? = nil
     @State private var selectedCategoryIndex = 0
     
     var body: some View {
@@ -79,7 +79,7 @@ struct MyCouponView: View {
     }
     
     // MARK: - coupon Cell 생성
-    private func makeCouponCell(for coupon: MembersCouponModel) -> some View {
+    private func makeCouponCell(for coupon: IssuedCouponResDto) -> some View {
         var status: MyCouponStatus = .used
         
         if coupon.used { status = .used }

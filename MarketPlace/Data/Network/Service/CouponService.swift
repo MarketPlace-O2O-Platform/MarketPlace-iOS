@@ -9,25 +9,25 @@ import Foundation
 
 protocol CouponServiceProtocol {
     // MARK: - 유효 쿠폰 조회 리스트
-    func fetchValidCoupon(marketId: Int, couponId: Int?, size: Int?) async -> NetworkResult<APIResDto<CouponValidResponse>>
+    func fetchValidCoupon(marketId: Int, couponId: Int?, size: Int?) async -> NetworkResult<APIResDto<CouponPageResCouponResDto<ValidCouponResDto>>>
     
     // MARK: - 유효 환급 쿠폰 조회 리스트
-    func fetchValidPaybackCoupon(marketId: Int, couponId: Int?, size: Int?) async -> NetworkResult<APIResDto<CouponValidResponse>>
+    func fetchValidPaybackCoupon(marketId: Int, couponId: Int?, size: Int?) async -> NetworkResult<APIResDto<CouponPageResCouponResDto<ValidCouponResDto>>>
     
     // MARK: - 인기 쿠폰 TOP 조회
-    func fetchCouponTopPopular(pageSize: Int?) async -> NetworkResult<APIResDto<[CouponTopModel]>>
+    func fetchCouponTopPopular(pageSize: Int?) async -> NetworkResult<APIResDto<[TopPopularCouponResDto]>>
     
     // MARK: - 최신 등록 쿠폰 TOP 조회
-    func fetchCouponTopLatest(pageSize: Int?) async -> NetworkResult<APIResDto<[CouponTopModel]>>
+    func fetchCouponTopLatest(pageSize: Int?) async -> NetworkResult<APIResDto<[TopLatestCouponResDto]>>
     
     // MARK: - 마감 임박 쿠폰 TOP 조회
     func fetchCouponTopClosing(pageSize: Int?) async -> NetworkResult<APIResDto<[TopClosingCouponResDto]>>
     
     // MARK: - 인기 쿠폰 더보기 조회 API
-    func fetchCouponPopular(lastIssuedCount: Int?, lastCouponId: Int?, couponType: String?, pageSize: Int?) async -> NetworkResult<APIResDto<CouponPopularResponse>>
+    func fetchCouponPopular(lastIssuedCount: Int?, lastCouponId: Int?, couponType: String?, pageSize: Int?) async -> NetworkResult<APIResDto<CouponPageResCouponResDto<PopularCouponResDto>>>
     
     // MARK: - 최신 등록 쿠폰 더보기 조회 API
-    func fetchLatestCoupons(lastCreatedAt: String?, lastCouponId: Int?, couponType: String?, pageSize: Int?) async -> NetworkResult<APIResDto<CouponNewResponse>>
+    func fetchLatestCoupons(lastCreatedAt: String?, lastCouponId: Int?, couponType: String?, pageSize: Int?) async -> NetworkResult<APIResDto<CouponPageResCouponResDto<LatestCouponResDto>>>
     
     // MARK: - 영수증 쿠폰 제출하기
     func putSubmitReceipt(memberCouponId: Int, image: Data, bodyBoundary: String) async -> NetworkResult<APIResDto<ReceiptResDto>>
@@ -44,12 +44,12 @@ final class CouponService: CouponServiceProtocol {
     }
     
     // MARK: - 인기 쿠폰 TOP 조회
-    func fetchCouponTopPopular(pageSize: Int?) async -> NetworkResult<APIResDto<[CouponTopModel]>> {
+    func fetchCouponTopPopular(pageSize: Int?) async -> NetworkResult<APIResDto<[TopPopularCouponResDto]>> {
         return await networkService.request(CouponEndpoint.fetchTopPoplarCoupon(pageSize: pageSize))
     }
     
     // MARK: - 최신 등록 쿠폰 TOP 조회
-    func fetchCouponTopLatest(pageSize: Int?) async -> NetworkResult<APIResDto<[CouponTopModel]>> {
+    func fetchCouponTopLatest(pageSize: Int?) async -> NetworkResult<APIResDto<[TopLatestCouponResDto]>> {
         return await networkService.request(CouponEndpoint.fetchTopLatestCoupon(pageSize: pageSize))
     }
     
@@ -64,7 +64,7 @@ final class CouponService: CouponServiceProtocol {
             lastCouponId: Int? = nil,
             couponType: String? = nil,
             pageSize: Int? = nil
-    ) async -> NetworkResult<APIResDto<CouponPopularResponse>> {
+    ) async -> NetworkResult<APIResDto<CouponPageResCouponResDto<PopularCouponResDto>>> {
         return await networkService.request(
             CouponEndpoint.fetchPopularCoupon(
                 lastIssuedCount: lastIssuedCount,
@@ -81,7 +81,7 @@ final class CouponService: CouponServiceProtocol {
         lastCouponId: Int? = nil,
         couponType: String? = nil,
         pageSize: Int? = nil
-    ) async -> NetworkResult<APIResDto<CouponNewResponse>> {
+    ) async -> NetworkResult<APIResDto<CouponPageResCouponResDto<LatestCouponResDto>>> {
         return await networkService.request(
             CouponEndpoint.fetchLatestCoupon(
                 lastCreatedAt: lastCreatedAt,
@@ -97,7 +97,7 @@ final class CouponService: CouponServiceProtocol {
         marketId: Int,
         couponId: Int?,
         size: Int?
-    ) async -> NetworkResult<APIResDto<CouponValidResponse>> {
+    ) async -> NetworkResult<APIResDto<CouponPageResCouponResDto<ValidCouponResDto>>> {
         return await networkService.request(
             CouponEndpoint.fetchValidCoupon(
                 marketId: marketId,
@@ -111,7 +111,7 @@ final class CouponService: CouponServiceProtocol {
         marketId: Int,
         couponId: Int?,
         size: Int?
-    ) async -> NetworkResult<APIResDto<CouponValidResponse>> {
+    ) async -> NetworkResult<APIResDto<CouponPageResCouponResDto<ValidCouponResDto>>> {
         return await networkService.request(
             CouponEndpoint.fetchValidPaybackCoupon(
                 marketId: marketId,
