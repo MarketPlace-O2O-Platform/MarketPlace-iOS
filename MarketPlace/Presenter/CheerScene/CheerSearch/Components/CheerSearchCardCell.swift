@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CheerSearchCardCell: View {
-    @Binding var market: CheerMarketModel
+    @Binding var market: CheerMarketResDto
     
     var body: some View {
         HStack(alignment: .top, spacing: 16) {
