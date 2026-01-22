@@ -15,9 +15,9 @@ struct MainCategoryView: View {
 
     var body: some View {
         LazyVGrid(columns: columns, spacing: 16) {
-            ForEach(0..<Category.orderedCases.count, id: \.self) { index in
+            ForEach(0..<MarketCategory.orderedCases.count, id: \.self) { index in
                 NavigationLink(value: index) {
-                    let category = Category.orderedCases[index]
+                    let category = MarketCategory.orderedCases[index]
                     Button(action: {
                         selectedTab = index
                         onCategoryTap(index)

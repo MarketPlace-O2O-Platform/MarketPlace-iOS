@@ -1,5 +1,5 @@
 //
-//  CouponStatus.swift
+//  MyCouponStatus.swift
 //  MarketPlace
 //
 //  Created by Bowon Han on 6/2/25.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum CouponStatus: String, CaseIterable {
+enum MyCouponStatus: String, CaseIterable {
     case beforeSubmitReceipt
     case beforePayback
     case beforeUsedCoupon

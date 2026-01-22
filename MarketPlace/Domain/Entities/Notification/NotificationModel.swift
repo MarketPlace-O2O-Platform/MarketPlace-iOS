@@ -8,11 +8,11 @@
 import Foundation
 
 struct NotificationResponse: Codable {
-    let notificationResList: [NotificationRes]
+    let notificationResList: [NotificationModel]
     let hasNext: Bool
 }
 
-struct NotificationRes: Codable, Identifiable {
+struct NotificationModel: Codable, Identifiable {
     let id: Int
     let title: String
     let body: String

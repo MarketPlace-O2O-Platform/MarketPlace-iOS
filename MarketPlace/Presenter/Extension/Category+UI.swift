@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Category {
+extension MarketCategory {
     func toUIName() -> String {
         switch self {
         case .ALL: return "전체"

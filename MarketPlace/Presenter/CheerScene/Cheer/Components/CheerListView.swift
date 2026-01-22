@@ -80,11 +80,11 @@ struct CheerListView: View {
         }
         /// - NOTE: 이전화면에서 넘어왔을 시 + 초기 화면의 해당 탭의 데이터 불러오기
         .onAppear {
-            viewModel.action(.fetchCheerMarkets(category: Category(index: selectedTab)?.toString()))
+            viewModel.action(.fetchCheerMarkets(category: MarketCategory(index: selectedTab)?.toString()))
         }
         /// - NOTE: 탭 눌렀을 시 해당 탭의 데이터 불러오기
         .onChange(of: selectedTab) {
-            viewModel.action(.fetchCheerMarkets(category: Category(index: selectedTab)?.toString()))
+            viewModel.action(.fetchCheerMarkets(category: MarketCategory(index: selectedTab)?.toString()))
         }
     }
 }

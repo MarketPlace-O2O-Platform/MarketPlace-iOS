@@ -1,8 +1,8 @@
 //
-//  APIResponse.swift
+//  APIResDto.swift
 //  MarketPlace
 //
-//  Created by Bowon Han on 5/26/25.
+//  Created by Bowon Han on 5/27/25.
 //
 
 import Foundation

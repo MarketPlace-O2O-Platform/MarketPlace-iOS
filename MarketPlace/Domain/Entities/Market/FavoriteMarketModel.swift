@@ -7,6 +7,7 @@
 
 import Foundation
 
+// TODO: - MarketListModel로 통합
 struct FavoriteMarketModel: Identifiable, Codable {
     let marketId: Int
     let marketName: String

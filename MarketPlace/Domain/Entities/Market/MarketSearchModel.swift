@@ -7,6 +7,7 @@
 
 import Foundation
 
+// TODO: - MarketListModel로 통합
 struct MarketSearchModel: Identifiable, Codable {
     var marketId: Int
     var marketName: String
@@ -14,9 +15,6 @@ struct MarketSearchModel: Identifiable, Codable {
     var address: String
     var thumbnail: String
     var isNewCoupon: Bool
-    var isClosingCoupon: Bool
-    var major: String
-    var orderNo: Int?
     
     var id: Int { return marketId }
 }

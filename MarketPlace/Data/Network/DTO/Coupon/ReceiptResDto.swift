@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct ReceiptModel: Codable {
+// TODO: - 필요없음 or DTO로
+struct ReceiptResDto: Codable {
     let couponId: Int
     var isUsed: Bool
 }

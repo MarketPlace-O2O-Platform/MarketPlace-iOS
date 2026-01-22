@@ -5,7 +5,7 @@ import SwiftUI
 
 struct CategoryTabView: View {
     @Binding var selectedTab: Int
-    let categories: [String] = Category.orderedCases.map { $0.toUIName() }
+    let categories: [String] = MarketCategory.orderedCases.map { $0.toUIName() }
     @Namespace private var namespace
     
     var body: some View {

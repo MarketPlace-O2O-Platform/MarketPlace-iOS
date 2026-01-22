@@ -1,6 +1,7 @@
 import Foundation
 import CoreLocation
 
+// TODO: - MarketListModel로 통합
 struct MarketModel: Codable, Identifiable {
     var marketId: Int
     var marketName: String

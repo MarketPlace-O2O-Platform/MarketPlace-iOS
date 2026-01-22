@@ -45,10 +45,10 @@ struct CategoryDetailView: View {
                                       let lastId = viewModel.lastMarketId
                                 else { return }
 
-                                viewModel.currentCategory = Category(index: selectedTab)?.toString()
+                                viewModel.currentCategory = MarketCategory(index: selectedTab)?.toString()
 
                                 Task {
-                                    await viewModel.fetchMarkets(lastPageIndex: lastId, category: Category(index: selectedTab)?.toString() ?? nil)
+                                    await viewModel.fetchMarkets(lastPageIndex: lastId, category: MarketCategory(index: selectedTab)?.toString() ?? nil)
                                 }
                             }
                         }
@@ -56,19 +56,19 @@ struct CategoryDetailView: View {
                 }
             }
         }
-        .navigationTitle(Category(index: selectedTab)?.toUIName() ?? "")
+        .navigationTitle(MarketCategory(index: selectedTab)?.toUIName() ?? "")
         
         /// - NOTE: 이전화면에서 넘어왔을 시 해당 탭의 데이터 불러오기
         .onAppear {
             Task {
-                await viewModel.fetchMarkets(category: Category(index: selectedTab)?.toString() ?? nil)
+                await viewModel.fetchMarkets(category: MarketCategory(index: selectedTab)?.toString() ?? nil)
             }
         }
         /// - NOTE: 탭 눌렀을 시 해당 탭의 데이터 불러오기
         .onChange(of: selectedTab) {
             Task {
-                await viewModel.fetchMarkets(category: Category(index: selectedTab)?.toString() ?? nil)
-                viewModel.currentCategory = Category(index: selectedTab)?.toString()
+                await viewModel.fetchMarkets(category: MarketCategory(index: selectedTab)?.toString() ?? nil)
+                viewModel.currentCategory = MarketCategory(index: selectedTab)?.toString()
             }
         }
         .toolbar {

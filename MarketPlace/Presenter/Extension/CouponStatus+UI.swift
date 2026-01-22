@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension CouponStatus {
+extension MyCouponStatus {
     func toUIName() -> String {
         switch self {
         case .beforeSubmitReceipt: "환급하러 가기"

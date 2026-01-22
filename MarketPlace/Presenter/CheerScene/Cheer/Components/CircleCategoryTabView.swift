@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CircleCategoryTabView: View {
     @Binding var selectedTab: Int
-    let categories: [String] = Category.orderedCases.map { $0.toUIName() }
+    let categories: [String] = MarketCategory.orderedCases.map { $0.toUIName() }
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {

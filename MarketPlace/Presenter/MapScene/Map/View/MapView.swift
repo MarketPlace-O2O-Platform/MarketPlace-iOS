@@ -44,7 +44,7 @@ struct MapView: View {
                     .task(id: selectedCategory) {
                         await viewModel.fetchMarketsWithAddress(
                             lastPageIndex: nil,
-                            category: Category(index: selectedCategory)?.toString() ?? nil,
+                            category: MarketCategory(index: selectedCategory)?.toString() ?? nil,
                             pageSize: 40
                         )
                     }
@@ -208,8 +208,8 @@ struct MapView: View {
             .ignoresSafeArea(.container, edges: [.bottom])
             .navigationBarHidden(true)
             .task(id: selectedCategory, {
-                await viewModel.fetchMarkets(category: Category(index: selectedCategory)?.toString() ?? nil)
-                await viewModel.fetchMarketsWithAddress(lastPageIndex: nil, category: Category(index: selectedCategory)?.toString() ?? nil, pageSize: nil)
+                await viewModel.fetchMarkets(category: MarketCategory(index: selectedCategory)?.toString() ?? nil)
+                await viewModel.fetchMarketsWithAddress(lastPageIndex: nil, category: MarketCategory(index: selectedCategory)?.toString() ?? nil, pageSize: nil)
             })
             .onChange(of: selectedPoi, initial: true, {
                 guard let selectedPoi = selectedPoi else { return }                

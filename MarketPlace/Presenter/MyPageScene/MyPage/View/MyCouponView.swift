@@ -80,7 +80,7 @@ struct MyCouponView: View {
     
     // MARK: - coupon Cell 생성
     private func makeCouponCell(for coupon: MembersCouponModel) -> some View {
-        var status: CouponStatus = .used
+        var status: MyCouponStatus = .used
         
         if coupon.used { status = .used }
         else if coupon.expired { status = .ended }

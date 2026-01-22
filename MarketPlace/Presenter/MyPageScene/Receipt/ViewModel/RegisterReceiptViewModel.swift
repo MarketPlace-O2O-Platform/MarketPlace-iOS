@@ -9,7 +9,6 @@ import Foundation
 
 @MainActor
 final class RegisterReceiptViewModel: ObservableObject {
-    @Published var Receipt: ReceiptModel = ReceiptModel(couponId: 0, isUsed: false)
     @Published var isUsed: Bool = false
     private var memberCouponId: Int
     

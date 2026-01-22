@@ -44,10 +44,10 @@ struct MapMarketListView: View {
                                   let lastId = viewModel.lastMarketId
                             else { return }
 
-                            viewModel.currentCategory = Category(index: selectedIndex)?.toString()
+                            viewModel.currentCategory = MarketCategory(index: selectedIndex)?.toString()
 
                             Task {
-                                await viewModel.fetchMarkets(lastPageIndex: lastId, category: Category(index: selectedIndex)?.toString() ?? nil)
+                                await viewModel.fetchMarkets(lastPageIndex: lastId, category: MarketCategory(index: selectedIndex)?.toString() ?? nil)
                             }
                         }
                     }
@@ -57,8 +57,8 @@ struct MapMarketListView: View {
         }
         .onChange(of: selectedIndex) {
             Task {
-                await viewModel.fetchMarkets(category: Category(index: selectedIndex)?.toString() ?? "")
-                viewModel.currentCategory = Category(index: selectedIndex)?.toString()
+                await viewModel.fetchMarkets(category: MarketCategory(index: selectedIndex)?.toString() ?? "")
+                viewModel.currentCategory = MarketCategory(index: selectedIndex)?.toString()
             }
         }
     }

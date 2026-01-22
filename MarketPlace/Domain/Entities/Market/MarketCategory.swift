@@ -7,10 +7,10 @@
 
 import Foundation
 
-enum Category: String, CaseIterable {
+enum MarketCategory: String, CaseIterable {
     case ALL, FOOD, DESSERT, SPORT, BEAUTY, HOSPITAL, EDUCATION, ETC
     
-    static let orderedCases: [Category] = [
+    static let orderedCases: [MarketCategory] = [
         .ALL, .FOOD, .DESSERT, .SPORT, .BEAUTY, .HOSPITAL, .EDUCATION, .ETC
     ]
     
