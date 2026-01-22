@@ -9,13 +9,13 @@ import Foundation
 
 protocol CheerMarketServiceProtocol {
     // MARK: - 공감매장 기본조회 API
-    func fetchCheerMarket(lastPageIndex: Int?, category: String?, count: Int?) async -> NetworkResult<APIResDto<MarketResDto<CheerMarketResDto>>>
+    func fetchCheerMarket(lastPageIndex: Int?, category: String?, count: Int?) async -> NetworkResult<APIResDto<MarketResDtos<CheerMarketResDto>>>
     
     // MARK: - 공감 매장 검색 조회 API
-    func fetchSearchCheerMarket(lastPageIndex: Int?, pageSize: Int?, name: String) async -> NetworkResult<APIResDto<MarketResDto<CheerMarketResDto>>>
+    func fetchSearchCheerMarket(lastPageIndex: Int?, pageSize: Int?, name: String) async -> NetworkResult<APIResDto<MarketResDtos<CheerMarketResDto>>>
     
     // MARK: - 공감 달성 임박 매장 조회 API
-    func fetchUpcomingMarket(lastPageIndex: Int?, lastCheerCount: Int?, count: Int?) async -> NetworkResult<APIResDto<MarketResDto<CheerMarketResDto>>>
+    func fetchUpcomingMarket(lastPageIndex: Int?, lastCheerCount: Int?, count: Int?) async -> NetworkResult<APIResDto<MarketResDtos<CheerMarketResDto>>>
     
     // MARK: - 공감탭 매장 공감하기 API
     func postCheerMarket(tempMarketId: Int) async -> NetworkResult<APIResDto<CheerCountResDto>>
@@ -33,7 +33,7 @@ final class CheerMarketService: CheerMarketServiceProtocol {
         lastPageIndex: Int?,
         category: String?,
         count: Int?
-    ) async -> NetworkResult<APIResDto<MarketResDto<CheerMarketResDto>>> {
+    ) async -> NetworkResult<APIResDto<MarketResDtos<CheerMarketResDto>>> {
         return await networkService.request(
             CheerMarketEndpoint.fetchCheerMarket(
                 lastPageIndex: lastPageIndex,
@@ -48,7 +48,7 @@ final class CheerMarketService: CheerMarketServiceProtocol {
         lastPageIndex: Int?,
         pageSize: Int?,
         name: String
-    ) async -> NetworkResult<APIResDto<MarketResDto<CheerMarketResDto>>> {
+    ) async -> NetworkResult<APIResDto<MarketResDtos<CheerMarketResDto>>> {
         return await networkService.request(
             CheerMarketEndpoint.fetchSearchCheerMarket(
                 lastPageIndex: lastPageIndex,
@@ -63,7 +63,7 @@ final class CheerMarketService: CheerMarketServiceProtocol {
         lastPageIndex: Int?,
         lastCheerCount: Int?,
         count: Int?
-    ) async -> NetworkResult<APIResDto<MarketResDto<CheerMarketResDto>>> {
+    ) async -> NetworkResult<APIResDto<MarketResDtos<CheerMarketResDto>>> {
         return await networkService.request(
             CheerMarketEndpoint.fetchUpcomingMarket(
                 lastPageIndex: lastPageIndex,

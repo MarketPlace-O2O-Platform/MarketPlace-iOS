@@ -1,8 +1,7 @@
 
 import Foundation
 
-// [매장] : (전체/카테고리 매장 조회),
-struct MarketResDto<T: Codable>: Codable {
+struct MarketResDtos<T: Decodable>: Decodable {
     let marketResDtos: [T]
     let hasNext: Bool
 }

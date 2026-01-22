@@ -9,7 +9,7 @@ import Foundation
 
 @MainActor
 final class MapViewModel: ObservableObject {
-    @Published var markets: [MarketModel] = []
+    @Published var markets: [MarketResDto] = []
     @Published var marketsForMap: [KakaoMapPoi] = []
     @Published var lastMarketId: Int?
     @Published var currentCategory: String?

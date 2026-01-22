@@ -4,7 +4,7 @@ import Foundation
 
 @MainActor
 class MarketCategoryDetailViewModel: ObservableObject {
-    @Published var markets: [MarketModel] = []
+    @Published var markets: [MarketResDto] = []
     @Published var isLoading: Bool = false
     @Published var hasNextPage: Bool = true
     @Published var lastMarketId: Int?

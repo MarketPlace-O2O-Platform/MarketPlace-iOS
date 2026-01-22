@@ -2,7 +2,7 @@ import Foundation
 
 @MainActor
 final class MarketDetailViewModel: ObservableObject {
-    @Published var marketDetail: MarketDetailModel?
+    @Published var marketDetail: MarketDetailResDto?
     @Published var errorMessage: String?
     @Published var isLoading = false
     
