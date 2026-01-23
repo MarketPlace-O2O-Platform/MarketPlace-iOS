@@ -9,10 +9,10 @@ import SwiftUI
 
 struct AlertCardListView: View {
     var selectedCategory: NotificationFilterCategory
-    var notifications: [NotificationModel]
-    var onTap: ((NotificationModel) -> Void)
+    var notifications: [NotificationResDto]
+    var onTap: ((NotificationResDto) -> Void)
     
-    var filteredNotifications: [NotificationModel] {
+    var filteredNotifications: [NotificationResDto] {
         if selectedCategory == .ALL {
             return notifications  // 전체 표시
         } else {
@@ -46,7 +46,7 @@ struct AlertCardListView: View {
 }
 
 struct AlertCardView: View {
-    @State var notification: NotificationModel
+    @State var notification: NotificationResDto
     var onTap: () -> Void
     
     var body: some View {
@@ -78,7 +78,7 @@ struct AlertCardView: View {
         }
     }
     
-    func timeAgo(from notification: NotificationModel) -> String {
+    func timeAgo(from notification: NotificationResDto) -> String {
         /// NOTE: 서버에서 넘겨줘야하는건지?
         return "1일 전"
     }

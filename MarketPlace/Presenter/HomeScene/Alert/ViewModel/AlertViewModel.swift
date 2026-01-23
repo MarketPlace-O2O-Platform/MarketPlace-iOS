@@ -12,7 +12,7 @@ final class AlertViewModel: ObservableObject {
     
     private let notificationService: NotificationServiceProtocol
     
-    @Published var notifications: [NotificationModel] = []
+    @Published var notifications: [NotificationResDto] = []
     @Published var hasNextPage: Bool = true
     @Published var lastNotificationId: Int?
     

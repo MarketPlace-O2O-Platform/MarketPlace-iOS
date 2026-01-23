@@ -15,7 +15,7 @@ final class MyCouponCellViewModel: ObservableObject {
     @Published var errorMessage: String?
     
     init(
-        coupon: MembersCouponModel,
+        coupon: IssuedCouponResDto,
         couponStatus: MyCouponStatus,
         memberCouponService: MemberCouponServiceProtocol = MemberCouponService()
     ) {

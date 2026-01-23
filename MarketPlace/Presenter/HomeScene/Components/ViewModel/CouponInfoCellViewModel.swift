@@ -9,13 +9,13 @@ import Foundation
 
 final class CouponInfoCellViewModel: ObservableObject {
     private var memberCouponService: MemberCouponServiceProtocol
-    @Published var coupon: CouponBasicModel
+    @Published var coupon: CouponResDto
 
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
     
     init(
-        coupon: CouponBasicModel,
+        coupon: CouponResDto,
         memberCouponService: MemberCouponServiceProtocol = MemberCouponService()
     ) {
         self.coupon = coupon

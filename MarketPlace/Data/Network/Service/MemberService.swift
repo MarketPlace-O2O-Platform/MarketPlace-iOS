@@ -9,7 +9,7 @@ import Foundation
 
 protocol MemberServiceProtocol {
     // MARK: - 학생 학번 조회 API
-    func fetchMemberInfo() async -> NetworkResult<APIResDto<MemberInfoModel>>
+    func fetchMemberInfo() async -> NetworkResult<APIResDto<MemberResDto>>
     
     // MARK: - 자신이 찜한 매장 조회API
     func fetchFavoriteMarket(lastModifiedAt: String?, pageSize: Int?) async -> NetworkResult<APIResDto<MarketResDtos<MarketResDto>>>
@@ -33,7 +33,7 @@ final class MemberService: MemberServiceProtocol {
     
     
     // MARK: - 학생 학번 조회 API
-    func fetchMemberInfo() async -> NetworkResult<APIResDto<MemberInfoModel>> {
+    func fetchMemberInfo() async -> NetworkResult<APIResDto<MemberResDto>> {
         return await networkService.request(MemberEndPoint.fetchMemberInfo)
     }
     

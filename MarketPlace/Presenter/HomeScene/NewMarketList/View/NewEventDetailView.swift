@@ -10,7 +10,7 @@ struct NewEventDetailView: View {
     @State private var isLoginRequiredPopupVisible: Bool = false
     @State private var isPopupVisible: Bool = false
     @State private var showLoginView: Bool = false
-    @State private var selectedCoupon: CouponBasicModel = CouponBasicModel(couponId: 0, couponName: "", marketId: 0, marketName: "", address: "", thumbnail: "", isAvailable: false, isMemberIssued: false, couponType: "")
+    @State private var selectedCoupon: CouponResDto = CouponResDto(couponId: 0, couponName: "", marketId: 0, marketName: "", address: "", thumbnail: "", isAvailable: false, isMemberIssued: false, couponType: "")
     
     var currentMonth: String
     
@@ -25,7 +25,7 @@ struct NewEventDetailView: View {
                             NavigationLink(destination:
                                             MarketDetailView(marketId: coupon.marketId)
                             ) {
-                                let coupon = CouponBasicModel(
+                                let coupon = CouponResDto(
                                     couponId: coupon.couponId,
                                     couponName: coupon.couponName,
                                     marketId: coupon.marketId,

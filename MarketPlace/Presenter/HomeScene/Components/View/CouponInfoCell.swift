@@ -6,7 +6,7 @@ struct CouponInfoCell: View {
     
     @Binding var isLoginRequiredPopupVisible: Bool
     @Binding var isPopupVisible: Bool
-    @Binding var coupon: CouponBasicModel
+    @Binding var coupon: CouponResDto
     
     var isMemberIssued: Bool { return viewModel.coupon.isMemberIssued }
     
@@ -14,7 +14,7 @@ struct CouponInfoCell: View {
         viewModel: CouponInfoCellViewModel,
         isLoginRequiredPopupVisible: Binding<Bool>,
         isPopupVisible: Binding<Bool>,
-        coupon: Binding<CouponBasicModel>
+        coupon: Binding<CouponResDto>
     ) {
         self.viewModel = viewModel
         self._isLoginRequiredPopupVisible = isLoginRequiredPopupVisible

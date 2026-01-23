@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MemberInfoModel: Decodable {
+struct MemberResDto: Decodable {
     var studentId: Int
     var cheerTicket: Int
 }

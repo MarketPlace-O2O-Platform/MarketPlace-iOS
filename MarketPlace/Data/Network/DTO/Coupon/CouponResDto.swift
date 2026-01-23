@@ -8,9 +8,8 @@
 import Foundation
 
 /// - NOTE: New,Popluar 쿠폰 Model에 공통적으로 포함되어있는 필드를 담은 BasicModel입니다
-///
-///
-struct CouponBasicModel: Codable, Identifiable {
+/// 
+struct CouponResDto: Codable, Identifiable {
     var couponId: Int
     var couponName: String
     var marketId: Int

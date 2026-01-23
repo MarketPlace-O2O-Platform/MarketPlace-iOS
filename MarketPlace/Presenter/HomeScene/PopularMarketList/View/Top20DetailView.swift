@@ -10,7 +10,7 @@ struct Top20DetailView: View {
     @State private var isLoginRequiredPopupVisible: Bool = false
     @State private var isPopupVisible: Bool = false
     @State private var showLoginView: Bool = false
-    @State private var selectedCoupon: CouponBasicModel = CouponBasicModel(
+    @State private var selectedCoupon: CouponResDto = CouponResDto(
         couponId: 0,
         couponName: "",
         marketId: 0,
@@ -33,7 +33,7 @@ struct Top20DetailView: View {
                             NavigationLink(destination:
                                             MarketDetailView(marketId: coupon.marketId)
                             ) {
-                                let basic = CouponBasicModel(
+                                let basic = CouponResDto(
                                     couponId: coupon.couponId,
                                     couponName: coupon.couponName,
                                     marketId: coupon.marketId,
