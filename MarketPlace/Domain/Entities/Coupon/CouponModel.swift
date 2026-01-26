@@ -15,6 +15,6 @@ struct CouponModel: Identifiable {
     let thumbnail: String
     let address: String
     let isMemberIssued: Bool
-    let description: String
+    let description: String?
     let isAvailable: Bool
 }
