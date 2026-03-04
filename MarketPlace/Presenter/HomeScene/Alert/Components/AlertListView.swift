@@ -9,17 +9,17 @@ import SwiftUI
 
 struct AlertCardListView: View {
     var selectedCategory: NotificationFilterCategory
-    var notifications: [NotificationResDto]
-    var onTap: ((NotificationResDto) -> Void)
+    var notifications: [NotificationModel]
+    var onTap: ((NotificationModel) -> Void)
     
-    var filteredNotifications: [NotificationResDto] {
+    var filteredNotifications: [NotificationModel] {
         if selectedCategory == .ALL {
             return notifications  // 전체 표시
         } else {
             return notifications.filter { notification in
                 // NotificationFilterCategory의 toString()과 비교
                 if let categoryString = selectedCategory.toString() {
-                    return notification.targetType == categoryString
+                    return notification.notiType == categoryString
                 }
                 return false
             }
@@ -46,15 +46,15 @@ struct AlertCardListView: View {
 }
 
 struct AlertCardView: View {
-    @State var notification: NotificationResDto
+    @State var notification: NotificationModel
     var onTap: () -> Void
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            AlertChipView(targetType: notification.targetType)
+            AlertChipView(targetType: notification.notiType)
                 .padding(.bottom, 12)
             
-            Text(notification.title)
+            Text(notification.notiTitle)
                 .pretendardFont(size: 16, weight: .semibold)
                 .foregroundColor(.black)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -78,8 +78,8 @@ struct AlertCardView: View {
         }
     }
     
-    func timeAgo(from notification: NotificationResDto) -> String {
-        /// NOTE: 서버에서 넘겨줘야하는건지?
+    func timeAgo(from notification: NotificationModel) -> String {
+        // - NOTE: 서버에서 넘겨줘야하는건지?
         return "1일 전"
     }
 }

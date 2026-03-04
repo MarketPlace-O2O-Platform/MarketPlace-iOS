@@ -12,9 +12,6 @@ protocol NotificationServiceProtocol {
     // MARK: - 알림기록 조회 API
     func fetchNotifications(type: String?, size: Int?) async -> NetworkResult<APIResDto<NotificationPageResNotificationResDto>>
     
-    // MARK: - 알림기록 생성 API
-    func postNotification(title: String, body: String, targetId: Int, targetType: String) async -> NetworkResult<APIResDto<NotificationResDto>>
-    
     // MARK: - 알림기록 읽음처리 API
     func patchNotification(notificationId: Int) async -> NetworkResult<CommonMsgResDTO>
     
@@ -37,13 +34,6 @@ final class NotificationService: NotificationServiceProtocol {
         return await networkService.request(
             NotificationEndpoint.fetchNotifications(type: type, size: size)
         )
-    }
-
-    // MARK: - 알림기록 생성 API
-    func postNotification(title: String, body: String, targetId: Int, targetType: String) async -> NetworkResult<APIResDto<NotificationResDto>> {
-            return await networkService.request(
-                NotificationEndpoint.postNotification(title: title, body: body, targetId: targetId, targetType: targetType)
-            )
     }
     
     // MARK: - 알림기록 읽음처리 API
