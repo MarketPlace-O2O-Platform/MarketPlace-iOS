@@ -113,6 +113,7 @@ struct Top20DetailView: View {
             if isPopupVisible {
                 CouponGetPopupView(
                     isPopupVisible: $isPopupVisible,
+                    // TODO: 다른방식은 없나? 
                     couponId: $selectedCoupon.couponId,
                     couponType: $selectedCoupon.couponType,
                     isMemberIssued: $selectedCoupon.isMemberIssued

@@ -10,7 +10,7 @@ import Foundation
 /// - NOTE: New,Popluar 쿠폰 Model에 공통적으로 포함되어있는 필드를 담은 BasicModel입니다
 /// 
 struct CouponResDto: Codable, Identifiable {
-    let couponId: Int
+    var couponId: Int
     let couponName: String
     let marketId: Int
     let marketName: String
@@ -18,7 +18,7 @@ struct CouponResDto: Codable, Identifiable {
     let thumbnail: String
     let isAvailable: Bool
     var isMemberIssued: Bool
-    let couponType: String
+    var couponType: String
     
     var id: Int { couponId }
 }

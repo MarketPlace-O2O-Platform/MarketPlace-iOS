@@ -15,3 +15,16 @@ struct NotificationResDto: Codable, Identifiable {
     let targetType: String
     var isRead: Bool
 }
+
+extension NotificationResDto {
+    func toEntity() -> NotificationModel {
+        return NotificationModel(
+            id: id,
+            notiTitle: title,
+            body: body,
+            targetId: targetId,
+            notiType: targetType,
+            isRead: isRead
+        )
+    }
+}
