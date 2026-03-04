@@ -9,7 +9,7 @@ import Foundation
 
 @MainActor
 final class MyFavoriteMarketListViewModel: ObservableObject {
-    @Published var favoriteMarkets: [FavoriteMarketModel] = []
+    @Published var favoriteMarkets: [MarketResDto] = []
     @Published var hasNextPage: Bool = true
     @Published var isLoading: Bool = false
     @Published var lastModified: String?

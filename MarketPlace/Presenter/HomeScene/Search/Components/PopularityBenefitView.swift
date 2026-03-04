@@ -16,7 +16,7 @@ struct BenefitViewConstants {
 }
 
 struct BenefitCard: View {
-    let benefit: CouponTopModel
+    let benefit: TopPopularCouponResDto
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -47,7 +47,7 @@ struct BenefitCard: View {
 
 
 struct PopularBenefitView: View {
-    @Binding var popularCoupon: [CouponTopModel]
+    @Binding var popularCoupon: [TopPopularCouponResDto]
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {

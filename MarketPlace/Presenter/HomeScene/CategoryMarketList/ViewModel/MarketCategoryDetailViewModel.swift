@@ -2,6 +2,7 @@
 
 import Foundation
 
+
 final class MarketCategoryDetailViewModel: ViewModelable {
     
     // MARK: - Types

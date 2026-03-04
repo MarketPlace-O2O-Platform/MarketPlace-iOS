@@ -1,5 +1,5 @@
 //
-//  CouponNewModel.swift
+//  LatestCouponResDto.swift
 //  MarketPlace
 //
 //  Created by Bowon Han on 1/21/26.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CouponNewModel: Codable, Identifiable {
+struct LatestCouponResDto: Codable, Identifiable {
     let couponId: Int
     let couponName: String
     let marketId: Int

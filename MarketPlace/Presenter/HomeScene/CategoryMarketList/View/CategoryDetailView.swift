@@ -37,11 +37,11 @@ struct CategoryDetailView: View {
             case .loaded(let markets, let hasNext):
                 ScrollView {
                     LazyVStack(spacing: 16) {
-                        ForEach(Array(markets.enumerated()), id: \.offset) { index, shop in
-                            NavigationLink(destination: MarketDetailView(marketId: shop.marketId, isBookmarked: shop.isFavorite)) {
+                        ForEach(Array(viewModel.markets.enumerated()), id: \.offset) { index, shop in
+                            NavigationLink(destination: MarketDetailView(marketId: shop.marketId, isBookmarked: shop.isFavorite ?? false)) {
                                 VStack {
                                     MarketInfoCell(
-                                        isBookmarked: shop.isFavorite,
+                                        isBookmarked: shop.isFavorite ?? false,
                                         viewModel: MarketInfoCellViewModel(marketData: shop)
                                     )
                                     
@@ -51,19 +51,8 @@ struct CategoryDetailView: View {
                                 }
                             }
                             .onAppear {
-<<<<<<< HEAD:MarketPlace/View/Main/View/CategoryDetailView.swift
                                 if index == markets.count-1, hasNext {
                                     viewModel.action(.loadNextPage)
-=======
-                                guard index == viewModel.markets.count - 1,
-                                      let lastId = viewModel.lastMarketId
-                                else { return }
-
-                                viewModel.currentCategory = MarketCategory(index: selectedTab)?.toString()
-
-                                Task {
-                                    await viewModel.fetchMarkets(lastPageIndex: lastId, category: MarketCategory(index: selectedTab)?.toString() ?? nil)
->>>>>>> origin/main:MarketPlace/Presenter/HomeScene/CategoryMarketList/View/CategoryDetailView.swift
                                 }
                             }
                         }
@@ -82,7 +71,6 @@ struct CategoryDetailView: View {
                 }
             }
         }
-<<<<<<< HEAD:MarketPlace/View/Main/View/CategoryDetailView.swift
         /// - NOTE: 이전화면에서 넘어왔을 시 해당 탭의 데이터 불러오기
         .onAppear {
             viewModel.action(.fetchMarkets(category: Category(index: selectedTab)?.toString()))
@@ -90,22 +78,6 @@ struct CategoryDetailView: View {
         /// - NOTE: 탭 눌렀을 시 해당 탭의 데이터 불러오기
         .onChange(of: selectedTab) {
             viewModel.action(.fetchMarkets(category: Category(index: selectedTab)?.toString()))
-=======
-        .navigationTitle(MarketCategory(index: selectedTab)?.toUIName() ?? "")
-        
-        /// - NOTE: 이전화면에서 넘어왔을 시 해당 탭의 데이터 불러오기
-        .onAppear {
-            Task {
-                await viewModel.fetchMarkets(category: MarketCategory(index: selectedTab)?.toString() ?? nil)
-            }
-        }
-        /// - NOTE: 탭 눌렀을 시 해당 탭의 데이터 불러오기
-        .onChange(of: selectedTab) {
-            Task {
-                await viewModel.fetchMarkets(category: MarketCategory(index: selectedTab)?.toString() ?? nil)
-                viewModel.currentCategory = MarketCategory(index: selectedTab)?.toString()
-            }
->>>>>>> origin/main:MarketPlace/Presenter/HomeScene/CategoryMarketList/View/CategoryDetailView.swift
         }
         .toolbar {
             ToolbarItem(placement: .principal) {

@@ -40,7 +40,7 @@ struct SearchSecondView: View {
 
 
 struct SearchComponentView: View {
-    let market: MarketSearchModel
+    let market: MarketResDto
     
     var body: some View {
         HStack(alignment: .top) {

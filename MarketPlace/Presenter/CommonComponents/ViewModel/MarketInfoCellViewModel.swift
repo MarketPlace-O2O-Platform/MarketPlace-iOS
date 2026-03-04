@@ -10,7 +10,7 @@ import Foundation
 final class MarketInfoCellViewModel: ObservableObject {
     private var marketService: MarketServiceProtocol
     
-    @Published var market: MarketDetailModel = MarketDetailModel(
+    @Published var market: MarketDetailResDto = MarketDetailResDto(
         marketId: 0, name: "",
         description: "",
         operationHours: "",
@@ -21,11 +21,11 @@ final class MarketInfoCellViewModel: ObservableObject {
         isFavorite: false
     )
     
-    @Published var marketData: MarketModel
+    @Published var marketData: MarketResDto
     
     init(
         marketService: MarketServiceProtocol = MarketService(),
-        marketData: MarketModel
+        marketData: MarketResDto
     ) {
         self.marketService = marketService
         self.marketData = marketData
@@ -50,7 +50,7 @@ final class MarketInfoCellViewModel: ObservableObject {
         
         switch result {
         case .success(_, _):
-            marketData.isFavorite.toggle()
+            marketData.isFavorite?.toggle()
         case .failure(let statusCode, let message):
             print("[postFavoriteMarket] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }

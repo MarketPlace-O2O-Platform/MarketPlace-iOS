@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct HotCheerView: View {
-    @Binding var hotCheerMarkets: [CheerMarketModel]
+    @Binding var hotCheerMarkets: [CheerMarketResDto]
     @Binding var cheerTicket: Int
     @Binding var lastIndex: Int
     

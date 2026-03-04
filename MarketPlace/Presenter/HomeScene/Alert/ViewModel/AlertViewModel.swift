@@ -35,7 +35,10 @@ final class AlertViewModel: ObservableObject {
                 lastNotificationId = last.id
             }
             
-            notifications.append(contentsOf: data.response.notificationResList)
+            data.response.notificationResList.forEach {
+                notifications.append($0.toEntity())
+            }
+            
             hasNextPage = data.response.hasNext
             
         case .failure(let statusCode, let message):
@@ -52,23 +55,6 @@ final class AlertViewModel: ObservableObject {
         lastNotificationId = nil
         
         await fetchNotifications(type: category.toString())
-    }
-    
-    // MARK: - 알림 생성
-    func postNotification(title: String, body: String, targetId: Int, targetType: String) async {
-        let result = await notificationService.postNotification(
-            title: title,
-            body: body,
-            targetId: targetId,
-            targetType: targetType
-        )
-        
-        switch result {
-        case .success(let data, _):
-            notifications.insert(data.response, at: 0)
-        case .failure(let statusCode, let message):
-            print("[NotificationPost] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
-        }
     }
     
     // MARK: - 알림 읽음 처리

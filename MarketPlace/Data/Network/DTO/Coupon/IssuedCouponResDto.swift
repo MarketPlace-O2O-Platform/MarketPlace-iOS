@@ -1,7 +1,13 @@
-import SwiftUI
+//
+//  IssuedCouponResDto.swift
+//  MarketPlace
+//
+//  Created by Bowon Han on 1/22/26.
+//
 
-// 쿠폰을 나타내는 구조체
-struct MembersCouponModel: Codable, Identifiable {
+import Foundation
+
+struct IssuedCouponResDto: Decodable, Identifiable {
     let memberCouponId: Int
     let couponId: Int
     let marketName: String

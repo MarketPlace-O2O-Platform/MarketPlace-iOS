@@ -1,16 +1,11 @@
+//
+//  String+.swift
+//  MarketPlace
+//
+//  Created by Bowon Han on 2/20/26.
+//
+
 import Foundation
-
-struct CouponValidModel: Codable, Identifiable {
-    var couponId: Int
-    let couponName: String
-    let couponDescription: String
-    let deadLine: String?
-    var isAvailable: Bool?
-    var isMemberIssued: Bool
-    var couponType: String
-
-    var id: Int { couponId }
-}
 
 extension String {
     func toKoreanDateFormat() -> String {

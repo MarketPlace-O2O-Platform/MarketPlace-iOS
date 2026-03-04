@@ -18,7 +18,7 @@ final class CheerListViewModel: ViewModelable {
     enum State {
         case idle
         case empty
-        case loaded([CheerMarketModel], hasNext: Bool)
+        case loaded([CheerMarketResDto], hasNext: Bool)
         case error(String)
     }
     

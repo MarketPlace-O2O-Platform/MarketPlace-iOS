@@ -2,7 +2,7 @@ import SwiftUI
 
 /// - NOTE: 이벤트 쿠폰 부분 수평 스크롤 coupon List 뷰입니다.
 struct MarketCouponListView: View {
-    @Binding var coupons: [CouponValidModel]
+    @Binding var coupons: [ValidCouponResDto]
     @Binding var isPopupVisible: Bool
     @Binding private var selectedCouponId: Int
     @Binding private var showToast: Bool
@@ -13,7 +13,7 @@ struct MarketCouponListView: View {
     private let marketId: Int
 
     init(
-        coupons: Binding<[CouponValidModel]>,
+        coupons: Binding<[ValidCouponResDto]>,
         isPopupVisible: Binding<Bool>,
         selectedCouponId: Binding<Int>,
         showToast: Binding<Bool>,

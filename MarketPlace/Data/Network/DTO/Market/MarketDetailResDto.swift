@@ -1,25 +1,27 @@
 //
-//  MarketDetailModel.swift
+//  MarketDetailResDto.swift
 //  MarketPlace
 //
-//  Created by Bowon Han on 1/23/26.
+//  Created by Bowon Han on 1/22/26.
 //
 
 import Foundation
 
-struct MarketDetailModel: Identifiable {
-    let id: Int
+struct MarketDetailResDto: Decodable {
+    let marketId: Int
     let name: String
     let description: String
-    let images: [MarketDetailImagesModel]
     let operationHours: String
     let closedDays: String
     let phoneNumber: String
     let address: String
-    var isFavorite: Bool
+    let imageResList: [ImageResDto]
+    let isFavorite: Bool?
 }
 
-struct MarketDetailImagesModel {
+struct ImageResDto: Decodable {
+    let imageId: Int
     let sequence: Int
     let name: String
 }
+

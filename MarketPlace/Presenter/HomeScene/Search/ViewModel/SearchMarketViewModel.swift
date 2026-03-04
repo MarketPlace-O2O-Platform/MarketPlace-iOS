@@ -13,8 +13,8 @@ final class SearchMarketViewModel: ObservableObject {
     
     @Published var searchText: String = ""
     @Published var recentSearches: [String] = UserDefaults.standard.stringArray(forKey: "recentSearches") ?? []
-    @Published var market: [MarketSearchModel] = []
-    @Published var popularCoupon: [CouponTopModel] = []
+    @Published var market: [MarketResDto] = []
+    @Published var popularCoupon: [TopPopularCouponResDto] = []
     
     @Published var lastPageIndex: Int?
     @Published var currentKeyword: String = ""

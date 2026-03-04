@@ -23,23 +23,13 @@ struct MyFavoriteShopListView: View {
             } else {
                 ScrollView {
                     LazyVStack(spacing: 16) {
-                        ForEach(Array(viewModel.favoriteMarkets.enumerated()),id: \.offset) { index, shop in
+                        ForEach(Array(viewModel.favoriteMarkets.enumerated()),id: \.offset) { index, market in
                             NavigationLink(destination:
-                                MarketDetailView(marketId: shop.marketId, isBookmarked: shop.isFavorite)
+                                MarketDetailView(marketId: market.marketId, isBookmarked: market.isFavorite ?? false)
                             ) {
-                                let market = MarketModel(
-                                    marketId: shop.marketId,
-                                    marketName: shop.marketName,
-                                    marketDescription: shop.marketDescription,
-                                    address: shop.address,
-                                    thumbnail: shop.thumbnail,
-                                    isFavorite: shop.isFavorite,
-                                    isNewCoupon: shop.isNewCoupon
-                                )
-
                                 VStack {
                                     MarketInfoCell(
-                                        isBookmarked: shop.isFavorite,
+                                        isBookmarked: market.isFavorite ?? false,
                                         viewModel: MarketInfoCellViewModel(marketData: market)
                                     )
 

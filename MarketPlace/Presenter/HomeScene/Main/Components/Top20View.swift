@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct Top20View: View {
-    @Binding var popularCoupons: [CouponTopModel]
+    @Binding var popularCoupons: [TopPopularCouponResDto]
 
     var body: some View {
         VStack {

@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 struct NewEventView: View {
-    @Binding var latestCoupons: [CouponTopModel]
+    @Binding var latestCoupons: [TopLatestCouponResDto]
     var currentMonth: String
 
     var body: some View {

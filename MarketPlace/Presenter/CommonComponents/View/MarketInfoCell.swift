@@ -56,7 +56,7 @@ struct MarketInfoCell: View {
                                 await viewModel.postFavoriteMarket(marketId: viewModel.marketData.id)
                             }
                         }) {
-                            Image(systemName: viewModel.marketData.isFavorite ? "bookmark.fill" : "bookmark")
+                            Image(systemName: viewModel.marketData.isFavorite ?? false ? "bookmark.fill" : "bookmark")
                                 .resizable()
                                 .frame(width: 14, height: 20)
                                 .foregroundColor(Color(hex: "#4B4B4B"))

@@ -10,8 +10,8 @@ import SwiftUI
 
 @MainActor
 final class CheerViewModel: ObservableObject {
-    @Published var cheerMarket: [CheerMarketModel] = []
-    @Published var searchMarkets: [CheerMarketModel] = []
+    @Published var cheerMarket: [CheerMarketResDto] = []
+    @Published var searchMarkets: [CheerMarketResDto] = []
     @Published var memberCheerTicket: Int = 0
     @Published var searchText: String = ""
     @Published var navigationPath = NavigationPath()

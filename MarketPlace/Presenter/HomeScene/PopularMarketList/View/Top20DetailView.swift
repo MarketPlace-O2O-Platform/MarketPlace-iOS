@@ -10,7 +10,7 @@ struct Top20DetailView: View {
     @State private var isLoginRequiredPopupVisible: Bool = false
     @State private var isPopupVisible: Bool = false
     @State private var showLoginView: Bool = false
-    @State private var selectedCoupon: CouponBasicModel = CouponBasicModel(
+    @State private var selectedCoupon: CouponResDto = CouponResDto(
         couponId: 0,
         couponName: "",
         marketId: 0,
@@ -117,6 +117,7 @@ struct Top20DetailView: View {
             if isPopupVisible {
                 CouponGetPopupView(
                     isPopupVisible: $isPopupVisible,
+                    // TODO: 다른방식은 없나? 
                     couponId: $selectedCoupon.couponId,
                     couponType: $selectedCoupon.couponType,
                     isMemberIssued: $selectedCoupon.isMemberIssued

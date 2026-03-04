@@ -9,13 +9,13 @@ import Foundation
 
 protocol MemberServiceProtocol {
     // MARK: - 학생 학번 조회 API
-    func fetchMemberInfo() async -> NetworkResult<APIResDto<MemberInfoModel>>
+    func fetchMemberInfo() async -> NetworkResult<APIResDto<MemberResDto>>
     
     // MARK: - 자신이 찜한 매장 조회API
-    func fetchFavoriteMarket(lastModifiedAt: String?, pageSize: Int?) async -> NetworkResult<APIResDto<MarketResDto<FavoriteMarketModel>>>
+    func fetchFavoriteMarket(lastModifiedAt: String?, pageSize: Int?) async -> NetworkResult<APIResDto<MarketResDtos<MarketResDto>>>
 
     // MARK: - 학생 로그인 API
-    func signIn(studentId: String, password: String) async -> NetworkResult<LoginResponse>
+    func signIn(studentId: String, password: String) async -> NetworkResult<APIResDto<String>>
     
     // MARK: - 계좌번호 저장 API
     func saveAccountNum(account: String, accountNumber: String) async -> NetworkResult<CommonMsgResDTO>
@@ -33,17 +33,17 @@ final class MemberService: MemberServiceProtocol {
     
     
     // MARK: - 학생 학번 조회 API
-    func fetchMemberInfo() async -> NetworkResult<APIResDto<MemberInfoModel>> {
+    func fetchMemberInfo() async -> NetworkResult<APIResDto<MemberResDto>> {
         return await networkService.request(MemberEndPoint.fetchMemberInfo)
     }
     
     // MARK: - 자신이 찜한 매장 조회API
-    func fetchFavoriteMarket(lastModifiedAt: String?, pageSize: Int?) async -> NetworkResult<APIResDto<MarketResDto<FavoriteMarketModel>>> {
+    func fetchFavoriteMarket(lastModifiedAt: String?, pageSize: Int?) async -> NetworkResult<APIResDto<MarketResDtos<MarketResDto>>> {
         return await networkService.request(MemberEndPoint.fetchFavoriteMarket(lastModifiedAt: lastModifiedAt, pageSize: pageSize))
     }
     
     // MARK: - 학생 로그인 API
-    func signIn(studentId: String, password: String) async -> NetworkResult<LoginResponse> {
+    func signIn(studentId: String, password: String) async -> NetworkResult<APIResDto<String>> {
         return await networkService.request(MemberEndPoint.signIn(studentId: studentId, password: password))
     }
     

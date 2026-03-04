@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct MarketImageSliderView: View {
-    let imageResList: [ImageResource]
+    let imageResList: [ImageResDto]
     @State private var currentIndex = 0
     
     var body: some View {
