@@ -19,62 +19,84 @@ struct NewEventDetailView: View {
             VStack(spacing: 0) {
                 Divider()
                     .background(Color.gray.opacity(0.5))
-                ScrollView {
-                    LazyVStack(spacing: 16) {
-                        ForEach(Array(viewModel.newCoupons.enumerated()), id: \.offset) { index, coupon in
-                            NavigationLink(destination:
-                                            MarketDetailView(marketId: coupon.marketId)
-                            ) {
-                                let coupon = CouponResDto(
-                                    couponId: coupon.couponId,
-                                    couponName: coupon.couponName,
-                                    marketId: coupon.marketId,
-                                    marketName: coupon.marketName,
-                                    address: coupon.address,
-                                    thumbnail: coupon.thumbnail,
-                                    isAvailable: coupon.isAvailable,
-                                    isMemberIssued: coupon.isMemberIssued,
-                                    couponType: coupon.couponType
-                                )
-                                                                
-                                VStack {
-                                    CouponInfoCell(
-                                        viewModel: CouponInfoCellViewModel(coupon: coupon),
-                                        isLoginRequiredPopupVisible: $isLoginRequiredPopupVisible,
-                                        isPopupVisible: $isPopupVisible,
-                                        coupon: $selectedCoupon
+                
+                switch viewModel.state {
+                case .idle:
+                    VStack {
+                        Text("")
+                            .foregroundStyle(.gray)
+                            .padding(.top, 40)
+                        
+                        Spacer()
+                    }
+                case .empty:
+                    VStack {
+                        Text("최신 매장이 없습니다!")
+                            .foregroundStyle(.gray)
+                            .padding(.top, 40)
+                        
+                        Spacer()
+                    }
+                case .loading:
+                    VStack {
+                        ProgressView("매장을 불러오는 중입니다!")
+                            .foregroundStyle(.gray)
+                            .padding(.top, 40)
+                        
+                        Spacer()
+                    }
+                case .loaded(let coupons, let hasNext):
+                    ScrollView {
+                        LazyVStack(spacing: 16) {
+                            ForEach(Array(coupons.enumerated()), id: \.offset) { index, coupon in
+                                NavigationLink(destination:
+                                                MarketDetailView(marketId: coupon.marketId)
+                                ) {
+                                    let coupon = CouponBasicModel(
+                                        couponId: coupon.couponId,
+                                        couponName: coupon.couponName,
+                                        marketId: coupon.marketId,
+                                        marketName: coupon.marketName,
+                                        address: coupon.address,
+                                        thumbnail: coupon.thumbnail,
+                                        isAvailable: coupon.isAvailable,
+                                        isMemberIssued: coupon.isMemberIssued,
+                                        couponType: coupon.couponType
                                     )
                                     
-                                    Divider()
-                                        .background(Color.gray.opacity(0.5))
-                                        .padding(.horizontal, -20)
-                                }
-                            }.onAppear {
-                                guard index == viewModel.newCoupons.count - 1,
-                                      let lastId = viewModel.lastCouponId,
-                                      let lastCreated = viewModel.lastCreatedAt,
-                                      let lastCouponType = viewModel.lastCouponType
-                                else { return }
-                                
-                                Task {
-                                    await viewModel.fetchLatestCoupons(
-                                        lastCreatedAt: lastCreated,
-                                        lastCouponId: lastId,
-                                        couponType: lastCouponType
-                                    )
+                                    VStack {
+                                        CouponInfoCell(
+                                            viewModel: CouponInfoCellViewModel(coupon: coupon),
+                                            isLoginRequiredPopupVisible: $isLoginRequiredPopupVisible,
+                                            isPopupVisible: $isPopupVisible,
+                                            coupon: $selectedCoupon
+                                        )
+                                        
+                                        Divider()
+                                            .background(Color.gray.opacity(0.5))
+                                            .padding(.horizontal, -20)
+                                    }
+                                }.onAppear {
+                                    if index == coupons.count-1, hasNext {
+                                        viewModel.action(.loadNextPage)
+                                    }
                                 }
                             }
                         }
                     }
+                case .error(let message):
+                    VStack {
+                        Text("문제가 발생했습니다!")
+                            .foregroundColor(.gray)
+                            .padding(.top, 40)
+                        
+                        Text(message)
+                            .foregroundColor(.gray)
+                        
+                        Spacer()
+                    }
                 }
             }
-            .onAppear {
-                Task {
-                    await viewModel.fetchLatestCoupons()
-                }
-            }
-            .navigationTitle("\(currentMonth) 신규 | 멤버십 혜택")
-            .navigationBarTitleDisplayMode(.inline)
             
             if !loginViewModel.isLoggedIn && isLoginRequiredPopupVisible {
                 LoginRequriedPopup(
@@ -92,8 +114,24 @@ struct NewEventDetailView: View {
                 ).transition(.scale)
             }
         }
-        .fullScreenCover(isPresented: $showLoginView) {
-            LoginView()
+        .onAppear {
+            viewModel.action(.fetchLatestCoupon)
+        }
+        .navigationTitle("\(currentMonth) 신규 | 멤버십 혜택")
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    Image(systemName: "chevron.backward")
+                        .foregroundColor(.black)
+                }
+                .fullScreenCover(isPresented: $showLoginView) {
+                    LoginView()
+                }
+            }
         }
     }
 }

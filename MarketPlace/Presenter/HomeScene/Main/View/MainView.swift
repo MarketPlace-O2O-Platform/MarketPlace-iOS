@@ -16,7 +16,7 @@ struct MainView: View {
                     ScrollView {
                         VStack {
                             // MARK: - 메인 화면 배너
-                            MainBannerView(closingCouponList: $viewModel.couponClosing)
+                            MainBannerView(closingCouponList: $viewModel.state.couponClosing)
                             
                             // MARK: - 메인화면 카테고리 버튼
                             MainCategoryView(
@@ -32,11 +32,11 @@ struct MainView: View {
                                 .frame(height: 8)
                             
                             // MARK: - Top 20 인기 멤버십
-                            Top20View(popularCoupons: $viewModel.couponPopular)
+                            Top20View(popularCoupons: $viewModel.state.couponPopular)
                                 .padding(.top, 40)
                             
                             // MARK: - 신규 멤버십
-                            NewEventView(latestCoupons: $viewModel.couponLatest, currentMonth: viewModel.currentMonth)
+                            NewEventView(latestCoupons: $viewModel.state.couponLatest, currentMonth: viewModel.currentMonth)
                                 .padding(.top, 40)
                                 .padding(.bottom, 100)
                         }
@@ -49,10 +49,10 @@ struct MainView: View {
                 .background(Color.white)
                 .edgesIgnoringSafeArea(.bottom)
             }
-            .task {
-                await viewModel.fetchCouponTopLatest(pageSize: nil)
-                await viewModel.fetchCouponTopPopular(pageSize: nil)
-                await viewModel.fetchCouponTopClosing(pageSize: nil)
+            .onAppear {
+                viewModel.action(.fetchClosing(pageSize: nil))
+                viewModel.action(.fetchLatest(pageSize: nil))
+                viewModel.action(.fetchPopular(pageSize: nil))
             }
         }
     }
