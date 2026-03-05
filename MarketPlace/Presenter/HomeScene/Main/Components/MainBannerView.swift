@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainBannerView: View {
     @State private var currentIndex = 0
-    @Binding var closingCouponList: [TopClosingCouponResDto]
+    @Binding var closingCouponList: [TopCouponModel]
 
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
@@ -23,7 +23,7 @@ struct MainBannerView: View {
                             texts: [
                                 coupon.marketName,
                                 coupon.couponName
-                            ] + (coupon.deadlineKoreanFormat != nil ? [coupon.deadlineKoreanFormat!] : [])
+                            ] + (coupon.deadline != nil ? [coupon.deadline!] : [])
                         )
                         .padding(.horizontal, 20)
                         .tag(index)

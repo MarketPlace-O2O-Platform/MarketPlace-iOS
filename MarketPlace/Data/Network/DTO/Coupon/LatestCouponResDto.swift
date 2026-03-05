@@ -25,3 +25,19 @@ struct LatestCouponResDto: Codable, Identifiable {
         return formatter.date(from: couponCreatedAt)
     }
 }
+
+extension LatestCouponResDto {
+    func toEntity() -> CouponModel {
+        return CouponModel(
+            id: couponId,
+            name: couponName,
+            marketId: marketId,
+            marketName: marketName,
+            thumbnail: thumbnail,
+            address: address,
+            isMemberIssued: isMemberIssued,
+            description: nil,
+            isAvailable: isAvailable
+        )
+    }
+}

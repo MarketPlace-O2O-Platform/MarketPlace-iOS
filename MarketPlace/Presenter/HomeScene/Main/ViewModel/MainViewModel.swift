@@ -19,9 +19,9 @@ final class MainViewModel: ViewModelable {
     }
     
     struct State {
-        var couponPopular: [CouponTopModel] = []
-        var couponLatest: [CouponTopModel] = []
-        var couponClosing: [TopClosingCouponResDto] = []
+        var couponPopular: [TopCouponModel] = []
+        var couponLatest: [TopCouponModel] = []
+        var couponClosing: [TopCouponModel] = []
     }
     
       
@@ -64,7 +64,10 @@ final class MainViewModel: ViewModelable {
         
         switch result {
         case .success(let data, _):
-            state.couponPopular = data.response
+            data.response.forEach {
+                state.couponPopular.append($0.toEntity())
+            }
+            
         case .failure(let statusCode, let message):
             print("[fetchCouponTopPopular] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }
@@ -77,7 +80,10 @@ final class MainViewModel: ViewModelable {
         
         switch result {
         case .success(let data, _):
-            state.couponLatest = data.response
+            data.response.forEach {
+                state.couponLatest.append($0.toEntity())
+            }
+
         case .failure(let statusCode, let message):
             print("[fetchCouponTopLatest] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }
@@ -90,7 +96,10 @@ final class MainViewModel: ViewModelable {
 
         switch result {
         case .success(let data, _):
-            state.couponClosing = data.response
+            data.response.forEach {
+                state.couponClosing.append($0.toEntity())
+            }
+            
         case .failure(let statusCode, let message):
             print("[fetchCouponTopClosing] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }

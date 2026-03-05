@@ -19,7 +19,7 @@ final class NewEventViewModel: ViewModelable {
         case idle
         case empty
         case loading                                    // 현재 안쓰임
-        case loaded([CouponNewModel], hasNext: Bool)
+        case loaded([CouponModel], hasNext: Bool)
         case error(String)
     }
     
@@ -73,7 +73,10 @@ final class NewEventViewModel: ViewModelable {
         
         switch result {
         case .success(let data, _):
-            let coupons = data.response.couponResDtos
+            var coupons: [CouponModel] = []
+            data.response.couponResDtos.forEach {
+                coupons.append($0.toEntity())
+            }
             
             if coupons.isEmpty && currentPage == 1 {
                 self.state = .empty
@@ -81,7 +84,7 @@ final class NewEventViewModel: ViewModelable {
             }
             
             if currentPage > 1 {
-                if case .loaded(let existing, _) = state {
+                if case .loaded(let existing, _ ) = state {
                     let combined = existing + coupons
                     self.state = .loaded(combined, hasNext: data.response.hasNext)
                 }
@@ -89,7 +92,7 @@ final class NewEventViewModel: ViewModelable {
                 self.state = .loaded(coupons, hasNext: data.response.hasNext)
             }
 
-            let lastItem = coupons.last
+            let lastItem = data.response.couponResDtos.last
             lastCouponId = lastItem?.couponId
             lastCreatedAt = lastItem?.couponCreatedAt
             couponType = lastItem?.couponType

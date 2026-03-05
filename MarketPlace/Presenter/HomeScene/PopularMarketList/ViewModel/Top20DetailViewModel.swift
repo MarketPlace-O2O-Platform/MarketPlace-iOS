@@ -19,7 +19,7 @@ final class Top20DetailViewModel: ViewModelable {
         case idle
         case empty
         case loading                                    // 현재 안쓰임
-        case loaded([CouponPopularModel], hasNext: Bool)
+        case loaded([CouponModel], hasNext: Bool)
         case error(String)
     }
     
@@ -28,7 +28,7 @@ final class Top20DetailViewModel: ViewModelable {
     
     private var couponService: CouponServiceProtocol
 
-    @Published var topCoupons: [CouponPopularModel] = []
+    @Published var topCoupons: [CouponModel] = []
     
     /// - NOTE: 페이징 구현을 위한 변수
     private var lastCouponId: Int?
@@ -77,7 +77,10 @@ final class Top20DetailViewModel: ViewModelable {
         
         switch result {
         case .success(let data, _):
-            let coupons = data.response.couponResDtos
+            var coupons: [CouponModel] = []
+            data.response.couponResDtos.forEach {
+                coupons.append($0.toEntity())
+            }
             
             if coupons.isEmpty && currentPage == 1 {
                 self.state = .empty
@@ -93,7 +96,7 @@ final class Top20DetailViewModel: ViewModelable {
                 self.state = .loaded(coupons, hasNext: data.response.hasNext)
             }
             
-            let lastItem = coupons.last
+            let lastItem = data.response.couponResDtos.last
             lastCouponId = lastItem?.couponId
             lastIssuedCount = lastItem?.issuedCount
             couponType = lastItem?.couponType

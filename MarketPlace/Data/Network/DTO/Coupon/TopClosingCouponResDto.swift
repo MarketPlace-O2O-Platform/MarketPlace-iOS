@@ -69,3 +69,16 @@ struct TopClosingCouponResDto: Codable, Identifiable {
         return deadline
     }
 }
+
+extension TopClosingCouponResDto {
+    func toEntity() -> TopCouponModel {
+        return TopCouponModel(
+            id: couponId,
+            couponName: couponName,
+            marketId: marketId,
+            marketName: marketName,
+            thumbnail: thumbnail,
+            deadline: deadlineKoreanFormat
+        )
+    }
+}

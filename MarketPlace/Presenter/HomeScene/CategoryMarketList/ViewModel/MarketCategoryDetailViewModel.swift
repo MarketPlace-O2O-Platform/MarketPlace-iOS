@@ -15,7 +15,7 @@ final class MarketCategoryDetailViewModel: ViewModelable {
         case idle
         case empty
         case loading                     /// 현재 안쓰이고 있음
-        case loaded([MarketModel], hasNext: Bool)
+        case loaded([MarketListModel], hasNext: Bool)
         case error(String)
     }
     
@@ -72,7 +72,10 @@ final class MarketCategoryDetailViewModel: ViewModelable {
                 
         switch result {
         case .success(let data, _):
-            let markets = data.response.marketResDtos
+            var markets: [MarketListModel] = []
+            data.response.marketResDtos.forEach {
+                markets.append($0.toEntity())
+            }
             
             if markets.isEmpty && currentPage == 1 {
                 self.state = .empty
@@ -80,7 +83,7 @@ final class MarketCategoryDetailViewModel: ViewModelable {
             }
             
             if currentPage > 1  {
-                if case .loaded(let existing, _) = state {
+                if case .loaded(let existing, let _) = state {
                     let combined = existing + markets
                     self.state = .loaded(combined, hasNext: data.response.hasNext)
                 }

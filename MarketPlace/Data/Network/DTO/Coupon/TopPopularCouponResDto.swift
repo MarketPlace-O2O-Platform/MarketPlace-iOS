@@ -18,3 +18,16 @@ struct TopPopularCouponResDto: Decodable, Identifiable {
     
     var id: Int { couponId }
 }
+
+extension TopPopularCouponResDto {
+    func toEntity() -> TopCouponModel {
+        return TopCouponModel(
+            id: couponId,
+            couponName: couponName,
+            marketId: marketId,
+            marketName: marketName,
+            thumbnail: thumbnail,
+            deadline: nil
+        )
+    }
+}

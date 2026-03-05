@@ -22,3 +22,16 @@ struct MarketResDto: Decodable, Identifiable {
 
     var id: Int { return marketId }
 }
+
+extension MarketResDto {
+    func toEntity() -> MarketListModel {
+        return MarketListModel(
+            id: marketId,
+            name: marketName,
+            description: marketDescription,
+            address: address,
+            thumbnail: thumbnail,
+            isFavorite: isFavorite ?? false,
+            category: MarketCategory(rawValue: major ?? "") ?? .ALL)
+    }
+}

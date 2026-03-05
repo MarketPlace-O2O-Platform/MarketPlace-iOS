@@ -13,7 +13,7 @@ struct CouponModel: Identifiable {
     let marketId: Int
     let marketName: String
     let thumbnail: String
-    let address: String
+    let address: String?
     let isMemberIssued: Bool
     let description: String?
     let isAvailable: Bool
