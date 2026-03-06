@@ -34,7 +34,8 @@ extension CouponResDto {
             address: address,
             isMemberIssued: isMemberIssued,
             description: nil,
-            isAvailable: isAvailable
+            isAvailable: isAvailable,
+            couponType: couponType
         )
     }
 }

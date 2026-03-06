@@ -24,13 +24,13 @@ struct MarketInfoCell: View {
             .clipShape(RoundedRectangle(cornerRadius: 4))
 
             VStack(alignment: .leading) {
-                Text(viewModel.marketData.marketName)
+                Text(viewModel.marketData.name)
                     .lineLimit(1)
                     .pretendardFont(size: 16, weight: .semibold)
                     .foregroundColor(Color(hex: "333333"))
                     .padding(.bottom, 3)
 
-                Text(viewModel.marketData.marketDescription)
+                Text(viewModel.marketData.description)
                     .multilineTextAlignment(.leading)
                     .lineLimit(2)
                     .pretendardFont(size: 13, weight: .medium)
@@ -56,7 +56,7 @@ struct MarketInfoCell: View {
                                 await viewModel.postFavoriteMarket(marketId: viewModel.marketData.id)
                             }
                         }) {
-                            Image(systemName: viewModel.marketData.isFavorite ?? false ? "bookmark.fill" : "bookmark")
+                            Image(systemName: viewModel.marketData.isFavorite ? "bookmark.fill" : "bookmark")
                                 .resizable()
                                 .frame(width: 14, height: 20)
                                 .foregroundColor(Color(hex: "#4B4B4B"))

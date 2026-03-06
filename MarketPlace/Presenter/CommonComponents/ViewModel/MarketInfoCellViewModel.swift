@@ -10,22 +10,23 @@ import Foundation
 final class MarketInfoCellViewModel: ObservableObject {
     private var marketService: MarketServiceProtocol
     
-    @Published var market: MarketDetailResDto = MarketDetailResDto(
-        marketId: 0, name: "",
+    @Published var market: MarketDetailModel = MarketDetailModel(
+        id: 0,
+        name: "",
         description: "",
+        images: [],
         operationHours: "",
         closedDays: "",
         phoneNumber: "",
         address: "",
-        imageResList: [],
         isFavorite: false
     )
     
-    @Published var marketData: MarketResDto
+    @Published var marketData: MarketListModel
     
     init(
         marketService: MarketServiceProtocol = MarketService(),
-        marketData: MarketResDto
+        marketData: MarketListModel
     ) {
         self.marketService = marketService
         self.marketData = marketData
@@ -37,8 +38,7 @@ final class MarketInfoCellViewModel: ObservableObject {
         
         switch result {
         case .success(let data, _):
-            self.market = data.response
-            print("매장 상세조회",data.response)
+            self.market = data.response.toEntity()
         case .failure(let statusCode, let message):
             print("[fetchMarket] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }
@@ -50,7 +50,7 @@ final class MarketInfoCellViewModel: ObservableObject {
         
         switch result {
         case .success(_, _):
-            marketData.isFavorite?.toggle()
+            marketData.isFavorite.toggle()
         case .failure(let statusCode, let message):
             print("[postFavoriteMarket] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
         }

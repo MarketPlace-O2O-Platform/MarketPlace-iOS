@@ -25,3 +25,24 @@ struct ImageResDto: Decodable {
     let name: String
 }
 
+extension MarketDetailResDto {
+    func toEntity() -> MarketDetailModel {
+        var images: [MarketDetailImagesModel] = []
+        imageResList.forEach {
+            images.append(MarketDetailImagesModel(sequence: $0.sequence, name: $0.name))
+        }
+        
+        return MarketDetailModel(
+            id: marketId,
+            name: name,
+            description: description,
+            images: images,
+            operationHours: operationHours,
+            closedDays: closedDays,
+            phoneNumber: phoneNumber,
+            address: address,
+            isFavorite: isFavorite ?? false
+        )
+    }
+}
+

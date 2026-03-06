@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct CategoryDetailView: View {
+struct MarketCategoryDetailView: View {
     @Binding var selectedTab: Int
     @StateObject var viewModel = MarketCategoryDetailViewModel()
 
@@ -37,11 +37,11 @@ struct CategoryDetailView: View {
             case .loaded(let markets, let hasNext):
                 ScrollView {
                     LazyVStack(spacing: 16) {
-                        ForEach(Array(viewModel.markets.enumerated()), id: \.offset) { index, shop in
-                            NavigationLink(destination: MarketDetailView(marketId: shop.marketId, isBookmarked: shop.isFavorite ?? false)) {
+                        ForEach(Array(markets.enumerated()), id: \.offset) { index, shop in
+                            NavigationLink(destination: MarketDetailView(marketId: shop.id, isBookmarked: shop.isFavorite)) {
                                 VStack {
                                     MarketInfoCell(
-                                        isBookmarked: shop.isFavorite ?? false,
+                                        isBookmarked: shop.isFavorite,
                                         viewModel: MarketInfoCellViewModel(marketData: shop)
                                     )
                                     

@@ -9,7 +9,7 @@ import Foundation
 
 @MainActor
 final class MapViewModel: ObservableObject {
-    @Published var markets: [MarketResDto] = []
+    @Published var markets: [MarketListModel] = []
     @Published var marketsForMap: [KakaoMapPoi] = []
     @Published var lastMarketId: Int?
     @Published var currentCategory: String?
@@ -50,9 +50,14 @@ final class MapViewModel: ObservableObject {
         switch result {
         case .success(let data, _):
             if currentPage == 1 {
-                self.markets = data.response.marketResDtos
+                self.markets = []
+                data.response.marketResDtos.forEach {
+                    self.markets.append($0.toEntity())
+                }
             } else {
-                self.markets.append(contentsOf: data.response.marketResDtos)
+                data.response.marketResDtos.forEach {
+                    self.markets.append($0.toEntity())
+                }
             }
             
             if let last = data.response.marketResDtos.last {
