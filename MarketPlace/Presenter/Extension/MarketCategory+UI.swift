@@ -1,5 +1,5 @@
 //
-//  Category+UI.swift
+//  MarketCategory+UI.swift
 //  MarketPlace
 //
 //  Created by Bowon Han on 1/19/26.

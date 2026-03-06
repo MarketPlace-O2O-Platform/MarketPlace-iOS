@@ -6,7 +6,7 @@ struct CouponInfoCell: View {
     
     @Binding var isLoginRequiredPopupVisible: Bool
     @Binding var isPopupVisible: Bool
-    @Binding var coupon: CouponResDto
+    @Binding var coupon: CouponModel
     
     var isMemberIssued: Bool { return viewModel.coupon.isMemberIssued }
     
@@ -14,7 +14,7 @@ struct CouponInfoCell: View {
         viewModel: CouponInfoCellViewModel,
         isLoginRequiredPopupVisible: Binding<Bool>,
         isPopupVisible: Binding<Bool>,
-        coupon: Binding<CouponResDto>
+        coupon: Binding<CouponModel>
     ) {
         self.viewModel = viewModel
         self._isLoginRequiredPopupVisible = isLoginRequiredPopupVisible
@@ -39,7 +39,7 @@ struct CouponInfoCell: View {
                     .foregroundColor(Color(hex: "333333"))
                     .padding(.bottom, 3)
                 
-                Text(viewModel.coupon.couponName)
+                Text(viewModel.coupon.name)
                     .pretendardFont(size: 18, weight: .bold)
                     .multilineTextAlignment(.leading)
                     .foregroundColor(Color(hex: "#4B4B4B"))
@@ -51,7 +51,8 @@ struct CouponInfoCell: View {
                         .resizable()
                         .frame(width: 16, height: 16)
                         .foregroundColor(Color(hex: "333333"))
-                    Text(viewModel.coupon.address)
+                    // TODO: - 수정필요
+                    Text(viewModel.coupon.address ?? "")
                         .pretendardFont(size: 13, weight: .medium)
                         .foregroundColor(Color(hex: "333333"))
                     

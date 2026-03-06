@@ -10,17 +10,7 @@ struct Top20DetailView: View {
     @State private var isLoginRequiredPopupVisible: Bool = false
     @State private var isPopupVisible: Bool = false
     @State private var showLoginView: Bool = false
-    @State private var selectedCoupon: CouponResDto = CouponResDto(
-        couponId: 0,
-        couponName: "",
-        marketId: 0,
-        marketName: "",
-        address: "",
-        thumbnail: "",
-        isAvailable: false,
-        isMemberIssued: false,
-        couponType: ""
-    )
+    @State private var selectedCoupon: CouponModel = CouponModel(id: 0, name: "", marketId: 0, marketName: "", thumbnail: "", address: "", isMemberIssued: false, description: "", isAvailable: false, couponType: "")
     
     var body: some View {
         ZStack{
@@ -60,15 +50,17 @@ struct Top20DetailView: View {
                                 NavigationLink(destination:
                                                 MarketDetailView(marketId: coupon.marketId)
                                 ) {
-                                    let basic = CouponBasicModel(
-                                        couponId: coupon.couponId,
-                                        couponName: coupon.couponName,
+                                    
+                                    let basic = CouponModel(
+                                        id: coupon.id,
+                                        name: coupon.name,
                                         marketId: coupon.marketId,
                                         marketName: coupon.marketName,
-                                        address: coupon.address,
                                         thumbnail: coupon.thumbnail,
-                                        isAvailable: coupon.isAvailable,
+                                        address: coupon.address,
                                         isMemberIssued: coupon.isMemberIssued,
+                                        description: coupon.description,
+                                        isAvailable: coupon.isAvailable,
                                         couponType: coupon.couponType
                                     )
                                     
@@ -118,7 +110,7 @@ struct Top20DetailView: View {
                 CouponGetPopupView(
                     isPopupVisible: $isPopupVisible,
                     // TODO: 다른방식은 없나? 
-                    couponId: $selectedCoupon.couponId,
+                    couponId: $selectedCoupon.id,
                     couponType: $selectedCoupon.couponType,
                     isMemberIssued: $selectedCoupon.isMemberIssued
                 ).transition(.scale)

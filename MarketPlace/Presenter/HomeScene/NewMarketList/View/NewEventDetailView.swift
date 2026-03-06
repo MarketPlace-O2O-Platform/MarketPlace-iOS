@@ -10,7 +10,7 @@ struct NewEventDetailView: View {
     @State private var isLoginRequiredPopupVisible: Bool = false
     @State private var isPopupVisible: Bool = false
     @State private var showLoginView: Bool = false
-    @State private var selectedCoupon: CouponResDto = CouponResDto(couponId: 0, couponName: "", marketId: 0, marketName: "", address: "", thumbnail: "", isAvailable: false, isMemberIssued: false, couponType: "")
+    @State private var selectedCoupon: CouponModel = CouponModel(id: 0, name: "", marketId: 0, marketName: "", thumbnail: "", address: "", isMemberIssued: false, description: "", isAvailable: false, couponType: "")
     
     var currentMonth: String
     
@@ -52,15 +52,16 @@ struct NewEventDetailView: View {
                                 NavigationLink(destination:
                                                 MarketDetailView(marketId: coupon.marketId)
                                 ) {
-                                    let coupon = CouponBasicModel(
-                                        couponId: coupon.couponId,
-                                        couponName: coupon.couponName,
+                                    let coupon = CouponModel(
+                                        id: coupon.id,
+                                        name: coupon.name,
                                         marketId: coupon.marketId,
                                         marketName: coupon.marketName,
-                                        address: coupon.address,
                                         thumbnail: coupon.thumbnail,
-                                        isAvailable: coupon.isAvailable,
+                                        address: coupon.address,
                                         isMemberIssued: coupon.isMemberIssued,
+                                        description: coupon.description,
+                                        isAvailable: coupon.isAvailable,
                                         couponType: coupon.couponType
                                     )
                                     
@@ -108,7 +109,7 @@ struct NewEventDetailView: View {
             if isPopupVisible {
                 CouponGetPopupView(
                     isPopupVisible: $isPopupVisible,
-                    couponId: $selectedCoupon.couponId,
+                    couponId: $selectedCoupon.id,
                     couponType: $selectedCoupon.couponType,
                     isMemberIssued: $selectedCoupon.isMemberIssued
                 ).transition(.scale)

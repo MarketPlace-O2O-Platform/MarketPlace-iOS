@@ -9,7 +9,7 @@ import Foundation
 
 @MainActor
 final class MyFavoriteMarketListViewModel: ObservableObject {
-    @Published var favoriteMarkets: [MarketResDto] = []
+    @Published var favoriteMarkets: [MarketListModel] = []
     @Published var hasNextPage: Bool = true
     @Published var isLoading: Bool = false
     @Published var lastModified: String?
@@ -33,9 +33,14 @@ final class MyFavoriteMarketListViewModel: ObservableObject {
         switch result {
         case .success(let data, _):
             if currentPage == 1 {
-                self.favoriteMarkets = data.response.marketResDtos
+                self.favoriteMarkets = []
+                data.response.marketResDtos.forEach {
+                    self.favoriteMarkets.append($0.toEntity())
+                }
             } else {
-                self.favoriteMarkets.append(contentsOf: data.response.marketResDtos)
+                data.response.marketResDtos.forEach {
+                    self.favoriteMarkets.append($0.toEntity())
+                }
             }
             
             if let last = data.response.marketResDtos.last {

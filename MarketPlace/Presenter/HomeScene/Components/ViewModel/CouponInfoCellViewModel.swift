@@ -1,5 +1,5 @@
 //
-//  CouponInfoCell.swift
+//  CouponInfoCellViewModel.swift
 //  MarketPlace
 //
 //  Created by Bowon Han on 5/27/25.
@@ -9,13 +9,13 @@ import Foundation
 
 final class CouponInfoCellViewModel: ObservableObject {
     private var memberCouponService: MemberCouponServiceProtocol
-    @Published var coupon: CouponResDto
+    @Published var coupon: CouponModel
 
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
     
     init(
-        coupon: CouponResDto,
+        coupon: CouponModel,
         memberCouponService: MemberCouponServiceProtocol = MemberCouponService()
     ) {
         self.coupon = coupon

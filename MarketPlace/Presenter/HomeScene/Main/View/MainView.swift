@@ -44,7 +44,7 @@ struct MainView: View {
                     }
                 }
                 .navigationDestination(item: $selectedCategoryIndex) { index in
-                    CategoryDetailView(selectedTab: $selectedTab)
+                    MarketCategoryDetailView(selectedTab: $selectedTab)
                 }
                 .background(Color.white)
                 .edgesIgnoringSafeArea(.bottom)
