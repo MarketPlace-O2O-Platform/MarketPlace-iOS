@@ -10,9 +10,9 @@ import Foundation
 struct CouponModel: Identifiable {
     var id: Int
     let name: String
-    let marketId: Int
-    let marketName: String
-    let thumbnail: String
+    let marketId: Int?
+    let marketName: String?
+    let thumbnail: String?
     let address: String?
     var isMemberIssued: Bool
     let description: String?

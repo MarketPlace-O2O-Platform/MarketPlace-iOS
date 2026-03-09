@@ -18,3 +18,20 @@ struct ValidCouponResDto: Codable, Identifiable {
 
     var id: Int { couponId }
 }
+
+extension ValidCouponResDto {
+    func toEntity() -> CouponModel {
+        return CouponModel(
+            id: couponId,
+            name: couponName,
+            marketId: nil,
+            marketName: nil,
+            thumbnail: nil,
+            address: nil,
+            isMemberIssued: isMemberIssued,
+            description: couponDescription,
+            isAvailable: isMemberIssued,
+            couponType: couponType
+        )
+    }
+}
