@@ -10,9 +10,9 @@ import Foundation
 struct CheerMarketModel: Identifiable {
     let id: Int
     let name: String
-    let description: String
+    let description: String?
     let thumbnail: String
-    let cheerCount: Int
-    let isCheer: String
-    let dueDate: Int
+    let cheerCount: Int?
+    let isCheer: Bool
+    let dueDate: Int?
 }

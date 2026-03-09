@@ -23,3 +23,17 @@ struct CheerMarketResDto: Codable, Identifiable {
         return dueDate
     }
 }
+
+extension CheerMarketResDto {
+    func toEntity() -> CheerMarketModel {
+        return CheerMarketModel(
+            id: marketId,
+            name: marketName,
+            description: marketDescription,
+            thumbnail: thumbnail,
+            cheerCount: cheerCount,
+            isCheer: isCheer,
+            dueDate: dueDateFormmater
+        )
+    }
+}
