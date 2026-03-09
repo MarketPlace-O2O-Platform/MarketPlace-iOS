@@ -28,3 +28,20 @@ struct IssuedCouponResDto: Decodable, Identifiable {
     
     var id: Int { couponId }
 }
+
+extension IssuedCouponResDto {
+    func toEntity() -> MyCouponModel {
+        return MyCouponModel(
+            id: memberCouponId,
+            couponId: couponId,
+            thumbnail: thumbnail,
+            marketName: marketName,
+            couponName: couponName,
+            description: description,
+            used: used,
+            couponType: CouponType(rawValue: couponType) ?? .giftableCoupon,
+            isSubmit: isSubmit,
+            expired: expired
+        )
+    }
+}
