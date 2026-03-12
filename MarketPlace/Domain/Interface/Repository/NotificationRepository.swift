@@ -15,7 +15,7 @@ enum NotificationRepositoryError: Error {
 
 protocol NotificationRepository {
     
-    func fetchNotifications(type: String?, size: Int?) async -> Result<[NotificationModel], NotificationRepositoryError>
+    func fetchNotifications(type: String?, size: Int?) async -> Result<(notifications: [NotificationModel], hasNext: Bool), NotificationRepositoryError>
     
     func readNotification(notificationId: Int) async -> Result<Void, NotificationRepositoryError>
     
