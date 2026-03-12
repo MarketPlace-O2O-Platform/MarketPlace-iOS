@@ -21,7 +21,7 @@ final class DefaultMemberCouponRepository {
 }
 
 extension DefaultMemberCouponRepository: MemberCouponRepository {
-    func fetchMyCoupons(type: String, memberCouponId: Int?, size: Int?) async -> Result<[MyCouponModel], CouponRepositoryError> {
+    func fetchMyCoupons(type: String, memberCouponId: Int?, size: Int?) async -> Result<(memberCoupon: [MyCouponModel], hasNext: Bool), CouponRepositoryError> {
         let result = await memberCouponNetworkService.fetchMemberCoupon(type: type, memberCouponId: memberCouponId, size: size)
         
         switch result {
@@ -31,7 +31,7 @@ extension DefaultMemberCouponRepository: MemberCouponRepository {
                 $0.toEntity()
             }
             
-            return .success(coupons)
+            return .success((coupons, data.response.hasNext))
             
         case .failure(let statusCode, let message):
             return .failure(processError(statusCode: statusCode))

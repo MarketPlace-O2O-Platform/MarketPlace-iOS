@@ -15,17 +15,17 @@ enum MarketRepositoryError: Error {
 
 protocol MarketRepository {
     
-    func fetchMarketWithCategory(category: MarketCategory, lastPageIndex: Int?, pageSize: Int?) async -> Result<[MarketListModel], MarketRepositoryError>
+    func fetchMarketWithCategory(category: MarketCategory, lastPageIndex: Int?, pageSize: Int?) async -> Result<(markets: [MarketListModel], hasNext: Bool), MarketRepositoryError>
     
     func fetchMarketWithAddress(category: MarketCategory, lastPageIndex: Int?, pageSize: Int?) async -> Result<[MarketListModel], MarketRepositoryError>
     
     func fetchMarketDetail(id: Int) async -> Result<MarketDetailModel, MarketRepositoryError>
     
-    func fetchFavoriteMarkets(lastModifiedAt: String?, pageSize: Int?) async -> Result<[MarketListModel], MarketRepositoryError>
+    func fetchFavoriteMarkets(lastModifiedAt: String?, pageSize: Int?) async -> Result<(markets: [MarketListModel], hasNext: Bool), MarketRepositoryError>
     
     func saveFavoriteMarket(id: Int) async -> Result<Void, MarketRepositoryError>
     
-    func fetchMarketQueries(keyword: String, lastPageIndex: Int?, pageSize: Int?) async -> Result<[MarketListModel], MarketRepositoryError>
+    func fetchMarketQueries(keyword: String, lastPageIndex: Int?, pageSize: Int?) async -> Result<(markets: [MarketListModel], hasNext: Bool), MarketRepositoryError>
     
     func saveMakretRecentQueries(keyword: String) async
     

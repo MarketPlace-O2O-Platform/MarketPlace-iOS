@@ -17,4 +17,7 @@ protocol MemberRepository {
     
     func fetchStudentId() async -> Result<Int, MemberRepositoryError>
     
+    func saveAccountNumber(account: String, accountNumber: String) async -> Result<Void, MemberRepositoryError>
+    
+    func deleteAccountNumber() async -> Result<Void, MemberRepositoryError>
 }

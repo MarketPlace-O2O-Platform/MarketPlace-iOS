@@ -20,7 +20,7 @@ extension DefaultMarketRepository: MarketRepository {
         category: MarketCategory,
         lastPageIndex: Int?,
         pageSize: Int?
-    ) async -> Result<[MarketListModel], MarketRepositoryError> {
+    ) async -> Result<(markets: [MarketListModel], hasNext: Bool), MarketRepositoryError> {
         
         let result = await marketNetworkService.fetchMarketAll(lastPageIndex: lastPageIndex, category: category.toString(), pageSize: pageSize)
         
@@ -31,7 +31,7 @@ extension DefaultMarketRepository: MarketRepository {
                 $0.toEntity()
             }
             
-            return .success(markets)
+            return .success((markets, data.response.hasNext))
             
         case .failure(let statusCode, let message):
             
@@ -81,7 +81,7 @@ extension DefaultMarketRepository: MarketRepository {
         }
     }
     
-    func fetchFavoriteMarkets(lastModifiedAt: String?, pageSize: Int?) async -> Result<[MarketListModel], MarketRepositoryError> {
+    func fetchFavoriteMarkets(lastModifiedAt: String?, pageSize: Int?) async -> Result<(markets: [MarketListModel], hasNext: Bool), MarketRepositoryError> {
         let result = await marketNetworkService.fetchOwnFavoriteMarkets(lastModifiedAt: lastModifiedAt, pageSize: pageSize)
                 
         switch result {
@@ -91,8 +91,8 @@ extension DefaultMarketRepository: MarketRepository {
                 $0.toEntity()
             }
             
-            return .success(markets)
-            
+            return .success((markets, data.response.hasNext))
+
         case .failure(let statusCode, let message):
             
             return .failure(processError(statusCode: statusCode))
@@ -115,7 +115,7 @@ extension DefaultMarketRepository: MarketRepository {
         }
     }
     
-    func fetchMarketQueries(keyword: String, lastPageIndex: Int?, pageSize: Int?) async -> Result<[MarketListModel], MarketRepositoryError> {
+    func fetchMarketQueries(keyword: String, lastPageIndex: Int?, pageSize: Int?) async -> Result<(markets: [MarketListModel], hasNext: Bool), MarketRepositoryError> {
         let result = await marketNetworkService.fetchSearchMarketsList(lastPageIndex: lastPageIndex, pageSize: pageSize, name: keyword)
         
         switch result {
@@ -125,8 +125,8 @@ extension DefaultMarketRepository: MarketRepository {
                 $0.toEntity()
             }
             
-            return .success(markets)
-            
+            return .success((markets, data.response.hasNext))
+
         case .failure(let statusCode, let message):
             
             return .failure(processError(statusCode: statusCode))

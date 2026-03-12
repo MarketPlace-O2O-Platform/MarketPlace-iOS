@@ -11,11 +11,11 @@ import Foundation
 
 protocol CheerMarketRepository {
     
-    func fetchCheerMarketWithCategory(category: MarketCategory, lastPageIndex: Int?, page: Int?) async -> Result<[CheerMarketModel], MarketRepositoryError>
+    func fetchCheerMarketWithCategory(category: MarketCategory, lastPageIndex: Int?, page: Int?) async -> Result<(cheerMarkets:[CheerMarketModel], hasNext: Bool), MarketRepositoryError>
     
-    func fetchMarketQueries(keyword: String, lastPageIndex: Int?, pageSize: Int?) async -> Result<[CheerMarketModel], MarketRepositoryError>
+    func fetchMarketQueries(keyword: String, lastPageIndex: Int?, pageSize: Int?) async -> Result<(cheerMarkets:[CheerMarketModel], hasNext: Bool), MarketRepositoryError>
     
-    func fetchUpcomingCheerMarket(lastPageIndex: Int, lastCheerCount: Int?, page: Int?) async -> Result<[CheerMarketModel], MarketRepositoryError>
+    func fetchUpcomingCheerMarket(lastPageIndex: Int, lastCheerCount: Int?, page: Int?) async -> Result<(cheerMarkets:[CheerMarketModel], hasNext: Bool), MarketRepositoryError>
     
     func requestCheerMarket(marketName: String, address: String) async -> Result<Void, MarketRepositoryError>
     

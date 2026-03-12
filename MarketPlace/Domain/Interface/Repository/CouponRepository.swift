@@ -23,7 +23,7 @@ protocol CouponRepository {
     
     func fetchTopClosingCoupons(page: Int?) async -> Result<[TopCouponModel], CouponRepositoryError>
     
-    func fetchPopularCoupons(lastIssuedCount: Int?, lastCouponId: Int?, couponType: String?, pageSize: Int?) async -> Result<[CouponModel], CouponRepositoryError>
+    func fetchPopularCoupons(lastIssuedCount: Int?, lastCouponId: Int?, couponType: String?, pageSize: Int?) async -> Result<(coupon: [CouponModel], hasNext: Bool), CouponRepositoryError>
     
-    func fetchLatestCoupons(lastCreatedAt: String?, lastCouponId: Int?, couponType: String?, pageSize: Int?) async -> Result<[CouponModel], CouponRepositoryError>
+    func fetchLatestCoupons(lastCreatedAt: String?, lastCouponId: Int?, couponType: String?, pageSize: Int?) async -> Result<(coupon: [CouponModel], hasNext: Bool), CouponRepositoryError>
 }

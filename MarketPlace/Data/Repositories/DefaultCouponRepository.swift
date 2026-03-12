@@ -106,7 +106,7 @@ extension DefaultCouponRepository: CouponRepository {
         }
     }
     
-    func fetchPopularCoupons(lastIssuedCount: Int?, lastCouponId: Int?, couponType: String?, pageSize: Int?) async -> Result<[CouponModel], CouponRepositoryError> {
+    func fetchPopularCoupons(lastIssuedCount: Int?, lastCouponId: Int?, couponType: String?, pageSize: Int?) async -> Result<(coupon: [CouponModel], hasNext: Bool), CouponRepositoryError> {
         let result = await couponNetworkService.fetchCouponPopular(lastIssuedCount: lastIssuedCount, lastCouponId: lastCouponId, couponType: couponType, pageSize: pageSize)
         
         switch result {
@@ -116,7 +116,7 @@ extension DefaultCouponRepository: CouponRepository {
                 $0.toEntity()
             }
             
-            return .success(coupons)
+            return .success((coupons, data.response.hasNext))
             
         case .failure(let statusCode, let message):
             
@@ -125,7 +125,7 @@ extension DefaultCouponRepository: CouponRepository {
         }
     }
     
-    func fetchLatestCoupons(lastCreatedAt: String?, lastCouponId: Int?, couponType: String?, pageSize: Int?) async -> Result<[CouponModel], CouponRepositoryError> {
+    func fetchLatestCoupons(lastCreatedAt: String?, lastCouponId: Int?, couponType: String?, pageSize: Int?) async -> Result<(coupon: [CouponModel], hasNext: Bool), CouponRepositoryError> {
         let result = await couponNetworkService.fetchLatestCoupons(lastCreatedAt: lastCreatedAt, lastCouponId: lastCouponId, couponType: couponType, pageSize: pageSize)
         
         switch result {
@@ -135,8 +135,8 @@ extension DefaultCouponRepository: CouponRepository {
                 $0.toEntity()
             }
             
-            return .success(coupons)
-            
+            return .success((coupons, data.response.hasNext))
+
         case .failure(let statusCode, let message):
             
             return .failure(processError(statusCode: statusCode))

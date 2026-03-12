@@ -16,7 +16,7 @@ final class DefaultNotificationRepository {
 }
 
 extension DefaultNotificationRepository: NotificationRepository {
-    func fetchNotifications(type: String?, size: Int?) async -> Result<[NotificationModel], NotificationRepositoryError> {
+    func fetchNotifications(type: String?, size: Int?) async -> Result<(notifications: [NotificationModel], hasNext: Bool), NotificationRepositoryError> {
         let result = await notificationNetworkService.fetchNotifications(type: type, size: size)
         
         switch result {
@@ -25,7 +25,7 @@ extension DefaultNotificationRepository: NotificationRepository {
                 $0.toEntity()
             }
             
-            return .success(notifications)
+            return .success((notifications, data.response.hasNext))
         case .failure(let statusCode, let message):
             return .failure(processError(statusCode: statusCode))
         }
