@@ -24,7 +24,7 @@ final class DefaultCheerMarketRepository {
 }
 
 extension DefaultCheerMarketRepository: CheerMarketRepository {
-    func fetchCheerMarketWithCategory(category: MarketCategory, lastPageIndex: Int?, page: Int?) async -> Result<[CheerMarketModel], MarketRepositoryError> {
+    func fetchCheerMarketWithCategory(category: MarketCategory, lastPageIndex: Int?, page: Int?) async -> Result<(cheerMarkets:[CheerMarketModel], hasNext: Bool), MarketRepositoryError> {
         let result = await cheerMarketNetworkService.fetchCheerMarket(lastPageIndex: lastPageIndex, category: category.toString(), count: page)
         
         switch result {
@@ -34,7 +34,7 @@ extension DefaultCheerMarketRepository: CheerMarketRepository {
                 $0.toEntity()
             }
             
-            return .success(cheerMarkets)
+            return .success((cheerMarkets, data.response.hasNext))
             
         case .failure(let statusCode, let message):
             
@@ -43,7 +43,7 @@ extension DefaultCheerMarketRepository: CheerMarketRepository {
         }
     }
     
-    func fetchMarketQueries(keyword: String, lastPageIndex: Int?, pageSize: Int?) async -> Result<[CheerMarketModel], MarketRepositoryError> {
+    func fetchMarketQueries(keyword: String, lastPageIndex: Int?, pageSize: Int?) async -> Result<(cheerMarkets:[CheerMarketModel], hasNext: Bool), MarketRepositoryError> {
         let result = await cheerMarketNetworkService.fetchSearchCheerMarket(lastPageIndex: lastPageIndex, pageSize: pageSize, name: keyword)
         
         switch result {
@@ -53,7 +53,7 @@ extension DefaultCheerMarketRepository: CheerMarketRepository {
                 $0.toEntity()
             }
             
-            return .success(cheerMarkets)
+            return .success((cheerMarkets, data.response.hasNext))
             
         case .failure(let statusCode, let message):
             
@@ -62,7 +62,7 @@ extension DefaultCheerMarketRepository: CheerMarketRepository {
         }
     }
     
-    func fetchUpcomingCheerMarket(lastPageIndex: Int, lastCheerCount: Int?, page: Int?) async -> Result<[CheerMarketModel], MarketRepositoryError> {
+    func fetchUpcomingCheerMarket(lastPageIndex: Int, lastCheerCount: Int?, page: Int?) async -> Result<(cheerMarkets:[CheerMarketModel], hasNext: Bool), MarketRepositoryError> {
         let result = await cheerMarketNetworkService.fetchUpcomingMarket(lastPageIndex: lastPageIndex, lastCheerCount: lastCheerCount, count: page)
         
         switch result {
@@ -72,7 +72,7 @@ extension DefaultCheerMarketRepository: CheerMarketRepository {
                 $0.toEntity()
             }
             
-            return .success(cheerMarkets)
+            return .success((cheerMarkets, data.response.hasNext))
             
         case .failure(let statusCode, let message):
             
