@@ -35,4 +35,36 @@ extension DefaultMemberRepository: MemberRepository {
             }
         }
     }
+    
+    func saveAccountNumber(account: String, accountNumber: String) async -> Result<Void, MemberRepositoryError> {
+        let result = await memberNetworkService.saveAccountNum(account: account, accountNumber: accountNumber)
+        
+        switch result {
+        case .success(let data, let statusCode):
+            return .success(())
+        case .failure(let statusCode, let message):
+            switch statusCode {
+            case 200..<300:
+                return .failure(.decoding)
+            default:
+                return .failure(.network)
+            }
+        }
+    }
+    
+    func deleteAccountNumber() async -> Result<Void, MemberRepositoryError> {
+        let result = await memberNetworkService.deleteAccountNum()
+        
+        switch result {
+        case .success(let data, let statusCode):
+            return .success(())
+        case .failure(let statusCode, let message):
+            switch statusCode {
+            case 200..<300:
+                return .failure(.decoding)
+            default:
+                return .failure(.network)
+            }
+        }
+    }
 }
