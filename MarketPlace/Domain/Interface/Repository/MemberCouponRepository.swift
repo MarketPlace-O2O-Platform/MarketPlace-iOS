@@ -9,7 +9,7 @@ import Foundation
 
 protocol MemberCouponRepository {
     
-    func fetchMyCoupons(type: String, memberCouponId: Int?, size: Int?) async -> Result<[MyCouponModel], CouponRepositoryError>
+    func fetchMyCoupons(type: String, memberCouponId: Int?, size: Int?) async -> Result<(myCoupon: [MyCouponModel], hasNext: Bool), CouponRepositoryError>
     
     func downloadCoupon(couponId: Int, couponType: CouponType) async -> Result<Void, CouponRepositoryError>
     
