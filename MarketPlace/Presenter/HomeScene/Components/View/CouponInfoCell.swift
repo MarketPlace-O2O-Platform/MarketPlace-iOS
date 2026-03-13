@@ -24,20 +24,25 @@ struct CouponInfoCell: View {
     
     var body: some View {
         HStack(alignment: .top) {
-            ShimmeringAsyncImage(
-                url: URL(
-                    string: URLManager.shared.baseStringURL + "image/" + viewModel.coupon.thumbnail
-                ),
-                cornerRadius: 4,
-                width: 110,
-                height: 110
-            )
+            
+            if let thumbnail = viewModel.coupon.thumbnail {
+                ShimmeringAsyncImage(
+                    url: URL(
+                        string: URLManager.shared.baseStringURL + "image/" + thumbnail
+                    ),
+                    cornerRadius: 4,
+                    width: 110,
+                    height: 110
+                )
+            }
             
             VStack(alignment: .leading) {
-                Text(viewModel.coupon.marketName)
-                    .pretendardFont(size: 14, weight: .semibold)
-                    .foregroundColor(Color(hex: "333333"))
-                    .padding(.bottom, 3)
+                if let marketName = viewModel.coupon.marketName {
+                    Text(marketName)
+                        .pretendardFont(size: 14, weight: .semibold)
+                        .foregroundColor(Color(hex: "333333"))
+                        .padding(.bottom, 3)
+                }
                 
                 Text(viewModel.coupon.name)
                     .pretendardFont(size: 18, weight: .bold)

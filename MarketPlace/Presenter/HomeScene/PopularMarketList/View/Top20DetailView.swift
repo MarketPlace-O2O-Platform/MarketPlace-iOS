@@ -48,7 +48,7 @@ struct Top20DetailView: View {
                         LazyVStack(spacing: 16) {
                             ForEach(Array(coupons.enumerated()), id: \.offset) { index, coupon in
                                 NavigationLink(destination:
-                                                MarketDetailView(marketId: coupon.marketId)
+                                    MarketDetailView(marketId: coupon.marketId ?? 0)
                                 ) {
                                     
                                     let basic = CouponModel(
