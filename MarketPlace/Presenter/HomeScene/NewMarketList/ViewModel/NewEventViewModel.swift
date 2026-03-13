@@ -33,8 +33,10 @@ final class NewEventViewModel: ViewModelable {
     private var lastCouponId: Int?
     private var lastCreatedAt: String?
     private var currentPage: Int = 1
-    private var hasNextPage: Bool = true
     private var couponType: String?
+    
+    // TODO: 안쓰고있음 수정 필요
+    private var hasNextPage: Bool = true
     
     
     // MARK: - Initializer

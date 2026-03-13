@@ -57,9 +57,11 @@ final class MainViewModel: ViewModelable {
         formatter.dateFormat = "M월"
         return formatter.string(from: Date())
     }
-    
+}
+
+private extension MainViewModel {
     // MARK: - 인기 쿠폰 조회
-    private func fetchCouponTopPopular(pageSize: Int?) async {
+    func fetchCouponTopPopular(pageSize: Int?) async {
         let result = await couponService.fetchCouponTopPopular(pageSize: pageSize)
         
         switch result {
@@ -75,7 +77,7 @@ final class MainViewModel: ViewModelable {
     
     
     // MARK: - 최신 쿠폰 조회
-    private func fetchCouponTopLatest(pageSize: Int?) async {
+    func fetchCouponTopLatest(pageSize: Int?) async {
         let result = await couponService.fetchCouponTopLatest(pageSize: pageSize)
         
         switch result {
@@ -91,7 +93,7 @@ final class MainViewModel: ViewModelable {
     
     
     // MARK: - 마감임박 쿠폰 조회
-    private func fetchCouponTopClosing(pageSize: Int?) async {
+    func fetchCouponTopClosing(pageSize: Int?) async {
         let result = await couponService.fetchCouponTopClosing(pageSize: pageSize)
 
         switch result {
