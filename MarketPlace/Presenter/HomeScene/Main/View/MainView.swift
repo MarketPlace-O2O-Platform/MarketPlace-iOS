@@ -4,6 +4,8 @@ struct MainView: View {
     @State private var selectedTab = 0
     @State private var selectedCategoryIndex: Int? = nil
     
+    @State private var isFullNoticePopUpVisible: Bool = true
+    
     @StateObject var viewModel = MainViewModel()
     @EnvironmentObject var loginVM: LoginViewModel
     
@@ -48,6 +50,11 @@ struct MainView: View {
                 }
                 .background(Color.white)
                 .edgesIgnoringSafeArea(.bottom)
+                
+                if isFullNoticePopUpVisible {
+                    FullNoticePopUp(isPopupVisible: $isFullNoticePopUpVisible)
+                        .transition(.scale)
+                }
             }
             .task {
                 await viewModel.fetchCouponTopLatest(pageSize: nil)
