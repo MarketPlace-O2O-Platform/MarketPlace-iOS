@@ -10,7 +10,7 @@ import Foundation
 @MainActor
 final class AlertViewModel: ObservableObject {
     
-    private let notificationService: NotificationServiceProtocol
+    private let notificationRepository: NotificationRepository
     
     @Published var notifications: [NotificationModel] = []
     @Published var hasNextPage: Bool = true
@@ -18,8 +18,8 @@ final class AlertViewModel: ObservableObject {
     
     var isLoading: Bool = false
     
-    init(notificationService: NotificationServiceProtocol = NotificationService()) {
-        self.notificationService = notificationService
+    init(notificationRepository: NotificationRepository) {
+        self.notificationRepository = notificationRepository
     }
     
     // MARK: - 알림 조회
@@ -27,22 +27,20 @@ final class AlertViewModel: ObservableObject {
         guard !isLoading, hasNextPage else { return }
         isLoading = true
         
-        let result = await notificationService.fetchNotifications(type: type, size: size)
+        let result = await notificationRepository.fetchNotifications(type: type, size: size)
         
         switch result {
-        case .success(let data, _):
-            if let last = data.response.notificationResList.last {
+        case .success((let data, let hasNext)):
+            if let last = data.last {
                 lastNotificationId = last.id
             }
             
-            data.response.notificationResList.forEach {
-                notifications.append($0.toEntity())
-            }
+            notifications = data
             
-            hasNextPage = data.response.hasNext
+            hasNextPage = hasNext
             
-        case .failure(let statusCode, let message):
-            print("[NotificationFetch] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+        case .failure(let error):
+            print("[NotificationFetch] - [\(error)]")
         }
         
         isLoading = false
@@ -59,29 +57,29 @@ final class AlertViewModel: ObservableObject {
     
     // MARK: - 알림 읽음 처리
     func patchNotification(notificationId: Int) async {
-        let result = await notificationService.patchNotification(notificationId: notificationId)
+        let result = await notificationRepository.readNotification(notificationId: notificationId)
         
         switch result {
         case .success:
             if let index = notifications.firstIndex(where: { $0.id == notificationId }) {
                 notifications[index].isRead = true
             }
-        case .failure(let statusCode, let message):
-            print("[NotificationPatch] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+        case .failure(let error):
+            print("[NotificationPatch] - [\(error)]")
         }
     }
     
     // MARK: - 알림 전체 읽음 처리
       func patchNotificationsALL() async {
-          let result = await notificationService.patchNotificationAll()
+          let result = await notificationRepository.readNotificationsAll()
           
           switch result {
           case .success:
               for i in notifications.indices {
                   notifications[i].isRead = true
               }
-          case .failure(let statusCode, let message):
-              print("[NotificationPatchAll] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+          case .failure(let error):
+              print("[NotificationPatchAll] - [\(error)]")
           }
       }
   }

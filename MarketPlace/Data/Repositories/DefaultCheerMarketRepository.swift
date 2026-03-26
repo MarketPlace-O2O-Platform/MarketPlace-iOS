@@ -25,7 +25,7 @@ final class DefaultCheerMarketRepository {
 
 extension DefaultCheerMarketRepository: CheerMarketRepository {
     func fetchCheerMarketWithCategory(category: MarketCategory, lastPageIndex: Int?, page: Int?) async -> Result<(cheerMarkets:[CheerMarketModel], hasNext: Bool), MarketRepositoryError> {
-        let result = await cheerMarketNetworkService.fetchCheerMarket(lastPageIndex: lastPageIndex, category: category.toString(), count: page)
+        let result = await cheerMarketNetworkService.fetchCheerMarket(lastPageIndex: lastPageIndex, category: category.apiValue, count: page)
         
         switch result {
         case .success(let data, let statusCode):

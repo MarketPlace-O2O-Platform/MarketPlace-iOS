@@ -2,7 +2,7 @@ import SwiftUI
 
 struct MarketCategoryDetailView: View {
     @Binding var selectedTab: Int
-    @StateObject var viewModel = MarketCategoryDetailViewModel()
+    @ObservedObject var viewModel: MarketCategoryDetailViewModel
 
     var body: some View {
         VStack {
@@ -73,11 +73,11 @@ struct MarketCategoryDetailView: View {
         }
         /// - NOTE: 이전화면에서 넘어왔을 시 해당 탭의 데이터 불러오기
         .onAppear {
-            viewModel.action(.fetchMarkets(category: MarketCategory(index: selectedTab)?.toString()))
+            viewModel.action(.fetchMarkets(category: MarketCategory(index: selectedTab)?.apiValue))
         }
         /// - NOTE: 탭 눌렀을 시 해당 탭의 데이터 불러오기
         .onChange(of: selectedTab) {
-            viewModel.action(.fetchMarkets(category: MarketCategory(index: selectedTab)?.toString()))
+            viewModel.action(.fetchMarkets(category: MarketCategory(index: selectedTab)?.apiValue))
         }
         .toolbar {
             ToolbarItem(placement: .principal) {

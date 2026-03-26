@@ -1,8 +1,9 @@
 import SwiftUI
 
 struct RecentSearchView: View {
-    @Binding var recentSearches: [String]
+    let recentSearches: [String]
     let onRecentSearchTap: (String) -> Void
+    let onClearTap: () -> Void
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -15,9 +16,7 @@ struct RecentSearchView: View {
                 Spacer()
                 
                 Button(action: {
-                    recentSearches.removeAll()
-                    UserDefaults.standard.set([], forKey: "recentSearches")
-
+                    onClearTap()
                 }) {
                     Text("지우기")
                         .pretendardFont(size: 15, weight: .regular)

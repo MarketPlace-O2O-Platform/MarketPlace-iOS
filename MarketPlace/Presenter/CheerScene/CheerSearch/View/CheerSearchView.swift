@@ -40,7 +40,7 @@ struct CheerSearchView: View {
                     Spacer()
                 }
             }
-            .frame(height: SearchViewConstants.Layout.searchBarHeight)
+            .frame(height: 40)
             .background(Color.white)
             .padding(.horizontal, 20)
 

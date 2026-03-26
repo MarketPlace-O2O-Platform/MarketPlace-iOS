@@ -4,7 +4,7 @@ struct MainView: View {
     @State private var selectedTab = 0
     @State private var selectedCategoryIndex: Int? = nil
     
-    @StateObject var viewModel = MainViewModel()
+    @ObservedObject var viewModel: MainViewModel
     @EnvironmentObject var loginVM: LoginViewModel
     
     var body: some View {

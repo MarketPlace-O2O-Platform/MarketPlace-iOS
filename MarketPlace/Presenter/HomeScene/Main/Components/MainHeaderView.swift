@@ -36,8 +36,8 @@ struct MainHeaderView: View {
                         
                         /// - NOTE: placeholder
                         Text("가고 싶은 매장을 찾아보세요")
-                            .pretendardFont(size: SearchViewConstants.FontSize.searchText, weight: .regular)
-                            .foregroundColor(SearchViewConstants.Colors.placeholderColor)
+                            .pretendardFont(size: 14, weight: .regular)
+                            .foregroundColor(Color(hex: "#C6C6C6"))
                             .padding(.vertical, 8)
                             .padding(.leading, 45)
                             .padding(.trailing, 30)

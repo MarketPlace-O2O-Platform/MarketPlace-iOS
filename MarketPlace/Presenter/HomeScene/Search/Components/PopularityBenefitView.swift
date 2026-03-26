@@ -16,14 +16,14 @@ struct BenefitViewConstants {
 }
 
 struct BenefitCard: View {
-    let benefit: TopPopularCouponResDto
+    let benefit: CouponModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             ZStack(alignment: .topTrailing) {
                 ShimmeringAsyncImage(
                     url: URL(
-                        string: URLManager.shared.baseStringURL + "image/" + benefit.thumbnail),
+                        string: URLManager.shared.baseStringURL + "image/" + (benefit.thumbnail ?? "")),
                     cornerRadius: BenefitViewConstants.Layout.cornerRadius,
                     width: BenefitViewConstants.Layout.cardWidth,
                     height: BenefitViewConstants.Layout.cardWidth
@@ -31,12 +31,14 @@ struct BenefitCard: View {
             }
             
             VStack(alignment: .leading, spacing: 4){
-                Text(benefit.marketName)
-                    .pretendardFont(size: BenefitViewConstants.Font.storeName, weight: .semibold)
-                    .foregroundColor(.black)
-                    .frame(maxWidth: .infinity, alignment: .topLeading)
+                if let marketName = benefit.marketName {
+                    Text(marketName)
+                        .pretendardFont(size: BenefitViewConstants.Font.storeName, weight: .semibold)
+                        .foregroundColor(.black)
+                        .frame(maxWidth: .infinity, alignment: .topLeading)
+                }
                 
-                Text(benefit.couponName)
+                Text(benefit.name)
                     .pretendardFont(size: BenefitViewConstants.Font.description, weight: .medium)
                     .foregroundColor(.black)
                     .frame(maxWidth: .infinity, alignment: .topLeading)
@@ -47,7 +49,7 @@ struct BenefitCard: View {
 
 
 struct PopularBenefitView: View {
-    @Binding var popularCoupon: [TopPopularCouponResDto]
+    var popularCoupon: [CouponModel]
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -60,7 +62,7 @@ struct PopularBenefitView: View {
                 HStack(spacing: BenefitViewConstants.Layout.spacing) {
                     ForEach(popularCoupon) { coupon in
                         NavigationLink {
-                            MarketDetailView(marketId: coupon.marketId)
+                            MarketDetailView(marketId: coupon.marketId ?? 0)
                        } label: {
                            BenefitCard(benefit: coupon)
                        }

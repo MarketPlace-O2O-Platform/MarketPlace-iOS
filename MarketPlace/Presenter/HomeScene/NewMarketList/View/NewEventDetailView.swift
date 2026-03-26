@@ -5,15 +5,15 @@ struct NewEventDetailView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var loginViewModel: LoginViewModel
     
-    @ObservedObject var viewModel = NewEventViewModel()
-    
+    @StateObject var viewModel: NewEventViewModel
+        
     @State private var isLoginRequiredPopupVisible: Bool = false
     @State private var isPopupVisible: Bool = false
     @State private var showLoginView: Bool = false
     @State private var selectedCoupon: CouponModel = CouponModel(id: 0, name: "", marketId: 0, marketName: "", thumbnail: "", address: "", isMemberIssued: false, description: "", isAvailable: false, couponType: "")
     
-    var currentMonth: String
-    
+    let coordinator: HomeCoordinator
+
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
@@ -118,7 +118,7 @@ struct NewEventDetailView: View {
         .onAppear {
             viewModel.action(.fetchLatestCoupon)
         }
-        .navigationTitle("\(currentMonth) 신규 | 멤버십 혜택")
+        .navigationTitle("\(viewModel.month) 신규 | 멤버십 혜택")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {

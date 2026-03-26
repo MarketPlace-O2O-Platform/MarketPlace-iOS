@@ -8,9 +8,9 @@
 import Foundation
 
 final class DefaultCouponRepository {
-    private let couponNetworkService: CouponService
+    private let couponNetworkService: CouponServiceProtocol
     
-    init(couponNetworkService: CouponService) {
+    init(couponNetworkService: CouponServiceProtocol) {
         self.couponNetworkService = couponNetworkService
     }
 }

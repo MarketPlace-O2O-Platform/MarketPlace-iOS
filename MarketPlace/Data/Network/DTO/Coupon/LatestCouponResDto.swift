@@ -20,10 +20,6 @@ struct LatestCouponResDto: Codable, Identifiable {
     let couponCreatedAt: String
     
     var id: Int { couponId }
-    var createdDate: Date? {
-        let formatter = ISO8601DateFormatter()
-        return formatter.date(from: couponCreatedAt)
-    }
 }
 
 extension LatestCouponResDto {
@@ -38,6 +34,7 @@ extension LatestCouponResDto {
             isMemberIssued: isMemberIssued,
             description: nil,
             isAvailable: isAvailable,
+            couponCreatedAt: couponCreatedAt,
             couponType: couponType
         )
     }

@@ -28,16 +28,7 @@ enum MarketCategory: String, CaseIterable {
         }
     }
     
-    func toString() -> String? {
-        switch self {
-        case .FOOD: return "FOOD"
-        case .DESSERT: return "DESSERT"
-        case .SPORT: return "SPORT"
-        case .BEAUTY: return "BEAUTY"
-        case .HOSPITAL: return "HOSPITAL"
-        case .EDUCATION: return "EDUCATION"
-        case .ETC: return "ETC"
-        default: return nil
-        }
+    var apiValue: String? {
+        self == .ALL ? nil : rawValue
     }
 }

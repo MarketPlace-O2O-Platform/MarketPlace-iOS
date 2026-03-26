@@ -5,7 +5,7 @@ struct Top20DetailView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var loginViewModel: LoginViewModel
     
-    @StateObject var viewModel = Top20DetailViewModel()
+    @ObservedObject var viewModel: Top20DetailViewModel
     
     @State private var isLoginRequiredPopupVisible: Bool = false
     @State private var isPopupVisible: Bool = false

@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct AlertView: View {
-    @Binding var showAlertView: Bool
-    @StateObject private var viewModel = AlertViewModel()
+//    @Binding var showAlertView: Bool
+    @ObservedObject var viewModel: AlertViewModel
     @State private var selectedCategory: NotificationFilterCategory = .ALL
 
     var body: some View {
@@ -65,16 +65,16 @@ struct AlertView: View {
     }
     
     /// NOTE : NavigationBar 커스텀 - 툴바 하단 선 투명하게
-    init(showAlertView: Binding<Bool>) {
-        self._showAlertView = showAlertView
-
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = UIColor.white
-        appearance.shadowColor = UIColor.clear
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
-
-        UINavigationBar.appearance().standardAppearance = appearance
-        UINavigationBar.appearance().scrollEdgeAppearance = appearance
-    }
+//    init(showAlertView: Binding<Bool>) {
+//        self._showAlertView = showAlertView
+//
+//        let appearance = UINavigationBarAppearance()
+//        appearance.configureWithOpaqueBackground()
+//        appearance.backgroundColor = UIColor.white
+//        appearance.shadowColor = UIColor.clear
+//        appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
+//
+//        UINavigationBar.appearance().standardAppearance = appearance
+//        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+//    }
 }

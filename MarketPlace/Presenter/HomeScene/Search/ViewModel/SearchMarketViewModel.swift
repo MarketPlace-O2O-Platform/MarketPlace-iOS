@@ -22,6 +22,8 @@ final class SearchMarketViewModel: ViewModelable {
         var recentSearches: [String] = []
         var searchMarketResults: [MarketListModel] = []
         var popularCoupons: [CouponModel] = []
+        
+        var hasData: Bool = true
     }
     
     
