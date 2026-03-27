@@ -1,8 +1,16 @@
 import SwiftUI
 
 struct MarketCategoryDetailView: View {
-    @Binding var selectedTab: Int
+    @State var selectedTab: Int
     @ObservedObject var viewModel: MarketCategoryDetailViewModel
+    
+    let coordinator: HomeCoordinator
+    
+    init(selectedTab: Int, viewModel: MarketCategoryDetailViewModel, coordinator: HomeCoordinator) {
+        self.selectedTab = selectedTab
+        self.viewModel = viewModel
+        self.coordinator = coordinator
+    }
 
     var body: some View {
         VStack {

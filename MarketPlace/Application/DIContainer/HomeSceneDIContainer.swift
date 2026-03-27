@@ -20,28 +20,32 @@ final class HomeSceneDIContainer {
         self.dependencies = dependencies
     }
     
-    func makeMainView() -> some View {
-        return MainView(viewModel: makeMainViewModel())
+    func makeMainView(coordinator: HomeCoordinator) -> some View {
+        return MainView(viewModel: makeMainViewModel(), coordinator: coordinator)
     }
     
     func makeNewMakretListView(currentMonth: String, coordinator: HomeCoordinator) -> some View {
         return NewEventDetailView(viewModel: self.makeNewMarketListViewModel(currentMonth: currentMonth), coordinator: coordinator)
     }
     
-    func makePopularMarketListView() -> some View {
-        return Top20DetailView(viewModel: makePopularMarketListViewModel())
+    func makePopularMarketListView(coordinator: HomeCoordinator) -> some View {
+        return Top20DetailView(viewModel: makePopularMarketListViewModel(), coordinator: coordinator)
     }
     
-    func makeAlertView() -> some View {
-        return AlertView(viewModel: self.makeAlertViewModel())
+    func makeAlertView(coordinator: HomeCoordinator) -> some View {
+        return AlertView(viewModel: self.makeAlertViewModel(), coordinator: coordinator)
     }
     
-    func makeCategoryMarketListView(selectedTab: Binding<Int>) -> some View {
-        return MarketCategoryDetailView(selectedTab: selectedTab, viewModel: self.makeCategoryMarketListViewModel())
+    func makeCategoryMarketListView(selectedTab: Int, coordinator: HomeCoordinator) -> some View {
+        return MarketCategoryDetailView(selectedTab: selectedTab, viewModel: self.makeCategoryMarketListViewModel(), coordinator: coordinator)
     }
     
-    func makeSearchMarketView() -> some View {
-        return SearchView(viewModel: self.makeSearchMarketViewModel())
+    func makeSearchMarketView(coordinator: HomeCoordinator) -> some View {
+        return SearchView(viewModel: self.makeSearchMarketViewModel(), coordinator: coordinator)
+    }
+    
+    func makeMarketDetailView(marketId: Int, coordinator: HomeCoordinator) -> some View {
+        return MarketDetailView(marketId: marketId, viewModel: makeMarketDetailViewModel(marketId: marketId), coordinator: coordinator)
     }
     
 }
@@ -75,6 +79,11 @@ private extension HomeSceneDIContainer {
         return DefaultMarketRepository(marketNetworkService: makeMarketService())
     }
     
+    // MARK: - UseCase
+    func makeFetchValidCouponsUseCase() -> FetchValidCouponsUseCase {
+        return DefaultFetchValidCouponsUseCase(couponRepository: makeCouponRepository())
+    }
+    
     
     // MARK: - ViewModel
     func makeMainViewModel() -> MainViewModel {
@@ -99,6 +108,10 @@ private extension HomeSceneDIContainer {
     
     func makeSearchMarketViewModel() -> SearchMarketViewModel {
         return SearchMarketViewModel(marketRepository: makeMarketRepository(), couponRepository: makeCouponRepository())
+    }
+    
+    func makeMarketDetailViewModel(marketId: Int) -> MarketDetailViewModel {
+        return MarketDetailViewModel(marketId: marketId, marketRepository: makeMarketRepository(), fetchValidCouponsUseCase: makeFetchValidCouponsUseCase())
     }
     
 }

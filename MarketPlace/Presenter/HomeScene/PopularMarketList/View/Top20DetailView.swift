@@ -12,6 +12,8 @@ struct Top20DetailView: View {
     @State private var showLoginView: Bool = false
     @State private var selectedCoupon: CouponModel = CouponModel(id: 0, name: "", marketId: 0, marketName: "", thumbnail: "", address: "", isMemberIssued: false, description: "", isAvailable: false, couponType: "")
     
+    let coordinator: HomeCoordinator
+    
     var body: some View {
         ZStack{
             VStack(spacing: 0) {

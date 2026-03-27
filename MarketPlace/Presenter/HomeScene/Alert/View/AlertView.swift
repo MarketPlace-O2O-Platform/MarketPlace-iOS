@@ -11,6 +11,8 @@ struct AlertView: View {
 //    @Binding var showAlertView: Bool
     @ObservedObject var viewModel: AlertViewModel
     @State private var selectedCategory: NotificationFilterCategory = .ALL
+    
+    let coordinator: HomeCoordinator
 
     var body: some View {
         VStack(spacing: 0) {

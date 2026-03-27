@@ -7,6 +7,8 @@ struct MainView: View {
     @ObservedObject var viewModel: MainViewModel
     @EnvironmentObject var loginVM: LoginViewModel
     
+    @StateObject var coordinator: HomeCoordinator
+    
     var body: some View {
         NavigationStack {
             ZStack {

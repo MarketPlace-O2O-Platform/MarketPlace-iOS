@@ -2,24 +2,24 @@ import Foundation
 
 @MainActor
 final class MarketDetailViewModel: ObservableObject {
-    @Published var marketDetail: MarketDetailResDto?
+    @Published var marketDetail: MarketDetailModel?
     @Published var errorMessage: String?
     @Published var isLoading = false
     
-    @Published var validCoupons: [ValidCouponResDto] = []
+    @Published var validCoupons: [CouponModel] = []
     private let marketId: Int
     
-    private var marketService: MarketServiceProtocol
-    private var couponService: CouponServiceProtocol
+    private var marketRepository: MarketRepository
+    private var fetchValidCouponsUseCase: FetchValidCouponsUseCase
     
     init(
         marketId: Int,
-        marketService: MarketServiceProtocol = MarketService(),
-        couponService: CouponServiceProtocol = CouponService()
+        marketRepository: MarketRepository,
+        fetchValidCouponsUseCase: FetchValidCouponsUseCase
     ) {
         self.marketId = marketId
-        self.marketService = marketService
-        self.couponService = couponService
+        self.marketRepository = marketRepository
+        self.fetchValidCouponsUseCase = fetchValidCouponsUseCase
     }
     
     var id: Int {
@@ -28,13 +28,12 @@ final class MarketDetailViewModel: ObservableObject {
     
     // MARK: - 매장 찜하기
     func postFavoriteMarket(marketId: Int) async {
-        let result = await marketService.postFavoriteMarket(marketId: marketId)
+        let result = await marketRepository.saveFavoriteMarket(id: marketId)
         
         switch result {
-        case .success(let data, _):
-            print(data)
-        case .failure(let statusCode, let message):
-            print("[postFavoriteMarket] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+        case .success:
+        case .failure(let error):
+            print("[postFavoriteMarket] - [\(error)]")
         }
     }
     
@@ -42,48 +41,26 @@ final class MarketDetailViewModel: ObservableObject {
     func fetchMarketDetail(marketId: Int) async {
         isLoading = true
         
-        let result = await marketService.fetchMarketDetail(marketId: marketId)
+        let result = await marketRepository.fetchMarketDetail(id: marketId)
         
         switch result {
-        case .success(let data, _):
-            self.marketDetail = data.response
-        case .failure(let statusCode, let message):
-            print("[fetchMarketDetail] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+        case .success(let data):
+            self.marketDetail = data
+        case .failure(let error):
+            print("[fetchMarketDetail] - [\(error)]")
         }
         isLoading = false
     }
     
-    // MARK: - 유효 쿠폰 리스트 조회 
-    func fetchValidCoupons(
-        marketId: Int,
-        couponId: Int?,
-        size: Int?
-    ) async {
+    // MARK: - 유효 쿠폰 리스트 조회
+    func fetchValidCoupons(marketId: Int, couponId: Int) async {
+        let result = await fetchValidCouponsUseCase.execute(marketId: marketId, couponId: couponId, reset: false)
         
-        let validCoupon = await couponService.fetchValidCoupon(
-            marketId: marketId,
-            couponId: couponId,
-            size: size
-        )
-        
-        let validPaybackCoupon = await couponService.fetchValidPaybackCoupon(
-            marketId: marketId,
-            couponId: couponId,
-            size: size
-        )
-        
-        switch (validPaybackCoupon, validCoupon) {
-        case (.success(let data1, _), .success(let data2, _)):
-            self.validCoupons = data1.response.couponResDtos
-            self.validCoupons.append(contentsOf: data2.response.couponResDtos)
-        case (.success(let data, _), .failure(let statusCode, let message)):
-            self.validCoupons = data.response.couponResDtos
-            print("[fetchValidPaybackCoupon] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
-        case (.failure(let statusCode, let message), .success(let data, _)):
-            self.validCoupons = data.response.couponResDtos
-            print("[fetchValidCoupon] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
-        default:
-            print("[fetchValidCoupons] - 데이터가 없습니다.")
+        switch result {
+        case .success(let data):
+            self.validCoupons = data
+        case .failure(let error):
+            print("[fetchValidCoupons] - \(error)")
         }
     }
 }

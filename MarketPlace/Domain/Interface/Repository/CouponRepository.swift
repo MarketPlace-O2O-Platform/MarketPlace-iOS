@@ -15,7 +15,9 @@ enum CouponRepositoryError: Error {
 
 protocol CouponRepository {
     
-    func fetchValidCoupons(marketId: Int, couponId: Int?, page: Int?) async -> Result<[CouponModel], CouponRepositoryError>
+    func fetchValidGiftCoupons(marketId: Int, couponId: Int?, page: Int?) async -> Result<(coupons: [CouponModel], hasNext: Bool), CouponRepositoryError>
+    
+    func fetchValidPaybackCoupons(marketId: Int, couponId: Int?, page: Int?) async -> Result<(coupons: [CouponModel], hasNext: Bool), CouponRepositoryError>
     
     func fetchTopPopularCoupons(page: Int?) async -> Result<[TopCouponModel], CouponRepositoryError>
     

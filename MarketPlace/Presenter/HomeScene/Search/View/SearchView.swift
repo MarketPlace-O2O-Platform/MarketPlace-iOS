@@ -7,6 +7,8 @@ struct SearchView: View {
     @State var lastIndex: Int = 0
     @State var lastPageID: Int = 0
     @State var searchText: String = ""
+    
+    let coordinator: HomeCoordinator
         
     var body: some View {
         VStack(spacing: 0) {

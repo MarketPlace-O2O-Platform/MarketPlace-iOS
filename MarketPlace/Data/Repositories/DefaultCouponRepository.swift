@@ -16,38 +16,36 @@ final class DefaultCouponRepository {
 }
 
 extension DefaultCouponRepository: CouponRepository {
-    func fetchValidCoupons(marketId: Int, couponId: Int?, page: Int?) async -> Result<[CouponModel], CouponRepositoryError> {
-        let giftCoupons = await couponNetworkService.fetchValidCoupon(marketId: marketId, couponId: couponId, size: page)
-        let paybackCoupons = await couponNetworkService.fetchValidPaybackCoupon(marketId: marketId, couponId: couponId, size: page)
+    func fetchValidGiftCoupons(marketId: Int, couponId: Int?, page: Int?) async -> Result<(coupons: [CouponModel], hasNext: Bool), CouponRepositoryError> {
+        let result = await couponNetworkService.fetchValidCoupon(marketId: marketId, couponId: couponId, size: page)
         
-        var coupons: [CouponModel] = []
-        
-        switch (giftCoupons, paybackCoupons) {
-        case (.success(let data1, _), .success(let data2, _)):
-            
-            coupons = data1.response.couponResDtos.map {
+        switch result {
+        case .success(let data, let statusCode):
+            let coupons = data.response.couponResDtos.map {
                 $0.toEntity()
             }
             
-            coupons.append(contentsOf: data2.response.couponResDtos.map {
-                $0.toEntity()
-            })
-            
-            return .success(coupons)
-            
-        case (.success(let data, _), .failure(let statusCode, let message)),
-            (.failure(let statusCode, let message), .success(let data, _)):
-            
-            coupons = data.response.couponResDtos.map {
-                $0.toEntity()
-            }
-            
-            return .success(coupons)
-
-        default:
-            return .failure(.unknown)
+            return .success((coupons, data.response.hasNext))
+        case .failure(let statusCode, let message):
+            return .failure(processError(statusCode: statusCode))
         }
     }
+    
+    func fetchValidPaybackCoupons(marketId: Int, couponId: Int?, page: Int?) async -> Result<(coupons: [CouponModel], hasNext: Bool), CouponRepositoryError> {
+        let result = await couponNetworkService.fetchValidPaybackCoupon(marketId: marketId, couponId: couponId, size: page)
+        
+        switch result {
+        case .success(let data, let statusCode):
+            let coupons = data.response.couponResDtos.map {
+                $0.toEntity()
+            }
+            
+            return .success((coupons, data.response.hasNext))
+        case .failure(let statusCode, let message):
+            return .failure(processError(statusCode: statusCode))
+        }
+    }
+
     
     func fetchTopPopularCoupons(page: Int?) async -> Result<[TopCouponModel], CouponRepositoryError> {
         let result = await couponNetworkService.fetchCouponTopPopular(pageSize: page)
