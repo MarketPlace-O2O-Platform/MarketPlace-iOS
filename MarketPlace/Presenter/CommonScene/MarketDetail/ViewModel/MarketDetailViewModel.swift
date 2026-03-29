@@ -31,7 +31,7 @@ final class MarketDetailViewModel: ObservableObject {
         let result = await marketRepository.saveFavoriteMarket(id: marketId)
         
         switch result {
-        case .success:
+        case .success: print("success")
         case .failure(let error):
             print("[postFavoriteMarket] - [\(error)]")
         }

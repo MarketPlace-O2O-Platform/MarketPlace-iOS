@@ -4,8 +4,6 @@ struct SearchView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: SearchMarketViewModel
     
-    @State var lastIndex: Int = 0
-    @State var lastPageID: Int = 0
     @State var searchText: String = ""
     
     let coordinator: HomeCoordinator
@@ -39,13 +37,22 @@ struct SearchView: View {
                         }
                     )
                 
-                    PopularBenefitView(popularCoupon: viewModel.state.popularCoupons)
-                        .padding(.top, 48)
+                    PopularBenefitView(
+                        popularCoupon: viewModel.state.popularCoupons,
+                        onTapMarketList: { id in
+                            coordinator.push(.marketDetail(id))
+                        }
+                    ).padding(.top, 48)
                 }.padding(.top, 20)
                 
             } else {
                 if viewModel.state.hasData {
-                    SearchSecondView(viewModel: viewModel, lastIndex: $lastIndex, lastPageID: $lastPageID)
+                    SearchSecondView(
+                        viewModel: viewModel,
+                        onTapSearchMarketList: { id in
+                            coordinator.push(.marketDetail(id))
+                        }
+                    )
                         .padding(.top, 20)
                         
                 } else{
@@ -62,11 +69,6 @@ struct SearchView: View {
         .task {
             viewModel.action(.onAppear)
         }
-        .onChange(of: lastIndex, { _, newValue in
-            Task {
-                viewModel.action(.loadNextPage)
-            }
-        })
         .onChange(of: searchText) { _, newValue in
             Task {
                 viewModel.action(.updateKeyword(newValue))

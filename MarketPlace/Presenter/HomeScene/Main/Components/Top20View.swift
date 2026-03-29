@@ -2,6 +2,8 @@ import SwiftUI
 
 struct Top20View: View {
     @Binding var popularCoupons: [TopCouponModel]
+    let onTapPlusButton: () -> Void
+    let onTapMarketList: (Int) -> Void
 
     var body: some View {
         VStack {
@@ -10,12 +12,15 @@ struct Top20View: View {
                     .pretendardFont(size: 19, weight: .semibold)
                     .foregroundColor(.black)
                 Spacer()
-                NavigationLink(destination: Top20DetailView()) {
+                
+                Button(action: {
+                    onTapPlusButton()
+                }, label: {
                     Text("더보기 >")
                         .pretendardFont(size: 14, weight: .medium)
                         .foregroundColor(Color(red: 0.29, green: 0.29, blue: 0.29))
                         .padding(.trailing, 20)
-                }
+                })
             }
             .padding(.bottom, 15)
             .padding(.leading, 20)
@@ -24,9 +29,9 @@ struct Top20View: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
                     ForEach(popularCoupons) { coupon in
-                        NavigationLink(destination:
-                           MarketDetailView(marketId: coupon.marketId)
-                        ) {
+                        Button(action: {
+                            onTapMarketList(coupon.marketId)
+                        }, label: {
                             ZStack {
                                 ShimmeringAsyncImage(
                                     url:  URL(
@@ -54,7 +59,7 @@ struct Top20View: View {
                                 }
                                 .padding(.bottom, 20)
                             }
-                        }
+                        })
                     }
                 }
                 .padding(.horizontal, 20)

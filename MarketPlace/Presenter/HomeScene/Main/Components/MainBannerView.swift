@@ -10,14 +10,16 @@ import SwiftUI
 struct MainBannerView: View {
     @State private var currentIndex = 0
     @Binding var closingCouponList: [TopCouponModel]
+    
+    let onTapMarket: (Int) -> Void
 
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             TabView(selection: $currentIndex) {
                 ForEach(Array(closingCouponList.enumerated()), id: \.offset) { index, coupon in
-                    NavigationLink {
-                        MarketDetailView(marketId: coupon.marketId)
-                    } label: {
+                    Button(action: {
+                        onTapMarket(coupon.marketId)
+                    }, label: {
                         ImageTextOverlay(
                             imageName: coupon.thumbnail,
                             texts: [
@@ -27,7 +29,7 @@ struct MainBannerView: View {
                         )
                         .padding(.horizontal, 20)
                         .tag(index)
-                    }
+                    })
                 }
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))

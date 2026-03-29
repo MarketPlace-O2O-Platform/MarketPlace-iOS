@@ -50,6 +50,7 @@ struct BenefitCard: View {
 
 struct PopularBenefitView: View {
     var popularCoupon: [CouponModel]
+    let onTapMarketList: (Int) -> Void
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -61,11 +62,11 @@ struct PopularBenefitView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: BenefitViewConstants.Layout.spacing) {
                     ForEach(popularCoupon) { coupon in
-                        NavigationLink {
-                            MarketDetailView(marketId: coupon.marketId ?? 0)
-                       } label: {
-                           BenefitCard(benefit: coupon)
-                       }
+                        Button(action: {
+                            onTapMarketList(coupon.marketId ?? 0)
+                        }, label: {
+                            BenefitCard(benefit: coupon)
+                        })
                     }
                 }.padding(.leading, 20)
             }

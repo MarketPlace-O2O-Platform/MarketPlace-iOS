@@ -4,6 +4,9 @@ import SwiftUI
 struct NewEventView: View {
     @Binding var latestCoupons: [TopCouponModel]
     var currentMonth: String
+    
+    let onTapPlusButton: () -> Void
+    let onTapMarketList: (Int) -> Void
 
     var body: some View {
         VStack {
@@ -12,11 +15,14 @@ struct NewEventView: View {
                     .pretendardFont(size: 19, weight: .semibold)
                     .foregroundColor(.black)
                 Spacer()
-                NavigationLink(destination: NewEventDetailView(currentMonth: self.currentMonth)) {
+                
+                Button(action: {
+                    onTapPlusButton()
+                }, label: {
                     Text("더보기 >")
                         .pretendardFont(size: 14, weight: .medium)
                         .foregroundColor(Color(red: 0.29, green: 0.29, blue: 0.29))
-                }
+                })
             }
             .padding(.trailing, 20)
             .padding(.bottom, 15)
@@ -25,9 +31,9 @@ struct NewEventView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
                     ForEach(latestCoupons, id: \.id) { coupon in
-                        NavigationLink(destination:
-                           MarketDetailView(marketId: coupon.marketId)
-                        ) {
+                        Button(action: {
+                            onTapMarketList(coupon.marketId)
+                        }, label: {
                             ZStack {
                                 ShimmeringAsyncImage(
                                     url: URL(
@@ -55,7 +61,7 @@ struct NewEventView: View {
                                 }
                                 .padding(.bottom, 20)
                             }
-                        }
+                        })
                     }
                 }.padding(.horizontal, 20)
             }

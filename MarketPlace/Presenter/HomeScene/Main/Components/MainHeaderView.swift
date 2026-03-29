@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct MainHeaderView: View {
-    @State private var isSearchViewActive: Bool = false
-    @State private var isAlertViewActive: Bool = false
+//    @State private var isSearchViewActive: Bool = false
+//    @State private var isAlertViewActive: Bool = false
     @State private var showLoginView: Bool = false
 
     @EnvironmentObject var loginVM: LoginViewModel
+    
+    let onTapSearchTab: () -> Void
+    let onTapAlertButton: () -> Void
 
     var body: some View {
         HStack(spacing: 10) {
@@ -23,7 +26,11 @@ struct MainHeaderView: View {
             /// - NOTE: 검색창 뷰
             HStack {
                 Button(action: {
-                    isSearchViewActive = true
+//                    isSearchViewActive = true
+//                    
+//                    if isSearchViewActive {
+                        onTapSearchTab()
+//                    }
                 }){
                     ZStack(alignment: .leading) {
                         Image(systemName: "magnifyingglass")
@@ -49,15 +56,17 @@ struct MainHeaderView: View {
                         RoundedRectangle(cornerRadius: 34.614)
                             .stroke(Color.clear, lineWidth: 0)
                     )
-                    .navigationDestination(isPresented: $isSearchViewActive) {
-                        SearchView()
-                    }
                 }
             }
                         
             Button(action: {
-                if loginVM.isLoggedIn { isAlertViewActive = true }
-                else { showLoginView = true }
+                if loginVM.isLoggedIn {
+                    onTapAlertButton()
+//                    isAlertViewActive = true
+                }
+                else {
+                    showLoginView = true
+                }
             }) {
                 Image(systemName: loginVM.isLoggedIn ? "bell" : "person")
                     .font(.system(size: 20))
@@ -67,9 +76,9 @@ struct MainHeaderView: View {
         .frame(height: 44)
         .background(Color.white)
         .environmentObject(loginVM)
-        .navigationDestination(isPresented: $isAlertViewActive) {
-            AlertView(showAlertView: $isAlertViewActive)
-        }
+//        .navigationDestination(isPresented: $isAlertViewActive) {
+//            AlertView(showAlertView: $isAlertViewActive)
+//        }
         .fullScreenCover(isPresented: $showLoginView) {
             LoginView()
         } 

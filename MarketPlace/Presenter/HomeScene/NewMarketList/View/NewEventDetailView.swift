@@ -49,9 +49,9 @@ struct NewEventDetailView: View {
                     ScrollView {
                         LazyVStack(spacing: 16) {
                             ForEach(Array(coupons.enumerated()), id: \.offset) { index, coupon in
-                                NavigationLink(destination:
-                                    MarketDetailView(marketId: coupon.marketId ?? 0)
-                                ) {
+                                Button(action: {
+                                    coordinator.push(.marketDetail(coupon.marketId ?? 0))
+                                }, label: {
                                     let coupon = CouponModel(
                                         id: coupon.id,
                                         name: coupon.name,
@@ -77,7 +77,8 @@ struct NewEventDetailView: View {
                                             .background(Color.gray.opacity(0.5))
                                             .padding(.horizontal, -20)
                                     }
-                                }.onAppear {
+                                })
+                            .onAppear {
                                     if index == coupons.count-1, hasNext {
                                         viewModel.action(.loadNextPage)
                                     }
