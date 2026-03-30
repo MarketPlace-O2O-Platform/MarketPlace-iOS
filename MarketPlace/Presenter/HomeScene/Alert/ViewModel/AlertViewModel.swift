@@ -8,20 +8,56 @@
 import Foundation
 
 @MainActor
-final class AlertViewModel: ObservableObject {
+final class AlertViewModel: ViewModelable {
+    
+    // MARK: - Types
+    enum Action {
+        case onAppear
+        case onTapReadAllButton
+        case loadNextPage
+        case onTapCategoryTab(String)
+    }
+    
+    struct State {
+        var notifications: [NotificationModel] = []
+    }
+    
+      
+    // MARK: - Properties
+    @Published var state: State
     
     private let notificationRepository: NotificationRepository
     
-    @Published var notifications: [NotificationModel] = []
-    @Published var hasNextPage: Bool = true
-    @Published var lastNotificationId: Int?
+    private var hasNextPage: Bool = true
+    private var lastNotificationId: Int?
+    private var isLoading: Bool = false
     
-    var isLoading: Bool = false
     
+    // MARK: - Initializer
     init(notificationRepository: NotificationRepository) {
         self.notificationRepository = notificationRepository
+        state = State()
     }
     
+    
+    // MARK: - Action
+    func action(_ action: Action) {
+        switch action {
+        case .onAppear:
+            Task { await fetchNotifications(type: nil) }
+        case .onTapReadAllButton:
+            Task { await patchNotificationsALL() }
+        case .loadNextPage:
+            // TODO: 다음페이지불러오도록 수정해야함
+            Task { await fetchNotifications(type: nil) }
+        case .onTapCategoryTab(let category):
+            Task { await refreshNotifications(for: NotificationFilterCategory(rawValue: category) ?? .ALL) }
+        }
+    }
+    
+}
+
+private extension AlertViewModel {
     // MARK: - 알림 조회
     func fetchNotifications(type: String?, size: Int? = nil) async {
         guard !isLoading, hasNextPage else { return }
@@ -35,8 +71,7 @@ final class AlertViewModel: ObservableObject {
                 lastNotificationId = last.id
             }
             
-            notifications = data
-            
+            state.notifications = data
             hasNextPage = hasNext
             
         case .failure(let error):
@@ -48,7 +83,7 @@ final class AlertViewModel: ObservableObject {
     
     // MARK: - 카테고리 변경시 알림 목록 새로고침
     func refreshNotifications(for category: NotificationFilterCategory) async {
-        notifications.removeAll()
+        state.notifications.removeAll()
         hasNextPage = true
         lastNotificationId = nil
         
@@ -61,8 +96,8 @@ final class AlertViewModel: ObservableObject {
         
         switch result {
         case .success:
-            if let index = notifications.firstIndex(where: { $0.id == notificationId }) {
-                notifications[index].isRead = true
+            if let index = state.notifications.firstIndex(where: { $0.id == notificationId }) {
+                state.notifications[index].isRead = true
             }
         case .failure(let error):
             print("[NotificationPatch] - [\(error)]")
@@ -75,11 +110,11 @@ final class AlertViewModel: ObservableObject {
           
           switch result {
           case .success:
-              for i in notifications.indices {
-                  notifications[i].isRead = true
+              for i in state.notifications.indices {
+                  state.notifications[i].isRead = true
               }
           case .failure(let error):
               print("[NotificationPatchAll] - [\(error)]")
           }
       }
-  }
+}
