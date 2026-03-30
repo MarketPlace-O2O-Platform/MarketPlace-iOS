@@ -7,116 +7,156 @@
 
 import Foundation
 
-final class SearchMarketViewModel: ObservableObject {
-    private let marketService: MarketServiceProtocol
-    private let couponService: CouponServiceProtocol
+final class SearchMarketViewModel: ViewModelable {
     
-    @Published var searchText: String = ""
-    @Published var recentSearches: [String] = UserDefaults.standard.stringArray(forKey: "recentSearches") ?? []
-    @Published var market: [MarketResDto] = []
-    @Published var popularCoupon: [TopPopularCouponResDto] = []
-    
-    @Published var lastPageIndex: Int?
-    @Published var currentKeyword: String = ""
-
-    var currentPage: Int = 1
-    var isLoading: Bool = false
-    var hasNextPage: Bool = true
-    
-    init(
-        marketService: MarketServiceProtocol = MarketService(),
-        couponService: CouponServiceProtocol = CouponService()
-    ) {
-        self.marketService = marketService
-        self.couponService = couponService
-        
-        self.recentSearches = UserDefaults.standard.stringArray(forKey: "recentSearches") ?? []
+    // MARK: - Types
+    enum Action {
+        case onAppear
+        case updateKeyword(String)
+        case onTapDeleteRecentSearchesButton
+        case onTapEnterOnKeyboard(String)
+        case loadNextPage
     }
     
+    struct State {
+        var recentSearches: [String] = []
+        var searchMarketResults: [MarketListModel] = []
+        var popularCoupons: [CouponModel] = []
+        
+        var hasData: Bool = true
+    }
+    
+    
+    // MARK: - Properties
+    @Published private(set) var state: State
+    
+    private let marketRepository: MarketRepository
+    private let couponRepository: CouponRepository
+    
+    private var currentKeyword: String?
+    private var currentPage: Int = 1
+    private var lastPageIndex: Int?
+    
+    private var hasNext: Bool = false
+    
+    
+    // MARK: - Initializer
+    init(
+        marketRepository: MarketRepository,
+        couponRepository: CouponRepository
+    ) {
+        self.marketRepository = marketRepository
+        self.couponRepository = couponRepository
+        self.state = State()
+    }
+    
+    
+    // MARK: - Action
+    func action(_ action: Action) {
+        switch action {
+        case .onAppear:
+            Task {
+                await fetchPopularCoupon()
+                reloadRecentSearches()
+            }
+        case .updateKeyword(let keyword):
+            Task {
+                await fetchSearchMarketQueries(keyword: keyword, reset: true)
+            }
+        case .onTapDeleteRecentSearchesButton:
+            clearRecentSearches()
+        case .onTapEnterOnKeyboard(let keyword):
+            addRecentSearch(keyword)
+        case .loadNextPage:
+            Task {
+                await fetchSearchMarketQueries(keyword: currentKeyword, reset: false)
+            }
+        }
+    }
+    
+}
+
+private extension SearchMarketViewModel {
     // MARK: - 최근 검색어 추가 메서드 (UserDefaults)
     func addRecentSearch(_ query: String) {
         let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
 
-        var updated = [trimmed] + recentSearches.filter { $0 != trimmed }
+        var updated = [trimmed] + state.recentSearches .filter { $0 != trimmed }
         if updated.count > 10 { updated.removeLast() }
 
-        recentSearches = updated
+        state.recentSearches  = updated
         UserDefaults.standard.set(updated, forKey: "recentSearches")
     }
     
     // MARK: - 최근 검색어 삭제 메서드 (UserDefaults)
     func clearRecentSearches() {
-        recentSearches = []
+        state.recentSearches  = []
         UserDefaults.standard.set([], forKey: "recentSearches")
     }
 
     // MARK: - 최근 검색어 불러오는 메서드 (UserDefaults)
     func reloadRecentSearches() {
-        recentSearches = UserDefaults.standard.stringArray(forKey: "recentSearches") ?? []
-    }
-    
-    // MARK: - 검색 결과 불러오는 메서드
-    @MainActor
-    func fetchSearchingMarkets(
-        lastPageIndex: Int? = nil,
-        pageSize: Int? = nil,
-        keyword: String
-    ) async -> Bool {
-        var hasData: Bool = true
-        
-        if currentKeyword != keyword {
-            currentPage = 1
-            hasNextPage = true
-        }
-        
-        guard !isLoading, hasNextPage else { return hasData }
-        
-        isLoading = true
-        
-        let result = await marketService.fetchSearchMarketsList(
-            lastPageIndex: lastPageIndex,
-            pageSize: pageSize,
-            name: keyword
-        )
-        
-        switch result {
-        case .success(let data, _):
-            if currentPage == 1 {
-                self.market = data.response.marketResDtos
-            } else {
-                self.market.append(contentsOf: data.response.marketResDtos)
-            }
-            
-            if let last = data.response.marketResDtos.last {
-                self.lastPageIndex = last.marketId
-            }
-            
-            self.hasNextPage = data.response.hasNext
-            currentPage += 1
-            
-            if market.isEmpty {
-                hasData = false
-            }
-            
-        case .failure(let statusCode, let message):
-            print("[MarketSearch] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
-        }
-        
-        isLoading = false 
-        
-        return hasData
+        state.recentSearches = UserDefaults.standard.stringArray(forKey: "recentSearches") ?? []
     }
     
     // MARK: - 인기 쿠폰 불러오는 메서드
-    func fetchPopularCoupon(pageSize: Int?) async {
-        let result = await couponService.fetchCouponTopPopular(pageSize: pageSize)
+    func fetchPopularCoupon() async {
+        let result = await couponRepository.fetchPopularCoupons(lastIssuedCount: nil, lastCouponId: nil, couponType: nil, pageSize: 10)
         
         switch result {
-        case .success(let data, _):
-            self.popularCoupon = data.response
-        case .failure(let statusCode, let message):
-            print("[popularCoupon] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+        case .success(let data):
+            state.popularCoupons = data.coupon
+        case .failure(let error):
+            print(error)
+        }
+    }
+    
+    func fetchSearchMarketQueries(keyword: String?, reset: Bool) async {
+        if currentKeyword == keyword,
+            let currentKeyword = currentKeyword,
+           !reset
+        {
+            let result = await marketRepository.fetchMarketQueries(keyword: currentKeyword, lastPageIndex: lastPageIndex, pageSize: 10)
+            
+            switch result {
+            case .success(let data):
+                state.searchMarketResults.append(contentsOf: data.markets)
+                hasNext = data.hasNext
+                
+                let lastItem = data.markets.last
+                lastPageIndex = lastItem?.id
+                currentPage += 1
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+        else if currentKeyword != keyword,
+                let newKeyword = keyword,
+                reset
+        {
+            hasNext = false
+            currentPage = 1
+            currentKeyword = nil
+            lastPageIndex = nil
+            
+            let result = await marketRepository.fetchMarketQueries(keyword: newKeyword, lastPageIndex: nil, pageSize: 10)
+            
+            switch result {
+            case .success(let data):
+                state.searchMarketResults = data.markets
+                hasNext = data.hasNext
+                
+                let lastItem = data.markets.last
+                lastPageIndex = lastItem?.id
+                currentKeyword = newKeyword
+                currentPage += 1
+                
+            case .failure(let error):
+                print(error)
+            }
         }
     }
 }

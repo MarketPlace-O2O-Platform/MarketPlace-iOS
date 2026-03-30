@@ -26,7 +26,7 @@ final class Top20DetailViewModel: ViewModelable {
     // MARK: - Properties
     @Published private(set) var state: State = .idle
     
-    private var couponService: CouponServiceProtocol
+    private var couponRepository: CouponRepository
 
     @Published var topCoupons: [CouponModel] = []
     
@@ -41,9 +41,9 @@ final class Top20DetailViewModel: ViewModelable {
     
     // MARK: - Initializer
     init(
-        couponService: CouponServiceProtocol = CouponService()
+        couponRepository: CouponRepository
     ) {
-        self.couponService = couponService
+        self.couponRepository = couponRepository
     }
     
     // MARK: - Action
@@ -68,7 +68,7 @@ final class Top20DetailViewModel: ViewModelable {
         
         let lastIssuedCountParam = (couponType == "PAYBACK") ? lastOrderNo : lastIssuedCount
                 
-        let result = await couponService.fetchCouponPopular(
+        let result = await couponRepository.fetchPopularCoupons(
             lastIssuedCount: lastIssuedCountParam,
             lastCouponId: lastCouponId,
             couponType: couponType,
@@ -76,36 +76,32 @@ final class Top20DetailViewModel: ViewModelable {
         )
         
         switch result {
-        case .success(let data, _):
-            var coupons: [CouponModel] = []
-            data.response.couponResDtos.forEach {
-                coupons.append($0.toEntity())
-            }
+        case .success((let data, let hasNext)):
             
-            if coupons.isEmpty && currentPage == 1 {
+            if data.isEmpty && currentPage == 1 {
                 self.state = .empty
                 return
             }
             
             if currentPage > 1 {
                 if case .loaded(let existing, _) = state {
-                    let combined = existing + coupons
-                    self.state = .loaded(combined, hasNext: data.response.hasNext)
+                    let combined = existing + data
+                    self.state = .loaded(combined, hasNext: hasNext)
                 }
             } else {
-                self.state = .loaded(coupons, hasNext: data.response.hasNext)
+                self.state = .loaded(data, hasNext: hasNext)
             }
             
-            let lastItem = data.response.couponResDtos.last
-            lastCouponId = lastItem?.couponId
+            let lastItem = data.last
+            lastCouponId = lastItem?.id
             lastIssuedCount = lastItem?.issuedCount
             couponType = lastItem?.couponType
             lastOrderNo = lastItem?.orderNo
 
             currentPage += 1
             
-        case .failure(let statusCode, let message):
-            print("[fetchCouponPopular] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+        case .failure(let error):
+            print("[fetchCouponPopular] - [\(error)]")
         }
     }
 }

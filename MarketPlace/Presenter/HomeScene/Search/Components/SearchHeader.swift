@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SearchHeader: View {
     @Binding var searchText: String
-    @Binding var recentSearches: [String]
+    var recentSearches: [String]
 
     let onBack: () -> Void
     let onSearchSubmit: (String) -> Void
@@ -27,31 +27,31 @@ struct SearchHeader: View {
             ZStack(alignment: .leading) {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(SearchViewConstants.Colors.iconColor)
-                    .padding(.leading, SearchViewConstants.Layout.searchIconPadding)
+                    .padding(.leading, 11)
                 
                 Text("|")
-                    .foregroundColor(SearchViewConstants.Colors.dividerColor)
-                    .padding(.leading, SearchViewConstants.Layout.dividerPadding)
+                    .foregroundColor(Color(hex: "#C6C6C6"))
+                    .padding(.leading, 35)
                 
                 if searchText.isEmpty {
                     Text("가고 싶은 매장을 찾아보세요")
-                        .pretendardFont(size: SearchViewConstants.FontSize.searchText, weight: .regular)
-                        .foregroundColor(SearchViewConstants.Colors.placeholderColor)
-                        .padding(.leading, SearchViewConstants.Layout.textPadding)
+                        .pretendardFont(size: 14, weight: .regular)
+                        .foregroundColor(Color(hex: "#C6C6C6"))
+                        .padding(.leading, 45)
                 }
                 
                 TextField("", text: $searchText)
-                    .pretendardFont(size: SearchViewConstants.FontSize.searchText, weight: .regular)
-                    .foregroundColor(SearchViewConstants.Colors.textColor)
-                    .padding(.leading, SearchViewConstants.Layout.textPadding)
-                    .frame(height: SearchViewConstants.Layout.searchBarHeight)
+                    .pretendardFont(size: 14, weight: .regular)
+                    .foregroundColor(Color(hex: "#121212"))
+                    .padding(.leading, 45)
+                    .frame(height: 40)
                     .onSubmit {
                         onSearchSubmit(searchText)
                     }
             }
-            .background(SearchViewConstants.Colors.searchBarBackground)
-            .cornerRadius(SearchViewConstants.Layout.searchBarCornerRadius)
-            .frame(height: SearchViewConstants.Layout.searchBarHeight)
+            .background(Colors.gray_50)
+            .cornerRadius(34.614)
+            .frame(height: 40)
             
             Spacer()
                 .frame(width: 10)

@@ -14,9 +14,17 @@ struct MarketDetailView: View {
     @State private var isLoginRequiredPopupVisible: Bool = false
     @State private var showLoginView: Bool = false
     
-    init(marketId: Int, isBookmarked: Bool = false) {
-        _viewModel = StateObject(wrappedValue: MarketDetailViewModel(marketId: marketId))
+    let coordinator: HomeCoordinator
+    
+    init(
+        marketId: Int,
+        viewModel: MarketDetailViewModel,
+        isBookmarked: Bool = false,
+        coordinator: HomeCoordinator
+    ) {
+        _viewModel = StateObject(wrappedValue: viewModel)
         _isBookmarked = State(initialValue: isBookmarked)
+        self.coordinator = coordinator
     }
 
     var body: some View {
@@ -29,7 +37,7 @@ struct MarketDetailView: View {
                 
                 else if let shop = viewModel.marketDetail {
                     VStack(alignment: .leading, spacing: 0) {
-                        MarketImageSliderView(imageResList: shop.imageResList)
+                        MarketImageSliderView(imageList: shop.images)
                         
                         VStack(alignment: .leading, spacing: 24) {
                             VStack(alignment: .leading, spacing: 8) {

@@ -7,8 +7,6 @@
 
 import Foundation
 
-
-@MainActor
 final class MainViewModel: ViewModelable {
     
     // MARK: - Types
@@ -28,12 +26,12 @@ final class MainViewModel: ViewModelable {
     // MARK: - Properties
     @Published var state: State
     
-    private var couponService: CouponServiceProtocol
+    private var couponRepository: CouponRepository
     
     
     // MARK: - Initializer
-    init(couponService: CouponServiceProtocol = CouponService()) {
-        self.couponService = couponService
+    init(couponRepository: CouponRepository) {
+        self.couponRepository = couponRepository
         state = State()
     }
     
@@ -57,51 +55,47 @@ final class MainViewModel: ViewModelable {
         formatter.dateFormat = "M월"
         return formatter.string(from: Date())
     }
-    
+}
+
+private extension MainViewModel {
     // MARK: - 인기 쿠폰 조회
-    private func fetchCouponTopPopular(pageSize: Int?) async {
-        let result = await couponService.fetchCouponTopPopular(pageSize: pageSize)
+    func fetchCouponTopPopular(pageSize: Int?) async {
+        let result = await couponRepository.fetchTopPopularCoupons(page: pageSize)
         
         switch result {
-        case .success(let data, _):
-            data.response.forEach {
-                state.couponPopular.append($0.toEntity())
-            }
+        case .success(let data):
+            state.couponPopular = data
             
-        case .failure(let statusCode, let message):
-            print("[fetchCouponTopPopular] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+        case .failure(let error):
+            print("[fetchCouponTopPopular] - [\(error)]")
         }
     }
     
     
     // MARK: - 최신 쿠폰 조회
-    private func fetchCouponTopLatest(pageSize: Int?) async {
-        let result = await couponService.fetchCouponTopLatest(pageSize: pageSize)
+    func fetchCouponTopLatest(pageSize: Int?) async {
+        let result = await couponRepository.fetchTopLatestCoupons(page: pageSize)
         
         switch result {
-        case .success(let data, _):
-            data.response.forEach {
-                state.couponLatest.append($0.toEntity())
-            }
+        case .success(let data):
+            state.couponLatest = data
 
-        case .failure(let statusCode, let message):
-            print("[fetchCouponTopLatest] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+        case .failure(let error):
+            print("[fetchCouponTopLatest] - [\(error)]")
         }
     }
     
     
     // MARK: - 마감임박 쿠폰 조회
-    private func fetchCouponTopClosing(pageSize: Int?) async {
-        let result = await couponService.fetchCouponTopClosing(pageSize: pageSize)
+    func fetchCouponTopClosing(pageSize: Int?) async {
+        let result = await couponRepository.fetchTopClosingCoupons(page: pageSize)
 
         switch result {
-        case .success(let data, _):
-            data.response.forEach {
-                state.couponClosing.append($0.toEntity())
-            }
+        case .success(let data):
+            state.couponClosing = data
             
-        case .failure(let statusCode, let message):
-            print("[fetchCouponTopClosing] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+        case .failure(let error):
+            print("[fetchCouponTopClosing] - [\(error)]")
         }
     }
 }

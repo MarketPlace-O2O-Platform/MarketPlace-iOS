@@ -22,7 +22,7 @@ extension DefaultMarketRepository: MarketRepository {
         pageSize: Int?
     ) async -> Result<(markets: [MarketListModel], hasNext: Bool), MarketRepositoryError> {
         
-        let result = await marketNetworkService.fetchMarketAll(lastPageIndex: lastPageIndex, category: category.toString(), pageSize: pageSize)
+        let result = await marketNetworkService.fetchMarketAll(lastPageIndex: lastPageIndex, category: category.apiValue, pageSize: pageSize)
         
         switch result {
         case .success(let data, let statusCode):
@@ -47,7 +47,7 @@ extension DefaultMarketRepository: MarketRepository {
         pageSize: Int?
     ) async -> Result<[MarketListModel], MarketRepositoryError> {
         
-        let result = await marketNetworkService.fetchMarketsWithAddress(lastPageIndex: lastPageIndex, category: category.toString(), pageSize: pageSize)
+        let result = await marketNetworkService.fetchMarketsWithAddress(lastPageIndex: lastPageIndex, category: category.apiValue, pageSize: pageSize)
         
         switch result {
         case .success(let data, let statusCode):

@@ -24,7 +24,7 @@ final class NotificationService: NotificationServiceProtocol {
     private let networkService: NetworkServiceProtocol
     
     init(
-        networkService: NetworkServiceProtocol = NetworkService()
+        networkService: NetworkServiceProtocol
     ) {
         self.networkService = networkService
     }

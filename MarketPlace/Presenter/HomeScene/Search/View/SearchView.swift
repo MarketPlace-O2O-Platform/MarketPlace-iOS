@@ -1,46 +1,21 @@
 import SwiftUI
 
-// 상수 관리
-struct SearchViewConstants {
-    struct Layout {
-        static let spacing: CGFloat = 20
-        static let searchBarHeight: CGFloat = 40
-        static let searchBarCornerRadius: CGFloat = 34.614
-        static let searchIconPadding: CGFloat = 11
-        static let dividerPadding: CGFloat = 35
-        static let textPadding: CGFloat = 45
-    }
-    
-    struct FontSize {
-        static let searchText: CGFloat = 14
-    }
-    
-    struct Colors {
-        static let iconColor = Color(hex: "#121212")
-        static let dividerColor = Color(hex: "#C6C6C6")
-        static let placeholderColor = Color(hex: "#C6C6C6")
-        static let textColor = Color(hex: "#333333")
-        static let searchBarBackground = Color(hex: "#FAFAFA")
-        static let backgroundColor = Color.white
-    }
-}
-
 struct SearchView: View {
     @Environment(\.presentationMode) var presentationMode
-    @StateObject private var viewModel = SearchMarketViewModel()
+    @ObservedObject var viewModel: SearchMarketViewModel
     
-    @State private var hasData: Bool = true
-    @State var lastIndex: Int = 0
-    @State var lastPageID: Int = 0
+    @State var searchText: String = ""
+    
+    let coordinator: HomeCoordinator
         
     var body: some View {
         VStack(spacing: 0) {
             SearchHeader(
-                searchText: $viewModel.searchText,
-                recentSearches: $viewModel.recentSearches,
+                searchText: $searchText,
+                recentSearches: viewModel.state.recentSearches,
                 onBack: { presentationMode.wrappedValue.dismiss() },
                 onSearchSubmit: { searchQuery in
-                    viewModel.addRecentSearch(searchQuery)
+                    viewModel.action(.updateKeyword(searchQuery))
                 }
             )
             
@@ -49,23 +24,35 @@ struct SearchView: View {
                 .background(Color.black)
                 .padding(.top, 10)
             
-            if viewModel.searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            if searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                 ScrollView {
                     RecentSearchView(
-                        recentSearches: $viewModel.recentSearches,
+                        recentSearches: viewModel.state.recentSearches,
                         onRecentSearchTap: { selectedSearch in
-                            viewModel.searchText = selectedSearch
-                            viewModel.addRecentSearch(selectedSearch)
+                            searchText = selectedSearch
+                            viewModel.action(.onTapEnterOnKeyboard(selectedSearch))
+                        },
+                        onClearTap: {
+                            viewModel.action(.onTapDeleteRecentSearchesButton)
                         }
                     )
                 
-                    PopularBenefitView(popularCoupon: $viewModel.popularCoupon)
-                        .padding(.top, 48)
+                    PopularBenefitView(
+                        popularCoupon: viewModel.state.popularCoupons,
+                        onTapMarketList: { id in
+                            coordinator.push(.marketDetail(id))
+                        }
+                    ).padding(.top, 48)
                 }.padding(.top, 20)
                 
             } else {
-                if hasData {
-                    SearchSecondView(viewModel: viewModel, lastIndex: $lastIndex, lastPageID: $lastPageID)
+                if viewModel.state.hasData {
+                    SearchSecondView(
+                        viewModel: viewModel,
+                        onTapSearchMarketList: { id in
+                            coordinator.push(.marketDetail(id))
+                        }
+                    )
                         .padding(.top, 20)
                         
                 } else{
@@ -77,28 +64,18 @@ struct SearchView: View {
             self.endTextEditing()
         }
         .padding(.top, 10)
-        .background(SearchViewConstants.Colors.backgroundColor)
+        .background(Color.white)
         .navigationBarBackButtonHidden(true)
-        .onAppear{
-            Task {
-                viewModel.reloadRecentSearches()
-
-                await viewModel.fetchPopularCoupon(pageSize: nil)
-            }
+        .task {
+            viewModel.action(.onAppear)
         }
-        .onChange(of: lastIndex, { _, newValue in
+        .onChange(of: searchText) { _, newValue in
             Task {
-                hasData = await viewModel.fetchSearchingMarkets(lastPageIndex: lastPageID, keyword: viewModel.currentKeyword)
-            }
-        })
-        .onChange(of: viewModel.searchText) { _, newValue in
-            Task {
-                hasData = await viewModel.fetchSearchingMarkets(keyword: newValue)
-                viewModel.currentKeyword = newValue
+                viewModel.action(.updateKeyword(newValue))
             }
 
             if newValue.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                viewModel.reloadRecentSearches()
+                viewModel.action(.onAppear)
            }
         }
     }

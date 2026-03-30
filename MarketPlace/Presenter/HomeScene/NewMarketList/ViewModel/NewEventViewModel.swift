@@ -27,22 +27,30 @@ final class NewEventViewModel: ViewModelable {
     // MARK: - Properties
     @Published private(set) var state: State = .idle
     
-    private var couponService: CouponServiceProtocol
+    private var couponRepository: CouponRepository
+    private var currentMonth: String
     
     /// - NOTE: 페이징 구현을 위한 변수
     private var lastCouponId: Int?
     private var lastCreatedAt: String?
     private var currentPage: Int = 1
-    private var hasNextPage: Bool = true
     private var couponType: String?
+    
+
+    // TODO: 안쓰고있음 수정 필요
+    private var hasNextPage: Bool = true
     
     
     // MARK: - Initializer
     init(
-        couponService: CouponServiceProtocol = CouponService()
+        couponRepository: CouponRepository,
+        currentMonth: String
     ) {
-        self.couponService = couponService
+        self.couponRepository = couponRepository
+        self.currentMonth = currentMonth
     }
+    
+    var month: String { return currentMonth }
         
     // MARK: - Action
     func action(_ action: Action) {
@@ -54,6 +62,9 @@ final class NewEventViewModel: ViewModelable {
         }
     }
     
+}
+
+private extension NewEventViewModel {
     
     // MARK: - 최신 쿠폰 API
     private func fetchLatestCoupons(reset: Bool) async {
@@ -64,7 +75,7 @@ final class NewEventViewModel: ViewModelable {
             couponType = nil
         }
                 
-        let result = await couponService.fetchLatestCoupons(
+        let result = await couponRepository.fetchLatestCoupons(
             lastCreatedAt: lastCreatedAt,
             lastCouponId: lastCouponId,
             couponType: couponType,
@@ -72,35 +83,32 @@ final class NewEventViewModel: ViewModelable {
         )
         
         switch result {
-        case .success(let data, _):
-            var coupons: [CouponModel] = []
-            data.response.couponResDtos.forEach {
-                coupons.append($0.toEntity())
-            }
+        case .success((let data, let hasNext)):
             
-            if coupons.isEmpty && currentPage == 1 {
+            if data.isEmpty && currentPage == 1 {
                 self.state = .empty
                 return
             }
             
             if currentPage > 1 {
                 if case .loaded(let existing, _ ) = state {
-                    let combined = existing + coupons
-                    self.state = .loaded(combined, hasNext: data.response.hasNext)
+                    let combined = existing + data
+                    self.state = .loaded(combined, hasNext: hasNext)
                 }
             } else {
-                self.state = .loaded(coupons, hasNext: data.response.hasNext)
+                self.state = .loaded(data, hasNext: hasNext)
             }
 
-            let lastItem = data.response.couponResDtos.last
-            lastCouponId = lastItem?.couponId
+            let lastItem = data.last
+            lastCouponId = lastItem?.id
             lastCreatedAt = lastItem?.couponCreatedAt
             couponType = lastItem?.couponType
 
             currentPage += 1
             
-        case .failure(let statusCode, let message):
-            self.state = .error("[\(statusCode)] \(message ?? "알 수 없는 오류")")
+        case .failure(let error):
+            self.state = .error("[\(error)]")
         }
     }
+    
 }

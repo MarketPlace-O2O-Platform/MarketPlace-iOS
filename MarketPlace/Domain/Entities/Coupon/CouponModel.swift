@@ -17,5 +17,8 @@ struct CouponModel: Identifiable {
     var isMemberIssued: Bool
     let description: String?
     let isAvailable: Bool
+    var couponCreatedAt: String?
     var couponType: String
+    var issuedCount: Int?
+    var orderNo: Int?
 }

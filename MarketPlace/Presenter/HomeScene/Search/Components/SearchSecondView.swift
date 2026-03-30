@@ -9,28 +9,25 @@ import SwiftUI
 
 struct SearchSecondView: View {
     @ObservedObject var viewModel: SearchMarketViewModel
-    @Binding var lastIndex: Int
-    @Binding var lastPageID: Int
+    
+    let onTapSearchMarketList: (Int) -> Void
     
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 10) {
-                ForEach(Array(viewModel.market.enumerated()), id: \.offset) { index, market in
-                    NavigationLink(destination:
-                       MarketDetailView(marketId: market.id)
-                    ) {
+                ForEach(Array(viewModel.state.searchMarketResults.enumerated()), id: \.element.id) { index, market in
+                    Button(action: {
+                        onTapSearchMarketList(market.id)
+                    }, label: {
                         VStack {
                             SearchComponentView(market: market)
                             Divider()
                         }
-                    }
+                    })
                     .onAppear {
-                        guard index == viewModel.market.count - 1,
-                              let lastPageIndex = viewModel.lastPageIndex
-                        else { return }
-                        
-                        lastIndex = index
-                        lastPageID = lastPageIndex
+                        if index == viewModel.state.searchMarketResults.count-1  {
+                            viewModel.action(.loadNextPage)
+                        }
                     }
                 }
             }.padding()
@@ -40,7 +37,7 @@ struct SearchSecondView: View {
 
 
 struct SearchComponentView: View {
-    let market: MarketResDto
+    let market: MarketListModel
     
     var body: some View {
         HStack(alignment: .top) {
@@ -54,12 +51,12 @@ struct SearchComponentView: View {
             )
 
             VStack(alignment: .leading) {
-                Text(market.marketName)
+                Text(market.name)
                     .pretendardFont(size: 16, weight: .semibold)
                     .foregroundColor(Colors.textColor)
                     .lineLimit(1)
 
-                Text(market.marketDescription)
+                Text(market.description)
                     .pretendardFont(size: 13, weight: .medium)
                     .foregroundColor(Color(hex: "#7D7D7D"))
                     .lineLimit(2)
@@ -74,10 +71,6 @@ struct SearchComponentView: View {
                         .pretendardFont(size: 13, weight: .medium)
                         .foregroundColor(Colors.textColor)
                     Spacer()
-
-                    if market.isNewCoupon {
-                        CouponChip()
-                    }
                 }
             }
             .padding(.leading, 16)
@@ -87,18 +80,3 @@ struct SearchComponentView: View {
         .background(Color.white)
     }
 }
-
-struct CouponChip: View {
-    var body: some View {
-        Text("신규 쿠폰")
-            .pretendardFont(size: 12, weight: .bold)
-            .foregroundColor(.white)
-            .padding(.vertical, 3)
-            .padding(.horizontal, 6)
-            .background(
-                RoundedRectangle(cornerRadius: 2)
-                    .fill(Color(hex: "#C2A200"))
-            )
-    }
-}
-

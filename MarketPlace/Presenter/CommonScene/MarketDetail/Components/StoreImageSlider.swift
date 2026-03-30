@@ -1,15 +1,15 @@
 import SwiftUI
 
 struct MarketImageSliderView: View {
-    let imageResList: [ImageResDto]
+    let imageList: [MarketDetailImagesModel]
     @State private var currentIndex = 0
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 7) {
-                ForEach(Array(imageResList.enumerated()), id: \.element.sequence) { index, imageRes in
+                ForEach(Array(imageList.enumerated()), id: \.element.sequence) { index, image in
                     ShimmeringAsyncImage(
-                        url: URL(string: URLManager.shared.baseStringURL + "image/" + imageRes.name),
+                        url: URL(string: URLManager.shared.baseStringURL + "image/" + image.name),
                         cornerRadius: 0,
                         width: 280,
                         height: 280
