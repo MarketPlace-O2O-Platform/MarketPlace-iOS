@@ -4,6 +4,8 @@ struct MainView: View {
     @State private var selectedTab = 0
     
     @ObservedObject var viewModel: MainViewModel
+    @State private var isFullNoticePopUpVisible: Bool = true
+
     @EnvironmentObject var loginVM: LoginViewModel
     
     @StateObject var coordinator: HomeCoordinator
@@ -77,6 +79,11 @@ struct MainView: View {
                 })
                 .background(Color.white)
                 .edgesIgnoringSafeArea(.bottom)
+                
+                if isFullNoticePopUpVisible {
+                    FullNoticePopUp(isPopupVisible: $isFullNoticePopUpVisible)
+                        .transition(.scale)
+                }
             }
             .onAppear {
                 viewModel.action(.fetchClosing(pageSize: nil))
