@@ -1,16 +1,5 @@
 import SwiftUI
 
-struct DashEffect: View {
-    var body: some View {
-        GeometryReader { _ in
-            ZStack {
-                Color.black.opacity(0.4)
-                    .edgesIgnoringSafeArea(.all)
-            }
-        }
-    }
-}
-
 struct MyCouponView: View {
     @StateObject private var viewModel = MyCouponViewModel()
     
