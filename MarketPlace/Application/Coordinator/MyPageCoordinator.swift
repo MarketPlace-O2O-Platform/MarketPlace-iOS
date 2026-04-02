@@ -34,11 +34,11 @@ final class MyPageCoordinator: ObservableObject {
     func destination(route: MyPageRoute) -> some View {
         switch route {
         case .myPage:
-            diContainer.makeMyPageView()
+            diContainer.makeMyPageView(coordinator: self)
         case .receipt(let id):
-            diContainer.makeReceiptView(memberCouponId: id)
+            diContainer.makeReceiptView(memberCouponId: id, coordinator: self)
         case .myCuration:
-            diContainer.makeMyCurationView()
+            diContainer.makeMyCurationView(coordinator: self)
         }
     }
     

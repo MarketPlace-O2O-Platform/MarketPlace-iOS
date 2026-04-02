@@ -2,11 +2,13 @@ import Foundation
 import SwiftUI
 
 struct MyPageView: View {
-    @State private var isDropdownVisible = false
-    @StateObject private var viewModel = MyPageViewModel()
     @EnvironmentObject var loginVM: LoginViewModel
-    
+
+    @State private var isDropdownVisible = false
     @State var showLogoutAlert: Bool = false
+    
+    @StateObject var viewModel: MyPageViewModel
+    @StateObject var coordinator: MyPageCoordinator
 
     var body: some View {
         NavigationView {

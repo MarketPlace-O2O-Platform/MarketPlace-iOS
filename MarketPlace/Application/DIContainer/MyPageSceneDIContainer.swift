@@ -20,16 +20,16 @@ final class MyPageSceneDIContainer {
         self.dependencies = dependencies
     }
     
-    func makeMyPageView() -> some View {
-        return MyPageView()
+    func makeMyPageView(coordinator: MyPageCoordinator) -> some View {
+        return MyPageView(viewModel: self.makeMyPageViewModel(), coordinator: coordinator)
     }
     
-    func makeMyCurationView() -> some View {
-        return MyFavoriteShopListView()
+    func makeMyCurationView(coordinator: MyPageCoordinator) -> some View {
+        return MyFavoriteShopListView(viewModel: self.makeMyCurationViewModel(), coordinator: coordinator)
     }
     
-    func makeReceiptView(memberCouponId: Int) -> some View {
-        return RegisterReceiptView(viewModel: makeReceiptViewModel(memberCouponId: memberCouponId))
+    func makeReceiptView(memberCouponId: Int, coordinator: MyPageCoordinator) -> some View {
+        return RegisterReceiptView(viewModel: self.makeReceiptViewModel(memberCouponId: memberCouponId), coordinator: coordinator)
     }
     
 }

@@ -20,9 +20,12 @@ struct RegisterReceiptView: View {
     @AppStorage("savedBank") private var savedBank: String = ""
     @AppStorage("savedAccountNumber") private var savedAccountNumber: String = ""
     @AppStorage("isAccountSaved") private var isAccountSaved: Bool = false
+    
+    let coordinator: MyPageCoordinator
 
-    init(viewModel: RegisterReceiptViewModel) {
+    init(viewModel: RegisterReceiptViewModel, coordinator: MyPageCoordinator) {
         self.viewModel = viewModel
+        self.coordinator = coordinator
         setupNavigationBarAppearance()
     }
     

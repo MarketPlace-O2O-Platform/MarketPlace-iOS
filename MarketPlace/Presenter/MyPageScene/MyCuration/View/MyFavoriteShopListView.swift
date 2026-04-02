@@ -2,7 +2,9 @@ import SwiftUI
 
 struct MyFavoriteShopListView: View {
     @Environment(\.presentationMode) var presentationMode
-    @StateObject var viewModel = MyFavoriteMarketListViewModel()
+    @StateObject var viewModel: MyFavoriteMarketListViewModel
+    
+    let coordinator: MyPageCoordinator
     
     var body: some View {
         Group {
