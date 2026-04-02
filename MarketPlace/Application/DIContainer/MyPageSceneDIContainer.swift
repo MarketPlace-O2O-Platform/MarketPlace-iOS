@@ -44,7 +44,7 @@ private extension MyPageSceneDIContainer {
     }
     
     func makeMyPageViewModel() -> MyPageViewModel {
-        return MyPageViewModel()
+        return MyPageViewModel(memberRepository: makeMemberRepository())
     }
     
     func makeMyCurationViewModel() -> MyFavoriteMarketListViewModel {

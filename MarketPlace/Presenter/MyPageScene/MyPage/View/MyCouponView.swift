@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct MyCouponView: View {
-    @StateObject private var viewModel = MyCouponViewModel()
+    @StateObject var viewModel: MyCouponViewModel
     
     @State private var showingPopup = false
     @State private var selectedPaybackCoupon: IssuedCouponResDto? = nil
@@ -46,10 +46,8 @@ struct MyCouponView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
-        .onAppear {
-            Task {
-                await viewModel.fetchMemberPaybackCoupon(type: CouponCategory(index: selectedCategoryIndex)?.toString() ?? "", memberCouponId: nil, size: nil)
-            }
+        .task {
+            await viewModel.fetchMemberPaybackCoupon(type: CouponCategory(index: selectedCategoryIndex)?.toString() ?? "", memberCouponId: nil, size: nil)
         }
         .onChange(of: selectedCategoryIndex) {
             Task {
