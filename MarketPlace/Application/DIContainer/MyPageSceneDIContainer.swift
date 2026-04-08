@@ -21,7 +21,7 @@ final class MyPageSceneDIContainer {
     }
     
     func makeMyPageView(coordinator: MyPageCoordinator) -> some View {
-        return MyPageView(viewModel: self.makeMyPageViewModel(), coordinator: coordinator)
+        return MyPageView(viewModel: self.makeMyPageViewModel(), couponTabViewModel: self.makeMyCouponViewModel(), coordinator: coordinator)
     }
     
     func makeMyCurationView(coordinator: MyPageCoordinator) -> some View {
@@ -49,6 +49,10 @@ private extension MyPageSceneDIContainer {
     
     func makeMyCurationViewModel() -> MyFavoriteMarketListViewModel {
         return MyFavoriteMarketListViewModel()
+    }
+    
+    func makeMyCouponViewModel() -> MyCouponViewModel {
+        return MyCouponViewModel()
     }
     
     

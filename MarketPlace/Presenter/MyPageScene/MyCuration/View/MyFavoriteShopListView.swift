@@ -7,57 +7,80 @@ struct MyFavoriteShopListView: View {
     let coordinator: MyPageCoordinator
     
     var body: some View {
-        Group {
-            if viewModel.favoriteMarkets.isEmpty {
-                /// - NOTE: 저장한 매장이 없을 때
+        VStack {
+            switch viewModel.state {
+            case .idle:
+                VStack {
+                    Text("")
+                        .foregroundStyle(.gray)
+                        .padding(.top, 40)
+                    
+                    Spacer()
+                }
+            case .empty:
                 VStack(spacing: 20) {
                     Spacer()
-
+                    
                     Text("내가 저장한 매장이 없습니다.\n카테고리 페이지에서 관심있는 매장을 저장해보세요.")
                         .pretendardFont(size: 16, weight: .regular)
                         .foregroundColor(Colors.gray_600)
                         .multilineTextAlignment(.center)
                         .lineSpacing(8)
-
+                    
                     Spacer()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-            } else {
+            case .loading:
+                VStack {
+                    ProgressView("매장을 불러오는 중입니다!")
+                        .foregroundStyle(.gray)
+                        .padding(.top, 40)
+                    
+                    Spacer()
+                }
+            case .loaded(let markets, let hasNext):
                 ScrollView {
                     LazyVStack(spacing: 16) {
-                        ForEach(Array(viewModel.favoriteMarkets.enumerated()),id: \.offset) { index, market in
-                            NavigationLink(destination:
-                                            MarketDetailView(marketId: market.id, isBookmarked: market.isFavorite)
-                            ) {
+                        ForEach(Array(markets.enumerated()),id: \.offset) { index, market in
+                            
+                            Button(action: {
+                                // TODO: DetailView로 가도록 수정해야함
+                                coordinator.push(.receipt(0))
+                            }, label: {
                                 VStack {
                                     MarketInfoCell(
                                         isBookmarked: market.isFavorite,
                                         viewModel: MarketInfoCellViewModel(marketData: market)
                                     )
-
+                                    
                                     Divider()
                                         .background(Color.gray.opacity(0.5))
                                         .padding(.horizontal, -20)
                                 }
-                            }
+                            })
                             .onAppear {
-                                guard index == viewModel.favoriteMarkets.count - 1,
-                                      let lastModified = viewModel.lastModified
-                                else { return }
-
-                                Task {
-                                    await viewModel.fetchFavoriteMarket(lastModifiedAt: lastModified)
+                                if index == markets.count-1, hasNext {
+                                    viewModel.action(.loadNextPage)
                                 }
                             }
                         }
                     }
                 }
+            case .error(let message):
+                VStack {
+                    Text("문제가 발생했습니다!")
+                        .foregroundColor(.gray)
+                        .padding(.top, 40)
+                    
+                    Text(message)
+                        .foregroundColor(.gray)
+                    
+                    Spacer()
+                }
             }
         }
         .onAppear {
-            Task {
-                await viewModel.fetchFavoriteMarket()
-            }
+            viewModel.action(.fetchFavoriteMarket)
         }
         .navigationTitle("나만의 큐레이션")
         .navigationBarTitleDisplayMode(.inline)

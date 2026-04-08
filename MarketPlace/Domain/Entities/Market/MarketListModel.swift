@@ -15,4 +15,5 @@ struct MarketListModel: Identifiable {
     let thumbnail: String
     var isFavorite: Bool
     let category: MarketCategory
+    let lastModified: String?
 }
