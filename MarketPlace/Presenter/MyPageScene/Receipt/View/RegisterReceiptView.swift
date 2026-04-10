@@ -45,7 +45,7 @@ struct RegisterReceiptView: View {
                             .scaledToFit()
                             .frame(height: 64)
 
-                        Text("24시간 내로 환급이 이루어지지 않을 시\n고객센터(쿠러미 카카오채널)로 문의해주세요!")
+                        Text("7일 내로 환급이 이루어지지 않을 시\n고객센터(쿠러미 카카오채널)로 문의해주세요!")
                             .pretendardFont(size: 14, weight: .medium)
                             .foregroundStyle(Colors.gray_600)
                             .multilineTextAlignment(.center)
