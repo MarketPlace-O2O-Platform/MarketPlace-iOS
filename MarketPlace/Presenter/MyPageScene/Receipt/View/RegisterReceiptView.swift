@@ -16,7 +16,7 @@ struct RegisterReceiptView: View {
     
     @ObservedObject var viewModel: RegisterReceiptViewModel
     
-    // TODO: 이거 viewmodel로 이동하도록 하자
+    // TODO: 이거 viewmodel로 이동
     @AppStorage("savedBank") private var savedBank: String = ""
     @AppStorage("savedAccountNumber") private var savedAccountNumber: String = ""
     @AppStorage("isAccountSaved") private var isAccountSaved: Bool = false

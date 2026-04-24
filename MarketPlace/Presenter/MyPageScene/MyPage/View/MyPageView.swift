@@ -16,10 +16,14 @@ struct MyPageView: View {
         NavigationView {
             ZStack(alignment: .top) {
                 VStack(spacing: 0) {
-                    MyHeaderView(isDropdownVisible: $isDropdownVisible, userId: $viewModel.state.userId)
-                        .padding(.top, 5)
+                    MyHeaderView(
+                        isDropdownVisible: $isDropdownVisible,
+                        userId: $viewModel.state.userId,
+                        coordinator: coordinator
+                    )
+                    .padding(.top, 5)
                     
-                    MyCouponView(viewModel: couponTabViewModel)
+                    MyCouponView(viewModel: couponTabViewModel, coordinator: coordinator)
                 }
                 .background(Color.white)
                 .task {

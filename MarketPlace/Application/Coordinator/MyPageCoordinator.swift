@@ -13,6 +13,7 @@ final class MyPageCoordinator: ObservableObject {
         case myPage
         case receipt(Int)
         case myCuration
+        case marketDetail(Int)
     }
     
     private let diContainer: MyPageSceneDIContainer
@@ -39,6 +40,8 @@ final class MyPageCoordinator: ObservableObject {
             diContainer.makeReceiptView(memberCouponId: id, coordinator: self)
         case .myCuration:
             diContainer.makeMyCurationView(coordinator: self)
+        case .marketDetail(let id):
+            diContainer.makeMarketDetailView(marketId: id, coordinator: self)
         }
     }
     

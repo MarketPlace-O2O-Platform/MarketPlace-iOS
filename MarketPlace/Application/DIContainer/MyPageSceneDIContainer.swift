@@ -32,6 +32,9 @@ final class MyPageSceneDIContainer {
         return RegisterReceiptView(viewModel: self.makeReceiptViewModel(memberCouponId: memberCouponId), coordinator: coordinator)
     }
     
+    func makeMarketDetailView(marketId: Int, coordinator: MyPageCoordinator) -> some View {
+        return MarketDetailView(marketId: marketId, viewModel: makeMarketDetailViewModel(marketId: marketId), coordinator: coordinator)
+    }
 }
 
 private extension MyPageSceneDIContainer {
@@ -40,7 +43,11 @@ private extension MyPageSceneDIContainer {
     // MARK: - ViewModel
     
     func makeReceiptViewModel(memberCouponId: Int) -> RegisterReceiptViewModel {
-        return RegisterReceiptViewModel(memberCouponId: memberCouponId)
+        return RegisterReceiptViewModel(
+            memberRepository: makeMemberRepository(),
+            submitReceiptUseCase: makeSubmitReciptUseCase(),
+            memberCouponId: memberCouponId
+        )
     }
     
     func makeMyPageViewModel() -> MyPageViewModel {
@@ -48,11 +55,15 @@ private extension MyPageSceneDIContainer {
     }
     
     func makeMyCurationViewModel() -> MyFavoriteMarketListViewModel {
-        return MyFavoriteMarketListViewModel()
+        return MyFavoriteMarketListViewModel(marketRepository: makeMarketRepository())
     }
     
     func makeMyCouponViewModel() -> MyCouponViewModel {
         return MyCouponViewModel()
+    }
+    
+    func makeMarketDetailViewModel(marketId: Int) -> MarketDetailViewModel {
+        return MarketDetailViewModel(marketId: marketId, marketRepository: makeMarketRepository(), fetchValidCouponsUseCase: makeFetchValidCouponsUseCase())
     }
     
     
@@ -60,6 +71,10 @@ private extension MyPageSceneDIContainer {
     
     func makeSubmitReciptUseCase() -> SubmitReceiptUseCase {
         return DefaultSubmitReceiptUseCase(memberRepository: makeMemberRepository(), memberCouponRepository: makeMemberCouponRepository())
+    }
+    
+    func makeFetchValidCouponsUseCase() -> FetchValidCouponsUseCase {
+        return DefaultFetchValidCouponsUseCase(couponRepository: makeCouponRepository())
     }
     
     
@@ -71,6 +86,14 @@ private extension MyPageSceneDIContainer {
     
     func makeMemberCouponRepository() -> MemberCouponRepository {
         return DefaultMemberCouponRepository(memberCouponNetworkService: makeMemberCouponService(), couponNetworkService: makeCouponService())
+    }
+    
+    func makeMarketRepository() -> MarketRepository {
+        return DefaultMarketRepository(marketNetworkService: makeMarketService())
+    }
+    
+    func makeCouponRepository() -> CouponRepository {
+        return DefaultCouponRepository(couponNetworkService: makeCouponService())
     }
     
 
@@ -86,6 +109,10 @@ private extension MyPageSceneDIContainer {
     
     func makeCouponService() -> CouponServiceProtocol {
         return CouponService(networkService: dependencies.networkService)
+    }
+    
+    func makeMarketService() -> MarketServiceProtocol {
+        return MarketService(networkService: dependencies.networkService)
     }
     
 }

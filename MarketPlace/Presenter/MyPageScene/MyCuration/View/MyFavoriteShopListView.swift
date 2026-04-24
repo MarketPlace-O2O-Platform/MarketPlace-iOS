@@ -44,8 +44,7 @@ struct MyFavoriteShopListView: View {
                         ForEach(Array(markets.enumerated()),id: \.offset) { index, market in
                             
                             Button(action: {
-                                // TODO: DetailView로 가도록 수정해야함
-                                coordinator.push(.receipt(0))
+                                coordinator.push(.marketDetail(market.id))
                             }, label: {
                                 VStack {
                                     MarketInfoCell(

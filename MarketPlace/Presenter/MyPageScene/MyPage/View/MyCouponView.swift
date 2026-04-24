@@ -8,6 +8,8 @@ struct MyCouponView: View {
     @State private var selectedCoupon: IssuedCouponResDto? = nil
     @State private var selectedCategoryIndex = 0
     
+    let coordinator: MyPageCoordinator
+    
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
@@ -60,9 +62,6 @@ struct MyCouponView: View {
                 }
             }
         }
-        .sheet(item: $selectedPaybackCoupon) { item in
-            RegisterReceiptView(viewModel: RegisterReceiptViewModel(memberCouponId: item.memberCouponId))
-        }
     }
     
     // MARK: - coupon Cell 생성
@@ -83,6 +82,7 @@ struct MyCouponView: View {
             switch selectedCategoryIndex {
             case 0:
                 selectedPaybackCoupon = coupon
+                coordinator.push(.receipt(coupon.memberCouponId))
             case 1:
                 selectedCoupon = coupon
                 showingPopup = true
