@@ -8,61 +8,94 @@
 import Foundation
 
 @MainActor
-final class RegisterReceiptViewModel: ObservableObject {
-    @Published var isUsed: Bool = false
-    private var memberCouponId: Int
+final class RegisterReceiptViewModel: ViewModelable {
     
-    private var couponService: CouponServiceProtocol
-    private var memberService: MemberServiceProtocol
-
+    // MARK: - Types
+    enum Action {
+        case onAppear
+        case onTapSubmitReceiptButton(AccountInformation, Data, String)
+        case onTapSaveAccountButton
+    }
+    
+    struct State {
+        var isSaveAccount: Bool = false
+    }
+    
+    
+    // MARK: - Properties
+    @Published private(set) var state: State
+    
+    private let memberCouponId: Int
+    private let submitReceiptUseCase: SubmitReceiptUseCase
+    private let memberRepository: MemberRepository
+    
+    
+    // MARK: - Initializer
     init(
-        memberCouponId: Int,
-        couponService: CouponServiceProtocol = CouponService(),
-        memberService: MemberServiceProtocol = MemberService()
+        memberRepository: MemberRepository,
+        submitReceiptUseCase: SubmitReceiptUseCase,
+        memberCouponId: Int
     ) {
+        self.memberRepository = memberRepository
+        self.submitReceiptUseCase = submitReceiptUseCase
         self.memberCouponId = memberCouponId
-        self.couponService = couponService
-        self.memberService = memberService
+        self.state = State()
     }
     
-    var couponId: Int {
-        return memberCouponId
-    }
     
-    // MARK: - 환급 쿠폰 영수증 제출 API
-    func putSubmitRecipt(memberCouponId: Int, image: Data, bodyBoundary: String) async {
-        let result = await couponService.putSubmitReceipt(memberCouponId: memberCouponId, image: image, bodyBoundary: bodyBoundary)
-        
-        switch result {
-        case .success(let data, _):
-            self.isUsed = data.response.isUsed
-        case .failure(let statusCode, let message):
-            print("[SubmitReceipt] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+    // MARK: - Action
+    func action(_ action: Action) {
+        switch action {
+        case .onAppear:
+            // TODO: 계좌번호 저장 유무에 따라 처리
+            
+        case .onTapSaveAccountButton:
+            // TODO: Toggle 계좌번호저장 or 삭제
+            if !state.isSaveAccount {
+                Task {
+                   await deleteAccountNum()
+                }
+            }
+            
+            state.isSaveAccount.toggle()
+            
+        case .onTapSubmitReceiptButton(let accountInfo, let data, let boundary):
+            Task {
+                await submitReceipt(accountInfo: accountInfo, imageData: data, bodyBoundary: boundary)
+            }
         }
     }
     
-    // MARK: - 계좌번호 저장 API
-    func saveAccountNum(account: String, accountNumber: String) async {
-        let result = await memberService.saveAccountNum(account: account, accountNumber: accountNumber)
-        
-        switch result {
-        case .success(let data, _):
-            print(data.message)
-        case .failure(let statusCode, let message):
-            print("[saveAccountNum] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
-        }
-    }
-    
-    // MARK: - 계좌번호 삭제 API
-    func deleteAccountNum() async {
-        let result = await memberService.deleteAccountNum()
-        
-        switch result {
-        case .success(let data, let statusCode):
-            print(data.message)
-        case .failure(let statusCode, let message):
-            print("[deleteAccountNum] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
-        }
-    }
 }
 
+private extension RegisterReceiptViewModel{
+    
+    // MARK: - 환급 쿠폰 영수증 제출
+    func submitReceipt(accountInfo: AccountInformation, imageData: Data, bodyBoundary: String) async {
+        let result = await submitReceiptUseCase.execute(
+            accountInfo: accountInfo,
+            memberCouponId: memberCouponId,
+            imageData: imageData,
+            bodyBoundary: bodyBoundary)
+        
+        switch result {
+        case .success: return
+        case .failure(let error):
+            print("[SubmitReceipt] - [\(error)]")
+
+        }
+    }
+    
+    
+    // MARK: - 계좌번호 삭제
+    func deleteAccountNum() async {
+        let result = await memberRepository.deleteAccountNumber()
+        
+        switch result {
+        case .success: return
+        case .failure(let error):
+            print("[deleteAccountNum] - [\(error)]")
+        }
+    }
+    
+}

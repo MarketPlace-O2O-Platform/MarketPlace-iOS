@@ -12,17 +12,20 @@ struct RegisterReceiptView: View {
     @State private var isShowImagePicker: Bool = false
     @State private var bank: String = ""
     @State private var accountNumber: String = ""
-//    @State private var isSaveAccount: Bool = false
     @State var image: UIImage?
     
     @ObservedObject var viewModel: RegisterReceiptViewModel
     
+    // TODO: 이거 viewmodel로 이동
     @AppStorage("savedBank") private var savedBank: String = ""
     @AppStorage("savedAccountNumber") private var savedAccountNumber: String = ""
     @AppStorage("isAccountSaved") private var isAccountSaved: Bool = false
+    
+    let coordinator: MyPageCoordinator
 
-    init(viewModel: RegisterReceiptViewModel) {
+    init(viewModel: RegisterReceiptViewModel, coordinator: MyPageCoordinator) {
         self.viewModel = viewModel
+        self.coordinator = coordinator
         setupNavigationBarAppearance()
     }
     
@@ -89,11 +92,7 @@ struct RegisterReceiptView: View {
             }.padding(.bottom, 10)
             
             CheckboxView(title: "계좌번호 저장", isChecked: $isAccountSaved) { saveAccount in
-                if !saveAccount {
-                    Task {
-                        await viewModel.deleteAccountNum()
-                    }
-                }
+                viewModel.action(.onTapSaveAccountButton)
             }
             
             Button(action: {
@@ -111,13 +110,12 @@ struct RegisterReceiptView: View {
                    let jpgImageData = image.jpegData(compressionQuality: 0.2) {
                     let boundary = "Boundary-\(UUID().uuidString)"
                     
-                    Task {
-                        await viewModel.putSubmitRecipt(memberCouponId: viewModel.couponId, image: jpgImageData, bodyBoundary: boundary)
-                        await viewModel.saveAccountNum(account: bank, accountNumber: accountNumber)
-                        presentationMode.wrappedValue.dismiss()
-                    }
+                    viewModel.action(.onTapSubmitReceiptButton(AccountInformation(account: bank, accountNumber: accountNumber), jpgImageData, boundary))
+                    presentationMode.wrappedValue.dismiss()
                 }
-            }) {
+                
+            }, label: {
+                
                 Text("저장하기")
                     .pretendardFont(size: 14, weight: .bold)
                     .foregroundColor(.white)
@@ -125,7 +123,8 @@ struct RegisterReceiptView: View {
                     .frame(height: 50)
                     .background(bank.isEmpty || accountNumber.isEmpty ? Color.gray.opacity(0.4) : .black)
                     .cornerRadius(8)
-            }
+                
+            })
             .disabled(bank.isEmpty || accountNumber.isEmpty)
             .padding(.bottom, 10)
         }

@@ -7,11 +7,11 @@
 
 import SwiftUI
 
+@MainActor
 final class AppDIContainer {
     
     private let networkServices: NetworkServiceProtocol = NetworkService()
     
-    @MainActor
     func makeHomeScene() -> some View {
         let sceneDIContainer = HomeSceneDIContainer(dependencies: HomeSceneDIContainer.Dependencies(networkService: networkServices))
         let homeCoordinator = HomeCoordinator(diContainer: sceneDIContainer)
@@ -28,6 +28,9 @@ final class AppDIContainer {
     }
     
     func makeMyPageScene() -> some View {
+        let sceneDIContainer = MyPageSceneDIContainer(dependencies: MyPageSceneDIContainer.Dependencies(networkService: networkServices))
+        let myPageCoordinator = MyPageCoordinator(diContainer: sceneDIContainer)
         
+        return sceneDIContainer.makeMyPageView()
     }
 }

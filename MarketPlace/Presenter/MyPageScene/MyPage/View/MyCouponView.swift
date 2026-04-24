@@ -1,23 +1,14 @@
 import SwiftUI
 
-struct DashEffect: View {
-    var body: some View {
-        GeometryReader { _ in
-            ZStack {
-                Color.black.opacity(0.4)
-                    .edgesIgnoringSafeArea(.all)
-            }
-        }
-    }
-}
-
 struct MyCouponView: View {
-    @StateObject private var viewModel = MyCouponViewModel()
+    @StateObject var viewModel: MyCouponViewModel
     
     @State private var showingPopup = false
     @State private var selectedPaybackCoupon: IssuedCouponResDto? = nil
     @State private var selectedCoupon: IssuedCouponResDto? = nil
     @State private var selectedCategoryIndex = 0
+    
+    let coordinator: MyPageCoordinator
     
     var body: some View {
         ZStack {
@@ -57,10 +48,8 @@ struct MyCouponView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
-        .onAppear {
-            Task {
-                await viewModel.fetchMemberPaybackCoupon(type: CouponCategory(index: selectedCategoryIndex)?.toString() ?? "", memberCouponId: nil, size: nil)
-            }
+        .task {
+            await viewModel.fetchMemberPaybackCoupon(type: CouponCategory(index: selectedCategoryIndex)?.toString() ?? "", memberCouponId: nil, size: nil)
         }
         .onChange(of: selectedCategoryIndex) {
             Task {
@@ -72,9 +61,6 @@ struct MyCouponView: View {
                     break
                 }
             }
-        }
-        .sheet(item: $selectedPaybackCoupon) { item in
-            RegisterReceiptView(viewModel: RegisterReceiptViewModel(memberCouponId: item.memberCouponId))
         }
     }
     
@@ -96,6 +82,7 @@ struct MyCouponView: View {
             switch selectedCategoryIndex {
             case 0:
                 selectedPaybackCoupon = coupon
+                coordinator.push(.receipt(coupon.memberCouponId))
             case 1:
                 selectedCoupon = coupon
                 showingPopup = true

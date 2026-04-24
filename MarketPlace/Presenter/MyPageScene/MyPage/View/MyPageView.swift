@@ -2,26 +2,32 @@ import Foundation
 import SwiftUI
 
 struct MyPageView: View {
-    @State private var isDropdownVisible = false
-    @StateObject private var viewModel = MyPageViewModel()
     @EnvironmentObject var loginVM: LoginViewModel
+
+    @State private var isDropdownVisible = false
+    @State private var showLogoutAlert: Bool = false
     
-    @State var showLogoutAlert: Bool = false
+    @StateObject var viewModel: MyPageViewModel
+    @StateObject var couponTabViewModel: MyCouponViewModel
+    
+    @StateObject var coordinator: MyPageCoordinator
 
     var body: some View {
         NavigationView {
             ZStack(alignment: .top) {
                 VStack(spacing: 0) {
-                    MyHeaderView(isDropdownVisible: $isDropdownVisible, userId: $viewModel.userId)
-                        .padding(.top, 5)
+                    MyHeaderView(
+                        isDropdownVisible: $isDropdownVisible,
+                        userId: $viewModel.state.userId,
+                        coordinator: coordinator
+                    )
+                    .padding(.top, 5)
                     
-                    MyCouponView()
+                    MyCouponView(viewModel: couponTabViewModel, coordinator: coordinator)
                 }
                 .background(Color.white)
-                .onAppear {
-                    Task {
-                        await viewModel.fetchMemberInfo()
-                    }
+                .task {
+                    viewModel.action(.onAppear)
                 }
                 .overlay {
                     CustomAlertView(isPresented: $showLogoutAlert, title: "로그아웃 하시겠습니까?", buttonTitle: "로그아웃") {

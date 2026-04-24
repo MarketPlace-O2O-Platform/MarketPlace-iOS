@@ -8,51 +8,91 @@
 import Foundation
 
 @MainActor
-final class MyFavoriteMarketListViewModel: ObservableObject {
-    @Published var favoriteMarkets: [MarketListModel] = []
-    @Published var hasNextPage: Bool = true
-    @Published var isLoading: Bool = false
-    @Published var lastModified: String?
+final class MyFavoriteMarketListViewModel: ViewModelable {
     
-    var currentPage: Int = 1
-    
-    private var memberService: MemberServiceProtocol
-
-    init(memberService: MemberServiceProtocol = MemberService()) {
-        self.memberService = memberService
+    // MARK: - Types
+    enum Action {
+        case fetchFavoriteMarket
+        case loadNextPage
     }
     
-    // MARK: - 자신이 찜한 매장 조회
-    func fetchFavoriteMarket(lastModifiedAt: String? = nil, pageSize: Int? = nil) async {
-        guard !isLoading, hasNextPage else { return }
-
-        isLoading = true
-
-        let result = await memberService.fetchFavoriteMarket(lastModifiedAt: lastModifiedAt, pageSize: pageSize)
+    enum State {
+        case idle
+        case empty
+        case loading                                    // 현재 안쓰임
+        case loaded([MarketListModel], hasNext: Bool)
+        case error(String)
+    }
+    
+    
+    // MARK: - Properties
+    @Published private(set) var state: State = .idle
+    
+    private var marketRepository: MarketRepository
+    
+    /// - NOTE: 페이징 구현을 위한 변수
+    private var lastModified: String?
+    private var currentPage: Int = 1
+    
+    
+    // MARK: - Initializer
+    init(
+        marketRepository: MarketRepository
+    ) {
+        self.marketRepository = marketRepository
+    }
+    
         
-        switch result {
-        case .success(let data, _):
-            if currentPage == 1 {
-                self.favoriteMarkets = []
-                data.response.marketResDtos.forEach {
-                    self.favoriteMarkets.append($0.toEntity())
-                }
-            } else {
-                data.response.marketResDtos.forEach {
-                    self.favoriteMarkets.append($0.toEntity())
-                }
-            }
-            
-            if let last = data.response.marketResDtos.last {
-                self.lastModified = last.favoriteModifiedAt
-            }
-            
-            self.hasNextPage = data.response.hasNext
-            currentPage += 1
-        case .failure(let statusCode, let message):
-            print("[fetchFavoriteMarket] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+    // MARK: - Action
+    func action(_ action: Action) {
+        switch action {
+        case .fetchFavoriteMarket:
+            Task { await fetchFavoriteMarket(reset: true) }
+        case .loadNextPage:
+            Task { await fetchFavoriteMarket(reset: false) }
+        }
+    }
+    
+}
+
+
+private extension MyFavoriteMarketListViewModel {
+    
+    // MARK: - 자신이 찜한 매장 조회
+    func fetchFavoriteMarket(reset: Bool) async {
+        if reset {
+            currentPage = 1
+            lastModified = nil
         }
         
-        isLoading = false
+
+        let result = await marketRepository.fetchFavoriteMarkets(lastModifiedAt: lastModified, pageSize: 10)
+        
+        switch result {
+        case .success((let data, let hasNext)):
+            if data.isEmpty && currentPage == 1 {
+                self.state = .empty
+                return
+            }
+            
+            if currentPage > 1 {
+                if case .loaded(let existing, _ ) = state {
+                    let combined = existing + data
+                    self.state = .loaded(combined, hasNext: hasNext)
+                }
+            }
+            
+            else {
+                self.state = .loaded(data, hasNext: hasNext)
+            }
+            
+            let lastItem = data.last
+            lastModified = lastItem?.lastModified
+            
+            currentPage += 1
+            
+        case .failure(let error):
+            print("[fetchFavoriteMarket] - [\(error)]")
+        }
     }
 }
