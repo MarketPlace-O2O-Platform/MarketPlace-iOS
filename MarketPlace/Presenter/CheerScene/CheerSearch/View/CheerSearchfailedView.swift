@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct CheerSearchfailedView: View {
-    @EnvironmentObject var cheerViewModel: CheerViewModel
-
     var body: some View {
         VStack{
             VStack(alignment: .center) {

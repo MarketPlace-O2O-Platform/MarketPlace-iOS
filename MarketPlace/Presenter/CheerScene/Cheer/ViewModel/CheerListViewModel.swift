@@ -47,15 +47,17 @@ final class CheerListViewModel: ViewModelable {
    func action(_ action: Action) {
        switch action {
        case .fetchCheerMarkets(_, let category):
-           Task { await fetchCheerMarketss(category: category, reset: true) }
+           Task { await fetchCheerMarkets(category: category, reset: true) }
        case .loadNextPage:
-           Task { await fetchCheerMarketss(reset: false) }
+           Task { await fetchCheerMarkets(reset: false) }
        }
    }
     
-       
+}
+
+private extension CheerListViewModel {
     // MARK: - 공감 매장 기본 조회
-    private func fetchCheerMarketss(
+    func fetchCheerMarkets(
         category: String? = nil,
         reset: Bool
     ) async {

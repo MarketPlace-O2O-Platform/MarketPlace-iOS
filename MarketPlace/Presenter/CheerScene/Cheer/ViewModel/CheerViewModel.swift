@@ -9,130 +9,187 @@ import Foundation
 import SwiftUI
 
 @MainActor
-final class CheerViewModel: ObservableObject {
-    @Published var cheerMarket: [CheerMarketResDto] = []
-    @Published var searchMarkets: [CheerMarketResDto] = []
-    @Published var memberCheerTicket: Int = 0
-    @Published var searchText: String = ""
-    @Published var navigationPath = NavigationPath()
+final class CheerViewModel: ViewModelable {
 
-    @Published var upcomingMarketLastMarketId: Int?
     
-    var upcomingMarketCurrentPage: Int = 1
-    var upcomingMarketHasNextPage: Bool = true
-    var upcomingMarketIsLoading: Bool = false
-    
-    @Published var searchLastMarketId: Int?
-    @Published var currentKeyword: String = ""
-
-    var searchCurrentPage: Int = 1
-    var searchHasNextPage: Bool = true
-    var searchIsLoading: Bool = false
-    
-    private var cheerMarketService: CheerMarketServiceProtocol
-    private var memberService: MemberServiceProtocol
-    
-    init(
-        cheerMarketService: CheerMarketServiceProtocol = CheerMarketService(),
-        memberService: MemberServiceProtocol = MemberService()
-    ) {
-        self.cheerMarketService = cheerMarketService
-        self.memberService = memberService
+    // MARK: - Types
+    enum Action {
+        case onAppear
+        case updateKeyword(String)
+        case loadMarketListNextPage
+        case loadSearchNextPage(String)
+        case onTapCheerButton
+        case onTapCategoryTab(String?)
     }
+    
+    struct State {
+        var upComingcheerMarket: [CheerMarketModel] = []
+        var cheerListMarket: [CheerMarketModel] = []
+        var searchMarketResults: [CheerMarketModel] = []
         
-    // MARK: - 달성임박 조회
-    func fetchUpcomingMarket(lastPageIndex: Int? = nil, lastCheerCount: Int? = nil, count: Int? = nil) async {
-        guard !upcomingMarketIsLoading, upcomingMarketHasNextPage else { return }
+        var memberCheerTicket: Int = 0
+                
+        var hasData: Bool = true
+    }
+    
+    
+    // MARK: - Properties
+    @Published private(set) var state: State
+    
+    private var cheerMarketRepository: CheerMarketRepository
+    
+    private var currentKeyword: String?
+    private var searchCurrentPage: Int = 1
+    private var searchLastPageIndex: Int?
+    private var searchHasNext: Bool = false
+    
+    private var currentCategory: MarketCategory = .ALL
+    private var cheerMarketCurrentPage: Int = 1
+    private var cheerMarketHasNextPage: Bool = true
+    private var cheerMarketLastMarketId: Int?
+    
+    
+    // MARK: - Initializer
+    init(cheerMarketRepository: CheerMarketRepository) {
+        self.cheerMarketRepository = cheerMarketRepository
+        self.state = State()
+    }
+    
+    // MARK: - Action
+    func action(_ action: Action) {
+        switch action {
+        case .onAppear:
+            Task {
+                await fetchUpcomingMarket()
+                await fetchMemberInfo()
+                await fetchCheerMarkets(reset: true)
+            }
+        case .updateKeyword(let keyword):
+            Task {
+                await fetchSearchCheerMarket(keyword: keyword, reset: true)
+            }
+        case .loadMarketListNextPage:
+            Task {
+                await fetchCheerMarkets(reset: false)
+            }
+        case .loadSearchNextPage(let keyword):
+            Task {
+                await fetchSearchCheerMarket(keyword: keyword, reset: false)
+            }
+        case .onTapCheerButton:
+            Task {
+                await fetchMemberInfo()
+                // TODO: 공감 network 추가 
+            }
+        case .onTapCategoryTab(let category):
+            Task {
+                await fetchCheerMarkets(category: category, reset: true)
+            }
+        }
+    }
+}
 
-        upcomingMarketIsLoading = true
-        
-        let result = await cheerMarketService.fetchUpcomingMarket(
-            lastPageIndex: lastPageIndex,
-            lastCheerCount: lastCheerCount,
-            count: count
-        )
+private extension CheerViewModel {
+    // MARK: - 달성임박 조회
+    func fetchUpcomingMarket() async {
+        let result = await cheerMarketRepository.fetchUpcomingCheerMarket(lastPageIndex: 0, lastCheerCount: nil, page: 10)
         
         switch result {
-        case .success(let data, _):
-            if upcomingMarketCurrentPage == 1 {
-                self.cheerMarket = data.response.marketResDtos
-            } else {
-                self.cheerMarket.append(contentsOf: data.response.marketResDtos)
-            }
-            
-            if let last = data.response.marketResDtos.last {
-                self.upcomingMarketLastMarketId = last.marketId
-            }
-            
-            self.upcomingMarketHasNextPage = data.response.hasNext
-            upcomingMarketCurrentPage += 1
-            
-        case .failure(let statusCode, let message):
-            print("[fetchUpcomingMarket] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+        case .success(let data):
+            self.state.upComingcheerMarket = data.cheerMarkets
+        case .failure(let error):
+            print("[fetchUpcomingMarket] - [\(error)]")
         }
-        
-        upcomingMarketIsLoading = false
     }
     
     // MARK: - 회원 남은 티켓 수 조회
     func fetchMemberInfo() async {
-        let result = await memberService.fetchMemberInfo()
+        let result = await cheerMarketRepository.fetchMyCheerTicketCount()
         
         switch result {
-        case .success(let data, _):
-            self.memberCheerTicket = data.response.cheerTicket
-        case .failure(let statusCode, let message):
-            print("[fetchMemberInfo] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
+        case .success(let data):
+            self.state.memberCheerTicket = data
+        case .failure(let error):
+            print("[fetchMemberInfo] - [\(error)]")
+        }
+    }
+    
+    // MARK: - 공감 매장 기본 조회
+    func fetchCheerMarkets(
+        category: String? = nil,
+        reset: Bool
+    ) async {
+        if reset || currentCategory != MarketCategory(category) {
+            cheerMarketCurrentPage = 1
+            cheerMarketLastMarketId = nil
+        }
+        
+        currentCategory = MarketCategory(category)
+        
+        let result = await cheerMarketRepository.fetchCheerMarketWithCategory(category: currentCategory, lastPageIndex: cheerMarketLastMarketId, page: 10)
+
+        switch result {
+        case .success(let data):
+            if cheerMarketCurrentPage > 1  {
+                self.state.cheerListMarket.append(contentsOf: data.cheerMarkets)
+            } else {
+                self.state.cheerListMarket = data.cheerMarkets
+            }
+                        
+            cheerMarketLastMarketId = data.cheerMarkets.last?.id
+            cheerMarketCurrentPage += 1
+            
+        case .failure(let error):
+            print("[\(error)]")
         }
     }
     
     // MARK: - 공감 매장 검색 조회
-    func fetchSearchCheerMarket(
-        lastPageIndex: Int? = nil,
-        pageSize: Int? = nil,
-        name: String
-    ) async -> Bool {
-        var hasData: Bool = true
+    func fetchSearchCheerMarket(keyword: String?, reset: Bool) async -> Bool {
+        if currentKeyword == keyword,
+           let currentKeyword = currentKeyword,
+           !reset
+        {
+            let result = await cheerMarketRepository.fetchMarketQueries(keyword: currentKeyword, lastPageIndex: searchLastPageIndex, pageSize: 10)
+            
+            switch result {
+            case .success(let data):
+                state.searchMarketResults.append(contentsOf: data.cheerMarkets)
+                searchHasNext = data.hasNext
+                
+                let lastItem = data.cheerMarkets.last
+                searchLastPageIndex = lastItem?.id
+                searchCurrentPage += 1
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
         
-        if currentKeyword != name {
+        else if currentKeyword != keyword,
+                let newKeyword = keyword,
+                reset
+        {
+            searchHasNext = false
             searchCurrentPage = 1
-            searchHasNextPage = true
+            currentKeyword = nil
+            searchLastPageIndex = nil
+            
+            let result = await cheerMarketRepository.fetchMarketQueries(keyword: newKeyword, lastPageIndex: 0, pageSize: 10)
+            
+            switch result {
+            case .success(let data):
+                state.searchMarketResults = data.cheerMarkets
+                searchHasNext = data.hasNext
+                
+                let lastItem = data.cheerMarkets.last
+                searchLastPageIndex = lastItem?.id
+                currentKeyword = newKeyword
+                searchCurrentPage += 1
+                
+            case .failure(let error):
+                print(error)
+            }
         }
-        
-        guard !searchIsLoading, searchHasNextPage else { return false }
-
-        searchIsLoading = true
-        
-        let result = await cheerMarketService.fetchSearchCheerMarket(
-            lastPageIndex: lastPageIndex,
-            pageSize: pageSize,
-            name: name
-        )
-        
-        switch result {
-        case .success(let data, _):
-            if searchCurrentPage == 1 {
-                self.searchMarkets = data.response.marketResDtos
-            } else {
-                self.searchMarkets.append(contentsOf: data.response.marketResDtos)
-            }
-            
-            if let last = data.response.marketResDtos.last {
-                self.searchLastMarketId = last.marketId
-            }
-            
-            self.searchHasNextPage = data.response.hasNext
-            searchCurrentPage += 1
-            
-            if searchMarkets.isEmpty {
-                hasData = false
-            }
-        case .failure(let statusCode, let message):
-            print("[CheerSearchMarket] - [\(statusCode)]: \(message ?? "알 수 없는 오류")")
-        }
-        
-        searchIsLoading = false
-        
-        return hasData
     }
 }

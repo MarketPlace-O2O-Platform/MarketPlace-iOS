@@ -9,7 +9,6 @@ import SwiftUI
 
 struct RequestMainView: View {
     @Environment(\.presentationMode) var presentationMode
-    @EnvironmentObject var cheerViewModel: CheerViewModel
 
     @State var marketName: String = ""
     @StateObject private var viewModel = RequestMarketViewModel()
