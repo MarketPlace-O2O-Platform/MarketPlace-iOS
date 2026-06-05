@@ -1,9 +1,7 @@
 import SwiftUI
 
-struct HotCheerView: View {
-    @Binding var hotCheerMarkets: [CheerMarketResDto]
-    @Binding var cheerTicket: Int
-    @Binding var lastIndex: Int
+struct HotCheerView: View {    
+    @StateObject var viewModel: CheerViewModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -13,7 +11,7 @@ struct HotCheerView: View {
                     .foregroundStyle(.black)
                 Text("내 공감권")
                     .pretendardFont(size: 16, weight: .medium)
-                Text("\(cheerTicket)개")
+                Text("\(viewModel.state.memberCheerTicket)개")
                     .pretendardFont(size: 16, weight: .bold)
                 
                 Spacer()
@@ -45,7 +43,7 @@ struct HotCheerView: View {
             }
             .padding(.horizontal)
             
-            if hotCheerMarkets.isEmpty {
+            if viewModel.state.upComingCheerMarket.isEmpty {
                 VStack(spacing: 10) {
                     Text("달성 임박한 매장이 없습니다.")
                     Text("등록된 매장의 공감하기를 통해 새로운 혜택을 받아보세요!")
@@ -59,12 +57,8 @@ struct HotCheerView: View {
             else {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack(spacing: 12) {
-                        ForEach(Array(hotCheerMarkets.enumerated()), id: \.offset) { index, market in
+                        ForEach(Array(viewModel.state.upComingCheerMarket.enumerated()), id: \.offset) { index, market in
                             HotCheerCardCell(viewModel: HotCheerCardCellViewModel(hotCheerMarket: market))
-                                .onAppear {
-                                    guard index == hotCheerMarkets.count - 1 else { return }
-                                    lastIndex = index
-                                }
                         }
                     }
                     .padding(.horizontal)

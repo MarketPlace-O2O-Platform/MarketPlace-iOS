@@ -23,13 +23,13 @@ final class CheerViewModel: ViewModelable {
     }
     
     struct State {
-        var upComingcheerMarket: [CheerMarketModel] = []
+        var upComingCheerMarket: [CheerMarketModel] = []
         var cheerListMarket: [CheerMarketModel] = []
         var searchMarketResults: [CheerMarketModel] = []
         
         var memberCheerTicket: Int = 0
                 
-        var hasData: Bool = true
+        var hasSearchData: Bool = true
     }
     
     
@@ -96,7 +96,7 @@ private extension CheerViewModel {
         
         switch result {
         case .success(let data):
-            self.state.upComingcheerMarket = data.cheerMarkets
+            self.state.upComingCheerMarket = data.cheerMarkets
         case .failure(let error):
             print("[fetchUpcomingMarket] - [\(error)]")
         }
@@ -115,10 +115,7 @@ private extension CheerViewModel {
     }
     
     // MARK: - 공감 매장 기본 조회
-    func fetchCheerMarkets(
-        category: String? = nil,
-        reset: Bool
-    ) async {
+    func fetchCheerMarkets(category: String? = nil, reset: Bool) async {
         if reset || currentCategory != MarketCategory(category) {
             cheerMarketCurrentPage = 1
             cheerMarketLastMarketId = nil
@@ -161,7 +158,10 @@ private extension CheerViewModel {
                 searchLastPageIndex = lastItem?.id
                 searchCurrentPage += 1
                 
+                state.hasSearchData = true
+                
             case .failure(let error):
+                state.hasSearchData = false
                 print(error)
             }
         }
@@ -187,7 +187,10 @@ private extension CheerViewModel {
                 currentKeyword = newKeyword
                 searchCurrentPage += 1
                 
+                state.hasSearchData = true
+                
             case .failure(let error):
+                state.hasSearchData = false
                 print(error)
             }
         }

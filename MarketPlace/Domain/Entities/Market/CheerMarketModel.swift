@@ -12,7 +12,7 @@ struct CheerMarketModel: Identifiable {
     let name: String
     let description: String?
     let thumbnail: String
-    let cheerCount: Int?
-    let isCheer: Bool
+    var cheerCount: Int?
+    var isCheer: Bool
     let dueDate: Int?
 }

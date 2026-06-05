@@ -8,31 +8,31 @@
 import SwiftUI
 
 struct CheerSearchCardCell: View {
-    @Binding var market: CheerMarketResDto
+    @StateObject var viewModel: CheerSearchCardCellViewModel
     
     var body: some View {
         HStack(alignment: .top, spacing: 16) {
             ShimmeringAsyncImage(
                 url: URL(
-                    string: URLManager.shared.baseStringURL + "image/tempMarket/" + market.thumbnail
+                    string: URLManager.shared.baseStringURL + "image/tempMarket/" + viewModel.marketData.thumbnail
                 ),
                 cornerRadius: 4, width: 110, height: 110)
             
             VStack(alignment: .leading, spacing: 4) {
-                Text(market.marketName)
+                Text(viewModel.marketData.name)
                     .foregroundColor(Color(hex: "#333"))
                     .pretendardFont(size: 16, weight: .semibold)
                     .padding(.top, 5)
-                Text(market.marketDescription ?? "")
+                Text(viewModel.marketData.description ?? "")
                     .foregroundColor(Color(hex: "#7D7D7D"))
                     .pretendardFont(size: 13, weight: .medium)
                 
                 Spacer()
                 
                 Button(action: {
-                    market.isCheer = true
+                    viewModel.toggleCheer()
                 }) {
-                    if market.isCheer {
+                    if viewModel.marketData.isCheer {
                         HStack(spacing: 8) {
                             Text("공감완료")
                                 .foregroundColor(Color(hex: "#B0B0B0"))
@@ -64,3 +64,4 @@ struct CheerSearchCardCell: View {
         }.padding(.horizontal, 5)
     }
 }
+

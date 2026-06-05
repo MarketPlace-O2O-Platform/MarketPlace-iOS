@@ -8,14 +8,14 @@
 import Foundation
 
 final class CheerCardCellViewModel: ObservableObject {
-    @Published var cheerMarket: CheerMarketResDto
+    @Published var cheerMarket: CheerMarketModel
     @Published var isCheer: Bool = false
     
     private var cheerMarketService: CheerMarketServiceProtocol
     
     init(
         cheerMarketService: CheerMarketServiceProtocol = CheerMarketService(),
-        cheerMarket: CheerMarketResDto
+        cheerMarket: CheerMarketModel
     ) {
         self.cheerMarketService = cheerMarketService
         self.cheerMarket = cheerMarket

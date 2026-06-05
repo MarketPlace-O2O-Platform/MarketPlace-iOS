@@ -34,7 +34,7 @@ struct HotCheerCardCell: View {
                 height: 284
             )
                                 
-            Text("'\(viewModel.hotCheerMarket.marketName)' 할인을 받고 싶어요!")
+            Text("'\(viewModel.hotCheerMarket.name)' 할인을 받고 싶어요!")
                 .font(.subheadline)
                 .fontWeight(.bold)
                 .lineLimit(1)
@@ -59,7 +59,7 @@ struct HotCheerCardCell: View {
             
             Button(action: {
                 Task {
-                    await viewModel.postCheerMarket(tempMarketId: viewModel.hotCheerMarket.marketId)
+                    await viewModel.postCheerMarket(tempMarketId: viewModel.hotCheerMarket.id)
                 }
             }) {
                 if status == .isFinished {

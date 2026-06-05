@@ -1,5 +1,5 @@
 //
-//  CheerSearchView.swift
+//  CheerSearchTextField.swift
 //  MarketPlace
 //
 //  Created by 이예나 on 2/27/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CheerSearchView: View {    
+struct CheerSearchTextField: View {
     @Binding var searchText: String
     @State private var isEditing: Bool = true
 

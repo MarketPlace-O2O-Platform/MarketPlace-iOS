@@ -2,7 +2,8 @@ import SwiftUI
 
 struct CheerListView: View {
     @State private var selectedTab = 0
-    @StateObject private var viewModel = CheerListViewModel()
+//    @StateObject private var viewModel = CheerListViewModel()
+    @StateObject var viewModel: CheerViewModel
 
     var body: some View {
         VStack(spacing: 0) {
@@ -24,67 +25,40 @@ struct CheerListView: View {
             CircleCategoryTabView(selectedTab: $selectedTab)
                 .padding(.vertical, 10)
             
-            switch viewModel.state {
-                
-            case .idle:
-                
-                VStack(spacing: 10) {
-                    Text("이 카테고리에 해당하는 제휴 매장이 존재하지 않습니다.")
-                    Text("원하는 매장을 요청해보세요!")
-                }
-                .pretendardFont(size: 12, weight: .semibold)
-                .foregroundColor(Colors.gray_300)
-                .padding(.vertical, 50)
-                
-            case .empty:
-                
-                VStack(spacing: 10) {
-                    Text("이 카테고리에 해당하는 제휴 매장이 존재하지 않습니다.")
-                    Text("원하는 매장을 요청해보세요!")
-                }
-                .pretendardFont(size: 12, weight: .semibold)
-                .foregroundColor(Colors.gray_300)
-                .padding(.vertical, 50)
-                
-            case .loaded(let markets, let hasNext):
-                
+            if !viewModel.state.cheerListMarket.isEmpty {
                 LazyVGrid(columns: [
                     GridItem(.flexible(), spacing: 16),
                     GridItem(.flexible(), spacing: 16)
                 ], spacing: 20) {
-                    ForEach(Array(markets.enumerated()), id: \.offset) { index, market in
+                    ForEach(Array(viewModel.state.cheerListMarket.enumerated()), id: \.offset) { index, market in
                         CheerCardCell(viewModel: CheerCardCellViewModel(cheerMarket: market))
                             .onAppear {
-                                if index == markets.count-1, hasNext {
+                                if index == viewModel.state.cheerListMarket.count-1 {
                                     viewModel.action(.loadNextPage)
                                 }
                             }
                     }
                 }
                 .padding()
-                
-            case .error(let message):
-                
-                VStack {
-                    Text("문제가 발생했습니다!")
-                        .foregroundColor(.gray)
-                        .padding(.top, 40)
-                    
-                    Text(message)
-                        .foregroundColor(.gray)
-                    
-                    Spacer()
+            }
+            
+            else {
+                VStack(spacing: 10) {
+                    Text("이 카테고리에 해당하는 제휴 매장이 존재하지 않습니다.")
+                    Text("원하는 매장을 요청해보세요!")
                 }
-                
+                .pretendardFont(size: 12, weight: .semibold)
+                .foregroundColor(Colors.gray_300)
+                .padding(.vertical, 50)
             }
         }
         /// - NOTE: 이전화면에서 넘어왔을 시 + 초기 화면의 해당 탭의 데이터 불러오기
         .onAppear {
-            viewModel.action(.fetchCheerMarkets(category: MarketCategory(index: selectedTab)?.apiValue))
+            viewModel.action(.onAppear)
         }
         /// - NOTE: 탭 눌렀을 시 해당 탭의 데이터 불러오기
         .onChange(of: selectedTab) {
-            viewModel.action(.fetchCheerMarkets(category: MarketCategory(index: selectedTab)?.apiValue))
+            viewModel.action(.onTapCategoryTab(MarketCategory(index: selectedTab)?.apiValue))
         }
     }
 }

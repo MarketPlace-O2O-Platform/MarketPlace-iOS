@@ -39,12 +39,7 @@ struct CheerCardCell: View {
             }
             
             Button(action: {
-                Task{
-                    let success = await viewModel.postCheerMarket(tempMarketId: viewModel.cheerMarket.marketId)
-                    if success {
-                        await parentViewModel.fetchMemberInfo()
-                    }
-                 }
+                parentViewModel.action(.onTapCheerButton)
             }) {
                 /// - NOTE: 아직 공감하지 않은 매장
                 if !viewModel.isCheer {
