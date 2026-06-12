@@ -31,7 +31,12 @@ final class CheerCoordinator: ObservableObject {
 
     @MainActor @ViewBuilder
     func destination(route: CheerRoute) -> some View {
-        
+        switch route {
+        case .cheerMain:
+            diContainer.makeCheerView(coordinator: self)
+        case .requestNewMarket:
+            diContainer.makeRequestNewMarketView(coordinator: self)
+        }
     }
     
 }

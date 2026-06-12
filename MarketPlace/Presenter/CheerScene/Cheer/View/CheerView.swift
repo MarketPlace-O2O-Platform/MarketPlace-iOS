@@ -4,11 +4,12 @@ import SwiftUI
 struct CheerView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var loginVM: LoginViewModel
-    @EnvironmentObject var viewModel: CheerViewModel
-        
-    @State private var searchText: String = ""
-    
+    @StateObject var viewModel: CheerViewModel
+            
     @StateObject var coordinator: CheerCoordinator
+    
+    @State private var searchText: String = ""
+
     
     var body: some View {
         NavigationStack(path: $coordinator.path) {
