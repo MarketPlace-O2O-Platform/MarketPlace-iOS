@@ -24,7 +24,11 @@ final class CheerDIContainer {
     }
     
     func makeRequestNewMarketView(coordinator: CheerCoordinator) -> RequestMainView {
-        return RequestMainView()
+        return RequestMainView(viewModel: self.makeRequestNewMarketViewModel(), coordinator: coordinator)
+    }
+    
+    func makeRequsetMarketMapView(coordinator: CheerCoordinator) -> RequestMarketMapView {
+        return RequestMarketMapView(market: <#T##KakaoMarketData#>)
     }
 }
 
@@ -35,11 +39,18 @@ private extension CheerDIContainer {
         return CheerViewModel(cheerMarketRepository: makeCheerMarketRepository())
     }
     
+    
+    func makeRequestNewMarketViewModel() -> RequestMarketViewModel {
+        return RequestMarketViewModel(marketRepository: makeMarketRepository())
+    }
+    
+    
     // MARK: - UseCase
     
     
     
     // MARK: - Repository
+    
     func makeCheerMarketRepository() -> CheerMarketRepository {
         return DefaultCheerMarketRepository(
             cheerMarketNetworkService: makeCheerMarketService(),
@@ -48,6 +59,9 @@ private extension CheerDIContainer {
         )
     }
     
+    func makeMarketRepository() -> MarketRepository {
+        return DefaultMarketRepository(marketNetworkService: makeMarketService())
+    }
     
     // MARK: - NetworkService
     

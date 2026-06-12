@@ -12,6 +12,7 @@ final class CheerCoordinator: ObservableObject {
     enum CheerRoute: Hashable {
         case cheerMain
         case requestNewMarket
+        case requestMarketMap
     }
     
     private let diContainer: CheerDIContainer
@@ -36,6 +37,8 @@ final class CheerCoordinator: ObservableObject {
             diContainer.makeCheerView(coordinator: self)
         case .requestNewMarket:
             diContainer.makeRequestNewMarketView(coordinator: self)
+        case .requestMarketMap:
+            diContainer.makeRequsetMarketMapView(coordinator: self)
         }
     }
     
