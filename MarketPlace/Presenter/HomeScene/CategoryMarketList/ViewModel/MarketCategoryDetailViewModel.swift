@@ -64,7 +64,7 @@ final class MarketCategoryDetailViewModel: ViewModelable {
         
         currentCategory = category
         
-        let result = await marketRepository.fetchMarketWithCategory(category: MarketCategory(rawValue: category ?? ""), lastPageIndex: lastMarketId, pageSize: 10)
+        let result = await marketRepository.fetchMarketWithCategory(category: MarketCategory(category), lastPageIndex: lastMarketId, pageSize: 10)
                 
         switch result {
         case .success((let data, let hasNext)):

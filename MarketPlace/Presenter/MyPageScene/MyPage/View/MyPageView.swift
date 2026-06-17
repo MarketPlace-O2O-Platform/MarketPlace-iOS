@@ -7,8 +7,8 @@ struct MyPageView: View {
     @State private var isDropdownVisible = false
     @State private var showLogoutAlert: Bool = false
     
-    @StateObject var viewModel: MyPageViewModel
-    @StateObject var couponTabViewModel: MyCouponViewModel
+    @ObservedObject var viewModel: MyPageViewModel
+    @ObservedObject var couponTabViewModel: MyCouponViewModel
     
     @StateObject var coordinator: MyPageCoordinator
 

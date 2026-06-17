@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct CheerSearchCardCell: View {
-    @Binding var market: CheerMarketResDto
+    let market: CheerMarketModel
+    let onTapCheer: () -> Void
     
     var body: some View {
         HStack(alignment: .top, spacing: 16) {
@@ -19,18 +20,18 @@ struct CheerSearchCardCell: View {
                 cornerRadius: 4, width: 110, height: 110)
             
             VStack(alignment: .leading, spacing: 4) {
-                Text(market.marketName)
+                Text(market.name)
                     .foregroundColor(Color(hex: "#333"))
                     .pretendardFont(size: 16, weight: .semibold)
                     .padding(.top, 5)
-                Text(market.marketDescription ?? "")
+                Text(market.description ?? "")
                     .foregroundColor(Color(hex: "#7D7D7D"))
                     .pretendardFont(size: 13, weight: .medium)
                 
                 Spacer()
                 
                 Button(action: {
-                    market.isCheer = true
+                    onTapCheer()
                 }) {
                     if market.isCheer {
                         HStack(spacing: 8) {
@@ -64,3 +65,4 @@ struct CheerSearchCardCell: View {
         }.padding(.horizontal, 5)
     }
 }
+

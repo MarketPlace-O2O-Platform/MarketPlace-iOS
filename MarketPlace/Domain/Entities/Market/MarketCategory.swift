@@ -32,3 +32,9 @@ enum MarketCategory: String, CaseIterable {
         self == .ALL ? nil : rawValue
     }
 }
+
+extension MarketCategory {
+    init(_ rawValue: String?) {
+        self = MarketCategory(rawValue: rawValue ?? "") ?? .ALL
+    }
+}

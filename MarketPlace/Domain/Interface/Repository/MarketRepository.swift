@@ -31,4 +31,7 @@ protocol MarketRepository {
     
     func fetchMarketRecentsQueries() async -> Result<[MarketListModel], MarketRepositoryError>
     
+    func fetchMarketListQueriesFromKakao(keyword: String, x: String, y: String) async -> Result<[KakaoMarketData], MarketRepositoryError>
+    
+    func postRequestNewMarket(name: String, address: String) async -> Result<Void, MarketRepositoryError>
 }

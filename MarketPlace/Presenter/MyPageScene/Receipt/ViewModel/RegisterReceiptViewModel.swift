@@ -48,7 +48,7 @@ final class RegisterReceiptViewModel: ViewModelable {
         switch action {
         case .onAppear:
             // TODO: 계좌번호 저장 유무에 따라 처리
-            
+            print("")
         case .onTapSaveAccountButton:
             // TODO: Toggle 계좌번호저장 or 삭제
             if !state.isSaveAccount {

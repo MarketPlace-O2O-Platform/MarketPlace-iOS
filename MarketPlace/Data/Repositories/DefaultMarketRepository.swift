@@ -144,6 +144,34 @@ extension DefaultMarketRepository: MarketRepository {
         return .success([])
     }
     
+    func fetchMarketListQueriesFromKakao(keyword: String, x: String, y: String) async -> Result<[KakaoMarketData], MarketRepositoryError> {
+        let result = await marketNetworkService.searchKakaoMarketKeyword(keyword: keyword, x: x, y: y)
+        
+        switch result {
+        case .success(let data, let statusCode):
+            
+            let markets = data.documents
+            
+            return .success(markets)
+            
+        case .failure(let statusCode, let message):
+            
+            return .failure(processError(statusCode: statusCode))
+            
+        }
+    }
+    
+    func postRequestNewMarket(name: String, address: String) async -> Result<Void, MarketRepositoryError> {
+        let result = await marketNetworkService.postMarketRequest(name: name, address: address)
+        
+        switch result {
+        case .success(let data, let statusCode):
+            return .success(())
+        case .failure(let statusCode, let message):
+            return .failure(processError(statusCode: statusCode))
+        }
+    }
+    
     private func processError(statusCode: Int) -> MarketRepositoryError {
         switch statusCode {
         case 200..<300:

@@ -4,77 +4,70 @@ import SwiftUI
 struct CheerView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var loginVM: LoginViewModel
-    @EnvironmentObject var viewModel: CheerViewModel
+    @ObservedObject var viewModel: CheerViewModel
+            
+    @StateObject var coordinator: CheerCoordinator
     
-    @State var upcomingLastIndex: Int = 0
-    
-    @State private var hasData: Bool = true
+    @State private var searchText: String = ""
     
     var body: some View {
-        NavigationStack(path: $viewModel.navigationPath) {
+        NavigationStack(path: $coordinator.path) {
             ScrollView {
-                CheerSearchView(searchText: $viewModel.searchText)
+                CheerSearchTextField(searchText: $searchText)
 
                 VStack(spacing:20) {
-                    if viewModel.searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                        HotCheerView(hotCheerMarkets: $viewModel.cheerMarket, cheerTicket: $viewModel.memberCheerTicket, lastIndex: $upcomingLastIndex)
+                    
+                    if searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                        
+                        HotCheerView(viewModel: viewModel)
                             .padding(.top, 10)
 
                         Rectangle()
                             .foregroundStyle(Color(hex: "#EEEEEE"))
                             .frame(height: 4)
 
-                        CheerListView()
-                    } else {
-                        if hasData {
+                        CheerListView(viewModel: viewModel)
+                        
+                    }
+                    
+                    else {
+                        
+                        if viewModel.state.hasSearchData {
                             ScrollView {
                                 LazyVStack(spacing: 10) {
-                                    ForEach(Array($viewModel.searchMarkets.enumerated()), id: \.offset) { index, $market in
+                                    ForEach(Array(viewModel.state.searchMarketResults.enumerated()), id: \.offset) { index, market in
                                         VStack {
-                                            CheerSearchCardCell(market: $market)
+                                            CheerSearchCardCell(market: market, onTapCheer: {
+                                                viewModel.action(.onTapSearchListCheerButton(market.id))
+                                            })
                                                 .padding(.vertical, 10)
                                             Divider()
                                         }
-                                        .onAppear {
-                                            guard index == viewModel.cheerMarket.count - 1,
-                                                  let lastId = viewModel.searchLastMarketId
-                                            else { return }
-
-                                            Task {
-                                                await viewModel.fetchSearchCheerMarket(lastPageIndex: lastId, name: viewModel.currentKeyword)
-                                            }
+                                        .task {
+                                           // TODO: 검색 화면 다음 페이지 로드
                                         }
                                     }
                                 }
                                 .padding()
                             }
-                        } else{
-                            CheerSearchfailedView()
                         }
+                        
+                        else {
+                            CheerSearchfailedView(coordinator: coordinator)
+                        }
+                        
                     }
                 }
             }
             .onTapGesture {
                 self.endTextEditing()
             }
-            .onAppear{
-                viewModel.searchText = ""
-                viewModel.navigationPath = NavigationPath()
-
-                Task {
-                    await viewModel.fetchMemberInfo()
-                    await viewModel.fetchUpcomingMarket()
-                }
+            .task {
+                viewModel.action(.onAppear)
             }
-            .onChange(of: upcomingLastIndex) { _, newValue in
+            .onChange(of: searchText) { _, newValue in
                 Task {
-                    await viewModel.fetchUpcomingMarket(lastPageIndex: viewModel.upcomingMarketLastMarketId)
-                }
-            }
-            .onChange(of: viewModel.searchText) { _, newValue in
-                Task {
-                    hasData = await viewModel.fetchSearchCheerMarket(name: newValue)
-                    viewModel.currentKeyword = newValue
+                    viewModel.action(.updateKeyword(newValue))
                 }
             }
         }

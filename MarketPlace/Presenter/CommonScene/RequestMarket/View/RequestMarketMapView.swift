@@ -10,39 +10,20 @@ import CoreLocation
 
 struct RequestMarketMapView: View {
     @Environment(\.presentationMode) var presentationMode
-    @EnvironmentObject var cheerViewModel: CheerViewModel
 
-    @StateObject private var viewModel = RequestMarketMapViewModel()
-    @State var pois: [KakaoMapPoi]
-    @State var location: CLLocation
-    @State var selectedPoi: KakaoMapPoi? /// 역할없음
-  
-    @State private var showCompletionPopup: Bool = false
-    @State var click: Bool = false /// 역할없음
-
-    let market: KakaoMarketData
+    @ObservedObject var viewModel: RequestMarketMapViewModel
     
-    init(market: KakaoMarketData) {
-        self.market = market
-        let latitude = Double(market.y) ?? 0.0
-        let longitude = Double(market.x) ?? 0.0
+    let coordinator: CheerCoordinator
         
-        _pois = State(initialValue: [KakaoMapPoi(latitude: latitude, longitude: longitude, title: market.place_name, id: 0)])
-        _location = State(initialValue: CLLocation(latitude: latitude, longitude: longitude))
-    }
-    
-    @State var draw: Bool = false
-    @State private var isVisible = false
-    
     var body: some View {
         VStack(alignment: .leading) {
-            Text(market.place_name)
+            Text(viewModel.marketData.place_name)
                 .pretendardFont(size: 26, weight: .black)
                 .padding(.top, 40)
                 .padding(.bottom, 10)
                 .padding(.leading, 30)
             
-            Text(market.road_address_name)
+            Text(viewModel.marketData.road_address_name)
                 .pretendardFont(size: 18, weight: .regular)
                 .padding(.leading, 30)
                 .padding(.bottom, 20)
@@ -51,17 +32,17 @@ struct RequestMarketMapView: View {
                 Spacer()
                 
                 KakaoMapView(
-                    draw: $draw,
-                    pois: $pois,
-                    location: $location,
-                    selectedPoi: $selectedPoi,
-                    isTappedCurrentPositionButton: $click
+                    draw: $viewModel.draw,
+                    pois: $viewModel.pois,
+                    location: $viewModel.location,
+                    selectedPoi: $viewModel.selectedPoi,
+                    isTappedCurrentPositionButton: $viewModel.click
                 )
                     .onAppear(perform: {
-                        self.draw = true
+                        viewModel.action(.drawKakaoMap)
                     })
                     .onDisappear(perform: {
-                        self.draw = false
+                        viewModel.action(.eraseKakaoMap)
                     }).frame(maxWidth: 340, maxHeight: 340)
                     
                 Spacer()
@@ -70,10 +51,8 @@ struct RequestMarketMapView: View {
             Spacer()
             
             Button(action: {
-                Task {
-                    await viewModel.postMarketRequest(name: market.place_name, address: market.road_address_name)
-                    showCompletionPopup = true
-                }
+                viewModel.action(.onTapRequestMarket(viewModel.marketData.place_name, viewModel.marketData.road_address_name))
+                viewModel.action(.requestMarketSuccess)
             }, label: {
                 Text("입점 요청하기")
                     .pretendardFont(size: 14, weight: .bold)
@@ -100,11 +79,10 @@ struct RequestMarketMapView: View {
         }
         .overlay(
             RequestCompletionPopup(
-                isPresented: $showCompletionPopup,
+                isPresented: $viewModel.showCompletionPopup,
                 onConfirm: {
-                    showCompletionPopup = false
-                    cheerViewModel.searchText = ""
-                    cheerViewModel.navigationPath = NavigationPath()
+                    viewModel.action(.confirmPopup)
+                    coordinator.popToRoot()
                 }
             )
         )

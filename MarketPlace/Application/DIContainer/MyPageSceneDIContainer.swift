@@ -25,7 +25,7 @@ final class MyPageSceneDIContainer {
     }
     
     func makeMyCurationView(coordinator: MyPageCoordinator) -> some View {
-        return MyFavoriteShopListView(viewModel: self.makeMyCurationViewModel(), coordinator: coordinator)
+        return MyFavoriteMarketListView(viewModel: self.makeMyCurationViewModel(), coordinator: coordinator)
     }
     
     func makeReceiptView(memberCouponId: Int, coordinator: MyPageCoordinator) -> some View {

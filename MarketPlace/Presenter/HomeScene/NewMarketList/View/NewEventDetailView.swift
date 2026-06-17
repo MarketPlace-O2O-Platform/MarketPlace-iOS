@@ -5,7 +5,7 @@ struct NewEventDetailView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var loginViewModel: LoginViewModel
     
-    @StateObject var viewModel: NewEventViewModel
+    @ObservedObject var viewModel: NewEventViewModel
         
     @State private var isLoginRequiredPopupVisible: Bool = false
     @State private var isPopupVisible: Bool = false

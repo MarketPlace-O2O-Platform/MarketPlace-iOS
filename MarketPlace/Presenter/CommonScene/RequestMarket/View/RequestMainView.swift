@@ -9,14 +9,11 @@ import SwiftUI
 
 struct RequestMainView: View {
     @Environment(\.presentationMode) var presentationMode
-    @EnvironmentObject var cheerViewModel: CheerViewModel
 
     @State var marketName: String = ""
-    @StateObject private var viewModel = RequestMarketViewModel()
+    @ObservedObject var viewModel: RequestMarketViewModel
     
-    init() {
-        setupNavigationBarAppearance()
-    }
+    var coordinator: CheerCoordinator
     
     var body: some View {
         VStack {
@@ -44,34 +41,22 @@ struct RequestMainView: View {
             
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 20) {
-                    ForEach(viewModel.market) { market in
-                        NavigationLink(destination: RequestMarketMapView(market: market)) {
+                    ForEach(viewModel.state.marketList) { market in
+                        Button(action: {
+                            coordinator.push(.requestMarketMap(market))
+                        }, label: {
                             RequestListView(market: market)
-                        }
+                        })
                         Divider()
                     }
                 }
             }.padding(.horizontal, 20)
         }
         .onChange(of: marketName){ _, newValue in
-            Task {
-                await viewModel.searchKakaoMarketKeyword(keyword: marketName)
-            }
+            viewModel.action(.updateKeyword(newValue))
         }
         .navigationTitle("요청하기")
         .navigationBarTitleDisplayMode(.inline)
-    }
-    
-    private func setupNavigationBarAppearance() {
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = UIColor.white
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
-        
-        appearance.setBackIndicatorImage(UIImage(), transitionMaskImage: UIImage())
-        
-        UINavigationBar.appearance().standardAppearance = appearance
-        UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
 }
 
