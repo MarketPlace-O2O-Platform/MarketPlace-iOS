@@ -1,20 +1,19 @@
 
 import SwiftUI
 
-@MainActor
 struct CheerCardCell: View {
-    @ObservedObject var viewModel: CheerCardCellViewModel
-    @EnvironmentObject var parentViewModel: CheerViewModel
+    let market: CheerMarketModel
+    let onTapCheer: () -> Void
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             ShimmeringAsyncImage(
                 url: URL(
-                    string: URLManager.shared.baseStringURL + "image/tempMarket/" + viewModel.cheerMarket.thumbnail
+                    string: URLManager.shared.baseStringURL + "image/tempMarket/" + market.thumbnail
                 ),
                 cornerRadius: 0, width: 162, height: 162)
 
-            Text(viewModel.cheerMarket.marketName)
+            Text(market.name)
                 .pretendardFont(size: 16, weight: .semibold)
             
             HStack {
@@ -22,27 +21,27 @@ struct CheerCardCell: View {
                     Text("마감까지")
                         .foregroundColor(Color(hex: "#A0A0A2"))
 
-                    Text("\(viewModel.cheerMarket.dueDateFormmater)일 남음")
+                    Text("\(market.dueDate ?? 0)일 남음")
                         .foregroundColor(Color(hex: "#545454"))
                 }
                 .pretendardFont(size: 12, weight: .medium)
                 
                 Spacer()
 
-                if let cheerCount = viewModel.cheerMarket.cheerCount {
+                if let cheerCount = market.cheerCount {
                     Text("\(cheerCount)")
                         .pretendardFont(size: 12, weight: .regular)
                         .foregroundColor(.gray)
                 }
-                Image(systemName: viewModel.isCheer ? "heart.fill" : "heart")
+                Image(systemName: market.isCheer ? "heart.fill" : "heart")
                     .foregroundColor(.gray)
             }
             
             Button(action: {
-                parentViewModel.action(.onTapCheerButton)
+                onTapCheer()
             }) {
                 /// - NOTE: 아직 공감하지 않은 매장
-                if !viewModel.isCheer {
+                if !market.isCheer {
                     HStack {
                         Spacer()
                         Image(systemName: "heart")
@@ -72,7 +71,7 @@ struct CheerCardCell: View {
                     .cornerRadius(4)
                 }
             }
-            .disabled(viewModel.isCheer)
+            .disabled(market.isCheer)
             .frame(width: 162, height: 30)
             .padding(.top, 12)
         }

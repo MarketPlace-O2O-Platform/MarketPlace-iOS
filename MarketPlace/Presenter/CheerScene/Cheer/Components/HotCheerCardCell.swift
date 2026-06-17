@@ -2,7 +2,8 @@
 import SwiftUI
 
 struct HotCheerCardCell: View {
-    @ObservedObject var viewModel: HotCheerCardCellViewModel
+    let market: CheerMarketModel
+    let onTapCheer: () -> Void
     
     /// - NOTE: 공감 상태를 나타내기 위한
     enum CheerStatus {
@@ -20,21 +21,21 @@ struct HotCheerCardCell: View {
     }
 
     private var status: CheerStatus {
-        (viewModel.hotCheerMarket.cheerCount ?? 0) >= 14 ? .isFinished : .inProgress
+        (market.cheerCount ?? 0) >= 14 ? .isFinished : .inProgress
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             ShimmeringAsyncImage(
                 url: URL(string:
-                            URLManager.shared.baseStringURL + "image/tempMarket/" + viewModel.hotCheerMarket.thumbnail
+                            URLManager.shared.baseStringURL + "image/tempMarket/" + market.thumbnail
                     ),
                 cornerRadius: 0,
                 width: 284,
                 height: 284
             )
                                 
-            Text("'\(viewModel.hotCheerMarket.name)' 할인을 받고 싶어요!")
+            Text("'\(market.name)' 할인을 받고 싶어요!")
                 .font(.subheadline)
                 .fontWeight(.bold)
                 .lineLimit(1)
@@ -48,7 +49,7 @@ struct HotCheerCardCell: View {
                         .pretendardFont(size: 12, weight: .medium)
                         .foregroundColor(.black)
                 } else {
-                    Text(status.toString(dueDate: viewModel.hotCheerMarket.dueDate))
+                    Text(status.toString(dueDate: market.dueDate))
                         .pretendardFont(size: 12, weight: .medium)
                         .foregroundColor(.gray)
                 }
@@ -58,9 +59,7 @@ struct HotCheerCardCell: View {
                 .background(Color.gray.opacity(0.5))
             
             Button(action: {
-                Task {
-                    await viewModel.postCheerMarket(tempMarketId: viewModel.hotCheerMarket.id)
-                }
+                onTapCheer()
             }) {
                 if status == .isFinished {
                     Text("제휴 컨택 중")
@@ -72,9 +71,9 @@ struct HotCheerCardCell: View {
                         .cornerRadius(4)
                 } else {
                     HStack {
-                        Image(systemName: viewModel.isCheer ? "heart.fill" : "heart")
-                            .foregroundColor(viewModel.isCheer ? .gray : .white)
-                        Text(viewModel.isCheer ? "공감 완료" : "공감하기")
+                        Image(systemName: market.isCheer ? "heart.fill" : "heart")
+                            .foregroundColor(market.isCheer ? .gray : .white)
+                        Text(market.isCheer ? "공감 완료" : "공감하기")
                             .pretendardFont(size: 12, weight: .medium)
                             .foregroundColor(.white)
                     }

@@ -161,6 +161,17 @@ extension DefaultMarketRepository: MarketRepository {
         }
     }
     
+    func postRequestNewMarket(name: String, address: String) async -> Result<Void, MarketRepositoryError> {
+        let result = await marketNetworkService.postMarketRequest(name: name, address: address)
+        
+        switch result {
+        case .success(let data, let statusCode):
+            return .success(())
+        case .failure(let statusCode, let message):
+            return .failure(processError(statusCode: statusCode))
+        }
+    }
+    
     private func processError(statusCode: Int) -> MarketRepositoryError {
         switch statusCode {
         case 200..<300:

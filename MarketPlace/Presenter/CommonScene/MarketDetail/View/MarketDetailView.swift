@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct MarketDetailView: View {
-    @StateObject var viewModel: MarketDetailViewModel
+    @ObservedObject var viewModel: MarketDetailViewModel
     @EnvironmentObject var loginViewModel: LoginViewModel
     @Environment(\.presentationMode) var presentationMode
     @State private var isBookmarked: Bool

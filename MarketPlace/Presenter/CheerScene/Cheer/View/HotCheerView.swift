@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct HotCheerView: View {    
-    @StateObject var viewModel: CheerViewModel
+    @ObservedObject var viewModel: CheerViewModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -58,7 +58,9 @@ struct HotCheerView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack(spacing: 12) {
                         ForEach(Array(viewModel.state.upComingCheerMarket.enumerated()), id: \.offset) { index, market in
-                            HotCheerCardCell(viewModel: HotCheerCardCellViewModel(hotCheerMarket: market))
+                            HotCheerCardCell(market: market, onTapCheer: {
+                                viewModel.action(.onTapHotCheerButton(market.id))
+                            })
                         }
                     }
                     .padding(.horizontal)

@@ -4,12 +4,11 @@ import SwiftUI
 struct CheerView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var loginVM: LoginViewModel
-    @StateObject var viewModel: CheerViewModel
+    @ObservedObject var viewModel: CheerViewModel
             
     @StateObject var coordinator: CheerCoordinator
     
     @State private var searchText: String = ""
-
     
     var body: some View {
         NavigationStack(path: $coordinator.path) {
@@ -38,7 +37,9 @@ struct CheerView: View {
                                 LazyVStack(spacing: 10) {
                                     ForEach(Array(viewModel.state.searchMarketResults.enumerated()), id: \.offset) { index, market in
                                         VStack {
-                                            CheerSearchCardCell(viewModel: CheerSearchCardCellViewModel(market: market))
+                                            CheerSearchCardCell(market: market, onTapCheer: {
+                                                viewModel.action(.onTapSearchListCheerButton(market.id))
+                                            })
                                                 .padding(.vertical, 10)
                                             Divider()
                                         }

@@ -11,7 +11,7 @@ struct RequestMainView: View {
     @Environment(\.presentationMode) var presentationMode
 
     @State var marketName: String = ""
-    @StateObject var viewModel: RequestMarketViewModel
+    @ObservedObject var viewModel: RequestMarketViewModel
     
     var coordinator: CheerCoordinator
     
@@ -43,7 +43,7 @@ struct RequestMainView: View {
                 VStack(alignment: .leading, spacing: 20) {
                     ForEach(viewModel.state.marketList) { market in
                         Button(action: {
-                            coordinator.push(.requestMarketMap)
+                            coordinator.push(.requestMarketMap(market))
                         }, label: {
                             RequestListView(market: market)
                         })

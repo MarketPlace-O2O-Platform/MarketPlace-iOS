@@ -2,8 +2,7 @@ import SwiftUI
 
 struct CheerListView: View {
     @State private var selectedTab = 0
-//    @StateObject private var viewModel = CheerListViewModel()
-    @StateObject var viewModel: CheerViewModel
+    @ObservedObject var viewModel: CheerViewModel
 
     var body: some View {
         VStack(spacing: 0) {
@@ -31,12 +30,14 @@ struct CheerListView: View {
                     GridItem(.flexible(), spacing: 16)
                 ], spacing: 20) {
                     ForEach(Array(viewModel.state.cheerListMarket.enumerated()), id: \.offset) { index, market in
-                        CheerCardCell(viewModel: CheerCardCellViewModel(cheerMarket: market))
-                            .onAppear {
-                                if index == viewModel.state.cheerListMarket.count-1 {
-                                    viewModel.action(.loadNextPage)
-                                }
+                        CheerCardCell(market: market, onTapCheer: {
+                            viewModel.action(.onTapCheerButton(market.id))
+                        })
+                        .onAppear {
+                            if index == viewModel.state.cheerListMarket.count-1 {
+                                viewModel.action(.loadMarketListNextPage)
                             }
+                        }
                     }
                 }
                 .padding()

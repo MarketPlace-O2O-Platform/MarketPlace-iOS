@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct KakaoMarketData: Decodable, Identifiable {
+struct KakaoMarketData: Decodable, Identifiable, Hashable {
     let id: String
     let place_name: String
     let road_address_name: String

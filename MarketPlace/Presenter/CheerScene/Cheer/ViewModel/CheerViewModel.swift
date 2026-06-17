@@ -11,6 +11,9 @@ import SwiftUI
 @MainActor
 final class CheerViewModel: ViewModelable {
 
+    enum CheerButtonType {
+        case normal, search, upcoming
+    }
     
     // MARK: - Types
     enum Action {
@@ -18,8 +21,11 @@ final class CheerViewModel: ViewModelable {
         case updateKeyword(String)
         case loadMarketListNextPage
         case loadSearchNextPage(String)
-        case onTapCheerButton
         case onTapCategoryTab(String?)
+
+        case onTapCheerButton(Int)
+        case onTapSearchListCheerButton(Int)
+        case onTapHotCheerButton(Int)
     }
     
     struct State {
@@ -55,6 +61,7 @@ final class CheerViewModel: ViewModelable {
         self.state = State()
     }
     
+    
     // MARK: - Action
     func action(_ action: Action) {
         switch action {
@@ -64,30 +71,48 @@ final class CheerViewModel: ViewModelable {
                 await fetchMemberInfo()
                 await fetchCheerMarkets(reset: true)
             }
+            
         case .updateKeyword(let keyword):
             Task {
                 await fetchSearchCheerMarket(keyword: keyword, reset: true)
             }
+            
         case .loadMarketListNextPage:
             Task {
                 await fetchCheerMarkets(reset: false)
             }
+            
         case .loadSearchNextPage(let keyword):
             Task {
                 await fetchSearchCheerMarket(keyword: keyword, reset: false)
             }
-        case .onTapCheerButton:
-            Task {
-                await fetchMemberInfo()
-                // TODO: 공감 network 추가 
-            }
+
         case .onTapCategoryTab(let category):
             Task {
                 await fetchCheerMarkets(category: category, reset: true)
             }
+            
+        case .onTapCheerButton(let id):
+            Task {
+                await postCheerMarket(tempMarketId: id, type: .normal)
+                await fetchMemberInfo()
+            }
+            
+        case .onTapSearchListCheerButton(let id):
+            Task {
+                await postCheerMarket(tempMarketId: id, type: .search)
+                await fetchMemberInfo()
+            }
+            
+        case .onTapHotCheerButton(let id):
+            Task {
+                await postCheerMarket(tempMarketId: id, type: .upcoming)
+                await fetchMemberInfo()
+            }
         }
     }
 }
+
 
 private extension CheerViewModel {
     // MARK: - 달성임박 조회
@@ -102,6 +127,7 @@ private extension CheerViewModel {
         }
     }
     
+    
     // MARK: - 회원 남은 티켓 수 조회
     func fetchMemberInfo() async {
         let result = await cheerMarketRepository.fetchMyCheerTicketCount()
@@ -113,6 +139,7 @@ private extension CheerViewModel {
             print("[fetchMemberInfo] - [\(error)]")
         }
     }
+    
     
     // MARK: - 공감 매장 기본 조회
     func fetchCheerMarkets(category: String? = nil, reset: Bool) async {
@@ -141,8 +168,9 @@ private extension CheerViewModel {
         }
     }
     
+    
     // MARK: - 공감 매장 검색 조회
-    func fetchSearchCheerMarket(keyword: String?, reset: Bool) async -> Bool {
+    func fetchSearchCheerMarket(keyword: String?, reset: Bool) async {
         if currentKeyword == keyword,
            let currentKeyword = currentKeyword,
            !reset
@@ -195,4 +223,34 @@ private extension CheerViewModel {
             }
         }
     }
+    
+    
+    // MARK: - 공감탭 매장 공감 API
+    func postCheerMarket(tempMarketId: Int, type: CheerButtonType) async {
+        let result = await cheerMarketRepository.likeCheerMarket(marketId: tempMarketId)
+        
+        switch result {
+        case .success:
+            switch type {
+            case .normal:
+                if let index = state.cheerListMarket.firstIndex(where: { $0.id == tempMarketId }) {
+                    state.cheerListMarket[index].isCheer.toggle()
+                }
+                
+            case .search:
+                if let index = state.searchMarketResults.firstIndex(where: { $0.id == tempMarketId }) {
+                    state.searchMarketResults[index].isCheer.toggle()
+                }
+                
+            case .upcoming:
+                if let index = state.upComingCheerMarket.firstIndex(where: { $0.id == tempMarketId }) {
+                    state.upComingCheerMarket[index].isCheer.toggle()
+                }
+                
+            }
+        case .failure(let error):
+            print("[postCheerMarket] - [\(error)]")
+        }
+    }
+    
 }

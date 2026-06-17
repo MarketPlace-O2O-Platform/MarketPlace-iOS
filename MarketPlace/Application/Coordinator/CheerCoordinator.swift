@@ -12,7 +12,7 @@ final class CheerCoordinator: ObservableObject {
     enum CheerRoute: Hashable {
         case cheerMain
         case requestNewMarket
-        case requestMarketMap
+        case requestMarketMap(KakaoMarketData)
     }
     
     private let diContainer: CheerDIContainer
@@ -29,6 +29,10 @@ final class CheerCoordinator: ObservableObject {
     func pop() {
         path.removeLast()
     }
+    
+    func popToRoot() {
+        
+    }
 
     @MainActor @ViewBuilder
     func destination(route: CheerRoute) -> some View {
@@ -37,8 +41,8 @@ final class CheerCoordinator: ObservableObject {
             diContainer.makeCheerView(coordinator: self)
         case .requestNewMarket:
             diContainer.makeRequestNewMarketView(coordinator: self)
-        case .requestMarketMap:
-            diContainer.makeRequsetMarketMapView(coordinator: self)
+        case .requestMarketMap(let market):
+            diContainer.makeRequsetMarketMapView(market: market, coordinator: self)
         }
     }
     
