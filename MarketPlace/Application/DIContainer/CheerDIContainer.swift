@@ -27,7 +27,7 @@ final class CheerDIContainer {
         return RequestMainView(viewModel: self.makeRequestNewMarketViewModel(), coordinator: coordinator)
     }
     
-    func makeRequsetMarketMapView(market: KakaoMarketData, coordinator: CheerCoordinator) -> RequestMarketMapView {
+    func makeRequestMarketMapView(market: KakaoMarketData, coordinator: CheerCoordinator) -> RequestMarketMapView {
         return RequestMarketMapView(viewModel: self.makeRequestMarketMapViewModel(market: market), coordinator: coordinator)
     }
 }
@@ -48,10 +48,6 @@ private extension CheerDIContainer {
     func makeRequestMarketMapViewModel(market: KakaoMarketData) -> RequestMarketMapViewModel {
         return RequestMarketMapViewModel(market: market, marketRepository: makeMarketRepository())
     }
-    
-    
-    // MARK: - UseCase
-    
     
     
     // MARK: - Repository

@@ -31,7 +31,7 @@ final class CheerCoordinator: ObservableObject {
     }
     
     func popToRoot() {
-        
+        path = NavigationPath()
     }
 
     @MainActor @ViewBuilder
@@ -42,7 +42,7 @@ final class CheerCoordinator: ObservableObject {
         case .requestNewMarket:
             diContainer.makeRequestNewMarketView(coordinator: self)
         case .requestMarketMap(let market):
-            diContainer.makeRequsetMarketMapView(market: market, coordinator: self)
+            diContainer.makeRequestMarketMapView(market: market, coordinator: self)
         }
     }
     

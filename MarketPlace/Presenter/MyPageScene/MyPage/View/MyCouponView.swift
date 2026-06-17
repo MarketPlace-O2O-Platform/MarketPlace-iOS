@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct MyCouponView: View {
-    @StateObject var viewModel: MyCouponViewModel
+    @ObservedObject var viewModel: MyCouponViewModel
     
     @State private var showingPopup = false
     @State private var selectedPaybackCoupon: IssuedCouponResDto? = nil

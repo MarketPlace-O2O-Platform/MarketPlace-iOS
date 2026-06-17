@@ -76,7 +76,6 @@ final class RequestMarketMapViewModel: ViewModelable {
         }
     }
     
-
 }
 
 private extension RequestMarketMapViewModel {
